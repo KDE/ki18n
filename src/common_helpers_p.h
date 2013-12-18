@@ -41,6 +41,6 @@
   * @param label UI label which may contain an accelerator marker
   * @return label without the accelerator marker
   */
-QString removeAcceleratorMarker (const QString &label);
+QString removeAcceleratorMarker(const QString &label);
 
 #endif

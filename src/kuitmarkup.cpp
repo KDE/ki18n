@@ -66,10 +66,11 @@ QString Kuit::escape(const QString &text)
 static QString shorten(const QString &str)
 {
     const int maxlen = 80;
-    if (str.length() <= maxlen)
+    if (str.length() <= maxlen) {
         return str;
-    else
+    } else {
         return str.left(maxlen).append(QL1S("..."));
+    }
 }
 
 static void parseUiMarker(const QString &context_,
@@ -113,7 +114,7 @@ static void parseUiMarker(const QString &context_,
 // Custom entity resolver for QXmlStreamReader.
 class KuitEntityResolver : public QXmlStreamEntityResolver
 {
-    public:
+public:
 
     void setEntities(const QHash<QString, QString> &entities)
     {
@@ -128,34 +129,35 @@ class KuitEntityResolver : public QXmlStreamEntityResolver
         return value;
     }
 
-    private:
+private:
 
     QHash<QString, QString> entityMap;
 };
 
-namespace Kuit {
+namespace Kuit
+{
 
-    enum Role { // UI marker roles
-        UndefinedRole,
-        ActionRole, TitleRole, OptionRole, LabelRole, ItemRole, InfoRole
-    };
+enum Role { // UI marker roles
+    UndefinedRole,
+    ActionRole, TitleRole, OptionRole, LabelRole, ItemRole, InfoRole
+};
 
-    enum Cue { // UI marker subcues
-        UndefinedCue,
-        ButtonCue, InmenuCue, IntoolbarCue,
-        WindowCue, MenuCue, TabCue, GroupCue, ColumnCue, RowCue,
-        SliderCue, SpinboxCue, ListboxCue, TextboxCue, ChooserCue,
-        CheckCue, RadioCue,
-        InlistboxCue, IntableCue, InrangeCue, IntextCue,
-        TooltipCue, WhatsthisCue, StatusCue, ProgressCue,
-        TipofthedayCue, CreditCue, ShellCue
-    };
+enum Cue { // UI marker subcues
+    UndefinedCue,
+    ButtonCue, InmenuCue, IntoolbarCue,
+    WindowCue, MenuCue, TabCue, GroupCue, ColumnCue, RowCue,
+    SliderCue, SpinboxCue, ListboxCue, TextboxCue, ChooserCue,
+    CheckCue, RadioCue,
+    InlistboxCue, IntableCue, InrangeCue, IntextCue,
+    TooltipCue, WhatsthisCue, StatusCue, ProgressCue,
+    TipofthedayCue, CreditCue, ShellCue
+};
 
 }
 
 class KuitStaticData
 {
-    public:
+public:
 
     QHash<QString, QString> xmlEntities;
     QHash<QString, QString> xmlEntitiesInverse;
@@ -171,7 +173,7 @@ class KuitStaticData
     QHash<Kuit::VisualFormat, KLocalizedString> guiPathDelim;
     QHash<QString, KLocalizedString> keyNames;
 
-    QHash<QByteArray, KuitSetup*> domainSetups;
+    QHash<QByteArray, KuitSetup *> domainSetups;
 
     KuitStaticData();
 
@@ -218,31 +220,31 @@ void KuitStaticData::setUiMarkerData()
     using namespace Kuit;
 
     // Role names and their available subcues.
-    #undef SET_ROLE
-    #define SET_ROLE(role, name, cues) do { \
+#undef SET_ROLE
+#define SET_ROLE(role, name, cues) do { \
         rolesByName[name] = role; \
         knownRoleCues[role] << cues; \
     } while (0)
     SET_ROLE(ActionRole, QL1S("action"),
              ButtonCue << InmenuCue << IntoolbarCue);
     SET_ROLE(TitleRole, QL1S("title"),
-                WindowCue << MenuCue << TabCue << GroupCue
+             WindowCue << MenuCue << TabCue << GroupCue
              << ColumnCue << RowCue);
     SET_ROLE(LabelRole, QL1S("label"),
-                SliderCue << SpinboxCue << ListboxCue << TextboxCue
+             SliderCue << SpinboxCue << ListboxCue << TextboxCue
              << ChooserCue);
     SET_ROLE(OptionRole, QL1S("option"),
              CheckCue << RadioCue);
     SET_ROLE(ItemRole, QL1S("item"),
-                InmenuCue << InlistboxCue << IntableCue << InrangeCue
+             InmenuCue << InlistboxCue << IntableCue << InrangeCue
              << IntextCue);
     SET_ROLE(InfoRole, QL1S("info"),
-                TooltipCue << WhatsthisCue << StatusCue << ProgressCue
+             TooltipCue << WhatsthisCue << StatusCue << ProgressCue
              << TipofthedayCue << CreditCue << ShellCue);
 
     // Cue names.
-    #undef SET_CUE
-    #define SET_CUE(cue, name) do { \
+#undef SET_CUE
+#define SET_CUE(cue, name) do { \
         cuesByName[name] = cue; \
     } while (0)
     SET_CUE(ButtonCue, QL1S("button"));
@@ -274,8 +276,8 @@ void KuitStaticData::setUiMarkerData()
     SET_CUE(ShellCue, QL1S("shell"));
 
     // Format names.
-    #undef SET_FORMAT
-    #define SET_FORMAT(format, name) do { \
+#undef SET_FORMAT
+#define SET_FORMAT(format, name) do { \
         formatsByName[name] = format; \
         namesByFormat[format] = name; \
     } while (0)
@@ -305,15 +307,15 @@ void KuitStaticData::setTextTransformData()
     // NOTE: The '→' glyph seems to be available in all widespread fonts.
 
     // Collect keyboard key names.
-    #undef SET_KEYNAME
-    #define SET_KEYNAME(rawname) do { \
+#undef SET_KEYNAME
+#define SET_KEYNAME(rawname) do { \
         /* Normalize key, trim and all lower-case. */ \
         QString normname = QString::fromLatin1(rawname).trimmed().toLower(); \
         keyNames[normname] = ki18nc("keyboard-key-name", rawname); \
     } while (0)
     // Now we need I18NC_NOOP that does remove context.
-    #undef I18NC_NOOP
-    #define I18NC_NOOP(ctxt, msg) msg
+#undef I18NC_NOOP
+#define I18NC_NOOP(ctxt, msg) msg
     SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Alt"));
     SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "AltGr"));
     SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Backspace"));
@@ -389,7 +391,7 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages,
         // Normalize key, trim and all lower-case.
         QString nkey = keys[i].trimmed().toLower();
         keys[i] = keyNames.contains(nkey) ? keyNames[nkey].toString(languages)
-                                          : keys[i].trimmed();
+                  : keys[i].trimmed();
     }
     QString delim = comboKeyDelim.value(format).toString(languages);
     return keys.join(delim);
@@ -427,7 +429,7 @@ static QString attributeSetKey(const QStringList &attribNames_)
 
 class KuitTag
 {
-    public:
+public:
 
     QString name;
     Kuit::TagClass type;
@@ -473,13 +475,13 @@ QString KuitTag::format(const QStringList &languages,
         }
     } else if (patterns.contains(attribKey)) {
         qWarning() << QString::fromLatin1(
-            "Undefined visual format for tag <%1> and "
-            "attribute combination %2: %3.")
-            .arg(name, attribKey, s->namesByFormat.value(format));
+                       "Undefined visual format for tag <%1> and "
+                       "attribute combination %2: %3.")
+                   .arg(name, attribKey, s->namesByFormat.value(format));
     } else {
         qWarning() << QString::fromLatin1(
-            "Undefined attribute combination for tag <%1>: %2.")
-            .arg(name, attribKey);
+                       "Undefined attribute combination for tag <%1>: %2.")
+                   .arg(name, attribKey);
     }
     return formattedText;
 }
@@ -499,7 +501,7 @@ KuitSetup &Kuit::setupForDomain(const char *domain)
 
 class KuitSetupPrivate
 {
-    public:
+public:
 
     void setTagPattern(const QString &tagName,
                        const QStringList &attribNames,
@@ -557,7 +559,7 @@ void KuitSetupPrivate::setTagClass(const QString &tagName,
 }
 
 void KuitSetupPrivate::setFormatForMarker(const QString &marker,
-                                          Kuit::VisualFormat format)
+        Kuit::VisualFormat format)
 {
     KuitStaticData *s = staticData();
 
@@ -569,13 +571,13 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
         role = s->rolesByName.value(roleName);
     } else if (!roleName.isEmpty()) {
         qWarning() << QString::fromLatin1(
-            "Unknown role '@%1' in UI marker {%2}, visual format not set.")
-            .arg(roleName, marker);
+                       "Unknown role '@%1' in UI marker {%2}, visual format not set.")
+                   .arg(roleName, marker);
         return;
     } else {
         qWarning() << QString::fromLatin1(
-            "Empty role in UI marker {%1}, visual format not set.")
-            .arg(marker);
+                       "Empty role in UI marker {%1}, visual format not set.")
+                   .arg(marker);
         return;
     }
 
@@ -584,15 +586,15 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
         cue = s->cuesByName.value(cueName);
         if (!s->knownRoleCues.value(role).contains(cue)) {
             qWarning() << QString::fromLatin1(
-                "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, "
-                "visual format not set.")
-                .arg(cueName, roleName, marker);
+                           "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, "
+                           "visual format not set.")
+                       .arg(cueName, roleName, marker);
             return;
         }
     } else if (!cueName.isEmpty()) {
         qWarning() << QString::fromLatin1(
-            "Unknown subcue ':%1' in UI marker {%2}, visual format not set.")
-            .arg(cueName, marker);
+                       "Unknown subcue ':%1' in UI marker {%2}, visual format not set.")
+                   .arg(cueName, marker);
         return;
     } else {
         cue = Kuit::UndefinedCue;
@@ -639,16 +641,16 @@ static QString tagFormatterInterface(TAG_FORMATTER_ARGS)
 
 #define INTERNAL_TOP_TAG_NAME "__kuit_internal_top__"
 
-void KuitSetupPrivate::setDefaultMarkup ()
+void KuitSetupPrivate::setDefaultMarkup()
 {
     using namespace Kuit;
 
     // Macro to hide message from extraction.
-    #define HI18NC ki18nc
+#define HI18NC ki18nc
 
     // Macro to expedite setting the patterns.
-    #undef SET_PATTERN
-    #define SET_PATTERN(tagName, attribNames_, format, pattern, formatter, leadNl) \
+#undef SET_PATTERN
+#define SET_PATTERN(tagName, attribNames_, format, pattern, formatter, leadNl) \
     do { \
         QStringList attribNames; \
         attribNames << attribNames_; \
@@ -669,32 +671,32 @@ void KuitSetupPrivate::setDefaultMarkup ()
     setTagClass(QL1S(INTERNAL_TOP_TAG_NAME), StructTag);
     SET_PATTERN(QL1S(INTERNAL_TOP_TAG_NAME), QL1S(""), PlainText,
                 HI18NC("tag-format-pattern <> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S(INTERNAL_TOP_TAG_NAME), QL1S(""), RichText,
                 HI18NC("tag-format-pattern <> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Title
     setTagClass(QL1S("title"), StructTag);
     SET_PATTERN(QL1S("title"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <title> plain",
-    // i18n: The messages with context "tag-format-pattern <tag ...> format"
-    // are KUIT patterns for formatting the text found inside KUIT tags.
-    // The format is either "plain" or "rich", and tells if the pattern
-    // is used for plain text or rich text (which can use HTML tags).
-    // You may be in general satisfied with the patterns as they are in the
-    // original. Some things you may consider changing:
-    // - the proper quotes, those used in msgid are English-standard
-    // - the <i> and <b> tags, does your language script work well with them?
+                       // i18n: The messages with context "tag-format-pattern <tag ...> format"
+                       // are KUIT patterns for formatting the text found inside KUIT tags.
+                       // The format is either "plain" or "rich", and tells if the pattern
+                       // is used for plain text or rich text (which can use HTML tags).
+                       // You may be in general satisfied with the patterns as they are in the
+                       // original. Some things you may consider changing:
+                       // - the proper quotes, those used in msgid are English-standard
+                       // - the <i> and <b> tags, does your language script work well with them?
                        "== %1 =="),
                 NULL, 2);
     SET_PATTERN(QL1S("title"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <title> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<h2>%1</h2>"),
                 NULL, 2);
 
@@ -702,330 +704,330 @@ void KuitSetupPrivate::setDefaultMarkup ()
     setTagClass(QL1S("subtitle"), StructTag);
     SET_PATTERN(QL1S("subtitle"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <subtitle> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "~ %1 ~"),
-                       NULL, 2);
+                NULL, 2);
     SET_PATTERN(QL1S("subtitle"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <subtitle> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<h3>%1</h3>"),
-                       NULL, 2);
+                NULL, 2);
 
     // -------> Para
     setTagClass(QL1S("para"), StructTag);
     SET_PATTERN(QL1S("para"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <para> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 2);
+                NULL, 2);
     SET_PATTERN(QL1S("para"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <para> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<p>%1</p>"),
-                       NULL, 2);
+                NULL, 2);
 
     // -------> List
     setTagClass(QL1S("list"), StructTag);
     SET_PATTERN(QL1S("list"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <list> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
-                           "%1"),
-                       NULL, 1);
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       "%1"),
+                NULL, 1);
     SET_PATTERN(QL1S("list"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <list> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<ul>%1</ul>"),
-                       NULL, 1);
+                NULL, 1);
 
     // -------> Item
     setTagClass(QL1S("item"), StructTag);
     SET_PATTERN(QL1S("item"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <item> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "  * %1"),
-                       NULL, 1);
+                NULL, 1);
     SET_PATTERN(QL1S("item"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <item> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<li>%1</li>"),
-                       NULL, 1);
+                NULL, 1);
 
     // -------> Note
     SET_PATTERN(QL1S("note"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <note> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "Note: %1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("note"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <note> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<i>Note</i>: %1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("note"), QL1S("label"), PlainText,
                 ki18nc("tag-format-pattern <note label=> plain\n"
                        "%1 is the note label, %2 is the text",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1: %2"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("note"), QL1S("label"), RichText,
                 ki18nc("tag-format-pattern <note label=> rich\n"
                        "%1 is the note label, %2 is the text",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<i>%1</i>: %2"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Warning
     SET_PATTERN(QL1S("warning"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <warning> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "WARNING: %1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("warning"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <warning> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<b>Warning</b>: %1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("warning"), QL1S("label"), PlainText,
                 ki18nc("tag-format-pattern <warning label=> plain\n"
                        "%1 is the warning label, %2 is the text",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1: %2"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("warning"), QL1S("label"), RichText,
                 ki18nc("tag-format-pattern <warning label=> rich\n"
                        "%1 is the warning label, %2 is the text",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<b>%1</b>: %2"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Link
     SET_PATTERN(QL1S("link"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <link> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("link"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <link> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<a href=\"%1\">%1</a>"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("link"), QL1S("url"), PlainText,
                 ki18nc("tag-format-pattern <link description=> plain\n"
                        "%1 is the URL, %2 is the descriptive text",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%2 (%1)"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("link"), QL1S("url"), RichText,
                 ki18nc("tag-format-pattern <link description=> rich\n"
                        "%1 is the URL, %2 is the descriptive text",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<a href=\"%1\">%2</a>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Filename
     SET_PATTERN(QL1S("filename"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <filename> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "‘%1’"),
-                       tagFormatterFilename, 0);
+                tagFormatterFilename, 0);
     SET_PATTERN(QL1S("filename"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <filename> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<tt>%1</tt>"),
-                       tagFormatterFilename, 0);
+                tagFormatterFilename, 0);
 
     // -------> Application
     SET_PATTERN(QL1S("application"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <application> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("application"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <application> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Command
     SET_PATTERN(QL1S("command"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <command> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("command"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <command> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<tt>%1</tt>"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("command"), QL1S("section"), PlainText,
                 ki18nc("tag-format-pattern <command section=> plain\n"
                        "%1 is the command name, %2 is its man section",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1(%2)"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("command"), QL1S("section"), RichText,
                 ki18nc("tag-format-pattern <command section=> rich\n"
                        "%1 is the command name, %2 is its man section",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<tt>%1(%2)</tt>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Resource
     SET_PATTERN(QL1S("resource"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <resource> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "“%1”"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("resource"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <resource> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "“%1”"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Icode
     SET_PATTERN(QL1S("icode"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <icode> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "“%1”"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("icode"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <icode> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<tt>%1</tt>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Bcode
     SET_PATTERN(QL1S("bcode"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <bcode> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "\n%1\n"),
-                       NULL, 2);
+                NULL, 2);
     SET_PATTERN(QL1S("bcode"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <bcode> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<pre>%1</pre>"),
-                       NULL, 2);
+                NULL, 2);
 
     // -------> Shortcut
     SET_PATTERN(QL1S("shortcut"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <shortcut> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1"),
-                       tagFormatterShortcut, 0);
+                tagFormatterShortcut, 0);
     SET_PATTERN(QL1S("shortcut"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <shortcut> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<b>%1</b>"),
-                       tagFormatterShortcut, 0);
+                tagFormatterShortcut, 0);
 
     // -------> Interface
     SET_PATTERN(QL1S("interface"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <interface> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "|%1|"),
-                       tagFormatterInterface, 0);
+                tagFormatterInterface, 0);
     SET_PATTERN(QL1S("interface"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <interface> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<i>%1</i>"),
-                       tagFormatterInterface, 0);
+                tagFormatterInterface, 0);
 
     // -------> Emphasis
     SET_PATTERN(QL1S("emphasis"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <emphasis> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "*%1*"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("emphasis"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <emphasis> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<i>%1</i>"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("emphasis"), QL1S("strong"), PlainText,
                 ki18nc("tag-format-pattern <emphasis-strong> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "**%1**"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("emphasis"), QL1S("strong"), RichText,
                 ki18nc("tag-format-pattern <emphasis-strong> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<b>%1</b>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Placeholder
     SET_PATTERN(QL1S("placeholder"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <placeholder> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "&lt;%1&gt;"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("placeholder"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <placeholder> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "&lt;<i>%1</i>&gt;"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Email
     SET_PATTERN(QL1S("email"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <email> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "&lt;%1&gt;"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("email"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <email> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "&lt;<a href=\"mailto:%1\">%1</a>&gt;"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("email"), QL1S("address"), PlainText,
                 ki18nc("tag-format-pattern <email name=> plain\n"
                        "%1 is name, %2 is address",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1 &lt;%2&gt;"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("email"), QL1S("address"), RichText,
                 ki18nc("tag-format-pattern <email name=> rich\n"
                        "%1 is name, %2 is address",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<a href=\"mailto:%2\">%1</a>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Envar
     SET_PATTERN(QL1S("envar"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <envar> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "$%1"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("envar"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <envar> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<tt>$%1</tt>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Message
     SET_PATTERN(QL1S("message"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <message> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "/%1/"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("message"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <message> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<i>%1</i>"),
-                       NULL, 0);
+                NULL, 0);
 
     // -------> Nl
     SET_PATTERN(QL1S("nl"), QL1S(""), PlainText,
                 ki18nc("tag-format-pattern <nl> plain",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1\n"),
-                       NULL, 0);
+                NULL, 0);
     SET_PATTERN(QL1S("nl"), QL1S(""), RichText,
                 ki18nc("tag-format-pattern <nl> rich",
-    // i18n: KUIT pattern, see the comment to the first of these entries above.
+                       // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1<br/>"),
-                       NULL, 0);
+                NULL, 0);
 }
 
-void KuitSetupPrivate::setDefaultFormats ()
+void KuitSetupPrivate::setDefaultFormats()
 {
     using namespace Kuit;
 
@@ -1045,7 +1047,7 @@ void KuitSetupPrivate::setDefaultFormats ()
 }
 
 KuitSetup::KuitSetup(const QByteArray &domain)
-: d(new KuitSetupPrivate)
+    : d(new KuitSetupPrivate)
 {
     d->domain = domain;
     d->setDefaultMarkup();
@@ -1081,7 +1083,7 @@ void KuitSetup::setFormatForMarker(const QString &marker,
 
 class KuitFormatterPrivate
 {
-    public:
+public:
 
     KuitFormatterPrivate(const QString &language);
 
@@ -1100,7 +1102,7 @@ class KuitFormatterPrivate
 
     // Determine visual format by parsing the UI marker in the context.
     static Kuit::VisualFormat formatFromUiMarker(const QString &context,
-                                                 const KuitSetup &setup);
+            const KuitSetup &setup);
 
     // Determine if text has block structure (multiple paragraphs, etc).
     static bool determineIsStructured(const QString &text,
@@ -1123,7 +1125,7 @@ class KuitFormatterPrivate
     // Data for XML parsing state.
     class OpenEl
     {
-        public:
+    public:
 
         enum Handling { Proper, Ignored, Dropout };
 
@@ -1138,9 +1140,9 @@ class KuitFormatterPrivate
 
     // Gather data about current element for the parse state.
     KuitFormatterPrivate::OpenEl parseOpenEl(const QXmlStreamReader &xml,
-                                             const OpenEl &enclosingOel,
-                                             const QString &text,
-                                             const KuitSetup &setup) const;
+            const OpenEl &enclosingOel,
+            const QString &text,
+            const KuitSetup &setup) const;
 
     // Format text of the element.
     QString formatSubText(const QString &ptext, const OpenEl &oel,
@@ -1151,7 +1153,7 @@ class KuitFormatterPrivate
     static void countWrappingNewlines(const QString &ptext,
                                       int &numle, int &numtr);
 
-    private:
+private:
 
     QString language;
     QStringList languageAsList;
@@ -1163,7 +1165,7 @@ class KuitFormatterPrivate
 };
 
 KuitFormatterPrivate::KuitFormatterPrivate(const QString &language_)
-: language(language_)
+    : language(language_)
 {
 }
 
@@ -1194,7 +1196,7 @@ QString KuitFormatterPrivate::format(const QByteArray &domain,
 }
 
 Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &context,
-                                                            const KuitSetup &setup)
+        const KuitSetup &setup)
 {
     KuitStaticData *s = staticData();
 
@@ -1209,8 +1211,8 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
         role = Kuit::UndefinedRole;
         if (!roleName.isEmpty()) {
             qWarning() << QString::fromLatin1(
-                "Unknown role '@%1' in UI marker in context {%2}.")
-                .arg(roleName, shorten(context));
+                           "Unknown role '@%1' in UI marker in context {%2}.")
+                       .arg(roleName, shorten(context));
         }
     }
 
@@ -1222,16 +1224,16 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
             if (!s->knownRoleCues.value(role).contains(cue)) {
                 cue = Kuit::UndefinedCue;
                 qWarning() << QString::fromLatin1(
-                    "Subcue ':%1' does not belong to role '@%2' "
-                    "in UI marker in context {%3}.")
-                    .arg(cueName, roleName, shorten(context));
+                               "Subcue ':%1' does not belong to role '@%2' "
+                               "in UI marker in context {%3}.")
+                           .arg(cueName, roleName, shorten(context));
             }
         } else { // unknown or not given subcue
             cue = Kuit::UndefinedCue;
             if (!cueName.isEmpty()) {
                 qWarning() << QString::fromLatin1(
-                    "Unknown subcue ':%1' in UI marker in context {%2}.")
-                    .arg(cueName, shorten(context));
+                               "Unknown subcue ':%1' in UI marker in context {%2}.")
+                           .arg(cueName, shorten(context));
             }
         }
     } else {
@@ -1257,8 +1259,8 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
         }
         if (!formatName.isEmpty()) {
             qWarning() << QString::fromLatin1(
-                "Unknown format '/%1' in UI marker for message {%2}.")
-                .arg(formatName, shorten(context));
+                           "Unknown format '/%1' in UI marker for message {%2}.")
+                       .arg(formatName, shorten(context));
         }
     }
     if (format == Kuit::UndefinedFormat) {
@@ -1269,7 +1271,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
 }
 
 bool KuitFormatterPrivate::determineIsStructured(const QString &text,
-                                                 const KuitSetup &setup)
+        const KuitSetup &setup)
 {
     // If the text opens with a structuring tag, then it is structured,
     // otherwise not. Leading whitespace is ignored for this purpose.
@@ -1290,8 +1292,8 @@ bool KuitFormatterPrivate::determineIsStructured(const QString &text,
 #define ENTITY_SUBRX "[a-z]+|#[0-9]+|#x[0-9a-fA-F]+"
 
 QString KuitFormatterPrivate::toVisualText(const QString &text_,
-                                           Kuit::VisualFormat format,
-                                           const KuitSetup &setup) const
+        Kuit::VisualFormat format,
+        const KuitSetup &setup) const
 {
     KuitStaticData *s = staticData();
 
@@ -1313,10 +1315,10 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
     text.append(original);
 
     // FIXME: Do this and then check proper use of structuring and phrase tags.
-    #if 0
+#if 0
     // Determine whether this is block-structured text.
     bool isStructured = determineIsStructured(text, setup);
-    #endif
+#endif
 
     // Add top tag, not to confuse the parser.
     text = QString("<%2>%1</%2>").arg(text, QL1S(INTERNAL_TOP_TAG_NAME));
@@ -1359,7 +1361,7 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
             // Append formatted text segment.
             QString ptext = openEls.top().formattedText; // preceding text
             openEls.top().formattedText += formatSubText(ptext, oel,
-                                                         format, setup);
+                                           format, setup);
         } else if (xml.isCharacters()) {
             // Stream reader will automatically resolve default XML entities,
             // which is not desired in this case, as the entities are to be
@@ -1380,11 +1382,11 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
 
     if (xml.hasError()) {
         qWarning() << QString::fromLatin1(
-            "Markup error in message {%1}: %2. "
-            "Last tag parsed: %3. "
-            "Complete message follows:\n%4")
-            .arg(shorten(text), xml.errorString(), lastElementName.toString(),
-                 text);
+                       "Markup error in message {%1}: %2. "
+                       "Last tag parsed: %3. "
+                       "Complete message follows:\n%4")
+                   .arg(shorten(text), xml.errorString(), lastElementName.toString(),
+                        text);
         return QString();
     }
 
@@ -1407,9 +1409,9 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
         attribNames += xatt.name().toString().toLower();
         attribValues += xatt.value().toString();
         QChar qc =   attribValues.last().indexOf(QL1C('\'')) < 0
-                   ? QL1C('\'') : QL1C('"');
+                     ? QL1C('\'') : QL1C('"');
         oel.attribStr +=   QL1C(' ') + attribNames.last() + QL1C('=')
-                         + qc + attribValues.last() + qc;
+                           + qc + attribValues.last() + qc;
     }
 
     if (setup.d->knownTags.contains(oel.name)) { // known KUIT element
@@ -1418,16 +1420,16 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
 
         // If this element can be contained within enclosing element,
         // mark it proper, otherwise mark it for removal.
-        if (   tag.name.isEmpty()
-            || tag.type == Kuit::PhraseTag
-            || etag.type == Kuit::StructTag) {
+        if (tag.name.isEmpty()
+                || tag.type == Kuit::PhraseTag
+                || etag.type == Kuit::StructTag) {
             oel.handling = OpenEl::Proper;
         } else {
             oel.handling = OpenEl::Dropout;
             qWarning() << QString::fromLatin1(
-                "Structuring tag ('%1') cannot be subtag "
-                "of phrase tag ('%2') in message {%3}.")
-                .arg(tag.name, etag.name, shorten(text));
+                           "Structuring tag ('%1') cannot be subtag "
+                           "of phrase tag ('%2') in message {%3}.")
+                       .arg(tag.name, etag.name, shorten(text));
         }
 
         // Resolve attributes and compute attribute set key.
@@ -1439,8 +1441,8 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
                 oel.attributes[att] = attribValues[i];
             } else {
                 qWarning() << QString::fromLatin1(
-                    "Attribute '%1' not defined for tag '%2' in message {%3}.")
-                    .arg(att, tag.name, shorten(text));
+                               "Attribute '%1' not defined for tag '%2' in message {%3}.")
+                           .arg(att, tag.name, shorten(text));
             }
         }
 
@@ -1451,17 +1453,17 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
     } else { // unknown element, leave it in verbatim
         oel.handling = OpenEl::Ignored;
         qWarning() << QString::fromLatin1(
-            "Tag '%1' is not defined in message {%2}.")
-            .arg(oel.name, shorten(text));
+                       "Tag '%1' is not defined in message {%2}.")
+                   .arg(oel.name, shorten(text));
     }
 
     return oel;
 }
 
 QString KuitFormatterPrivate::formatSubText(const QString &ptext,
-                                            const OpenEl &oel,
-                                            Kuit::VisualFormat format,
-                                            const KuitSetup &setup) const
+        const OpenEl &oel,
+        Kuit::VisualFormat format,
+        const KuitSetup &setup) const
 {
     if (oel.handling == OpenEl::Proper) {
         const KuitTag &tag = setup.d->knownTags.value(oel.name);
@@ -1489,9 +1491,9 @@ QString KuitFormatterPrivate::formatSubText(const QString &ptext,
         return ftext;
 
     } else if (oel.handling == OpenEl::Ignored) {
-         return   QL1C('<') + oel.name + oel.attribStr + QL1C('>')
-                + oel.formattedText
-                + QL1S("</") + oel.name + QL1C('>');
+        return   QL1C('<') + oel.name + oel.attribStr + QL1C('>')
+                 + oel.formattedText
+                 + QL1S("</") + oel.name + QL1C('>');
 
     } else { // oel.handling == OpenEl::Dropout
         return oel.formattedText;
@@ -1499,7 +1501,7 @@ QString KuitFormatterPrivate::formatSubText(const QString &ptext,
 }
 
 void KuitFormatterPrivate::countWrappingNewlines(const QString &text,
-                                                 int &numle, int &numtr)
+        int &numle, int &numtr)
 {
     int len = text.length();
     // Number of newlines at start of text.
@@ -1515,7 +1517,7 @@ void KuitFormatterPrivate::countWrappingNewlines(const QString &text,
 }
 
 QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
-                                                 Kuit::VisualFormat format) const
+        Kuit::VisualFormat format) const
 {
     KuitStaticData *s = staticData();
 
@@ -1544,8 +1546,7 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
                 } else { // unknown Unicode point, leave as is
                     plain.append(QL1C('&') + ent + QL1C(';'));
                 }
-            }
-            else if (s->xmlEntities.contains(ent)) { // known entity
+            } else if (s->xmlEntities.contains(ent)) { // known entity
                 plain.append(s->xmlEntities[ent]);
             } else { // unknown entity, just leave as is
                 plain.append(QL1C('&') + ent + QL1C(';'));
@@ -1565,8 +1566,8 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
 }
 
 QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
-                                            Kuit::VisualFormat format,
-                                            const KuitSetup &setup) const
+        Kuit::VisualFormat format,
+        const KuitSetup &setup) const
 {
     QString text = text_;
     QString ntext;
@@ -1642,7 +1643,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
 }
 
 KuitFormatter::KuitFormatter(const QString &language)
-: d(new KuitFormatterPrivate(language))
+    : d(new KuitFormatterPrivate(language))
 {
 }
 

@@ -20,7 +20,6 @@
 
 #include "klocalizedstringtest.h"
 
-
 #include <locale.h>
 
 #include <QDebug>
@@ -32,7 +31,6 @@
 
 #include <QtCore/QSet>
 #include <QtCore/QString>
-
 
 void KLocalizedStringTest::initTestCase()
 {
@@ -65,20 +63,20 @@ void KLocalizedStringTest::initTestCase()
         KLocalizedString::setLanguages(languages);
     }
 
-    #if 0 // until locale system is ready
+#if 0 // until locale system is ready
     if (m_hasFrench) {
         KLocale::global()->setLanguage(QStringList() << "fr" << "en_US");
     }
     KLocale::global()->setThousandsSeparator(QLatin1String(","));
     KLocale::global()->setDecimalSymbol(QLatin1String("."));
-    #endif
+#endif
 }
 
-bool KLocalizedStringTest::compileCatalogs (const QDir &dataDir)
+bool KLocalizedStringTest::compileCatalogs(const QDir &dataDir)
 {
     if (!dataDir.mkpath("locale/fr/LC_MESSAGES")) {
         qDebug() << "Failed to create locale subdirectory "
-                    "inside temporary directory.";
+                 "inside temporary directory.";
         return false;
     }
     QString msgfmt = QStandardPaths::findExecutable(QLatin1String("msgfmt"));
@@ -95,7 +93,7 @@ bool KLocalizedStringTest::compileCatalogs (const QDir &dataDir)
         QString domain = testPoPath.mid(pos_1 + 1, pos_2 - pos_1 - 1);
         QString testMoPath;
         testMoPath = QString::fromLatin1("%1/locale/fr/LC_MESSAGES/%2.mo")
-                                        .arg(dataDir.path(), domain);
+                     .arg(dataDir.path(), domain);
         QProcess process;
         QStringList arguments;
         arguments << testPoPath << QLatin1String("-o") << testMoPath;
@@ -103,14 +101,14 @@ bool KLocalizedStringTest::compileCatalogs (const QDir &dataDir)
         process.waitForFinished(10000);
         if (process.exitCode() != 0) {
             qDebug() << QString::fromLatin1("msgfmt(1) could not compile %1.")
-                                            .arg(testPoPath);
+                     .arg(testPoPath);
             return false;
         }
     }
     return true;
 }
 
-void KLocalizedStringTest::correctSubs ()
+void KLocalizedStringTest::correctSubs()
 {
     // Warm up.
     QCOMPARE(i18n("Daisies, daisies"),
@@ -126,7 +124,7 @@ void KLocalizedStringTest::correctSubs ()
     QCOMPARE(i18n("...odd things happening at %1", QString("Clavius")),
              QString("...odd things happening at Clavius"));
     QCOMPARE(i18n("Group %1", 1),
-            QString("Group 1"));
+             QString("Group 1"));
 
     // Two placeholders.
     QCOMPARE(i18n("%1 and %2", QString("Bowman"), QString("Poole")),
@@ -213,7 +211,7 @@ void KLocalizedStringTest::correctSubs ()
 
 void KLocalizedStringTest::wrongSubs()
 {
-    #ifndef NDEBUG
+#ifndef NDEBUG
     // Too many arguments.
     QVERIFY(i18n("Europa", 1)
             != QString("Europa"));
@@ -231,7 +229,7 @@ void KLocalizedStringTest::wrongSubs()
             != QString("1 pod"));
     QVERIFY(ki18np("1 pod", "%1 pods").toString()
             != QString("%1 pods"));
-    #endif
+#endif
 }
 
 void
@@ -331,23 +329,23 @@ void KLocalizedStringTest::translateToFrench()
 void KLocalizedStringTest::translateQt()
 {
     KLocalizedString::insertQtDomain("ki18n-test-qt");
-    QString result = KLocalizedString::translateQt("QPrintPreviewDialog", "Landscape", 0 , 0);
+    QString result = KLocalizedString::translateQt("QPrintPreviewDialog", "Landscape", 0, 0);
     // When we use the default language, translateQt returns an empty string.
     QString expected = m_hasFrench ? QString("Paysage") : QString();
     QCOMPARE(result, expected);
-    #if 0 // KLocalizedString no longer does anything with QTranslator, this needed?
+#if 0 // KLocalizedString no longer does anything with QTranslator, this needed?
     result = QCoreApplication::translate("QPrintPreviewDialog", "Landscape");
     QString expected2 = m_hasFrench ? QString("Paysage") : QString("Landscape");
     QCOMPARE(result, expected2);
-    #endif
+#endif
 
-    #if 0 // translateRaw no longer public, this needed?
+#if 0 // translateRaw no longer public, this needed?
     // So let's use translateRaw instead for the threaded test
     QString lang;
     KLocale::global()->translateRaw("Landscape", &lang, &result);
     QCOMPARE(lang, m_hasFrench ? QString("fr") : QString("en_US"));
     QCOMPARE(result, m_hasFrench ? QString("Paysage") : QString("Landscape"));
-    #endif
+#endif
     KLocalizedString::removeQtDomain("ki18n-test-qt");
 }
 

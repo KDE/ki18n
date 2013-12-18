@@ -33,7 +33,7 @@ extern "C"
 }
 
 KTranscriptTest::KTranscriptTest()
-: m_transcript(0)
+    : m_transcript(0)
 {
 }
 
@@ -108,10 +108,10 @@ void KTranscriptTest::test()
     QString error;
     bool fallback;
     QString result = m_transcript->eval(
-        argv, language, country,
-        msgctxt, dynamicContext, msgid,
-        subs, values, ordinaryTranslation,
-        modules, error, fallback);
+                         argv, language, country,
+                         msgctxt, dynamicContext, msgid,
+                         subs, values, ordinaryTranslation,
+                         modules, error, fallback);
 
     if (!error.isEmpty()) {
         QFAIL(qPrintable(error));

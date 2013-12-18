@@ -126,7 +126,7 @@ public:
 private:
     Q_DISABLE_COPY(KCatalog);
 
-    KCatalogPrivate* const d;
+    KCatalogPrivate *const d;
 };
 
 #endif

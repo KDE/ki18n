@@ -27,11 +27,11 @@ class KuitFormatterPrivate;
 
 namespace Kuit
 {
-    /**
-     * Convert &, ", ', <, > characters into XML entities
-     * &amp;, &lt;, &gt;, &apos;, &quot;, respectively.
-     */
-    QString escape(const QString &text);
+/**
+ * Convert &, ", ', <, > characters into XML entities
+ * &amp;, &lt;, &gt;, &apos;, &quot;, respectively.
+ */
+QString escape(const QString &text);
 }
 
 /**
@@ -46,7 +46,7 @@ namespace Kuit
   */
 class KuitFormatter
 {
-    public:
+public:
 
     /**
      * Constructor.
@@ -73,9 +73,9 @@ class KuitFormatter
     /**
      * Destructor.
      */
-    ~KuitFormatter ();
+    ~KuitFormatter();
 
-    private:
+private:
 
     KuitFormatter(const KuitFormatter &t);
     KuitFormatter &operator=(const KuitFormatter &t);

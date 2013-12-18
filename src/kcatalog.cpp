@@ -36,9 +36,9 @@
 
 // not defined on win32 :(
 #ifdef _WIN32
-    #ifndef LC_MESSAGES
-        #define LC_MESSAGES 42
-    #endif
+#ifndef LC_MESSAGES
+#define LC_MESSAGES 42
+#endif
 #endif
 
 static char *langenv = 0;
@@ -48,7 +48,7 @@ static const int langenvMaxlen = 42;
 class KCatalogStaticData
 {
 public:
-    KCatalogStaticData () {}
+    KCatalogStaticData() {}
 
     QMutex mutex;
 };
@@ -80,7 +80,7 @@ KCatalogPrivate::KCatalogPrivate()
 QByteArray KCatalogPrivate::currentLanguage;
 
 KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
-: d(new KCatalogPrivate)
+    : d(new KCatalogPrivate)
 {
     d->domain = domain;
     d->language = QFile::encodeName(language_);
@@ -111,7 +111,7 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
                                    const QString &language)
 {
     QString relpath = QString::fromLatin1("%1/LC_MESSAGES/%2.mo")
-                                         .arg(language, QFile::decodeName(domain));
+                      .arg(language, QFile::decodeName(domain));
     QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
                                           QString::fromLatin1("locale/") + relpath);
     QString localeDir;
@@ -128,15 +128,15 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
 {
     QString domain = QFile::decodeName(domain_);
     QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
-                                                           QString::fromLatin1("locale"),
-                                                           QStandardPaths::LocateDirectory);
+                                 QString::fromLatin1("locale"),
+                                 QStandardPaths::LocateDirectory);
     QSet<QString> availableLanguages;
     foreach (const QString &localDirPath, localeDirPaths) {
         QDir localeDir(localDirPath);
         QStringList languages = localeDir.entryList(QDir::AllDirs);
         foreach (const QString &language, languages) {
             QString relPath = QString::fromLatin1("%1/LC_MESSAGES/%2.mo")
-                                                 .arg(language, domain);
+                              .arg(language, domain);
             if (localeDir.exists(relPath)) {
                 availableLanguages.insert(language);
             }
@@ -171,9 +171,9 @@ void KCatalogPrivate::setupGettextEnv()
 
         // Magic to make sure Gettext doesn't use stale cached translation
         // from previous language.
-        #ifndef _MSC_VER
+#ifndef _MSC_VER
         extern int _nl_msg_cat_cntr;
-        #endif
+#endif
         ++_nl_msg_cat_cntr;
     }
 }
@@ -192,8 +192,8 @@ QString KCatalog::translate(const QByteArray &msgid) const
     const char *msgstr = dgettext(d->domain.constData(), msgid.constData());
     d->resetSystemLanguage();
     return   msgstr != msgid
-           ? QString::fromUtf8(msgstr)
-           : QString();
+             ? QString::fromUtf8(msgstr)
+             : QString();
 }
 
 QString KCatalog::translate(const QByteArray &msgctxt,
@@ -204,8 +204,8 @@ QString KCatalog::translate(const QByteArray &msgctxt,
     const char *msgstr = dpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData());
     d->resetSystemLanguage();
     return   msgstr != msgid
-           ? QString::fromUtf8(msgstr)
-           : QString();
+             ? QString::fromUtf8(msgstr)
+             : QString();
 }
 
 QString KCatalog::translate(const QByteArray &msgid,
@@ -217,8 +217,8 @@ QString KCatalog::translate(const QByteArray &msgid,
     const char *msgstr = dngettext(d->domain.constData(), msgid.constData(), msgid_plural.constData(), n);
     d->resetSystemLanguage();
     return   msgstr != msgid && msgstr != msgid_plural
-           ? QString::fromUtf8(msgstr)
-           : QString();
+             ? QString::fromUtf8(msgstr)
+             : QString();
 }
 
 QString KCatalog::translate(const QByteArray &msgctxt,
@@ -231,7 +231,7 @@ QString KCatalog::translate(const QByteArray &msgctxt,
     const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData(), msgid_plural.constData(), n);
     d->resetSystemLanguage();
     return   msgstr != msgid && msgstr != msgid_plural
-           ? QString::fromUtf8(msgstr)
-           : QString();
+             ? QString::fromUtf8(msgstr)
+             : QString();
 }
 

@@ -33,73 +33,72 @@ class KuitSetup;
  */
 namespace Kuit
 {
+/**
+ * Visual formats into which KUIT markup can be resolved.
+ */
+enum VisualFormat {
     /**
-     * Visual formats into which KUIT markup can be resolved.
+     * Visual format not defined.
+     * This value can be explicitly set
+     * (e.g. through \c KLocalizedString::withFormat)
+     * to indicate that the format should be decided
+     * by another mechanism (e.g. context UI marker).
      */
-    enum VisualFormat {
-        /**
-         * Visual format not defined.
-         * This value can be explicitly set
-         * (e.g. through \c KLocalizedString::withFormat)
-         * to indicate that the format should be decided
-         * by another mechanism (e.g. context UI marker).
-         */
-        UndefinedFormat = 0,
-        /**
-         * Plain text.
-         */
-        PlainText = 10,
-        /**
-         * Qt rich text (HTML subset).
-         */
-        RichText = 20,
-        /**
-         * Terminal escape sequences.
-         */
-        TermText = 30
-    };
+    UndefinedFormat = 0,
+    /**
+     * Plain text.
+     */
+    PlainText = 10,
+    /**
+     * Qt rich text (HTML subset).
+     */
+    RichText = 20,
+    /**
+     * Terminal escape sequences.
+     */
+    TermText = 30
+};
 
+/**
+ * Classification of KUIT tags.
+ */
+enum TagClass {
     /**
-     * Classification of KUIT tags.
+     * Tags wrapping text inserted into running text.
      */
-    enum TagClass {
-        /**
-         * Tags wrapping text inserted into running text.
-         */
-        PhraseTag = 0,
-        /**
-         * Tags spliting text into paragraph-level blocks.
-         */
-        StructTag = 1
-    };
+    PhraseTag = 0,
+    /**
+     * Tags spliting text into paragraph-level blocks.
+     */
+    StructTag = 1
+};
 
-    /**
-     * Functions accepted by tag formatting functions.
-     *
-     * \param languages the target languages (by decreasing priority)
-     * \param tagName the wrapping tag name
-     * \param attributes the attribute name-value pairs in the tag
-     * \param text the wrapped text
-     * \param tagPath the ordered list of ancestor tag names, parent first
-     * \param format the target visual format
-     * \return formatted text
-     */
-    typedef QString (*TagFormatter)(const QStringList &languages,
-                                    const QString &tagName,
-                                    const QHash<QString, QString> &attributes,
-                                    const QString &text,
-                                    const QStringList &tagPath,
-                                    Kuit::VisualFormat format);
+/**
+ * Functions accepted by tag formatting functions.
+ *
+ * \param languages the target languages (by decreasing priority)
+ * \param tagName the wrapping tag name
+ * \param attributes the attribute name-value pairs in the tag
+ * \param text the wrapped text
+ * \param tagPath the ordered list of ancestor tag names, parent first
+ * \param format the target visual format
+ * \return formatted text
+ */
+typedef QString(*TagFormatter)(const QStringList &languages,
+                               const QString &tagName,
+                               const QHash<QString, QString> &attributes,
+                               const QString &text,
+                               const QStringList &tagPath,
+                               Kuit::VisualFormat format);
 
-    /**
-     * Get hold of the KUIT setup object for a given domain.
-     *
-     * \param domain the translation domain
-     * \return pointer to KUIT setup object
-     */
-    KuitSetup &setupForDomain(const char *domain);
+/**
+ * Get hold of the KUIT setup object for a given domain.
+ *
+ * \param domain the translation domain
+ * \return pointer to KUIT setup object
+ */
+KuitSetup &setupForDomain(const char *domain);
 }
-
 
 class KLocalizedString;
 class KuitSetupPrivate;
@@ -192,7 +191,7 @@ private:
     KuitSetup(const QByteArray &domain);
     KuitSetup(const KuitSetup &);
 
-    KuitSetupPrivate * const d;
+    KuitSetupPrivate *const d;
 };
 
 #endif // KUITMARKUP_H

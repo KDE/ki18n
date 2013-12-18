@@ -84,20 +84,20 @@ class KI18N_EXPORT KLocalizedString
 {
     friend class KLocalizedStringPrivate;
 
-    friend KLocalizedString KI18N_EXPORT ki18n(const char* text);
+    friend KLocalizedString KI18N_EXPORT ki18n(const char *text);
     friend KLocalizedString KI18N_EXPORT ki18nc(const char *context, const char *text);
     friend KLocalizedString KI18N_EXPORT ki18np(const char *singular, const char *plural);
     friend KLocalizedString KI18N_EXPORT ki18ncp(const char *context, const char *singular, const char *plural);
-    friend KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char* text);
+    friend KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char *text);
     friend KLocalizedString KI18N_EXPORT ki18ndc(const char *domain, const char *context, const char *text);
     friend KLocalizedString KI18N_EXPORT ki18ndp(const char *domain, const char *singular, const char *plural);
     friend KLocalizedString KI18N_EXPORT ki18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
-    friend KLocalizedString KI18N_EXPORT kxi18n(const char* text);
+    friend KLocalizedString KI18N_EXPORT kxi18n(const char *text);
     friend KLocalizedString KI18N_EXPORT kxi18nc(const char *context, const char *text);
     friend KLocalizedString KI18N_EXPORT kxi18np(const char *singular, const char *plural);
     friend KLocalizedString KI18N_EXPORT kxi18ncp(const char *context, const char *singular, const char *plural);
-    friend KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char* text);
+    friend KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char *text);
     friend KLocalizedString KI18N_EXPORT kxi18ndc(const char *domain, const char *context, const char *text);
     friend KLocalizedString KI18N_EXPORT kxi18ndp(const char *domain, const char *singular, const char *plural);
     friend KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
@@ -124,7 +124,7 @@ public:
     /**
      * Assignment operator.
      */
-    KLocalizedString& operator=(const KLocalizedString &rhs);
+    KLocalizedString &operator=(const KLocalizedString &rhs);
 
     /**
      * Destructor.
@@ -172,7 +172,7 @@ public:
      */
     QString toString(const QStringList &languages) const;
 
-    #if 0 // until locale system is ready
+#if 0 // until locale system is ready
     /**
      * Like \c toString, but look for translation based on given locale.
      *
@@ -183,7 +183,7 @@ public:
      * \return finalized translation
      */
     QString toString(const KLocale *locale) const;
-    #endif
+#endif
 
     /**
      * Like \c toString, but look for translation in the given domain.
@@ -216,7 +216,7 @@ public:
      */
     KLocalizedString withLanguages(const QStringList &languages) const;
 
-    #if 0 // until locale system is ready
+#if 0 // until locale system is ready
     /**
      * Indicate to look for translation based on given locale.
      *
@@ -224,7 +224,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString withLocale(const KLocale *locale) const;
-    #endif
+#endif
 
     /**
      * Indicate to look for translation in the given domain.
@@ -454,7 +454,7 @@ public:
      */
     static QByteArray applicationDomain();
 
-    #if 0 // until locale system is ready
+#if 0 // until locale system is ready
     /**
      * Set the locale for which translations will be made.
      *
@@ -465,7 +465,7 @@ public:
      * \see setLanguages
      */
     static void setLocale(const KLocale &locale);
-    #endif
+#endif
 
     /**
      * Set the languages for which translations will be made.
@@ -564,8 +564,8 @@ public:
      *             with roundtrip TS->PO->TS through
      *             Qt's \c lupdate and \c lconvert commands.
      */
-    static QString translateQt(const char* context, const char *text,
-                               const char* comment, int n);
+    static QString translateQt(const char *context, const char *text,
+                               const char *comment, int n);
 
     /**
      * Add another domain to search for Qt translations.
@@ -602,7 +602,7 @@ private:
                      const char *context, const char *text, const char *plural,
                      bool markupAware);
 
-    KLocalizedStringPrivate * const d;
+    KLocalizedStringPrivate *const d;
 };
 
 // Do not document every multi-argument i18n* call separately,
@@ -817,7 +817,7 @@ QString xi18ndcp(const char *domain,
  * \param text string to translate
  * \return non-finalized translated string
  */
-KLocalizedString KI18N_EXPORT ki18n(const char* text);
+KLocalizedString KI18N_EXPORT ki18n(const char *text);
 
 /**
  * Create non-finalized translated string with context.
@@ -854,7 +854,7 @@ KLocalizedString KI18N_EXPORT ki18ncp(const char *context, const char *singular,
  * \param text string to translate
  * \return non-finalized translated string
  */
-KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char* text);
+KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char *text);
 
 /**
  * Create non-finalized translated string from domain with context.
@@ -893,7 +893,7 @@ KLocalizedString KI18N_EXPORT ki18ndcp(const char *domain, const char *context, 
  * \param text string to translate
  * \return non-finalized translated string
  */
-KLocalizedString KI18N_EXPORT kxi18n(const char* text);
+KLocalizedString KI18N_EXPORT kxi18n(const char *text);
 
 /**
  * Create non-finalized markup-aware translated string with context.
@@ -931,7 +931,7 @@ KLocalizedString KI18N_EXPORT kxi18ncp(const char *context, const char *singular
  * \param text string to translate
  * \return non-finalized translated string
  */
-KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char* text);
+KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char *text);
 
 /**
  * Create non-finalized markup-aware translated string from domain with context.
@@ -976,7 +976,7 @@ KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context,
  */
 inline QString tr2i18n(const char *text, const char *comment = 0)
 {
-    if(comment && comment[0] && text && text[0]) {
+    if (comment && comment[0] && text && text[0]) {
         return ki18nc(comment, text).toString();
     } else if (text && text[0]) {
         return ki18n(text).toString();
@@ -998,9 +998,9 @@ inline QString tr2i18n(const char *text, const char *comment = 0)
 inline QString tr2i18nd(const char *domain,
                         const char *text, const char *comment = 0)
 {
-    if(comment && comment[0] && text && text[0]) {
+    if (comment && comment[0] && text && text[0]) {
         return ki18ndc(domain, comment, text).toString();
-    } else if(text && text[0]) {
+    } else if (text && text[0]) {
         return ki18nd(domain, text).toString();
     } else {
         return QString();
@@ -1018,9 +1018,9 @@ inline QString tr2i18nd(const char *domain,
  */
 inline QString tr2xi18n(const char *text, const char *comment = 0)
 {
-    if(comment && comment[0] && text && text[0]) {
+    if (comment && comment[0] && text && text[0]) {
         return kxi18nc(comment, text).toString();
-    } else if(text && text[0]) {
+    } else if (text && text[0]) {
         return kxi18n(text).toString();
     } else {
         return QString();
@@ -1040,9 +1040,9 @@ inline QString tr2xi18n(const char *text, const char *comment = 0)
 inline QString tr2xi18nd(const char *domain,
                          const char *text, const char *comment = 0)
 {
-    if(comment && comment[0] && text && text[0]) {
+    if (comment && comment[0] && text && text[0]) {
         return kxi18ndc(domain, comment, text).toString();
-    } else if(text && text[0]) {
+    } else if (text && text[0]) {
         return kxi18nd(domain, text).toString();
     } else {
         return QString();
@@ -1053,7 +1053,10 @@ inline QString tr2xi18nd(const char *domain,
 
 #ifndef NDEBUG
 #define I18N_ERR_MSG String_literal_as_second_argument_to_i18n___Perhaps_you_need_i18nc_or_i18np
-template <typename T, int s> class I18nTypeCheck {public: static void I18N_ERR_MSG() {}};
+template <typename T, int s> class I18nTypeCheck
+{
+public: static void I18N_ERR_MSG() {}
+};
 template <int s> class I18nTypeCheck<char[s], s> {};
 #define STATIC_ASSERT_NOT_LITERAL_STRING(T) I18nTypeCheck<T, sizeof(T)>::I18N_ERR_MSG();
 #else
@@ -1922,43 +1925,43 @@ inline QString xi18ndcp(const char *domain, const char *context, const char *sin
 // by successive inclusions of this header
 // preceded with different definitions of TRANSLATION_DOMAIN.
 #ifdef TRANSLATION_DOMAIN
-    #define i18n(...) i18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define i18nc(...) i18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define i18np(...) i18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define i18ncp(...) i18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define ki18n(...) ki18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define ki18nc(...) ki18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define ki18np(...) ki18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define ki18ncp(...) ki18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define tr2i18n(...) tr2i18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define xi18n(...) xi18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define xi18nc(...) xi18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define xi18np(...) xi18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define xi18ncp(...) xi18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define kxi18n(...) kxi18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define kxi18nc(...) kxi18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define kxi18np(...) kxi18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define kxi18ncp(...) kxi18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
-    #define tr2xi18n(...) tr2xi18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define i18n(...) i18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define i18nc(...) i18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define i18np(...) i18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define i18ncp(...) i18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define ki18n(...) ki18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define ki18nc(...) ki18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define ki18np(...) ki18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define ki18ncp(...) ki18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define tr2i18n(...) tr2i18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define xi18n(...) xi18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define xi18nc(...) xi18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define xi18np(...) xi18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define xi18ncp(...) xi18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define kxi18n(...) kxi18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define kxi18nc(...) kxi18ndc(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define kxi18np(...) kxi18ndp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define kxi18ncp(...) kxi18ndcp(TRANSLATION_DOMAIN, __VA_ARGS__)
+#define tr2xi18n(...) tr2xi18nd(TRANSLATION_DOMAIN, __VA_ARGS__)
 #else
-    #undef i18n
-    #undef i18nc
-    #undef i18np
-    #undef i18ncp
-    #undef ki18n
-    #undef ki18nc
-    #undef ki18np
-    #undef ki18ncp
-    #undef tr2i18n
-    #undef xi18n
-    #undef xi18nc
-    #undef xi18np
-    #undef xi18ncp
-    #undef kxi18n
-    #undef kxi18nc
-    #undef kxi18np
-    #undef kxi18ncp
-    #undef tr2xi18n
+#undef i18n
+#undef i18nc
+#undef i18np
+#undef i18ncp
+#undef ki18n
+#undef ki18nc
+#undef ki18np
+#undef ki18ncp
+#undef tr2i18n
+#undef xi18n
+#undef xi18nc
+#undef xi18np
+#undef xi18ncp
+#undef kxi18n
+#undef kxi18nc
+#undef kxi18np
+#undef kxi18ncp
+#undef tr2xi18n
 #endif
 
 #endif // DOXYGEN_PREPROC

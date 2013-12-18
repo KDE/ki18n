@@ -37,7 +37,7 @@
   */
 class KTranscript
 {
-    public:
+public:
 
     /**
      * Evaluates interpolation.
@@ -59,18 +59,18 @@ class KTranscript
      * @return resolved interpolation if evaluation succeeded,
      *         empty string otherwise
      */
-    virtual QString eval (const QList<QVariant> &argv,
-                          const QString &lang,
-                          const QString &ctry,
-                          const QString &msgctxt,
-                          const QHash<QString, QString> &dynctxt,
-                          const QString &msgid,
-                          const QStringList &subs,
-                          const QList<QVariant> &vals,
-                          const QString &ftrans,
-                          QList<QStringList> &mods,
-                          QString &error,
-                          bool &fallback) = 0;
+    virtual QString eval(const QList<QVariant> &argv,
+                         const QString &lang,
+                         const QString &ctry,
+                         const QString &msgctxt,
+                         const QHash<QString, QString> &dynctxt,
+                         const QString &msgid,
+                         const QStringList &subs,
+                         const QList<QVariant> &vals,
+                         const QString &ftrans,
+                         QList<QStringList> &mods,
+                         QString &error,
+                         bool &fallback) = 0;
 
     /**
      * Returns the list of calls to execute an all messages after the
@@ -79,12 +79,12 @@ class KTranscript
      * @param lang language of the translation
      * @return list of post calls
      */
-    virtual QStringList postCalls (const QString &lang) = 0;
+    virtual QStringList postCalls(const QString &lang) = 0;
 
     /**
      * Destructor.
      */
-    virtual ~KTranscript () {}
+    virtual ~KTranscript() {}
 };
 
 #endif
