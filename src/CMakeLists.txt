@@ -21,10 +21,18 @@ install(TARGETS KF5I18n EXPORT KF5I18nTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES
     klocalizedstring.h
     kuitmarkup.h
+    kuitsetup.h
     ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
     DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel
 )
 
+include(ECMGenerateHeaders)
+ecm_generate_headers(
+    KLocalizedString
+    KuitSetup
+)
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KI18n
+        DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 ### ktranscript plugin
 
