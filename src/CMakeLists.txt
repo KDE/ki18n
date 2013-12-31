@@ -8,6 +8,7 @@ set(libki18n_SRCS
 add_library(KF5I18n ${libki18n_SRCS})
 generate_export_header(KF5I18n BASE_NAME KI18n)
 add_library(KF5::I18n ALIAS KF5I18n)
+target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/ki18n>" "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KI18n>")
 
 target_link_libraries(KF5I18n PUBLIC Qt5::Core)
 
@@ -18,19 +19,21 @@ set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION_STRING}
 
 install(TARGETS KF5I18n EXPORT KF5I18nTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(FILES
-    klocalizedstring.h
-    kuitmarkup.h
-    kuitsetup.h
-    ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
-    DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel
-)
-
-include(ECMGenerateHeaders)
 ecm_generate_headers(
     KLocalizedString
+    KuitMarkup
     KuitSetup
+    REQUIRED_HEADERS KI18n_HEADERS
 )
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KI18n DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+
+install(FILES
+    ${KI18n_HEADERS}
+    ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
+    DESTINATION "${INCLUDE_INSTALL_DIR}/ki18n" COMPONENT Devel
+)
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KI18n DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
+
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KI18n
         DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
