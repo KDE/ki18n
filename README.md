@@ -1,11 +1,18 @@
-# ki18n
+# KI18n
 
-KDE internationalisation
+KDE Gettext-based UI text internationalization
 
 ## Introduction
 
-ki18n provides support for translating applications to native languages of
-users.
+KI18n provides functionality for internationalizing user interface text
+in applications, based on the GNU Gettext translation system.
+It wraps the standard Gettext functionality, so that the programmers
+and translators can use the familiar Gettext tools and workflows.
+
+KI18n provides additional functionality as well, for both programmers
+and translators, which can help to achieve a higher overall quality
+of source and translated text. This includes argument capturing,
+customizable markup, and translation scripting.
 
 ## Links
 
