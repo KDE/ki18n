@@ -232,6 +232,122 @@ void KLocalizedStringTest::wrongSubs()
 #endif
 }
 
+void KLocalizedStringTest::semanticTags()
+{
+    // <application/>
+    QCOMPARE(xi18nc("@action:inmenu", "Open with <application>%1</application>", "Okteta"),
+             QString("Open with Okteta"));
+    QCOMPARE(xi18nc("@info", "Open with <application>%1</application>", "Okteta"),
+             QString("<html>Open with Okteta</html>"));
+    // <bcode/>
+    QCOMPARE(xi18nc("@info:whatsthis",
+                    "You can try the following snippet:<bcode>"
+                    "\\begin{equation}\n"
+                    "  C_{x_i} = \\frac{C_z^2}{e \\pi \\lambda}\n"
+                    "\\end{equation}"
+                    "</bcode>"),
+             QString("<html>You can try the following snippet:\n\n<pre>"
+                    "\\begin{equation}\n"
+                    "  C_{x_i} = \\frac{C_z^2}{e \\pi \\lambda}\n"
+                    "\\end{equation}"
+                    "</pre></html>"));
+    // <command/>
+    QCOMPARE(xi18nc("@info",
+                    "This will call <command>%1</command> internally.", "true"),
+             QString("<html>This will call <tt>true</tt> internally.</html>"));
+    QCOMPARE(xi18nc("@info",
+                    "Consult man entry for <command section='%2'>%1</command>", "true", 1),
+             QString("<html>Consult man entry for <tt>true(1)</tt></html>"));
+    // <email/>
+    QCOMPARE(xi18nc("@info",
+                    "Send bug reports to <email>%1</email>.", "konqi@kde.org"),
+             QString("<html>Send bug reports to &lt;<a href=\"mailto:konqi@kde.org\">konqi@kde.org</a>&gt;.</html>"));
+    QCOMPARE(xi18nc("@info",
+                    "Send praises to <email address='%1'>%2</email>.", "konqi@kde.org", "Konqi"),
+             QString("<html>Send praises to <a href=\"mailto:konqi@kde.org\">Konqi</a>.</html>"));
+    // <emphasis/>
+    QCOMPARE(xi18nc("@info:progress",
+                    "Checking <emphasis>feedback</emphasis> circuits..."),
+             QString("Checking *feedback* circuits..."));
+    QCOMPARE(xi18nc("@info:progress",
+                    "Checking <emphasis strong='true'>feedback</emphasis> circuits..."),
+             QString("Checking **feedback** circuits..."));
+    // <envar/>
+    QCOMPARE(xi18nc("@info",
+                    "Assure that your <envar>PATH</envar> is properly set."),
+             QString("<html>Assure that your <tt>$PATH</tt> is properly set.</html>"));
+    // <filename/>
+    QCOMPARE(xi18nc("@info", "Cannot read <filename>%1</filename>.", "data.dat"),
+             QString("<html>Cannot read <tt>data.dat</tt>.</html>"));
+    // TODO: is nested <tt><tt></tt></tt> really wanted?
+    QCOMPARE(xi18nc("@info",
+                    "<filename><envar>HOME</envar>/.foorc</filename> does not exist."),
+             QString("<html><tt><tt>$HOME</tt>/.foorc</tt> does not exist.</html>"));
+    // <icode/>
+    QCOMPARE(xi18nc("@info:tooltip",
+                    "Execute <icode>svn merge</icode> on selected revisions."),
+             QString("<html>Execute <tt>svn merge</tt> on selected revisions.</html>"));
+    // <interface/>
+    QCOMPARE(xi18nc("@info:whatsthis",
+                    "If you make a mistake, click <interface>Reset</interface> to start again."),
+             QString("<html>If you make a mistake, click <i>Reset</i> to start again.</html>"));
+    QCOMPARE(xi18nc("@info:whatsthis",
+                    "The line colors can be changed under <interface>Settings->Visuals</interface>."),
+             QString("<html>The line colors can be changed under <i>Settings-&gt;Visuals</i>.</html>"));
+    // <link/>
+    QCOMPARE(xi18nc("@info:tooltip",
+                    "Go to <link>%1</link> website.", "http://kde.org/"),
+             QString("<html>Go to <a href=\"http://kde.org/\">http://kde.org/</a> website.</html>"));
+    QCOMPARE(xi18nc("@info:tooltip",
+                    "Go to <link url='%1'>%2</link>.", "http://kde.org/", "the KDE website"),
+             QString("<html>Go to <a href=\"http://kde.org/\">the KDE website</a>.</html>"));
+    // <message/>
+    QCOMPARE(xi18nc("@info",
+                    "The fortune cookie says: <message>%1</message>", "Nothing"),
+             QString("<html>The fortune cookie says: <i>Nothing</i></html>"));
+    // <nl/>
+    QCOMPARE(xi18nc("@info",
+                    "Do you really want to delete:<nl/><filename>%1</filename>", "/etc/passwd"),
+             QString("<html>Do you really want to delete:<br/><tt>/etc/passwd</tt></html>"));
+    // <numid/>
+    QEXPECT_FAIL("", "what happened to <numid/>? TODO.", Continue);
+    QCOMPARE(xi18nc("@info:progress",
+                    "Connecting to <numid>%1</numid>...", 22),
+             QString("<html>Connecting to <tt>22</tt></html>"));
+    QCOMPARE(xi18nc("@info",
+                    "Replace <placeholder>name</placeholder> with your name."),
+             QString("<html>Replace &lt;<i>name</i>&gt; with your name.</html>"));
+    QCOMPARE(xi18nc("@item:inlistbox",
+                    "<placeholder>All images</placeholder>"),
+             QString("<All images>"));
+    // <resource/>
+    QCOMPARE(xi18nc("@info", "Apply color scheme <resource>%1</resource>?", "XXX"),
+             QString("<html>Apply color scheme “XXX”?</html>"));
+    QCOMPARE(xi18nc("@info:whatsthis",
+                    "Cycle through layouts using <shortcut>Alt+Space</shortcut>."),
+             QString("<html>Cycle through layouts using <b>Alt+Space</b>.</html>"));
+    // <note/>
+    QCOMPARE(xi18nc("@info",
+                    "Probably the best known of all duck species is the Mallard. "
+                    "It breeds throughout the temperate areas around the world. "
+                    "<note>Most domestic ducks are derived from Mallard.</note>"),
+             QString("<html>Probably the best known of all duck species is the Mallard. "
+                     "It breeds throughout the temperate areas around the world. "
+                     "<i>Note</i>: Most domestic ducks are derived from Mallard.</html>"));
+    QCOMPARE(xi18nc("@info",
+                    "<note label='Trivia'>Most domestic ducks are derived from Mallard.</note>"),
+             QString("<html><i>Trivia</i>: Most domestic ducks are derived from Mallard.</html>"));
+    // <warning/>
+    QCOMPARE(xi18nc("@info",
+                    "Really delete this key?"
+                    "<warning>This cannot be undone.</warning>"),
+             QString("<html>Really delete this key?"
+                    "<b>Warning</b>: This cannot be undone.</html>"));
+    QCOMPARE(xi18nc("@info",
+                    "<warning label='Danger'>This cannot be undone.</warning>"),
+             QString("<html><b>Danger</b>: This cannot be undone.</html>"));
+}
+
 void
 KLocalizedStringTest::removeAcceleratorMarker()
 {

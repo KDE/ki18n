@@ -463,6 +463,9 @@ QString KuitTag::format(const QStringList &languages,
             modText = text;
         }
         KLocalizedString aggText = patterns.value(attribKey).value(format);
+        // line below is first-aid fix.for e.g. <emphasis strong='true'>.
+        // TODO: proper handling of boolean attributes still needed
+        aggText = aggText.relaxSubs();
         if (!aggText.isEmpty()) {
             aggText = aggText.subs(modText);
             QStringList attributeOrder = attributeOrders.value(attribKey).value(format);
@@ -765,15 +768,15 @@ void KuitSetupPrivate::setDefaultMarkup()
                 NULL, 0);
     SET_PATTERN(QL1S("note"), QL1S("label"), PlainText,
                 ki18nc("tag-format-pattern <note label=> plain\n"
-                       "%1 is the note label, %2 is the text",
+                       "%1 is the text, %2 is the note label",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "%1: %2"),
+                       "%2: %1"),
                 NULL, 0);
     SET_PATTERN(QL1S("note"), QL1S("label"), RichText,
                 ki18nc("tag-format-pattern <note label=> rich\n"
-                       "%1 is the note label, %2 is the text",
+                       "%1 is the text, %2 is the note label",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "<i>%1</i>: %2"),
+                       "<i>%2</i>: %1"),
                 NULL, 0);
 
     // -------> Warning
@@ -789,15 +792,15 @@ void KuitSetupPrivate::setDefaultMarkup()
                 NULL, 0);
     SET_PATTERN(QL1S("warning"), QL1S("label"), PlainText,
                 ki18nc("tag-format-pattern <warning label=> plain\n"
-                       "%1 is the warning label, %2 is the text",
+                       "%1 is the text, %2 is the warning label",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "%1: %2"),
+                       "%2: %1"),
                 NULL, 0);
     SET_PATTERN(QL1S("warning"), QL1S("label"), RichText,
                 ki18nc("tag-format-pattern <warning label=> rich\n"
-                       "%1 is the warning label, %2 is the text",
+                       "%1 is the text, %2 is the warning label",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "<b>%1</b>: %2"),
+                       "<b>%2</b>: %1"),
                 NULL, 0);
 
     // -------> Link
@@ -812,16 +815,16 @@ void KuitSetupPrivate::setDefaultMarkup()
                        "<a href=\"%1\">%1</a>"),
                 NULL, 0);
     SET_PATTERN(QL1S("link"), QL1S("url"), PlainText,
-                ki18nc("tag-format-pattern <link description=> plain\n"
-                       "%1 is the URL, %2 is the descriptive text",
+                ki18nc("tag-format-pattern <link url=> plain\n"
+                       "%1 is the descriptive text, %2 is the URL",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "%2 (%1)"),
+                       "%1 (%2)"),
                 NULL, 0);
     SET_PATTERN(QL1S("link"), QL1S("url"), RichText,
-                ki18nc("tag-format-pattern <link description=> rich\n"
-                       "%1 is the URL, %2 is the descriptive text",
+                ki18nc("tag-format-pattern <link url=> rich\n"
+                       "%1 is the descriptive text, %2 is the URL",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "<a href=\"%1\">%2</a>"),
+                       "<a href=\"%2\">%1</a>"),
                 NULL, 0);
 
     // -------> Filename
@@ -978,13 +981,13 @@ void KuitSetupPrivate::setDefaultMarkup()
                        "&lt;<a href=\"mailto:%1\">%1</a>&gt;"),
                 NULL, 0);
     SET_PATTERN(QL1S("email"), QL1S("address"), PlainText,
-                ki18nc("tag-format-pattern <email name=> plain\n"
+                ki18nc("tag-format-pattern <email address=> plain\n"
                        "%1 is name, %2 is address",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1 &lt;%2&gt;"),
                 NULL, 0);
     SET_PATTERN(QL1S("email"), QL1S("address"), RichText,
-                ki18nc("tag-format-pattern <email name=> rich\n"
+                ki18nc("tag-format-pattern <email address=> rich\n"
                        "%1 is name, %2 is address",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "<a href=\"mailto:%2\">%1</a>"),

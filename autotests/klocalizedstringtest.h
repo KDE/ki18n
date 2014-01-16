@@ -29,6 +29,7 @@ private Q_SLOTS:
     void initTestCase();
     void correctSubs();
     void wrongSubs();
+    void semanticTags();
     void removeAcceleratorMarker();
     void miscMethods();
     void translateToFrenchLowlevel();
