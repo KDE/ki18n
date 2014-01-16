@@ -18,3 +18,7 @@ ki18n_unit_tests(
     ktranscripttest
 )
 
+# ktranscripttest needs the path to ktranscript in the build dir: it cannot rely
+# on the installed version since it must be able to run *before* the plugin is
+# installed.
+target_compile_definitions(ktranscripttest PRIVATE "KTRANSCRIPT_PATH=\"$<TARGET_FILE:ktranscript>\"")

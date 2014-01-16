@@ -37,26 +37,10 @@ KTranscriptTest::KTranscriptTest()
 {
 }
 
-// FIXME: Duplicated from klocalizedstring.cpp. Should be shared.
-static QString findKTranscriptPlugin()
-{
-    QStringList nameFilters;
-    QString pluginSubdir = QLatin1String("kf5");
-    QString pluginName = QLatin1String("ktranscript");
-    nameFilters.append(pluginName + QLatin1String(".*"));
-    Q_FOREACH (const QString &dirPath, QCoreApplication::libraryPaths()) {
-        QString dirPathKf = dirPath + QLatin1Char('/') + pluginSubdir;
-        if (!QDir(dirPathKf).entryList(nameFilters).isEmpty()) {
-            return dirPathKf + QLatin1Char('/') + pluginName;
-        }
-    }
-    return QString();
-}
-
 void KTranscriptTest::initTestCase()
 {
-    QString pluginPath = findKTranscriptPlugin();
-    QVERIFY(!pluginPath.isEmpty());
+    QString pluginPath = QStringLiteral(KTRANSCRIPT_PATH);
+    QVERIFY2(QFile::exists(pluginPath), "Could not find ktranscript plugin");
 
     m_library.setFileName(pluginPath);
 }
