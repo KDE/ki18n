@@ -40,18 +40,6 @@ install(FILES
 
 ### ktranscript plugin
 
-add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ktranscript.lut.h
-    COMMAND ${PERL_EXECUTABLE} ${KJS_CREATE_HASH_TABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/ktranscript.cpp
-            > ${CMAKE_CURRENT_BINARY_DIR}/ktranscript.lut.h
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/ktranscript.cpp
-)
-set_property(
-    SOURCE ktranscript.cpp
-    APPEND PROPERTY OBJECT_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/ktranscript.lut.h
-)
-
 set(ktranscript_LIB_SRCS
     ktranscript.cpp
     common_helpers.cpp
@@ -59,7 +47,7 @@ set(ktranscript_LIB_SRCS
 add_library(ktranscript MODULE ${ktranscript_LIB_SRCS})
 generate_export_header(ktranscript BASE_NAME KTranscript)
 set_target_properties(ktranscript PROPERTIES PREFIX "") # remove lib prefix
-target_link_libraries(ktranscript PRIVATE KF5::JS Qt5::Core)
+target_link_libraries(ktranscript PRIVATE Qt5::Script Qt5::Core)
 
 install(TARGETS ktranscript DESTINATION ${PLUGIN_INSTALL_DIR})
 

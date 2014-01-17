@@ -31,7 +31,7 @@ target_link_libraries(klocalizedstringtest ${LibIntl_LIBRARIES})
 
 add_executable(ktranscriptcleantest ktranscriptcleantest.cpp ../src/ktranscript.cpp ../src/common_helpers.cpp)
 target_compile_definitions(ktranscriptcleantest PRIVATE "KTRANSCRIPT_TESTBUILD")
-target_link_libraries(ktranscriptcleantest KF5::JS Qt5::Test Qt5::Concurrent KF5::I18n)
+target_link_libraries(ktranscriptcleantest Qt5::Script Qt5::Test Qt5::Concurrent KF5::I18n)
 target_include_directories(ktranscriptcleantest PRIVATE ..)
 add_test(ki18n-ktranscriptcleantest ktranscriptcleantest)
 ecm_mark_as_test(ktranscriptcleantest)

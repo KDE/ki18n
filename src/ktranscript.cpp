@@ -1,4 +1,6 @@
-/*  This file is part of the KDE libraries    Copyright (C) 2007 Chusslove Illich <caslav.ilic@gmx.net>
+/*  This file is part of the KDE libraries
+    Copyright (C) 2007 Chusslove Illich <caslav.ilic@gmx.net>
+    Copyright (C) 2014 Kevin Krammer <krammer@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -23,14 +25,10 @@
 
 //#include <unistd.h>
 
-#include <kjs/value.h>
-#include <kjs/object.h>
-#include <kjs/lookup.h>
-#include <kjs/function.h>
-#include <kjs/interpreter.h>
-#include <kjs/string_object.h>
-#include <kjs/error_object.h>
+#include <QScriptable>
+#include <QScriptEngine>
 
+#include <QDebug>
 #include <QVariant>
 #include <QStringList>
 #include <QList>
@@ -43,8 +41,6 @@
 #include <QTextStream>
 #include <QRegExp>
 #include <qendian.h>
-
-using namespace KJS;
 
 class KTranscriptImp;
 class Scriptface;
@@ -89,41 +85,42 @@ private:
 };
 
 // Script-side transcript interface.
-class Scriptface : public JSObject
+class Scriptface : public QObject, public QScriptable
 {
+    Q_OBJECT
 public:
-    Scriptface(ExecState *exec, const TsConfigGroup &config);
+    explicit Scriptface(QScriptEngine *scriptEngine_, const TsConfigGroup &config, QObject *parent = 0);
     ~Scriptface();
 
     // Interface functions.
-    JSValue *loadf(ExecState *exec, const List &fnames);
-    JSValue *setcallf(ExecState *exec, JSValue *name,
-                      JSValue *func, JSValue *fval);
-    JSValue *hascallf(ExecState *exec, JSValue *name);
-    JSValue *acallf(ExecState *exec, const List &argv);
-    JSValue *setcallForallf(ExecState *exec, JSValue *name,
-                            JSValue *func, JSValue *fval);
-    JSValue *fallbackf(ExecState *exec);
-    JSValue *nsubsf(ExecState *exec);
-    JSValue *subsf(ExecState *exec, JSValue *index);
-    JSValue *valsf(ExecState *exec, JSValue *index);
-    JSValue *msgctxtf(ExecState *exec);
-    JSValue *dynctxtf(ExecState *exec, JSValue *key);
-    JSValue *msgidf(ExecState *exec);
-    JSValue *msgkeyf(ExecState *exec);
-    JSValue *msgstrff(ExecState *exec);
-    JSValue *dbgputsf(ExecState *exec, JSValue *str);
-    JSValue *warnputsf(ExecState *exec, JSValue *str);
-    JSValue *localeCountryf(ExecState *exec);
-    JSValue *normKeyf(ExecState *exec, JSValue *phrase);
-    JSValue *loadPropsf(ExecState *exec, const List &fnames);
-    JSValue *getPropf(ExecState *exec, JSValue *phrase, JSValue *prop);
-    JSValue *setPropf(ExecState *exec, JSValue *phrase, JSValue *prop, JSValue *value);
-    JSValue *toUpperFirstf(ExecState *exec, JSValue *str, JSValue *nalt);
-    JSValue *toLowerFirstf(ExecState *exec, JSValue *str, JSValue *nalt);
-    JSValue *getConfStringf(ExecState *exec, JSValue *key, JSValue *dval);
-    JSValue *getConfBoolf(ExecState *exec, JSValue *key, JSValue *dval);
-    JSValue *getConfNumberf(ExecState *exec, JSValue *key, JSValue *dval);
+    Q_INVOKABLE QScriptValue load(); // actually has variable length argument list
+    Q_INVOKABLE QScriptValue setcall(const QScriptValue &name, const QScriptValue &func,
+                                     const QScriptValue &fval = QScriptValue::NullValue);
+    Q_INVOKABLE QScriptValue hascall(const QScriptValue &name);
+    Q_INVOKABLE QScriptValue acall();  // actually has variable length argument list
+    Q_INVOKABLE QScriptValue setcallForall(const QScriptValue &name, const QScriptValue &func,
+                                           const QScriptValue &fval = QScriptValue::NullValue);
+    Q_INVOKABLE QScriptValue fallback();
+    Q_INVOKABLE QScriptValue nsubs();
+    Q_INVOKABLE QScriptValue subs(const QScriptValue &index);
+    Q_INVOKABLE QScriptValue vals(const QScriptValue &index);
+    Q_INVOKABLE QScriptValue msgctxt();
+    Q_INVOKABLE QScriptValue dynctxt(const QScriptValue &key);
+    Q_INVOKABLE QScriptValue msgid();
+    Q_INVOKABLE QScriptValue msgkey();
+    Q_INVOKABLE QScriptValue msgstrf();
+    Q_INVOKABLE QScriptValue dbgputs(const QScriptValue &str);
+    Q_INVOKABLE QScriptValue warnputs(const QScriptValue &str);
+    Q_INVOKABLE QScriptValue localeCountry();
+    Q_INVOKABLE QScriptValue normKey(const QScriptValue &phrase);
+    Q_INVOKABLE QScriptValue loadProps();  // actually has variable length argument list
+    Q_INVOKABLE QScriptValue getProp(const QScriptValue &phrase, const QScriptValue &prop);
+    Q_INVOKABLE QScriptValue setProp(const QScriptValue &phrase, const QScriptValue &prop, const QScriptValue &value);
+    Q_INVOKABLE QScriptValue toUpperFirst(const QScriptValue &str, const QScriptValue &nalt = QScriptValue::NullValue);
+    Q_INVOKABLE QScriptValue toLowerFirst(const QScriptValue &str, const QScriptValue &nalt = QScriptValue::NullValue);
+    Q_INVOKABLE QScriptValue getConfString(const QScriptValue &key, const QScriptValue &dval = QScriptValue::NullValue);
+    Q_INVOKABLE QScriptValue getConfBool(const QScriptValue &key, const QScriptValue &dval = QScriptValue::NullValue);
+    Q_INVOKABLE QScriptValue getConfNumber(const QScriptValue &key, const QScriptValue &dval = QScriptValue::NullValue);
 
     enum {
         Load,
@@ -155,44 +152,33 @@ public:
     };
 
     // Helper methods to interface functions.
+    QScriptValue load(const QScriptValueList &fnames);
     QString loadProps_text(const QString &fpath);
     QString loadProps_bin(const QString &fpath);
     QString loadProps_bin_00(const QString &fpath);
     QString loadProps_bin_01(const QString &fpath);
 
-    // Virtual implementations.
-    using JSObject::getOwnPropertySlot;
-    bool getOwnPropertySlot(ExecState *exec, const Identifier &propertyName, PropertySlot &slot) Q_DECL_OVERRIDE;
-    JSValue *getValueProperty(ExecState *exec, int token) const;
-    using JSObject::put;
-    void put(ExecState *exec, const Identifier &propertyName, JSValue *value, int attr) Q_DECL_OVERRIDE;
-    void putValueProperty(ExecState *exec, int token, JSValue *value, int attr);
-    const ClassInfo *classInfo() const Q_DECL_OVERRIDE
-    {
-        return &info;
-    }
-
-    static const ClassInfo info;
+    void put(const QString &propertyName, const QScriptValue &value);
 
     // Link to its interpreter.
     // FIXME: Probably accessible without the explicit link.
-    Interpreter *jsi;
+    QScriptEngine *scriptEngine;
 
     // Current message data.
-    const QString *msgctxt;
-    const QHash<QString, QString> *dynctxt;
-    const QString *msgid;
-    const QStringList *subs;
-    const QList<QVariant> *vals;
+    const QString *msgcontext;
+    const QHash<QString, QString> *dyncontext;
+    const QString *msgId;
+    const QStringList *subList;
+    const QList<QVariant> *valList;
     const QString *ftrans;
     const QString *ctry;
 
     // Fallback request handle.
-    bool *fallback;
+    bool *fallbackRequest;
 
     // Function register.
-    QHash<QString, JSObject *> funcs;
-    QHash<QString, JSValue *> fvals;
+    QHash<QString, QScriptValue> funcs;
+    QHash<QString, QScriptValue> fvals;
     QHash<QString, QString> fpaths;
 
     // Ordering of those functions which execute for all messages.
@@ -265,33 +251,20 @@ void warnout(const char *str, const T1 &a1)
 }
 
 // ----------------------------------------------------------------------
-// Conversions between QString and KJS UString.
-// Taken from kate.
-UString::UString(const QString &d)
-{
-    unsigned int len = d.length();
-    UChar *dat = static_cast<UChar *>(fastMalloc(sizeof(UChar) * len));
-    memcpy(dat, d.unicode(), len * sizeof(UChar));
-    m_rep = UString::Rep::create(dat, len);
-}
-QString UString::qstring() const
-{
-    return QString((QChar *) data(), size());
-}
+// Produces a string out of a script exception.
 
-// ----------------------------------------------------------------------
-// Produces a string out of a KJS exception.
-QString expt2str(ExecState *exec)
+QString expt2str(QScriptEngine *engine)
 {
-    JSValue *expt = exec->exception();
-    if (expt->isObject()
-            && expt->getObject()->hasProperty(exec, "message")) {
-        JSValue *msg = expt->getObject()->get(exec, "message");
-        return QString::fromLatin1("Error: %1").arg(msg->getString().qstring());
-    } else {
-        QString strexpt = exec->exception()->toString(exec).qstring();
-        return QString::fromLatin1("Caught exception: %1").arg(strexpt);
+    const QScriptValue expt = engine->uncaughtException();
+    if (expt.isObject()) {
+        const QScriptValue message = expt.toObject().property("message");
+        if (message.isValid()) {
+            return QString::fromLatin1("Error: %1").arg(message.toString());
+        }
     }
+
+    QString strexpt = expt.toString();
+    return QString::fromLatin1("Caught exception: %1").arg(strexpt);
 }
 
 // ----------------------------------------------------------------------
@@ -375,17 +348,18 @@ QString trimSmart(const QString &raw)
 
 // ----------------------------------------------------------------------
 // Produce a JavaScript object out of Qt variant.
-JSValue *variantToJsValue(const QVariant &val)
+
+QScriptValue variantToJsValue(const QVariant &val)
 {
     QVariant::Type vtype = val.type();
     if (vtype == QVariant::String) {
-        return jsString(val.toString());
+        return QScriptValue(val.toString());
     } else if (vtype == QVariant::Double \
                || vtype == QVariant::Int || vtype == QVariant::UInt \
                || vtype == QVariant::LongLong || vtype == QVariant::ULongLong) {
-        return jsNumber(val.toDouble());
+        return QScriptValue(val.toDouble());
     } else {
-        return jsUndefined();
+        return QScriptValue::UndefinedValue;
     }
 }
 
@@ -450,6 +424,34 @@ TsConfig readConfig(const QString &fname)
 
     return config;
 }
+
+// ----------------------------------------------------------------------
+// throw or log error, depending on context availability
+static QScriptValue throwError(QScriptContext *context, QScriptContext::Error errorCode, const QString &message)
+{
+    if (context)
+        return context->throwError(errorCode, message);
+
+
+    qCritical() << "Script error" << errorCode << ":" << message;
+    return QScriptValue::UndefinedValue;
+}
+
+// ----------------------------------------------------------------------
+// convert variable number of call arguments to QScriptValueList
+static QScriptValueList callArgsFromContext(QScriptContext *context)
+{
+    QScriptValueList list;
+
+    if (context) {
+        for (int i = 0; i < context->argumentCount(); ++i) {
+            list << context->argument(i);
+        }
+    }
+
+    return list;
+}
+
 
 #ifdef KTRANSCRIPT_TESTBUILD
 
@@ -527,7 +529,7 @@ QString KTranscriptImp::eval(const QList<QVariant> &argv,
     fallback = false; // fallback not requested
 
 #if 0
-    // FIXME: Maybe not needed, as KJS has no native outside access?
+    // FIXME: Maybe not needed, as QScriptEngine has no native outside access?
     // Unportable (needs unistd.h)?
 
     // If effective user id is root and real user id is not root.
@@ -559,17 +561,18 @@ QString KTranscriptImp::eval(const QList<QVariant> &argv,
 
     // Shortcuts.
     Scriptface *sface = m_sface[lang];
-    ExecState *exec = sface->jsi->globalExec();
-    JSObject *gobj = sface->jsi->globalObject();
+
+    QScriptEngine *engine = sface->scriptEngine;
+    QScriptValue gobj = engine->globalObject();
 
     // Link current message data for script-side interface.
-    sface->msgctxt = &msgctxt;
-    sface->dynctxt = &dynctxt;
-    sface->msgid = &msgid;
-    sface->subs = &subs;
-    sface->vals = &vals;
+    sface->msgcontext = &msgctxt;
+    sface->dyncontext = &dynctxt;
+    sface->msgId = &msgid;
+    sface->subList = &subs;
+    sface->valList = &vals;
     sface->ftrans = &ftrans;
-    sface->fallback = &fallback;
+    sface->fallbackRequest = &fallback;
     sface->ctry = &ctry;
 
     // Find corresponding JS function.
@@ -585,54 +588,56 @@ QString KTranscriptImp::eval(const QList<QVariant> &argv,
         error = QString::fromLatin1("Unregistered call to '%1'.").arg(funcName);
         return QString();
     }
-    JSObject *func = sface->funcs[funcName];
-    JSValue *fval = sface->fvals[funcName];
+
+    QScriptValue func = sface->funcs[funcName];
+    QScriptValue fval = sface->fvals[funcName];
 
     // Recover module path from the time of definition of this call,
     // for possible load calls.
     currentModulePath = sface->fpaths[funcName];
 
     // Execute function.
-    List arglist;
+    QScriptValueList arglist;
     for (int i = 1; i < argc; ++i) {
         arglist.append(variantToJsValue(argv[i]));
     }
-    JSValue *val;
-    if (fval->isObject()) {
-        val = func->callAsFunction(exec, fval->getObject(), arglist);
+
+    QScriptValue val;
+    if (fval.isObject()) {
+        val = func.call(fval.toObject(), arglist);
     } else { // no object associated to this function, use global
-        val = func->callAsFunction(exec, gobj, arglist);
+        val = func.call(gobj, arglist);
     }
 
     if (fallback)
         // Fallback to ordinary translation requested.
     {
         // Possibly clear exception state.
-        if (exec->hadException()) {
-            exec->clearException();
+        if (engine->hasUncaughtException()) {
+            engine->clearExceptions();
         }
 
         return QString();
-    } else if (!exec->hadException())
+    } else if (!engine->hasUncaughtException())
         // Evaluation successful.
     {
-        if (val->isString())
+        if (val.isString())
             // Good to go.
         {
-            return val->getString().qstring();
+            return val.toString();
         } else
             // Accept only strings.
         {
-            QString strval = val->toString(exec).qstring();
+            QString strval = val.toString();
             error = QString::fromLatin1("Non-string return value: %1").arg(strval);
             return QString();
         }
     } else
         // Exception raised.
     {
-        error = expt2str(exec);
+        error = expt2str(engine);
 
-        exec->clearException();
+        engine->clearExceptions();
 
         return QString();
     }
@@ -680,16 +685,16 @@ void KTranscriptImp::loadModules(const QList<QStringList> &mods,
         fname = fname.left(fname.lastIndexOf(QLatin1Char('.')));
 
         // Load the module.
-        ExecState *exec = m_sface[mlang]->jsi->globalExec();
-        List alist;
-        alist.append(jsString(fname));
+        QScriptEngine *engine = m_sface[mlang]->scriptEngine;
+        QScriptValueList alist;
+        alist.append(QScriptValue(fname));
 
-        m_sface[mlang]->loadf(exec, alist);
+        m_sface[mlang]->load(alist);
 
         // Handle any exception.
-        if (exec->hadException()) {
-            modErrors.append(expt2str(exec));
-            exec->clearException();
+        if (engine->hasUncaughtException()) {
+            modErrors.append(expt2str(engine));
+            engine->clearExceptions();
         }
     }
 
@@ -701,78 +706,34 @@ void KTranscriptImp::loadModules(const QList<QStringList> &mods,
     }
 }
 
-KJS_QT_UNICODE_IMPL
-
 #define SFNAME "Ts"
 void KTranscriptImp::setupInterpreter(const QString &lang)
 {
     // Create new interpreter.
-    Interpreter *jsi = new Interpreter;
-    KJS_QT_UNICODE_SET;
-    jsi->initGlobalObject();
-    jsi->ref();
+    QScriptEngine *engine = new QScriptEngine;
 
     // Add scripting interface into the interpreter.
     // NOTE: Config may not contain an entry for the language, in which case
     // it is automatically constructed as an empty hash. This is intended.
-    Scriptface *sface = new Scriptface(jsi->globalExec(), config[lang]);
-    jsi->globalObject()->put(jsi->globalExec(), SFNAME, sface,
-                             DontDelete | ReadOnly);
+    Scriptface *sface = new Scriptface(engine, config[lang], engine);
 
-    // Store scriptface and link to its interpreter.
-    sface->jsi = jsi;
+    QScriptEngine::QObjectWrapOptions wrapOptions;
+    wrapOptions |= QScriptEngine::ExcludeSuperClassContents;
+    wrapOptions |= QScriptEngine::ExcludeDeleteLater;
+    wrapOptions |= QScriptEngine::ExcludeChildObjects;
+    wrapOptions |= QScriptEngine::ExcludeSlots;
+
+    QScriptValue object = engine->newQObject(sface, QScriptEngine::QtOwnership, wrapOptions);
+    engine->globalObject().setProperty(SFNAME, object);
+
+    // Store scriptface
     m_sface[lang] = sface;
 
     //dbgout("=====> Created interpreter for '%1'", lang);
 }
 
-// ----------------------------------------------------------------------
-// Scriptface internal mechanics.
-#include "ktranscript.lut.h"
-
-/* Source for ScriptfaceProtoTable.
-@begin ScriptfaceProtoTable 2
-    load            Scriptface::Load            DontDelete|ReadOnly|Function 0
-    setcall         Scriptface::Setcall         DontDelete|ReadOnly|Function 3
-    hascall         Scriptface::Hascall         DontDelete|ReadOnly|Function 1
-    acall           Scriptface::Acall           DontDelete|ReadOnly|Function 0
-    setcallForall   Scriptface::SetcallForall   DontDelete|ReadOnly|Function 3
-    fallback        Scriptface::Fallback        DontDelete|ReadOnly|Function 0
-    nsubs           Scriptface::Nsubs           DontDelete|ReadOnly|Function 0
-    subs            Scriptface::Subs            DontDelete|ReadOnly|Function 1
-    vals            Scriptface::Vals            DontDelete|ReadOnly|Function 1
-    msgctxt         Scriptface::Msgctxt         DontDelete|ReadOnly|Function 0
-    dynctxt         Scriptface::Dynctxt         DontDelete|ReadOnly|Function 1
-    msgid           Scriptface::Msgid           DontDelete|ReadOnly|Function 0
-    msgkey          Scriptface::Msgkey          DontDelete|ReadOnly|Function 0
-    msgstrf         Scriptface::Msgstrf         DontDelete|ReadOnly|Function 0
-    dbgputs         Scriptface::Dbgputs         DontDelete|ReadOnly|Function 1
-    warnputs        Scriptface::Warnputs        DontDelete|ReadOnly|Function 1
-    localeCountry   Scriptface::LocaleCountry   DontDelete|ReadOnly|Function 0
-    normKey         Scriptface::NormKey         DontDelete|ReadOnly|Function 1
-    loadProps       Scriptface::LoadProps       DontDelete|ReadOnly|Function 0
-    getProp         Scriptface::GetProp         DontDelete|ReadOnly|Function 2
-    setProp         Scriptface::SetProp         DontDelete|ReadOnly|Function 3
-    toUpperFirst    Scriptface::ToUpperFirst    DontDelete|ReadOnly|Function 2
-    toLowerFirst    Scriptface::ToLowerFirst    DontDelete|ReadOnly|Function 2
-    getConfString   Scriptface::GetConfString   DontDelete|ReadOnly|Function 2
-    getConfBool     Scriptface::GetConfBool     DontDelete|ReadOnly|Function 2
-    getConfNumber   Scriptface::GetConfNumber   DontDelete|ReadOnly|Function 2
-@end
-*/
-/* Source for ScriptfaceTable.
-@begin ScriptfaceTable 0
-@end
-*/
-
-KJS_DEFINE_PROTOTYPE(ScriptfaceProto)
-KJS_IMPLEMENT_PROTOFUNC(ScriptfaceProtoFunc)
-KJS_IMPLEMENT_PROTOTYPE("Scriptface", ScriptfaceProto, ScriptfaceProtoFunc, ObjectPrototype)
-
-const ClassInfo Scriptface::info = {"Scriptface", 0, &ScriptfaceTable, 0};
-
-Scriptface::Scriptface(ExecState *exec, const TsConfigGroup &config_)
-    : JSObject(ScriptfaceProto::self(exec)), fallback(NULL), config(config_)
+Scriptface::Scriptface(QScriptEngine *scriptEngine_, const TsConfigGroup &config_, QObject *parent)
+    : QObject(parent), scriptEngine(scriptEngine_), fallbackRequest(NULL), config(config_)
 {}
 
 Scriptface::~Scriptface()
@@ -780,253 +741,126 @@ Scriptface::~Scriptface()
     qDeleteAll(loadedPmapHandles);
 }
 
-bool Scriptface::getOwnPropertySlot(ExecState *exec, const Identifier &propertyName, PropertySlot &slot)
+void Scriptface::put(const QString &propertyName, const QScriptValue &value)
 {
-    return getStaticValueSlot<Scriptface, JSObject>(exec, &ScriptfaceTable, this, propertyName, slot);
-}
-
-JSValue *Scriptface::getValueProperty(ExecState * /*exec*/, int token) const
-{
-    switch (token) {
-    default:
-        dbgout("Scriptface::getValueProperty: Unknown property id %1", token);
+    QScriptValue internalObject = scriptEngine->globalObject().property("ScriptfaceInternal");
+    if (!internalObject.isValid()) {
+        internalObject = scriptEngine->newObject();
+        scriptEngine->globalObject().setProperty("ScriptfaceInternal", internalObject);
     }
-    return jsUndefined();
-}
 
-void Scriptface::put(ExecState *exec, const Identifier &propertyName, JSValue *value, int attr)
-{
-    lookupPut<Scriptface, JSObject>(exec, propertyName, value, attr, &ScriptfaceTable, this);
-}
-
-void Scriptface::putValueProperty(ExecState * /*exec*/, int token, JSValue * /*value*/, int /*attr*/)
-{
-    switch (token) {
-    default:
-        dbgout("Scriptface::putValueProperty: Unknown property id %1", token);
-    }
-}
-
-#define CALLARG(i) (args.size() > i ? args[i] : jsNull())
-JSValue *ScriptfaceProtoFunc::callAsFunction(ExecState *exec, JSObject *thisObj, const List &args)
-{
-    if (!thisObj->inherits(&Scriptface::info)) {
-        return throwError(exec, TypeError);
-    }
-    Scriptface *obj = static_cast<Scriptface *>(thisObj);
-    switch (id) {
-    case Scriptface::Load:
-        return obj->loadf(exec, args);
-    case Scriptface::Setcall:
-        return obj->setcallf(exec, CALLARG(0), CALLARG(1), CALLARG(2));
-    case Scriptface::Hascall:
-        return obj->hascallf(exec, CALLARG(0));
-    case Scriptface::Acall:
-        return obj->acallf(exec, args);
-    case Scriptface::SetcallForall:
-        return obj->setcallForallf(exec, CALLARG(0), CALLARG(1), CALLARG(2));
-    case Scriptface::Fallback:
-        return obj->fallbackf(exec);
-    case Scriptface::Nsubs:
-        return obj->nsubsf(exec);
-    case Scriptface::Subs:
-        return obj->subsf(exec, CALLARG(0));
-    case Scriptface::Vals:
-        return obj->valsf(exec, CALLARG(0));
-    case Scriptface::Msgctxt:
-        return obj->msgctxtf(exec);
-    case Scriptface::Dynctxt:
-        return obj->dynctxtf(exec, CALLARG(0));
-    case Scriptface::Msgid:
-        return obj->msgidf(exec);
-    case Scriptface::Msgkey:
-        return obj->msgkeyf(exec);
-    case Scriptface::Msgstrf:
-        return obj->msgstrff(exec);
-    case Scriptface::Dbgputs:
-        return obj->dbgputsf(exec, CALLARG(0));
-    case Scriptface::Warnputs:
-        return obj->warnputsf(exec, CALLARG(0));
-    case Scriptface::LocaleCountry:
-        return obj->localeCountryf(exec);
-    case Scriptface::NormKey:
-        return obj->normKeyf(exec, CALLARG(0));
-    case Scriptface::LoadProps:
-        return obj->loadPropsf(exec, args);
-    case Scriptface::GetProp:
-        return obj->getPropf(exec, CALLARG(0), CALLARG(1));
-    case Scriptface::SetProp:
-        return obj->setPropf(exec, CALLARG(0), CALLARG(1), CALLARG(2));
-    case Scriptface::ToUpperFirst:
-        return obj->toUpperFirstf(exec, CALLARG(0), CALLARG(1));
-    case Scriptface::ToLowerFirst:
-        return obj->toLowerFirstf(exec, CALLARG(0), CALLARG(1));
-    case Scriptface::GetConfString:
-        return obj->getConfStringf(exec, CALLARG(0), CALLARG(1));
-    case Scriptface::GetConfBool:
-        return obj->getConfBoolf(exec, CALLARG(0), CALLARG(1));
-    case Scriptface::GetConfNumber:
-        return obj->getConfNumberf(exec, CALLARG(0), CALLARG(1));
-    default:
-        return jsUndefined();
-    }
+    internalObject.setProperty(propertyName, value);
 }
 
 // ----------------------------------------------------------------------
 // Scriptface interface functions.
 #define SPREF SFNAME"."
 
-JSValue *Scriptface::loadf(ExecState *exec, const List &fnames)
+
+QScriptValue Scriptface::load()
 {
-    if (globalKTI()->currentModulePath.isEmpty())
-        return throwError(exec, GeneralError,
-                          SPREF"load: no current module path, aiiie...");
-
-    for (int i = 0; i < fnames.size(); ++i)
-        if (!fnames[i]->isString())
-            return throwError(exec, TypeError,
-                              SPREF"load: expected string as file name");
-
-    for (int i = 0; i < fnames.size(); ++i) {
-        QString qfname = fnames[i]->getString().qstring();
-        QString qfpath = globalKTI()->currentModulePath + QLatin1Char('/') + qfname + QLatin1String(".js");
-
-        QFile file(qfpath);
-        if (!file.open(QIODevice::ReadOnly))
-            return throwError(exec, GeneralError,
-                              QString::fromLatin1(SPREF"load: cannot read file '%1'") \
-                              .arg(qfpath));
-
-        QTextStream stream(&file);
-        stream.setCodec("UTF-8");
-        QString source = stream.readAll();
-        file.close();
-
-        Completion comp = jsi->evaluate(qfpath, 0, source);
-
-        if (comp.complType() == Throw) {
-            JSValue *exval = comp.value();
-            ExecState *exec = jsi->globalExec();
-            QString msg = exval->toString(exec).qstring();
-
-            QString line;
-            if (exval->type() == ObjectType) {
-                JSValue *lval = exval->getObject()->get(exec, "line");
-                if (lval->type() == NumberType) {
-                    line = QString::number(lval->toInt32(exec));
-                }
-            }
-
-            return throwError(exec, TypeError,
-                              QString::fromLatin1("at %1:%2: %3")
-                              .arg(qfpath, line, msg));
-        }
-        dbgout("Loaded module: %1", qfpath);
-    }
-
-    return jsUndefined();
+    const QScriptValueList fnames = callArgsFromContext(context());
+    return load(fnames);
 }
 
-JSValue *Scriptface::setcallf(ExecState *exec, JSValue *name,
-                              JSValue *func, JSValue *fval)
+QScriptValue Scriptface::setcall(const QScriptValue &name, const QScriptValue &func, const QScriptValue &fval)
 {
-    if (!name->isString())
-        return throwError(exec, TypeError,
+    if (!name.isString())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcall: expected string as first argument");
-    if (!func->isObject()
-            || !func->getObject()->implementsCall())
-        return throwError(exec, TypeError,
+    if (!func.isFunction())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcall: expected function as second argument");
-    if (!(fval->isObject() || fval->isNull()))
-        return throwError(exec, TypeError,
+    if (!(fval.isObject() || fval.isNull()))
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcall: expected object or null as third argument");
 
-    QString qname = name->toString(exec).qstring();
-    funcs[qname] = func->getObject();
+    QString qname = name.toString();
+    funcs[qname] = func;
     fvals[qname] = fval;
 
     // Register values to keep GC from collecting them. Is this needed?
-    put(exec, Identifier(QString::fromLatin1("#:f<%1>").arg(qname)), func, Internal);
-    put(exec, Identifier(QString::fromLatin1("#:o<%1>").arg(qname)), fval, Internal);
+    put(QString::fromLatin1("#:f<%1>").arg(qname), func);
+    put(QString::fromLatin1("#:o<%1>").arg(qname), fval);
 
     // Set current module path as module path for this call,
     // in case it contains load subcalls.
     fpaths[qname] = globalKTI()->currentModulePath;
 
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::hascallf(ExecState *exec, JSValue *name)
+QScriptValue Scriptface::hascall(const QScriptValue &name)
 {
-    if (!name->isString())
-        return throwError(exec, TypeError,
+    if (!name.isString())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"hascall: expected string as first argument");
 
-    QString qname = name->toString(exec).qstring();
-    return jsBoolean(funcs.contains(qname));
+    QString qname = name.toString();
+    return QScriptValue(funcs.contains(qname));
 }
 
-JSValue *Scriptface::acallf(ExecState *exec, const List &argv)
+QScriptValue Scriptface::acall()
 {
+    const QScriptValueList argv = callArgsFromContext(context());
+
     if (argv.size() < 1) {
-        return throwError(exec, SyntaxError,
+        return throwError(context(), QScriptContext::SyntaxError,
                           SPREF"acall: expected at least one argument (call name)");
     }
-    if (!argv[0]->isString()) {
-        return throwError(exec, SyntaxError,
+    if (!argv[0].isString()) {
+        return throwError(context(), QScriptContext::SyntaxError,
                           SPREF"acall: expected string as first argument (call name)");
     }
 
     // Get the function and its context object.
-    QString callname = argv[0]->getString().qstring();
+    QString callname = argv[0].toString();
     if (!funcs.contains(callname)) {
-        return throwError(exec, EvalError,
+        return throwError(context(), QScriptContext::ReferenceError,
                           QString::fromLatin1(SPREF"acall: unregistered call to '%1'").arg(callname));
     }
-    JSObject *func = funcs[callname];
-    JSValue *fval = fvals[callname];
+    QScriptValue func = funcs[callname];
+    QScriptValue fval = fvals[callname];
 
     // Recover module path from the time of definition of this call,
     // for possible load calls.
     globalKTI()->currentModulePath = fpaths[callname];
 
     // Execute function.
-    List arglist;
+    QScriptValueList arglist;
     for (int i = 1; i < argv.size(); ++i) {
         arglist.append(argv[i]);
     }
-    JSValue *val;
-    if (fval->isObject()) {
+    QScriptValue val;
+    if (fval.isObject()) {
         // Call function with the context object.
-        val = func->callAsFunction(exec, fval->getObject(), arglist);
+        val = func.call(fval.toObject(), arglist);
     } else {
         // No context object associated to this function, use global.
-        val = func->callAsFunction(exec, jsi->globalObject(), arglist);
+        val = func.call(scriptEngine->globalObject(), arglist);
     }
     return val;
 }
 
-JSValue *Scriptface::setcallForallf(ExecState *exec, JSValue *name,
-                                    JSValue *func, JSValue *fval)
+QScriptValue Scriptface::setcallForall(const QScriptValue &name, const QScriptValue &func, const QScriptValue &fval)
 {
-    if (!name->isString())
-        return throwError(exec, TypeError,
+    if (!name.isString())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcallForall: expected string as first argument");
-    if (!func->isObject()
-            || !func->getObject()->implementsCall())
-        return throwError(exec, TypeError,
+    if (!func.isFunction())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcallForall: expected function as second argument");
-    if (!(fval->isObject() || fval->isNull()))
-        return throwError(exec, TypeError,
+    if (!(fval.isObject() || fval.isNull()))
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcallForall: expected object or null as third argument");
 
-    QString qname = name->toString(exec).qstring();
-    funcs[qname] = func->getObject();
+    QString qname = name.toString();
+    funcs[qname] = func;
     fvals[qname] = fval;
 
     // Register values to keep GC from collecting them. Is this needed?
-    put(exec, Identifier(QString::fromLatin1("#:fall<%1>").arg(qname)), func, Internal);
-    put(exec, Identifier(QString::fromLatin1("#:oall<%1>").arg(qname)), fval, Internal);
+    put(QString::fromLatin1("#:fall<%1>").arg(qname), func);
+    put(QString::fromLatin1("#:oall<%1>").arg(qname), fval);
 
     // Set current module path as module path for this call,
     // in case it contains load subcalls.
@@ -1035,148 +869,143 @@ JSValue *Scriptface::setcallForallf(ExecState *exec, JSValue *name,
     // Put in the queue order for execution on all messages.
     nameForalls.append(qname);
 
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::fallbackf(ExecState *exec)
+QScriptValue Scriptface::fallback()
 {
-    Q_UNUSED(exec);
-    if (fallback != NULL) {
-        *fallback = true;
+    if (fallbackRequest != NULL) {
+        *fallbackRequest = true;
     }
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::nsubsf(ExecState *exec)
+QScriptValue Scriptface::nsubs()
 {
-    Q_UNUSED(exec);
-    return jsNumber(subs->size());
+    return QScriptValue(subList->size());
 }
 
-JSValue *Scriptface::subsf(ExecState *exec, JSValue *index)
+QScriptValue Scriptface::subs(const QScriptValue &index)
 {
-    if (!index->isNumber())
-        return throwError(exec, TypeError,
+    if (!index.isNumber())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"subs: expected number as first argument");
 
-    int i = qRound(index->getNumber());
-    if (i < 0 || i >= subs->size())
-        return throwError(exec, RangeError,
+    int i = qRound(index.toNumber());
+    if (i < 0 || i >= subList->size())
+        return throwError(context(), QScriptContext::RangeError,
                           SPREF"subs: index out of range");
 
-    return jsString(subs->at(i));
+    return QScriptValue(subList->at(i));
 }
 
-JSValue *Scriptface::valsf(ExecState *exec, JSValue *index)
+QScriptValue Scriptface::vals(const QScriptValue &index)
 {
-    if (!index->isNumber())
-        return throwError(exec, TypeError,
+    if (!index.isNumber())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"vals: expected number as first argument");
 
-    int i = qRound(index->getNumber());
-    if (i < 0 || i >= vals->size())
-        return throwError(exec, RangeError,
+    int i = qRound(index.toNumber());
+    if (i < 0 || i >= valList->size())
+        return throwError(context(), QScriptContext::RangeError,
                           SPREF"vals: index out of range");
 
-    return variantToJsValue(vals->at(i));
+    return variantToJsValue(valList->at(i));
 }
 
-JSValue *Scriptface::msgctxtf(ExecState *exec)
+QScriptValue Scriptface::msgctxt()
 {
-    Q_UNUSED(exec);
-    return jsString(*msgctxt);
+    return QScriptValue(*msgcontext);
 }
 
-JSValue *Scriptface::dynctxtf(ExecState *exec, JSValue *key)
+QScriptValue Scriptface::dynctxt(const QScriptValue &key)
 {
-    if (!key->isString())
-        return throwError(exec, TypeError,
+    if (!key.isString())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"dynctxt: expected string as first argument");
 
-    QString qkey = key->getString().qstring();
-    if (dynctxt->contains(qkey)) {
-        return jsString(dynctxt->value(qkey));
+    QString qkey = key.toString();
+    if (dyncontext->contains(qkey)) {
+        return QScriptValue(dyncontext->value(qkey));
     }
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::msgidf(ExecState *exec)
+QScriptValue Scriptface::msgid()
 {
-    Q_UNUSED(exec);
-    return jsString(*msgid);
+    return QScriptValue(*msgId);
 }
 
-JSValue *Scriptface::msgkeyf(ExecState *exec)
+QScriptValue Scriptface::msgkey()
 {
-    Q_UNUSED(exec);
-    return jsString(QString(*msgctxt + QLatin1Char('|') + *msgid));
+    return QScriptValue(QString(*msgcontext + QLatin1Char('|') + *msgId));
 }
 
-JSValue *Scriptface::msgstrff(ExecState *exec)
+QScriptValue Scriptface::msgstrf()
 {
-    Q_UNUSED(exec);
-    return jsString(*ftrans);
+    return QScriptValue(*ftrans);
 }
 
-JSValue *Scriptface::dbgputsf(ExecState *exec, JSValue *str)
+QScriptValue Scriptface::dbgputs(const QScriptValue &str)
 {
-    if (!str->isString())
-        return throwError(exec, TypeError,
+    if (!str.isString())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"dbgputs: expected string as first argument");
 
-    QString qstr = str->getString().qstring();
+    QString qstr = str.toString();
 
     dbgout("[JS-debug] %1", qstr);
 
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::warnputsf(ExecState *exec, JSValue *str)
+QScriptValue Scriptface::warnputs(const QScriptValue &str)
 {
-    if (!str->isString())
-        return throwError(exec, TypeError,
+    if (!str.isString())
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"warnputs: expected string as first argument");
 
-    QString qstr = str->getString().qstring();
+    QString qstr = str.toString();
 
     warnout("[JS-warning] %1", qstr);
 
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::localeCountryf(ExecState *exec)
+QScriptValue Scriptface::localeCountry()
 {
-    Q_UNUSED(exec);
-    return jsString(*ctry);
+    return QScriptValue(*ctry);
 }
 
-JSValue *Scriptface::normKeyf(ExecState *exec, JSValue *phrase)
+QScriptValue Scriptface::normKey(const QScriptValue &phrase)
 {
-    if (!phrase->isString()) {
-        return throwError(exec, TypeError,
+    if (!phrase.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"normKey: expected string as argument");
     }
 
-    QByteArray nqphrase = normKeystr(phrase->toString(exec).qstring());
-    return jsString(QString::fromUtf8(nqphrase));
+    QByteArray nqphrase = normKeystr(phrase.toString());
+    return QScriptValue(QString::fromUtf8(nqphrase));
 }
 
-JSValue *Scriptface::loadPropsf(ExecState *exec, const List &fnames)
+QScriptValue Scriptface::loadProps()
 {
+    const QScriptValueList fnames = callArgsFromContext(context());
+
     if (globalKTI()->currentModulePath.isEmpty()) {
-        return throwError(exec, GeneralError,
+        return throwError(context(), QScriptContext::UnknownError,
                           SPREF"loadProps: no current module path, aiiie...");
     }
 
     for (int i = 0; i < fnames.size(); ++i) {
-        if (!fnames[i]->isString()) {
-            return throwError(exec, TypeError,
+        if (!fnames[i].isString()) {
+            return throwError(context(), QScriptContext::TypeError,
                               SPREF"loadProps: expected string as file name");
         }
     }
 
     for (int i = 0; i < fnames.size(); ++i) {
-        QString qfname = fnames[i]->getString().qstring();
+        QString qfname = fnames[i].toString();
         QString qfpath_base = globalKTI()->currentModulePath + QLatin1Char('/') + qfname;
 
         // Determine which kind of map is available.
@@ -1189,7 +1018,7 @@ JSValue *Scriptface::loadPropsf(ExecState *exec, const List &fnames)
             qfpath = qfpath_base + QLatin1String(".pmap");
             QFile file_check(qfpath);
             if (!file_check.open(QIODevice::ReadOnly)) {
-                return throwError(exec, GeneralError,
+                return throwError(context(), QScriptContext::UnknownError,
                                   QString::fromLatin1(SPREF"loadProps: cannot read map '%1'")
                                   .arg(qfpath));
             }
@@ -1205,63 +1034,63 @@ JSValue *Scriptface::loadPropsf(ExecState *exec, const List &fnames)
                 errorString = loadProps_text(qfpath);
             }
             if (!errorString.isEmpty()) {
-                return throwError(exec, SyntaxError, errorString);
+                return throwError(context(), QScriptContext::SyntaxError, errorString);
             }
             dbgout("Loaded property map: %1", qfpath);
             loadedPmapPaths.insert(qfpath);
         }
     }
 
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::getPropf(ExecState *exec, JSValue *phrase, JSValue *prop)
+QScriptValue Scriptface::getProp(const QScriptValue &phrase, const QScriptValue &prop)
 {
-    if (!phrase->isString()) {
-        return throwError(exec, TypeError,
+    if (!phrase.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getProp: expected string as first argument");
     }
-    if (!prop->isString()) {
-        return throwError(exec, TypeError,
+    if (!prop.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getProp: expected string as second argument");
     }
 
-    QByteArray qphrase = normKeystr(phrase->toString(exec).qstring());
+    QByteArray qphrase = normKeystr(phrase.toString());
     QHash<QByteArray, QByteArray> props = phraseProps.value(qphrase);
     if (props.isEmpty()) {
         props = resolveUnparsedProps(qphrase);
     }
     if (!props.isEmpty()) {
-        QByteArray qprop = normKeystr(prop->toString(exec).qstring());
+        QByteArray qprop = normKeystr(prop.toString());
         QByteArray qval = props.value(qprop);
         if (!qval.isEmpty()) {
-            return jsString(QString::fromUtf8(qval));
+            return QScriptValue(QString::fromUtf8(qval));
         }
     }
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
-JSValue *Scriptface::setPropf(ExecState *exec, JSValue *phrase, JSValue *prop, JSValue *value)
+QScriptValue Scriptface::setProp(const QScriptValue &phrase, const QScriptValue &prop, const QScriptValue &value)
 {
-    if (!phrase->isString()) {
-        return throwError(exec, TypeError,
+    if (!phrase.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setProp: expected string as first argument");
     }
-    if (!prop->isString()) {
-        return throwError(exec, TypeError,
+    if (!prop.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setProp: expected string as second argument");
     }
-    if (!value->isString()) {
-        return throwError(exec, TypeError,
+    if (!value.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"setProp: expected string as third argument");
     }
 
-    QByteArray qphrase = normKeystr(phrase->toString(exec).qstring());
-    QByteArray qprop = normKeystr(prop->toString(exec).qstring());
-    QByteArray qvalue = value->toString(exec).qstring().toUtf8();
+    QByteArray qphrase = normKeystr(phrase.toString());
+    QByteArray qprop = normKeystr(prop.toString());
+    QByteArray qvalue = value.toString().toUtf8();
     // Any non-existent key in first or second-level hash will be created.
     phraseProps[qphrase][qprop] = qvalue;
-    return jsUndefined();
+    return QScriptValue::UndefinedValue;
 }
 
 static QString toCaseFirst(const QString &qstr, int qnalt, bool toupper)
@@ -1322,82 +1151,74 @@ static QString toCaseFirst(const QString &qstr, int qnalt, bool toupper)
     return qstrcc;
 }
 
-JSValue *Scriptface::toUpperFirstf(ExecState *exec,
-                                   JSValue *str, JSValue *nalt)
+QScriptValue Scriptface::toUpperFirst(const QScriptValue &str, const QScriptValue &nalt)
 {
-    if (!str->isString()) {
-        return throwError(exec, TypeError,
+    if (!str.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"toUpperFirst: expected string as first argument");
     }
-    if (!(nalt->isNumber() || nalt->isNull())) {
-        return throwError(exec, TypeError,
+    if (!(nalt.isNumber() || nalt.isNull())) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"toUpperFirst: expected number as second argument");
     }
 
-    QString qstr = str->toString(exec).qstring();
-    int qnalt = nalt->isNull() ? 0 : nalt->toInteger(exec);
+    QString qstr = str.toString();
+    int qnalt = nalt.isNull() ? 0 : nalt.toInteger();
 
     QString qstruc = toCaseFirst(qstr, qnalt, true);
 
-    return jsString(qstruc);
+    return QScriptValue(qstruc);
 }
 
-JSValue *Scriptface::toLowerFirstf(ExecState *exec,
-                                   JSValue *str, JSValue *nalt)
+QScriptValue Scriptface::toLowerFirst(const QScriptValue &str, const QScriptValue &nalt)
 {
-    if (!str->isString()) {
-        return throwError(exec, TypeError,
+    if (!str.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"toLowerFirst: expected string as first argument");
     }
-    if (!(nalt->isNumber() || nalt->isNull())) {
-        return throwError(exec, TypeError,
+    if (!(nalt.isNumber() || nalt.isNull())) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"toLowerFirst: expected number as second argument");
     }
 
-    QString qstr = str->toString(exec).qstring();
-    int qnalt = nalt->isNull() ? 0 : nalt->toInteger(exec);
+    QString qstr = str.toString();
+    int qnalt = nalt.isNull() ? 0 : nalt.toInteger();
 
     QString qstrlc = toCaseFirst(qstr, qnalt, false);
 
-    return jsString(qstrlc);
+    return QScriptValue(qstrlc);
 }
 
-JSValue *Scriptface::getConfStringf(ExecState *exec,
-                                    JSValue *key, JSValue *dval)
+QScriptValue Scriptface::getConfString(const QScriptValue &key, const QScriptValue &dval)
 {
-    if (!key->isString()) {
-        return throwError(exec, TypeError,
+    if (!key.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getConfString: expected string "
                           "as first argument");
     }
-    if (!(dval->isString() || dval->isNull())) {
-        return throwError(exec, TypeError,
+    if (!(dval.isString() || dval.isNull())) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getConfString: expected string "
                           "as second argument (when given)");
     }
 
-    if (dval->isNull()) {
-        dval = jsUndefined();
-    }
-
-    QString qkey = key->getString().qstring();
+    QString qkey = key.toString();
     if (config.contains(qkey)) {
-        return jsString(config.value(qkey));
+        return QScriptValue(config.value(qkey));
     }
 
-    return dval;
+    return dval.isNull() ? QScriptValue::UndefinedValue : dval;
 }
 
-JSValue *Scriptface::getConfBoolf(ExecState *exec,
-                                  JSValue *key, JSValue *dval)
+QScriptValue Scriptface::getConfBool(const QScriptValue &key, const QScriptValue &dval)
 {
-    if (!key->isString()) {
-        return throwError(exec, TypeError,
+    if (!key.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getConfBool: expected string as "
                           "first argument");
     }
-    if (!(dval->isBoolean() || dval->isNull())) {
-        return throwError(exec, TypeError,
+    if (!(dval.isBoolean() || dval.isNull())) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getConfBool: expected boolean "
                           "as second argument (when given)");
     }
@@ -1409,52 +1230,108 @@ JSValue *Scriptface::getConfBoolf(ExecState *exec,
         falsities.append(QString::fromLatin1("false"));
     }
 
-    if (dval->isNull()) {
-        dval = jsUndefined();
-    }
-
-    QString qkey = key->getString().qstring();
+    QString qkey = key.toString();
     if (config.contains(qkey)) {
         QString qval = config.value(qkey).toLower();
-        return jsBoolean(!falsities.contains(qval));
+        return QScriptValue(!falsities.contains(qval));
     }
 
-    return dval;
+    return dval.isNull() ? QScriptValue::UndefinedValue : dval;
 }
 
-JSValue *Scriptface::getConfNumberf(ExecState *exec,
-                                    JSValue *key, JSValue *dval)
+QScriptValue Scriptface::getConfNumber(const QScriptValue &key, const QScriptValue &dval)
 {
-    if (!key->isString()) {
-        return throwError(exec, TypeError,
+    if (!key.isString()) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getConfNumber: expected string "
                           "as first argument");
     }
-    if (!(dval->isNumber() || dval->isNull())) {
-        return throwError(exec, TypeError,
+    if (!(dval.isNumber() || dval.isNull())) {
+        return throwError(context(), QScriptContext::TypeError,
                           SPREF"getConfNumber: expected number "
                           "as second argument (when given)");
     }
 
-    if (dval->isNull()) {
-        dval = jsUndefined();
-    }
-
-    QString qkey = key->getString().qstring();
+    QString qkey = key.toString();
     if (config.contains(qkey)) {
         QString qval = config.value(qkey);
         bool convOk;
         double qnum = qval.toDouble(&convOk);
         if (convOk) {
-            return jsNumber(qnum);
+            return QScriptValue(qnum);
         }
     }
 
-    return dval;
+    return dval.isNull() ? QScriptValue::UndefinedValue : dval;
 }
 
 // ----------------------------------------------------------------------
 // Scriptface helpers to interface functions.
+
+QScriptValue Scriptface::load(const QScriptValueList &fnames)
+{
+    if (globalKTI()->currentModulePath.isEmpty()) {
+        return throwError(context(), QScriptContext::UnknownError,
+                          SPREF"load: no current module path, aiiie...");
+    }
+
+    for (int i = 0; i < fnames.size(); ++i) {
+        if (!fnames[i].isString()) {
+            return throwError(context(), QScriptContext::TypeError,
+                              SPREF"load: expected string as file name");
+        }
+    }
+
+    for (int i = 0; i < fnames.size(); ++i) {
+        QString qfname = fnames[i].toString();
+        QString qfpath = globalKTI()->currentModulePath + QLatin1Char('/') + qfname + QLatin1String(".js");
+
+        QFile file(qfpath);
+        if (!file.open(QIODevice::ReadOnly)) {
+            return throwError(context(), QScriptContext::UnknownError,
+                              QString::fromLatin1(SPREF"load: cannot read file '%1'") \
+                              .arg(qfpath));
+        }
+
+        QTextStream stream(&file);
+        stream.setCodec("UTF-8");
+        QString source = stream.readAll();
+        file.close();
+
+        /**
+         * fixup QScriptContext
+         * else the nested evaluate will not work :/
+         * see http://www.qtcentre.org/threads/31027-QtScript-nesting-with-include-imports-or-spawned-script-engines
+         * http://www.qtcentre.org/threads/20432-Can-I-include-a-script-from-script
+         */
+        QScriptContext *currentContext = scriptEngine->currentContext();
+        QScriptContext *parentContext = currentContext->parentContext();
+        if (parentContext) {
+            currentContext->setActivationObject(currentContext->parentContext()->activationObject());
+            currentContext->setThisObject(currentContext->parentContext()->thisObject());
+        }
+
+        QScriptValue comp = scriptEngine->evaluate(source, qfpath, 0);
+
+        if (comp.isError()) {
+            QString msg = comp.toString();
+
+            QString line;
+            if (comp.isObject()) {
+                QScriptValue lval = comp.toObject().property("line");
+                if (lval.isNumber()) {
+                    line = QString::number(lval.toInt32());
+                }
+            }
+
+            return throwError(context(), QScriptContext::TypeError,
+                              QString::fromLatin1("at %1:%2: %3")
+                              .arg(qfpath, line, msg));
+        }
+        dbgout("Loaded module: %1", qfpath);
+    }
+    return QScriptValue::UndefinedValue;
+}
 
 QString Scriptface::loadProps_text(const QString &fpath)
 {
@@ -1820,3 +1697,5 @@ QHash<QByteArray, QByteArray> Scriptface::resolveUnparsedProps(const QByteArray 
     }
     return props;
 }
+
+#include "ktranscript.moc"

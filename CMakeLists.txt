@@ -24,7 +24,7 @@ ecm_setup_version(
 # Dependencies
 set(REQUIRED_QT_VERSION "5.2.0")
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Script)
 
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
@@ -37,8 +37,6 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
 	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
-
-find_package(KF5JS ${KF5_VERSION} REQUIRED)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 remove_definitions(-DQT_NO_CAST_TO_ASCII)
