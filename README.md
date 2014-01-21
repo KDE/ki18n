@@ -14,6 +14,19 @@ and translators, which can help to achieve a higher overall quality
 of source and translated text. This includes argument capturing,
 customizable markup, and translation scripting.
 
+
+## Usage
+
+If you are using CMake, you need to have
+
+    find_package(KF5I18n NO_MODULE)
+
+(or similar) in your CMakeLists.txt file, and you need to link to KF5::I18n.
+
+Information on using KI18n as a translation mechanism can be found in the
+[programmer's guide](@ref prg_guide) and the [translator's guide](@ref trn_guide).
+
+
 ## Links
 
 - Home page: <https://projects.kde.org/projects/frameworks/ki18n>
