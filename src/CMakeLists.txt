@@ -58,3 +58,7 @@ target_link_libraries(ktranscript PRIVATE KF5::JS Qt5::Core)
 
 install(TARGETS ktranscript DESTINATION ${PLUGIN_INSTALL_DIR})
 
+
+include(ECMGeneratePriFile)
+ecm_generate_pri_file(BASE_NAME KI18n LIB_NAME KF5I18n DEPS "core" FILENAME_VAR PRI_FILENAME)
+install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
