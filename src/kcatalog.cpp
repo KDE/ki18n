@@ -20,7 +20,7 @@
 
 #include <stdlib.h>
 #include <locale.h>
-#include <gettext.h>
+#include "gettext.h"
 
 #include <qstandardpaths.h>
 #include <QByteArray>

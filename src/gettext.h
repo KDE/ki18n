@@ -21,6 +21,9 @@
 
 /* Get declarations of GNU message catalog functions.  */
 # include <libintl.h>
+// libintl.h redefines inline which causes MSVC to abort compilation with the message
+// fatal error C1189: #error :  The C++ Standard Library forbids macroizing keywords
+#undef inline
 
 /* You can set the DEFAULT_TEXT_DOMAIN macro to specify the domain used by
    the gettext() and ngettext() macros.  This is an alternative to calling

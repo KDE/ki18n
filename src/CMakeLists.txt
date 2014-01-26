@@ -8,9 +8,14 @@ set(libki18n_SRCS
 add_library(KF5I18n ${libki18n_SRCS})
 generate_export_header(KF5I18n BASE_NAME KI18n)
 add_library(KF5::I18n ALIAS KF5I18n)
+
 target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KI18n>")
+target_include_directories(KF5I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
 
 target_link_libraries(KF5I18n PUBLIC Qt5::Core)
+# This is only required for platforms which don't use glibc (with glibc LibIntl_LIBRARIES will be empty)
+target_link_libraries(KF5I18n PRIVATE ${LibIntl_LIBRARIES})
+
 
 set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION_STRING}
                                          SOVERSION ${KI18N_SOVERSION}
