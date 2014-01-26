@@ -56,8 +56,8 @@ set(ktranscript_LIB_SRCS
     ktranscript.cpp
     common_helpers.cpp
 )
-
 add_library(ktranscript MODULE ${ktranscript_LIB_SRCS})
+generate_export_header(ktranscript BASE_NAME KTranscript)
 set_target_properties(ktranscript PROPERTIES PREFIX "") # remove lib prefix
 target_link_libraries(ktranscript PRIVATE KF5::JS Qt5::Core)
 
