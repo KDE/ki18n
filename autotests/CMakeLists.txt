@@ -22,3 +22,6 @@ ki18n_unit_tests(
 # on the installed version since it must be able to run *before* the plugin is
 # installed.
 target_compile_definitions(ktranscripttest PRIVATE "KTRANSCRIPT_PATH=\"$<TARGET_FILE:ktranscript>\"")
+
+target_include_directories(klocalizedstringtest PRIVATE ${LibIntl_INCLUDE_DIRS})
+target_link_libraries(klocalizedstringtest ${LibIntl_LIBRARIES})
