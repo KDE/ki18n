@@ -38,11 +38,7 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
-if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
-  find_package(KF5JS ${KF5_VERSION} REQUIRED)
-else()
-  set(KJS_CREATE_HASH_TABLE "${CMAKE_SOURCE_DIR}/tier1/kjs/src/kjs/create_hash_table")
-endif()
+find_package(KF5JS ${KF5_VERSION} REQUIRED)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 remove_definitions(-DQT_NO_CAST_TO_ASCII)
@@ -74,6 +70,4 @@ install( FILES
     cmake/kf5i18nuic.cmake
     DESTINATION ${CMAKECONFIG_INSTALL_DIR} COMPONENT Devel )
 
-if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
-    feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-endif()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
