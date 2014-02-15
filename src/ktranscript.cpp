@@ -1163,7 +1163,7 @@ JSValue *Scriptface::loadPropsf(ExecState *exec, const List &fnames)
             if (!file_check.open(QIODevice::ReadOnly)) {
                 return throwError(exec, GeneralError,
                                   QString::fromLatin1(SPREF"loadProps: cannot read map '%1'")
-                                  .arg(qfpath_base));
+                                  .arg(qfpath));
             }
         }
         file_check.close();
