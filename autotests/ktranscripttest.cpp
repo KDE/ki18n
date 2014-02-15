@@ -65,25 +65,126 @@ void KTranscriptTest::cleanup()
 void KTranscriptTest::test_data()
 {
     QTest::addColumn<QVariantList>("argv");
+    QTest::addColumn<bool>("fallsBack");
     QTest::addColumn<QString>("expected");
 
-    QTest::newRow("test_basic") << (QVariantList() << "test_basic" << "foo") << "foo bar";
-    QTest::newRow("test_msgtrf") << (QVariantList() << "test_msgtrf") << "ordinary";
+    QTest::newRow("test_basic")
+        << (QVariantList() << "test_basic" << "foo")
+        << false
+        << "foo bar";
+    QTest::newRow("test_unicode")
+        << (QVariantList() << "test_unicode" << "čгσィ九")
+        << false
+        << "čгσィ九 фу";
+    QTest::newRow("test_hascall")
+        << (QVariantList() << "test_hascall" << "test_basic")
+        << false
+        << "yes";
+    QTest::newRow("test_acall")
+        << (QVariantList() << "test_acall" << "test_basic" << "qwyx")
+        << false
+        << "qwyx bar";
+    QTest::newRow("test_load")
+        << (QVariantList() << "test_load")
+        << false
+        << "foo blurb";
+    QTest::newRow("test_fallback")
+        << (QVariantList() << "test_fallback")
+        << true
+        << "";
+    QTest::newRow("test_msgid")
+        << (QVariantList() << "test_msgid")
+        << false
+        << "source-text";
+    QTest::newRow("test_msgtrf")
+        << (QVariantList() << "test_msgtrf")
+        << false
+        << "translated-text";
+    QTest::newRow("test_msgctxt")
+        << (QVariantList() << "test_msgctxt")
+        << false
+        << "a-context";
+    QTest::newRow("test_msgkey")
+        << (QVariantList() << "test_msgkey")
+        << false
+        << "a-context|source-text";
+    QTest::newRow("test_nsubs")
+        << (QVariantList() << "test_nsubs")
+        << false
+        << "2";
+    QTest::newRow("test_subs")
+        << (QVariantList() << "test_subs" << 1)
+        << false
+        << "qwyx";
+    QTest::newRow("test_vals")
+        << (QVariantList() << "test_vals" << 0 << 5)
+        << false
+        << "50";
+    QTest::newRow("test_dynctxt")
+        << (QVariantList() << "test_dynctxt" << "origin")
+        << false
+        << "neverwhere";
+    QTest::newRow("test_dbgputs")
+        << (QVariantList() << "test_dbgputs")
+        << false
+        << "debugged";
+    QTest::newRow("test_warnputs")
+        << (QVariantList() << "test_warnputs")
+        << false
+        << "warned";
+    QTest::newRow("test_setcallForall")
+        << (QVariantList() << "test_setcallForall")
+        << false
+        << "done";
+    QTest::newRow("test_toUpperFirst")
+        << (QVariantList() << "test_toUpperFirst" << "...123 foo")
+        << false
+        << "...123 Foo";
+    QTest::newRow("test_toUpperFirst_unicode")
+        << (QVariantList() << "test_toUpperFirst" << "...123 фу")
+        << false
+        << "...123 Фу";
+    QTest::newRow("test_toLowerFirst")
+        << (QVariantList() << "test_toLowerFirst" << "...123 FOO")
+        << false
+        << "...123 fOO";
+    QTest::newRow("test_loadProps")
+        << (QVariantList() << "test_loadProps" << "cities")
+        << false
+        << "loaded";
+    QTest::newRow("test_getProp")
+        << (QVariantList() << "test_getProp" << "cities" << "Athens" << "gen")
+        << false
+        << "Atine";
+    QTest::newRow("test_setProp")
+        << (QVariantList() << "test_setProp" << "Oslo" << "dat" << "Oslou")
+        << false
+        << "Oslou";
+    QTest::newRow("test_normKey")
+        << (QVariantList() << "test_normKey" << "Some &Thing")
+        << false
+        << "something";
+    // TODO: How to test getConf* functions?
+    // Enable setting user configuration path from environment variable?
 }
 
 void KTranscriptTest::test()
 {
     QFETCH(QVariantList, argv);
+    QFETCH(bool, fallsBack);
     QFETCH(QString, expected);
 
     QString language = "fr";
     QString country = "fr";
-    QString msgctxt = "msgctxt";
+    QString msgctxt = "a-context";
     QHash<QString, QString> dynamicContext;
-    QString msgid = "msgid";
+    dynamicContext.insert("origin", "neverwhere");
+    QString msgid = "source-text";
     QStringList subs;
+    subs << "10" << "qwyx";
     QList<QVariant> values;
-    QString ordinaryTranslation = "ordinary";
+    values << 10 << "qwyx";
+    QString ordinaryTranslation = "translated-text";
 
     QString testJs = QFINDTESTDATA("test.js");
     QList<QStringList> modules;
@@ -100,7 +201,11 @@ void KTranscriptTest::test()
     if (!error.isEmpty()) {
         QFAIL(qPrintable(error));
     }
-    QVERIFY(!fallback);
-    QCOMPARE(result, expected);
+    if (!fallsBack) {
+        QVERIFY(!fallback);
+        QCOMPARE(result, expected);
+    } else {
+        QVERIFY(fallback);
+    }
 }
 
