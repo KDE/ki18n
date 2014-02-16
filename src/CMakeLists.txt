@@ -24,13 +24,13 @@ set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION_STRING}
 
 install(TARGETS KF5I18n EXPORT KF5I18nTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-ecm_generate_headers(
+ecm_generate_headers(KI18n_HEADERS
+  HEADER_NAMES
     KLocalizedString
     KuitMarkup
     KuitSetup
     REQUIRED_HEADERS KI18n_HEADERS
 )
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KI18n DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 install(FILES
     ${KI18n_HEADERS}
