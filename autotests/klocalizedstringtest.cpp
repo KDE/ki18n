@@ -280,9 +280,16 @@ void KLocalizedStringTest::semanticTags()
     QCOMPARE(xi18nc("@info", "Cannot read <filename>%1</filename>.", "data.dat"),
              QString("<html>Cannot read <tt>data.dat</tt>.</html>"));
     // TODO: is nested <tt><tt></tt></tt> really wanted?
+#ifndef Q_OS_WIN
+    QString homeFooRc("<html><tt><tt>$HOME</tt>/.foorc</tt> does not exist.</html>");
+#else
+    //TODO $HOME -> %HOME% ?
+    QString homeFooRc("<html><tt><tt>$HOME</tt>\\.foorc</tt> does not exist.</html>");
+#endif
     QCOMPARE(xi18nc("@info",
                     "<filename><envar>HOME</envar>/.foorc</filename> does not exist."),
-             QString("<html><tt><tt>$HOME</tt>/.foorc</tt> does not exist.</html>"));
+             homeFooRc);
+
     // <icode/>
     QCOMPARE(xi18nc("@info:tooltip",
                     "Execute <icode>svn merge</icode> on selected revisions."),
@@ -306,9 +313,24 @@ void KLocalizedStringTest::semanticTags()
                     "The fortune cookie says: <message>%1</message>", "Nothing"),
              QString("<html>The fortune cookie says: <i>Nothing</i></html>"));
     // <nl/>
+#ifndef Q_OS_WIN
+    QString deleteEtcPasswd("<html>Do you really want to delete:<br/><tt>/etc/passwd</tt></html>");
+#else
+    QString deleteEtcPasswd("<html>Do you really want to delete:<br/><tt>\\etc\\passwd</tt></html>");
+#endif
     QCOMPARE(xi18nc("@info",
                     "Do you really want to delete:<nl/><filename>%1</filename>", "/etc/passwd"),
-             QString("<html>Do you really want to delete:<br/><tt>/etc/passwd</tt></html>"));
+             deleteEtcPasswd);
+
+    //check <nl/> within filename doesn't break (Windows path separators)
+#ifndef Q_OS_WIN
+    QString filenameWithNewline("<html><tt>/filename/with<br/>/newline</tt></html>");
+#else
+    QString filenameWithNewline("<html><tt>\\filename\\with<br/>\\newline</tt></html>");
+#endif
+    QCOMPARE(xi18nc("@info", "<filename>/filename/with<nl/>/newline</filename>"),
+        filenameWithNewline);
+
     // <numid/>
     QEXPECT_FAIL("", "what happened to <numid/>? TODO.", Continue);
     QCOMPARE(xi18nc("@info:progress",

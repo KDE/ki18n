@@ -620,7 +620,25 @@ static QString tagFormatterFilename(TAG_FORMATTER_ARGS)
     Q_UNUSED(tagName);
     Q_UNUSED(attributes);
     Q_UNUSED(tagPath);
+#ifdef Q_OS_WIN
+    // with rich text the path can include <foo>...</foo> which will be replaced by <foo>...<\foo> on Windows!
+    // the same problem also happens for tags such as <br/> -> <br\>
+    if (format == Kuit::RichText) {
+        // replace all occurrences of "</" or "/>" to make sure toNativeSeparators() doesn't destroy XML markup
+        const auto KUIT_CLOSE_XML_REPLACEMENT = QStringLiteral("__kuit_close_xml_tag__");
+        const auto KUIT_NOTEXT_XML_REPLACEMENT = QStringLiteral("__kuit_notext_xml_tag__");
+
+        QString result = text;
+        result.replace(QStringLiteral("</"), KUIT_CLOSE_XML_REPLACEMENT);
+        result.replace(QStringLiteral("/>"), KUIT_NOTEXT_XML_REPLACEMENT);
+        result = QDir::toNativeSeparators(result);
+        result.replace(KUIT_CLOSE_XML_REPLACEMENT, QStringLiteral("</"));
+        result.replace(KUIT_NOTEXT_XML_REPLACEMENT, QStringLiteral("/>"));
+        return result;
+    }
+#else
     Q_UNUSED(format);
+#endif
     return QDir::toNativeSeparators(text);
 }
 
