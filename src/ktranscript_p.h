@@ -87,4 +87,9 @@ public:
     virtual ~KTranscript() {}
 };
 
+#ifdef KTRANSCRIPT_TESTBUILD
+KTranscript *autotestCreateKTranscriptImp();
+void autotestDestroyKTranscriptImp();
+#endif
+
 #endif

@@ -451,6 +451,33 @@ TsConfig readConfig(const QString &fname)
     return config;
 }
 
+#ifdef KTRANSCRIPT_TESTBUILD
+
+// ----------------------------------------------------------------------
+// Test build creation/destruction hooks
+static KTranscriptImp *s_transcriptInstance = 0;
+
+KTranscriptImp *globalKTI()
+{
+    return s_transcriptInstance;
+}
+
+KTranscript *autotestCreateKTranscriptImp()
+{
+    Q_ASSERT(s_transcriptInstance == 0);
+    s_transcriptInstance = new KTranscriptImp;
+    return s_transcriptInstance;
+}
+
+void autotestDestroyKTranscriptImp()
+{
+    Q_ASSERT(s_transcriptInstance != 0);
+    delete s_transcriptInstance;
+    s_transcriptInstance = 0;
+}
+
+#else
+
 // ----------------------------------------------------------------------
 // Dynamic loading.
 Q_GLOBAL_STATIC(KTranscriptImp, globalKTI)
@@ -461,6 +488,7 @@ extern "C"
         return globalKTI();
     }
 }
+#endif
 
 // ----------------------------------------------------------------------
 // KTranscript definitions.

@@ -17,7 +17,7 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <ktranscripttest.h>
+#include "ktranscripttest.h"
 
 #include <QtTest/QtTest>
 
@@ -43,23 +43,12 @@ void KTranscriptTest::initTestCase()
     QVERIFY2(QFile::exists(pluginPath), "Could not find ktranscript plugin");
 
     m_library.setFileName(pluginPath);
-}
 
-void KTranscriptTest::init()
-{
     QVERIFY(m_library.load());
     InitFunc initf = (InitFunc) m_library.resolve("load_transcript");
     QVERIFY(initf);
     m_transcript = initf();
     QVERIFY(m_transcript);
-}
-
-void KTranscriptTest::cleanup()
-{
-    // load_transcript() returns a Q_GLOBAL_STATIC instance. The only way to
-    // ensure we get a new instance is to unload the library.
-    QVERIFY(m_library.unload());
-    m_transcript = 0;
 }
 
 void KTranscriptTest::test_data()

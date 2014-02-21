@@ -1,5 +1,5 @@
 /*
-Copyright 2013 Aurélien Gâteau <agateau@kde.org>
+Copyright 2014 Kevin Krammer <krammer@kde.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -17,8 +17,9 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef KTRANSCRIPTTEST_H
-#define KTRANSCRIPTTEST_H
+
+#ifndef KTRANSCRIPTCLEANTEST_H
+#define KTRANSCRIPTCLEANTEST_H
 
 #include <QLibrary>
 #include <QObject>
@@ -26,25 +27,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 class KTranscript;
 
 /**
- * @brief Test the KTranscript plugin
+ * @brief Test the KTranscript implementation class
  *
- * Loads the KTranscript plugin and runs tests on its scripting capabilities.
+ * Runs tests on the KTranscriptImp scripting facility.
  *
- * The main difference to the test ktranscriptcleantest is that it does so using
- * a single instance of the KTranscript implementation due to the plugin
- * using Q_GLOBAL_STATIC
+ * The main difference to the test ktranscripttest is that it
+ * creates a new instance of KTranscriptImp for each test while
+ * the main test re-uses one instance due to internal use of
+ * Q_GLOBAL_STATIC
  *
- * ktranscriptcleantest on the other hand creates and destroys the instance between
- * tests. Test that require a "clean slate" can be added there.
+ * Test that require a "clean slate" can be added here, tests that do not
+ * should be added to both.
  */
-class KTranscriptTest : public QObject
+class KTranscriptCleanTest : public QObject
 {
     Q_OBJECT
 public:
-    KTranscriptTest();
+    KTranscriptCleanTest();
 
 private Q_SLOTS:
-    void initTestCase();
+    void init();
+    void cleanup();
 
     void test_data();
     void test();
@@ -54,4 +57,4 @@ private:
     KTranscript *m_transcript;
 };
 
-#endif /* KTRANSCRIPTTEST_H */
+#endif /* KTRANSCRIPTCLEANTEST_H */
