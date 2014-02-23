@@ -89,7 +89,7 @@ class Scriptface : public QObject, public QScriptable
 {
     Q_OBJECT
 public:
-    explicit Scriptface(QScriptEngine *scriptEngine_, const TsConfigGroup &config, QObject *parent = 0);
+    explicit Scriptface(const TsConfigGroup &config, QObject *parent = 0);
     ~Scriptface();
 
     // Interface functions.
@@ -131,9 +131,8 @@ public:
 
     void put(const QString &propertyName, const QScriptValue &value);
 
-    // Link to its interpreter.
-    // FIXME: Probably accessible without the explicit link.
-    QScriptEngine *scriptEngine;
+    // Link to its script engine
+    QScriptEngine *const scriptEngine;
 
     // Current message data.
     const QString *msgcontext;
@@ -475,10 +474,7 @@ KTranscriptImp::KTranscriptImp()
 
 KTranscriptImp::~KTranscriptImp()
 {
-    // FIXME: vallgrind shows an afwul lot of "invalid read" in WTF:: stuff
-    // when deref is called... Are we leaking somewhere?
-    //foreach (Scriptface *sface, m_sface.values())
-    //    sface->jsi->deref();
+    qDeleteAll(m_sface);
 }
 
 QString KTranscriptImp::eval(const QList<QVariant> &argv,
@@ -680,22 +676,11 @@ void KTranscriptImp::loadModules(const QList<QStringList> &mods,
 #define SFNAME "Ts"
 void KTranscriptImp::setupInterpreter(const QString &lang)
 {
-    // Create new interpreter.
-    QScriptEngine *engine = new QScriptEngine;
-
-    // Add scripting interface into the interpreter.
+    // Add scripting interface
+    // Creates its own script engine and registers with it
     // NOTE: Config may not contain an entry for the language, in which case
     // it is automatically constructed as an empty hash. This is intended.
-    Scriptface *sface = new Scriptface(engine, config[lang], engine);
-
-    QScriptEngine::QObjectWrapOptions wrapOptions;
-    wrapOptions |= QScriptEngine::ExcludeSuperClassContents;
-    wrapOptions |= QScriptEngine::ExcludeDeleteLater;
-    wrapOptions |= QScriptEngine::ExcludeChildObjects;
-    wrapOptions |= QScriptEngine::ExcludeSlots;
-
-    QScriptValue object = engine->newQObject(sface, QScriptEngine::QtOwnership, wrapOptions);
-    engine->globalObject().setProperty(SFNAME, object);
+    Scriptface *sface = new Scriptface(config[lang]);
 
     // Store scriptface
     m_sface[lang] = sface;
@@ -703,9 +688,18 @@ void KTranscriptImp::setupInterpreter(const QString &lang)
     //dbgout("=====> Created interpreter for '%1'", lang);
 }
 
-Scriptface::Scriptface(QScriptEngine *scriptEngine_, const TsConfigGroup &config_, QObject *parent)
-    : QObject(parent), scriptEngine(scriptEngine_), fallbackRequest(0), config(config_)
-{}
+Scriptface::Scriptface(const TsConfigGroup &config_, QObject *parent)
+    : QObject(parent), scriptEngine(new QScriptEngine(this)), fallbackRequest(0), config(config_)
+{
+    QScriptEngine::QObjectWrapOptions wrapOptions;
+    wrapOptions |= QScriptEngine::ExcludeSuperClassContents;
+    wrapOptions |= QScriptEngine::ExcludeDeleteLater;
+    wrapOptions |= QScriptEngine::ExcludeChildObjects;
+    wrapOptions |= QScriptEngine::ExcludeSlots;
+
+    QScriptValue object = scriptEngine->newQObject(this, QScriptEngine::QtOwnership, wrapOptions);
+    scriptEngine->globalObject().setProperty(SFNAME, object);
+}
 
 Scriptface::~Scriptface()
 {
