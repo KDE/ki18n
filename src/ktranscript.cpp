@@ -122,35 +122,6 @@ public:
     Q_INVOKABLE QScriptValue getConfBool(const QScriptValue &key, const QScriptValue &dval = QScriptValue::NullValue);
     Q_INVOKABLE QScriptValue getConfNumber(const QScriptValue &key, const QScriptValue &dval = QScriptValue::NullValue);
 
-    enum {
-        Load,
-        Setcall,
-        Hascall,
-        Acall,
-        SetcallForall,
-        Fallback,
-        Nsubs,
-        Subs,
-        Vals,
-        Msgctxt,
-        Dynctxt,
-        Msgid,
-        Msgkey,
-        Msgstrf,
-        Dbgputs,
-        Warnputs,
-        LocaleCountry,
-        NormKey,
-        LoadProps,
-        GetProp,
-        SetProp,
-        ToUpperFirst,
-        ToLowerFirst,
-        GetConfString,
-        GetConfBool,
-        GetConfNumber
-    };
-
     // Helper methods to interface functions.
     QScriptValue load(const QScriptValueList &fnames);
     QString loadProps_text(const QString &fpath);
@@ -354,8 +325,8 @@ QScriptValue variantToJsValue(const QVariant &val)
     QVariant::Type vtype = val.type();
     if (vtype == QVariant::String) {
         return QScriptValue(val.toString());
-    } else if (vtype == QVariant::Double \
-               || vtype == QVariant::Int || vtype == QVariant::UInt \
+    } else if (vtype == QVariant::Double
+               || vtype == QVariant::Int || vtype == QVariant::UInt
                || vtype == QVariant::LongLong || vtype == QVariant::ULongLong) {
         return QScriptValue(val.toDouble());
     } else {
@@ -429,9 +400,9 @@ TsConfig readConfig(const QString &fname)
 // throw or log error, depending on context availability
 static QScriptValue throwError(QScriptContext *context, QScriptContext::Error errorCode, const QString &message)
 {
-    if (context)
+    if (context) {
         return context->throwError(errorCode, message);
-
+    }
 
     qCritical() << "Script error" << errorCode << ":" << message;
     return QScriptValue::UndefinedValue;
@@ -609,32 +580,32 @@ QString KTranscriptImp::eval(const QList<QVariant> &argv,
         val = func.call(gobj, arglist);
     }
 
-    if (fallback)
+    if (fallback) {
         // Fallback to ordinary translation requested.
-    {
+
         // Possibly clear exception state.
         if (engine->hasUncaughtException()) {
             engine->clearExceptions();
         }
 
         return QString();
-    } else if (!engine->hasUncaughtException())
+    } else if (!engine->hasUncaughtException()) {
         // Evaluation successful.
-    {
-        if (val.isString())
+
+        if (val.isString()) {
             // Good to go.
-        {
+
             return val.toString();
-        } else
+        } else {
             // Accept only strings.
-        {
+
             QString strval = val.toString();
             error = QString::fromLatin1("Non-string return value: %1").arg(strval);
             return QString();
         }
-    } else
+    } else {
         // Exception raised.
-    {
+
         error = expt2str(engine);
 
         engine->clearExceptions();
@@ -733,7 +704,7 @@ void KTranscriptImp::setupInterpreter(const QString &lang)
 }
 
 Scriptface::Scriptface(QScriptEngine *scriptEngine_, const TsConfigGroup &config_, QObject *parent)
-    : QObject(parent), scriptEngine(scriptEngine_), fallbackRequest(NULL), config(config_)
+    : QObject(parent), scriptEngine(scriptEngine_), fallbackRequest(0), config(config_)
 {}
 
 Scriptface::~Scriptface()
@@ -765,15 +736,18 @@ QScriptValue Scriptface::load()
 
 QScriptValue Scriptface::setcall(const QScriptValue &name, const QScriptValue &func, const QScriptValue &fval)
 {
-    if (!name.isString())
+    if (!name.isString()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcall: expected string as first argument");
-    if (!func.isFunction())
+    }
+    if (!func.isFunction()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcall: expected function as second argument");
-    if (!(fval.isObject() || fval.isNull()))
+    }
+    if (!(fval.isObject() || fval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcall: expected object or null as third argument");
+    }
 
     QString qname = name.toString();
     funcs[qname] = func;
@@ -792,9 +766,10 @@ QScriptValue Scriptface::setcall(const QScriptValue &name, const QScriptValue &f
 
 QScriptValue Scriptface::hascall(const QScriptValue &name)
 {
-    if (!name.isString())
+    if (!name.isString()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"hascall: expected string as first argument");
+    }
 
     QString qname = name.toString();
     return QScriptValue(funcs.contains(qname));
@@ -844,15 +819,18 @@ QScriptValue Scriptface::acall()
 
 QScriptValue Scriptface::setcallForall(const QScriptValue &name, const QScriptValue &func, const QScriptValue &fval)
 {
-    if (!name.isString())
+    if (!name.isString()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcallForall: expected string as first argument");
-    if (!func.isFunction())
+    }
+    if (!func.isFunction()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcallForall: expected function as second argument");
-    if (!(fval.isObject() || fval.isNull()))
+    }
+    if (!(fval.isObject() || fval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"setcallForall: expected object or null as third argument");
+    }
 
     QString qname = name.toString();
     funcs[qname] = func;
@@ -874,7 +852,7 @@ QScriptValue Scriptface::setcallForall(const QScriptValue &name, const QScriptVa
 
 QScriptValue Scriptface::fallback()
 {
-    if (fallbackRequest != NULL) {
+    if (fallbackRequest) {
         *fallbackRequest = true;
     }
     return QScriptValue::UndefinedValue;
@@ -887,28 +865,32 @@ QScriptValue Scriptface::nsubs()
 
 QScriptValue Scriptface::subs(const QScriptValue &index)
 {
-    if (!index.isNumber())
+    if (!index.isNumber()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"subs: expected number as first argument");
+    }
 
     int i = qRound(index.toNumber());
-    if (i < 0 || i >= subList->size())
+    if (i < 0 || i >= subList->size()) {
         return throwError(context(), QScriptContext::RangeError,
                           SPREF"subs: index out of range");
+    }
 
     return QScriptValue(subList->at(i));
 }
 
 QScriptValue Scriptface::vals(const QScriptValue &index)
 {
-    if (!index.isNumber())
+    if (!index.isNumber()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"vals: expected number as first argument");
+    }
 
     int i = qRound(index.toNumber());
-    if (i < 0 || i >= valList->size())
+    if (i < 0 || i >= valList->size()) {
         return throwError(context(), QScriptContext::RangeError,
                           SPREF"vals: index out of range");
+    }
 
     return variantToJsValue(valList->at(i));
 }
@@ -920,9 +902,10 @@ QScriptValue Scriptface::msgctxt()
 
 QScriptValue Scriptface::dynctxt(const QScriptValue &key)
 {
-    if (!key.isString())
+    if (!key.isString()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"dynctxt: expected string as first argument");
+    }
 
     QString qkey = key.toString();
     if (dyncontext->contains(qkey)) {
@@ -948,9 +931,10 @@ QScriptValue Scriptface::msgstrf()
 
 QScriptValue Scriptface::dbgputs(const QScriptValue &str)
 {
-    if (!str.isString())
+    if (!str.isString()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"dbgputs: expected string as first argument");
+    }
 
     QString qstr = str.toString();
 
@@ -961,9 +945,10 @@ QScriptValue Scriptface::dbgputs(const QScriptValue &str)
 
 QScriptValue Scriptface::warnputs(const QScriptValue &str)
 {
-    if (!str.isString())
+    if (!str.isString()) {
         return throwError(context(), QScriptContext::TypeError,
                           SPREF"warnputs: expected string as first argument");
+    }
 
     QString qstr = str.toString();
 
@@ -1680,7 +1665,7 @@ QHash<QByteArray, QByteArray> Scriptface::resolveUnparsedProps(const QByteArray 
     QFile *file = ref.first;
     quint64 offset = ref.second;
     QHash<QByteArray, QByteArray> props;
-    if (file != NULL && file->seek(offset)) {
+    if (file && file->seek(offset)) {
         QByteArray fstr = file->read(4 + 4);
         qlonglong pos = 0;
         quint32 numpkeys = bin_read_int(fstr, fstr.size(), pos);
