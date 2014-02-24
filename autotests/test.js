@@ -100,3 +100,26 @@ Ts.setcall("test_normKey", function(phrase) {
     return Ts.normKey(phrase);
 });
 
+Ts.setcall("test_getConfString", function(key) {
+    return Ts.getConfString(key);
+});
+
+Ts.setcall("test_getConfStringWithDefault", function(key, defValue) {
+    return Ts.getConfString(key, defValue);
+});
+
+Ts.setcall("test_getConfBool", function(key) {
+    return "" + Ts.getConfBool(key);
+});
+
+Ts.setcall("test_getConfBoolWithDefault", function(key, defValue) {
+    return "" + Ts.getConfBool(key, defValue);
+});
+
+Ts.setcall("test_getConfNumber", function(key) {
+    return "" + Ts.getConfNumber(key);
+});
+
+Ts.setcall("test_getConfNumberWithDefault", function(key, defValue) {
+    return "" + Ts.getConfNumber(key, defValue);
+});

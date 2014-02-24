@@ -1,5 +1,7 @@
 /*
 Copyright 2013 Aurélien Gâteau <agateau@kde.org>
+Copyright (C) 2014 Chusslove Illich <caslav.ilic@gmx.net>
+Copyright (C) 2014 Kevin Krammer <krammer@kde.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -18,6 +20,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ktranscripttest.h"
+
+#include "testhelpers.h"
 
 #include <QtTest/QtTest>
 
@@ -39,6 +43,8 @@ KTranscriptTest::KTranscriptTest()
 
 void KTranscriptTest::initTestCase()
 {
+    QVERIFY2(deployTestConfig(), "Could not deploy test ktranscript.ini");
+
     QString pluginPath = QStringLiteral(KTRANSCRIPT_PATH);
     QVERIFY2(QFile::exists(pluginPath), "Could not find ktranscript plugin");
 
@@ -49,6 +55,12 @@ void KTranscriptTest::initTestCase()
     QVERIFY(initf);
     m_transcript = initf();
     QVERIFY(m_transcript);
+
+}
+
+void KTranscriptTest::cleanupTestCase()
+{
+    QVERIFY2(removeTestConfig(), "Could not remove test ktranscript.ini");
 }
 
 void KTranscriptTest::test_data()
@@ -153,8 +165,30 @@ void KTranscriptTest::test_data()
         << (QVariantList() << "test_normKey" << "Some &Thing")
         << false
         << "something";
-    // TODO: How to test getConf* functions?
-    // Enable setting user configuration path from environment variable?
+    QTest::newRow("test_getConfString")
+        << (QVariantList() << "test_getConfString" << "StringKey")
+        << false
+        << "StringValue";
+    QTest::newRow("test_getConfStringWithDefault")
+        << (QVariantList() << "test_getConfStringWithDefault" << "NoSuchKey" << "DefaultValue")
+        << false
+        << "DefaultValue";
+    QTest::newRow("test_getConfBool")
+        << (QVariantList() << "test_getConfBool" << "BoolKey")
+        << false
+        << "true";
+    QTest::newRow("test_getConfBoolWithDefault")
+        << (QVariantList() << "test_getConfBoolWithDefault" << "NoSuchKey" << true)
+        << false
+        << "true";
+    QTest::newRow("test_getConfNumber")
+        << (QVariantList() << "test_getConfNumber" << "NumberKey")
+        << false
+        << "12345";
+    QTest::newRow("test_getConfNumberWithDefault")
+        << (QVariantList() << "test_getConfNumberWithDefault" << "NoSuchKey" << 54321)
+        << false
+        << "54321";
 }
 
 void KTranscriptTest::test()

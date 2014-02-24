@@ -45,6 +45,7 @@ public:
 
 private Q_SLOTS:
     void initTestCase();
+    void cleanupTestCase();
 
     void test_data();
     void test();

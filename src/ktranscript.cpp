@@ -40,6 +40,7 @@
 #include <QIODevice>
 #include <QTextStream>
 #include <QRegExp>
+#include <QStandardPaths>
 #include <qendian.h>
 
 class KTranscriptImp;
@@ -324,6 +325,8 @@ QScriptValue variantToJsValue(const QVariant &val)
     QVariant::Type vtype = val.type();
     if (vtype == QVariant::String) {
         return QScriptValue(val.toString());
+    } else if (vtype == QVariant::Bool) {
+        return QScriptValue(val.toBool());
     } else if (vtype == QVariant::Double
                || vtype == QVariant::Int || vtype == QVariant::UInt
                || vtype == QVariant::LongLong || vtype == QVariant::ULongLong) {
@@ -468,7 +471,11 @@ extern "C"
 KTranscriptImp::KTranscriptImp()
 {
     // Load user configuration.
-    const QString tsConfigPath = QDir::homePath() + QLatin1Char('/') + QLatin1String(".transcriptrc");
+
+    QString tsConfigPath = QStandardPaths::locate(QStandardPaths::ConfigLocation, QStringLiteral("ktranscript.ini"));
+    if (tsConfigPath.isEmpty()) {
+        tsConfigPath = QDir::homePath() + QLatin1Char('/') + QLatin1String(".transcriptrc");
+    }
     config = readConfig(tsConfigPath);
 }
 
