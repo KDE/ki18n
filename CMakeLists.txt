@@ -19,7 +19,7 @@ ecm_setup_version(
   VARIABLE_PREFIX KI18N
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h"
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfigVersion.cmake"
-)
+  SOVERSION 5)
 
 # Dependencies
 set(REQUIRED_QT_VERSION "5.2.0")
