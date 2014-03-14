@@ -4,17 +4,13 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-# the kde4 branch
-if (KDE4_HEADER)
+EXECUTE_PROCESS(COMMAND ${KDE_UIC_EXECUTABLE}
+  -tr tr2i18n
+  ${KDE_UIC_FILE}
+  OUTPUT_VARIABLE _uic_CONTENTS
+)
 
-  EXECUTE_PROCESS(COMMAND ${KDE_UIC_EXECUTABLE}
-    -tr tr2i18n
-    ${KDE_UIC_FILE}
-    OUTPUT_VARIABLE _uic_CONTENTS
-  )
-
-   set(KDE_UIC_CPP_FILE ${KDE_UIC_H_FILE})
-endif (KDE4_HEADER)
+set(KDE_UIC_CPP_FILE ${KDE_UIC_H_FILE})
 
 
 IF (_uic_CONTENTS)

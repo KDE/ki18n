@@ -19,7 +19,6 @@ macro (KI18N_WRAP_UI _sources )
       add_custom_command(OUTPUT ${_header}
          COMMAND ${CMAKE_COMMAND}
          ARGS
-         -DKDE4_HEADER:BOOL=ON
          -DKDE_UIC_EXECUTABLE:FILEPATH=${QT_UIC_EXECUTABLE}
          -DKDE_UIC_FILE:FILEPATH=${_tmp_FILE}
          -DKDE_UIC_H_FILE:FILEPATH=${_header}
