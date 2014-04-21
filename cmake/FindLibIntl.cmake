@@ -20,10 +20,10 @@
 #=============================================================================
 
 find_path(LibIntl_INCLUDE_DIRS NAMES libintl.h)
-find_library(LibIntl_LIBRARIES NAMES libintl)
+find_library(LibIntl_LIBRARIES NAMES intl libintl)
 
-include(CheckSymbolExists)
-check_symbol_exists(dcngettext libintl.h LibIntl_SYMBOL_FOUND)
+include(CheckCXXSymbolExists)
+check_cxx_symbol_exists(dcngettext libintl.h LibIntl_SYMBOL_FOUND)
 
 include(FindPackageHandleStandardArgs)
 if(LibIntl_SYMBOL_FOUND)
