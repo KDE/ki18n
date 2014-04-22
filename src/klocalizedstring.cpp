@@ -419,10 +419,6 @@ void KLocalizedStringPrivate::translateRaw(const QByteArray &domain,
         if (testLanguage == s->codeLanguage) {
             return;
         }
-        // Skip this language if there is no application catalog for it.
-        if (!KLocalizedString::isApplicationTranslatedInto(testLanguage)) {
-            continue;
-        }
         const KCatalog &catalog = getCatalog(domain, testLanguage);
         QString testMsgstr;
         if (!msgctxt.isNull() && !msgid_plural.isNull()) {
