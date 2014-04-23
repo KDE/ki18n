@@ -29,7 +29,6 @@
 
 #include <kuitmarkup.h>
 #include <kuitmarkup_p.h>
-#define TRANSLATION_DOMAIN "ki18n"
 #include <klocalizedstring.h>
 
 #define QL1S(x) QLatin1String(x)

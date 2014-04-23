@@ -17,6 +17,9 @@
     Boston, MA 02110-1301, USA.
 */
 
+// We don't want i18n to be expanded to i18nd here
+#undef TRANSLATION_DOMAIN
+
 #include <QDebug>
 #include <QMutexLocker>
 #include <QStringList>
