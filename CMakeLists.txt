@@ -51,7 +51,7 @@ set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5I18n")
 ecm_configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/KF5I18nConfig.cmake.in"
                               "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
                               INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-                              PATH_VARS  INCLUDE_INSTALL_DIR LIB_INSTALL_DIR CMAKE_INSTALL_PREFIX)
+                              PATH_VARS  KF5_INCLUDE_INSTALL_DIR LIB_INSTALL_DIR CMAKE_INSTALL_PREFIX)
 
 install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
                "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfigVersion.cmake"
@@ -61,7 +61,7 @@ install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
 install(EXPORT KF5I18nTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5I18nTargets.cmake NAMESPACE KF5::)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h
-        DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+        DESTINATION ${KF5_INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 install( FILES
     cmake/KF5I18NMacros.cmake

@@ -9,7 +9,7 @@ add_library(KF5I18n ${libki18n_SRCS})
 generate_export_header(KF5I18n BASE_NAME KI18n)
 add_library(KF5::I18n ALIAS KF5I18n)
 
-target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KI18n>")
+target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KI18n>")
 target_include_directories(KF5I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
 
 target_link_libraries(KF5I18n PUBLIC Qt5::Core)
@@ -22,7 +22,7 @@ set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION_STRING}
                                          EXPORT_NAME I18n
 )
 
-install(TARGETS KF5I18n EXPORT KF5I18nTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_generate_headers(KI18n_HEADERS
   HEADER_NAMES
@@ -35,7 +35,7 @@ ecm_generate_headers(KI18n_HEADERS
 install(FILES
     ${KI18n_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
-    DESTINATION "${INCLUDE_INSTALL_DIR}/KI18n" COMPONENT Devel
+    DESTINATION "${KF5_INCLUDE_INSTALL_DIR}/KI18n" COMPONENT Devel
 )
 
 ### ktranscript plugin
