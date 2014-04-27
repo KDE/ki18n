@@ -4,6 +4,8 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
+find_package(Gettext REQUIRED)
+
 #create the implementation files from the ui files and add them to the list of sources
 #usage: KI18N_WRAP_UI(foo_SRCS ${ui_files})
 macro (KI18N_WRAP_UI _sources )
@@ -31,14 +33,67 @@ macro (KI18N_WRAP_UI _sources )
 endmacro (KI18N_WRAP_UI)
 
 #install the scripts for a given language in the target folder
-#usage: KI18N_INSTALL_TS_FILES("ja" ${scripts_folder})
-macro(KI18N_INSTALL_TS_FILES _lang _sdir)
-   file(GLOB_RECURSE _ts_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${_sdir}/*)
-   foreach(_current_TS_FILES ${_ts_files})
-      string(REGEX MATCH "\\.svn/" _in_svn ${_current_TS_FILES})
-      if(NOT _in_svn)
-         get_filename_component(_subpath ${_current_TS_FILES} PATH)
-         install(FILES ${_current_TS_FILES} DESTINATION ${LOCALE_INSTALL_DIR}/${_lang}/LC_SCRIPTS/${_subpath})
-      endif(NOT _in_svn)
-   endforeach(_current_TS_FILES)
-endmacro(KI18N_INSTALL_TS_FILES)
+#usage: KI18N_INSTALL_TS_FILES("ja" ${scripts_dir})
+function(KI18N_INSTALL_TS_FILES lang scripts_dir)
+   file(GLOB_RECURSE ts_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${scripts_dir}/*)
+   foreach(ts_file ${ts_files})
+      string(REGEX MATCH "\\.svn/" in_svn ${ts_file})
+      if(NOT in_svn)
+         # If ts_file is "path/to/foo/bar.js"
+         # We want subpath to contain "foo"
+         get_filename_component(subpath ${ts_file} DIRECTORY)
+         get_filename_component(subpath ${subpath} NAME)
+         install(FILES ${ts_file} DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_SCRIPTS/${subpath})
+      endif()
+   endforeach()
+endfunction()
+
+# KI18N_INSTALL(podir)
+# Search for .po files and scripting modules and install them to the standard
+# location.
+#
+# This is a convenience function which relies on the following directory
+# structure:
+#
+#  <podir>/
+#    <lang>/
+#      scripts/
+#        <domain>/
+#          *.js
+#      *.po
+#
+# .po files are passed to the GETTEXT_PROCESS_PO_FILES function from the
+# CMake Gettext module.
+#
+# .js files are installed using KI18N_INSTALL_TS_FILES.
+#
+# For example, given the following directory structure:
+#
+#  po/
+#    fr/
+#      scripts/
+#        kfoo/
+#          kfoo.js
+#      kfoo.po
+#
+# KI18N_INSTALL(po) does the following:
+# - Compiles kfoo.po into kfoo.mo and installs it in
+#   ${LOCALE_INSTALL_DIR}/fr/LC_MESSAGES or share/locale/fr/LC_MESSAGES if
+#   ${LOCALE_INSTALL_DIR} is not set.
+# - Installs kfoo.js in ${LOCALE_INSTALL_DIR}/fr/LC_SCRIPTS/kfoo
+function(KI18N_INSTALL podir)
+    file(GLOB lang_dirs "${podir}/*")
+    if (NOT LOCALE_INSTALL_DIR)
+        set(LOCALE_INSTALL_DIR share/locale)
+    endif()
+    foreach(lang_dir ${lang_dirs})
+        get_filename_component(lang ${lang_dir} NAME)
+
+        file(GLOB po_files "${lang_dir}/*.po")
+        gettext_process_po_files(${lang} ALL
+            INSTALL_DESTINATION ${LOCALE_INSTALL_DIR}
+            PO_FILES ${po_files}
+        )
+        ki18n_install_ts_files(${lang} ${lang_dir}/scripts)
+    endforeach()
+endfunction()
