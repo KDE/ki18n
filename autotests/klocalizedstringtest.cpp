@@ -18,6 +18,9 @@
     Boston, MA 02110-1301, USA.
 */
 
+// Tests explicitly use their own test catalogs.
+#undef TRANSLATION_DOMAIN
+
 #include "klocalizedstringtest.h"
 
 #include <locale.h>
