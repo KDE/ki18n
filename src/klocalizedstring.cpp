@@ -1369,11 +1369,10 @@ void KLocalizedStringPrivate::loadTranscript()
 #else
     QString pluginPathNoExt;
     QStringList nameFilters;
-    QString pluginSubdir = QLatin1String("kf5");
     QString pluginName = QLatin1String("ktranscript");
     nameFilters.append(pluginName + QLatin1String(".*"));
     foreach (const QString &dirPath, QCoreApplication::libraryPaths()) {
-        QString dirPathKf = dirPath + QLatin1Char('/') + pluginSubdir;
+        QString dirPathKf = dirPath + QLatin1Char('/');
         if (!QDir(dirPathKf).entryList(nameFilters).isEmpty()) {
             pluginPathNoExt = dirPathKf + QLatin1Char('/') + pluginName;
             break;
