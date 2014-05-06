@@ -38,11 +38,16 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
+include(cmake/KF5I18NMacros.cmake)
+
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 remove_definitions(-DQT_NO_CAST_TO_ASCII)
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 
 add_definitions(-DTRANSLATION_DOMAIN=\"ki18n5\")
+if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+    ki18n_install(po)
+endif()
 add_subdirectory(src)
 add_subdirectory(autotests)
 
