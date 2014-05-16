@@ -270,7 +270,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
     : catalogs()
     , languages()
 
-    , ourDomain("ki18n")
+    , ourDomain("ki18n5")
     , applicationDomain()
     , codeLanguage(QLatin1String("en_US"))
     , localeLanguages()
