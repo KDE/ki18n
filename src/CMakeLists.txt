@@ -46,10 +46,9 @@ set(ktranscript_LIB_SRCS
 )
 add_library(ktranscript MODULE ${ktranscript_LIB_SRCS})
 generate_export_header(ktranscript BASE_NAME KTranscript)
-set_target_properties(ktranscript PROPERTIES PREFIX "") # remove lib prefix
 target_link_libraries(ktranscript PRIVATE Qt5::Script Qt5::Core)
 
-install(TARGETS ktranscript DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS ktranscript DESTINATION ${PLUGIN_INSTALL_DIR}/kf5)
 
 
 include(ECMGeneratePriFile)

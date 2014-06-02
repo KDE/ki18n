@@ -31,6 +31,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QLibrary>
+#include <QPluginLoader>
 #include <QDir>
 #include <QCoreApplication>
 #include <qstandardpaths.h>
@@ -1362,29 +1363,14 @@ void KLocalizedStringPrivate::loadTranscript()
     s->loadTranscriptCalled = true;
     s->ktrs = NULL; // null indicates that Transcript is not available
 
-#if 0
-    // FIXME: Automatic plugin path resolution does not work at the moment,
-    // so search manually through library paths.
-    QString pluginPathNoExt = QLatin1String("kf5/ktranscript");
-#else
-    QString pluginPathNoExt;
-    QStringList nameFilters;
-    QString pluginName = QLatin1String("ktranscript");
-    nameFilters.append(pluginName + QLatin1String(".*"));
-    foreach (const QString &dirPath, QCoreApplication::libraryPaths()) {
-        QString dirPathKf = dirPath + QLatin1Char('/');
-        if (!QDir(dirPathKf).entryList(nameFilters).isEmpty()) {
-            pluginPathNoExt = dirPathKf + QLatin1Char('/') + pluginName;
-            break;
-        }
-    }
-    if (pluginPathNoExt.isEmpty()) {
+    // QPluginLoader is just used to find the plugin
+    QPluginLoader loader(QStringLiteral("kf5/ktranscript"));
+    if (loader.fileName().isEmpty()) {
         qWarning() << QString::fromLatin1("Cannot find Transcript plugin.");
         return;
     }
-#endif
 
-    QLibrary lib(pluginPathNoExt);
+    QLibrary lib(loader.fileName());
     if (!lib.load()) {
         qWarning() << QString::fromLatin1("Cannot load Transcript plugin:")
                    << lib.errorString();
