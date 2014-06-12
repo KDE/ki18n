@@ -38,6 +38,8 @@ private Q_SLOTS:
 
     void testThreads();
 
+    void testLocalizedTranslator();
+
 private:
     bool m_hasFrench;
     QTemporaryDir m_tempDir;

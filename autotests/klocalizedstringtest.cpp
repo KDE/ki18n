@@ -22,6 +22,7 @@
 #undef TRANSLATION_DOMAIN
 
 #include "klocalizedstringtest.h"
+#include "klocalizedtranslator.h"
 
 #include <locale.h>
 
@@ -488,6 +489,31 @@ void KLocalizedStringTest::translateQt()
     QCOMPARE(result, m_hasFrench ? QString("Paysage") : QString("Landscape"));
 #endif
     KLocalizedString::removeQtDomain("ki18n-test-qt");
+}
+
+void KLocalizedStringTest::testLocalizedTranslator()
+{
+    if (!m_hasFrench) {
+        QSKIP("French test files not usable.");
+    }
+    QScopedPointer<KLocalizedTranslator> translator(new KLocalizedTranslator());
+    QCoreApplication *app = QCoreApplication::instance();
+    app->installTranslator(translator.data());
+
+    // no translation domain and no context
+    QCOMPARE(app->translate("foo", "Job"), QStringLiteral("Job"));
+
+    // adding the translation domain still lacks the context
+    translator->setTranslationDomain(QStringLiteral("ki18n-test"));
+    QCOMPARE(app->translate("foo", "Job"), QStringLiteral("Job"));
+
+    translator->addContextToMonitor(QStringLiteral("foo"));
+    // now it should translate
+    QCOMPARE(app->translate("foo", "Job"), QStringLiteral("Tâche"));
+    // other context shouldn't translate
+    QCOMPARE(app->translate("bar", "Job"), QStringLiteral("Job"));
+    // with a mismatching disambiguation it shouldn't translate
+    QCOMPARE(app->translate("foo", "Job", "bar"), QStringLiteral("Job"));
 }
 
 #include <QThreadPool>

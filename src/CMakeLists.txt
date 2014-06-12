@@ -1,5 +1,6 @@
 set(libki18n_SRCS
     klocalizedstring.cpp
+    klocalizedtranslator.cpp
     kcatalog.cpp
     kuitmarkup.cpp
     common_helpers.cpp
