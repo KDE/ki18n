@@ -517,6 +517,27 @@ public:
     static QSet<QString> availableApplicationTranslations();
 
     /**
+     * @since 5.0
+     *
+     * Get the languages for which a translation catalog file
+     * for the passed translation domain exists.
+     *
+     * If the translation domain was not specified in the
+     * domain parameter an empty set is returned.
+     *
+     * If the application domain was set, the language set will always
+     * contain at least the source code language (<tt>en_US</tt>).
+     *
+     * \param domain query for translations of a specific domain, if an empty
+     * QByteArray is passed, an empty set will be returned
+     *
+     * \return set of language codes for existing translation catalogs
+     * \see setApplicationDomain
+     * \see availableApplicationTranslations
+     */
+    static QSet<QString> availableDomainTranslations(const QByteArray &domain);
+
+    /**
      * Find a path to the localized file for the given original path.
      *
      * This is intended mainly for non-text resources (images, sounds, etc).

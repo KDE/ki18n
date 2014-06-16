@@ -1290,10 +1290,24 @@ QSet<QString> KLocalizedString::availableApplicationTranslations()
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
     QSet<QString> availableLanguages;
-    if (!s->applicationDomain.isEmpty()) {
-        availableLanguages = KCatalog::availableCatalogLanguages(s->applicationDomain);
+    QByteArray domain = s->applicationDomain;
+    if (!domain.isEmpty()) {
+        availableLanguages = KCatalog::availableCatalogLanguages(domain);
         availableLanguages.insert(s->codeLanguage);
     }
+
+    return availableLanguages;
+}
+
+QSet<QString> KLocalizedString::availableDomainTranslations(const QByteArray &domain)
+{
+    QSet<QString> availableLanguages;
+
+    if (!domain.isEmpty()) {
+        availableLanguages = KCatalog::availableCatalogLanguages(domain);
+        availableLanguages.insert(staticsKLSP()->codeLanguage);
+    }
+
     return availableLanguages;
 }
 
