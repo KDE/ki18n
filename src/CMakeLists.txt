@@ -28,6 +28,7 @@ install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS
 ecm_generate_headers(KI18n_HEADERS
   HEADER_NAMES
     KLocalizedString
+    KLocalizedTranslator
     KuitMarkup
     KuitSetup
     REQUIRED_HEADERS KI18n_HEADERS
