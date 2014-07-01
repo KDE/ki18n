@@ -41,7 +41,6 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 include(cmake/KF5I18NMacros.cmake)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
-remove_definitions(-DQT_NO_CAST_TO_ASCII)
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 
 add_definitions(-DTRANSLATION_DOMAIN=\"ki18n5\")
