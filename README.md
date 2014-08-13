@@ -27,9 +27,3 @@ Information on using KI18n as a translation mechanism can be found in the
 [programmer's guide](@ref prg_guide) and the [translator's guide](@ref trn_guide).
 
 
-## Links
-
-- Home page: <https://projects.kde.org/projects/frameworks/ki18n>
-- Mailing list: <https://mail.kde.org/mailman/listinfo/kde-frameworks-devel>
-- IRC channel: #kde-devel on Freenode
-- Git repository: <https://projects.kde.org/projects/frameworks/ki18n/repository>

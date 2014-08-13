@@ -7,3 +7,7 @@ platforms:
 portingAid: false
 deprecated: false
 release: true
+libraries:
+ - qmake: KI18n
+   cmake: "KF5::I18n"
+cmakename: KF5I18n
