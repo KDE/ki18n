@@ -334,17 +334,6 @@ QStringList myLanguages;
 QString msg = ki18n("Welcome").toString(myLanguages);
 ~~~
 
-The complete global locale (language and everything else, like number
-formatting) can be overridden by the `toString` method
-which takes a pointer to a locale:
-
-~~~
-KLocale *myLocale;
-...
-QString msg = ki18n("Welcome").toString(myLocale);
-~~~
-
-
 The section \ref link_cat describes how to specify
 the translation *domain*, a canonical name for the catalog file
 from which `*i18n*` calls will draw translations.
