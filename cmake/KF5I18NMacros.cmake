@@ -5,6 +5,14 @@
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 find_package(Gettext REQUIRED)
+find_package(PythonInterp REQUIRED)
+
+if(KI18N_MODULE_DIR)
+    set(_pmap_compile_script ${KI18N_MODULE_DIR}/ts-pmap-compile.py)
+else()
+    # This script is needed when installing ki18n itself.
+    set(_pmap_compile_script ${CMAKE_SOURCE_DIR}/cmake/ts-pmap-compile.py)
+endif()
 
 #create the implementation files from the ui files and add them to the list of sources
 #usage: KI18N_WRAP_UI(foo_SRCS ${ui_files})
@@ -36,6 +44,7 @@ endmacro (KI18N_WRAP_UI)
 #usage: KI18N_INSTALL_TS_FILES("ja" ${scripts_dir})
 function(KI18N_INSTALL_TS_FILES lang scripts_dir)
    file(GLOB_RECURSE ts_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${scripts_dir}/*)
+   set(pmapc_files)
    foreach(ts_file ${ts_files})
       string(REGEX MATCH "\\.svn/" in_svn ${ts_file})
       if(NOT in_svn)
@@ -43,9 +52,38 @@ function(KI18N_INSTALL_TS_FILES lang scripts_dir)
          # We want subpath to contain "foo"
          get_filename_component(subpath ${ts_file} DIRECTORY)
          get_filename_component(subpath ${subpath} NAME)
-         install(FILES ${ts_file} DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_SCRIPTS/${subpath})
+         install(FILES ${ts_file}
+                 DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_SCRIPTS/${subpath})
+         # If current file is a pmap, also install the compiled version.
+         get_filename_component(ts_ext ${ts_file} EXT)
+         if(ts_ext STREQUAL ".pmap")
+            set(pmap_file ${ts_file})
+            get_filename_component(pmap_basename ${ts_file} NAME)
+            set(pmapc_basename "${pmap_basename}c")
+            set(pmapc_file "${lang}-${subpath}-${pmapc_basename}")
+            add_custom_command(OUTPUT ${pmapc_file}
+               COMMAND ${PYTHON_EXECUTABLE}
+               ARGS
+               -B
+               ${_pmap_compile_script}
+               ${CMAKE_CURRENT_SOURCE_DIR}/${pmap_file}
+               ${pmapc_file}
+               DEPENDS ${pmap_file})
+            install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${pmapc_file}
+                    DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_SCRIPTS/${subpath}
+                    RENAME ${pmapc_basename})
+            list(APPEND pmapc_files ${pmapc_file})
+         endif()
       endif()
    endforeach()
+   if(pmapc_files)
+      if(NOT TARGET pmapfiles)
+         add_custom_target(pmapfiles)
+      endif()
+      set(pmapc_target "pmapfiles-${lang}")
+      add_custom_target(${pmapc_target} ALL DEPENDS ${pmapc_files})
+      add_dependencies(pmapfiles ${pmapc_target})
+   endif()
 endfunction()
 
 # KI18N_INSTALL(podir)
