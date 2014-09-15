@@ -30,8 +30,6 @@ include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
 
-find_package(Perl)
-set_package_properties(Perl PROPERTIES URL "http://www.perl.org" TYPE REQUIRED PURPOSE "Needed for building kdelibs")
 find_package(LibIntl)
 set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
