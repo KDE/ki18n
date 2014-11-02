@@ -1,0 +1,125 @@
+=:Activity Bar:Aktiviteettipalkki:elat=Aktiviteettipalkista:gen=Aktiviteettipalkin:yleisnimi=kyllä::
+=:Ajastin:Timer:elat=Ajastimesta:gen=Ajastimen:yleisnimi=kyllä::
+=:Akku vähissä:Battery Low:elat=Akkujen valvontasovelmasta:gen=Akkujen valvontasovelman:yleisnimi=kyllä::
+=/Akregator/elat=Akregatorista/gen=Akregatorin//
+=:Analog Clock:Analoginen kello:elat=Analogisesta kellosta:gen=Analogisen kellon:yleisnimi=kyllä::
+=:Application Menu:Sovelluskäynnistin:elat=Sovelluskäynnistimestä:gen=Sovelluskäynnistimen:yleisnimi=kyllä::
+=:Binaarikello:Binary Clock:elat=Binaarikellosta:gen=Binaarikellon:yleisnimi=kyllä::
+=:Black Board:Liitutaulu:elat=Liitutaulusta:gen=Liitutaulun:yleisnimi=kyllä::
+=:Blogilo:elat=Blogilosta:gen=Blogilon::
+=:Bookmarks:Kirjanmerkit:elat=Kirjanmerkeistä:gen=Kirjanmerkkien:yleisnimi=kyllä::
+=:Bubblemon:Valvontakupla:elat=Valvontakuplasta:gen=Valvontakuplan:yleisnimi=kyllä::
+=:Calculator:Laskin:elat=Laskimesta:gen=Laskimen:yleisnimi=kyllä::
+=:Calendar:Kalenteri:elat=Kalenterista:gen=Kalenterin:yleisnimi=kyllä::
+=:Character Selector:Merkkivalitsin:elat=Merkkivalitsimesta:gen=Merkkivalitsimen:yleisnimi=kyllä::
+=:Clipboard:Leikepöytä:elat=Leikepöydästä:gen=Leikepöydän:yleisnimi=kyllä::
+=:Color Picker:Värivalitsin:elat=Värivalitsimesta:gen=Värivalitsimen:yleisnimi=kyllä::
+=:Comic Strip:Sarjakuvastrippi:elat=Sarjakuvastripistä:gen=Sarjakuvastripin:yleisnimi=kyllä::
+=:Connection editor:Yhteysmuokkain:elat=Yhteysmuokkaimesta:gen=Yhteysmuokkaimen:yleisnimi=kyllä::
+=:Contact Theme Editor:Yhteystietoteemamuokkain:elat=Yhteystietoteemamuokkaimesta:gen=Yhteystietoteemamuokkaimen::
+=:Desktop:Työpöytä:elat=Työpöydästä:gen=Työpöydän:yleisnimi=kyllä::
+=:Device Notifier:Laiteilmoitin:elat=Laiteilmoittimesta:gen=Laiteilmoittimen:yleisnimi=kyllä::
+=:Dictionary:Sanakirja:elat=Sanakirjasta:gen=Sanakirjan:yleisnimi=kyllä::
+=:Digitaalinen kello:Digital Clock:elat=Digitaalisesta kellosta:gen=Digitaalisen kellon:yleisnimi=kyllä::
+=:Elämä:Life:elat=Elämästä:gen=Elämän::
+=:Epätarkka kello:Fuzzy Clock:elat=Epätarkasta kellosta:gen=Epätarkan kellon:yleisnimi=kyllä::
+=:Esikatselin:Previewer:elat=Esikatselimesta:gen=Esikatselimen:yleisnimi=kyllä::
+=:Eyes:Silmät:elat=Silmistä:gen=Silmien:yleisnimi=kyllä::
+=/Fifteen Puzzle/Puzzle 15/elat=Puzzle 15:stä/gen=Puzzle 15:n//
+=:File Watcher:Tiedostonkatselin:elat=Tiedostonkatselimesta:gen=Tiedostonkatselimen:yleisnimi=kyllä::
+=:Folder:Kansio:elat=Kansiosta:gen=Kansion:yleisnimi=kyllä::
+=/Font Viewer/Fonttikatselin/elat=Fonttikatselimesta/gen=Fonttikatselimen//
+=/Grid Desktop/Ruudukollinen työpöytä/gen=Ruudukollisen työpöydän//
+=/Grouping Desktop/Ryhmitelty työpöytä/gen=Ryhmitellyn työpöydän//
+=/Grouping Panel/Ryhmitelty paneeli/gen=Ryhmitellyn paneelin//
+=/Gwenview/elat=Gwenview’stä/gen=Gwenview’n//
+=:Hard Disk I/O Monitor:Kiintolevyjen käyttöilmaisin:gen=Kiintolevyjen käyttöilmaisimen:yleisnimi=kyllä::
+=:Hardware Info:Laitteistotiedot:elat=Laitteistotiedoista:gen=Laitteistotietojen:yleisnimi=kyllä::
+=:Hylly:Shelf:elat=Hyllystä:gen=Hyllyn:yleisnimi=kyllä::
+=:Icon:Kuvake:elat=Kuvakkeesta:gen=Kuvakkeen:yleisnimi=kyllä::
+=:Icon View:Kuvakenäkymä:elat=Kuvakenäkymästä:yleisnimi=kyllä::
+=:Icons-only Task Manager:Kuvaketehtävienhallinta:elat=Kuvaketehtävienhallinnasta:gen=Kuvaketehtävienhallinnan:yleisnimi=kyllä::
+=:Ikkunaluettelo:Window list:elat=Ikkunaluettelosta:gen=Ikkunaluettelon:yleisnimi=kyllä::
+=/Ikkunasääntöjen asetusosio/Window-Specific Settings Configuration Module/elat=Ikkunasääntöjen asetusosiosta//
+=/Ikkunoiden kehysten asetukset/Window Decoration Control Module/elat=Ikkunoiden kehysten asetuksista//
+=:Ilmoitukset:Notifications:yleisnimi=kyllä::
+=:Ilmoitusalue:System Tray:elat=Ilmoitusalueesta:gen=Ilmoitusalueen:yleisnimi=kyllä::
+=:Input Method Panel:Syötemenetelmäpaneeli:elat=Syötemenetelmäpaneelista:gen=Syötemenetelmäpaneelin:yleisnimi=kyllä::
+=:Järjestelmäasetukset:System Settings:elat=Järjestelmäasetuksista:gen=Järjestelmäasetusten:yleisnimi=kyllä::
+=:Järjestelmäkuorman valvonta:System Load Viewer:elat=Järjestelmäkuorman valvonnasta:gen=Järjestelmäkuorman valvonnan:yleisnimi=kyllä::
+=/Järjestelmän valvonta/System Monitor/elat=Järjestelmän valvonnasta/gen=Järjestelmän valvonnan//
+=:Jätä viesti:Leave A Note:elat=Viestinjättämissovelmasta:gen=Viestinjättämissovelman:yleisnimi=kyllä::
+=/KAddressBook/elat=KAddressBookista/gen=KAddressBookin//
+=/KAlarm/elat=KAlarmista/gen=KAlarmin//
+=:KAlgebra:elat=KAlgebrasta:gen=KAlgebran::
+=/KDE Accessibility Tool/KDE:n esteettömyystyökalu/elat=KDE:n esteettömyystyökalusta/gen=KDE:n esteettömyystyökalun//
+=/KDE Bell Control Module/KDE:n äänimerkin asetusmoduuli/elat=KDE:n äänimerkin asetusmoduulista//
+=/KDE Clock Control Module/KDE:n kelloasetukset/elat=KDE:n kelloasetuksista//
+=/KDE Desktop Theme Module/KDE:n työpöytäteeman asetukset/elat=KDE:n työpöytäteeman asetuksista//
+=/KDE Hotkeys Configuration Module/KDE Hotkeys-asetusosio/elat=KDE Hotkeys-asetusosiosta//
+=/KDE Info Center/KDE:n tietokeskus/elat=KDE:n tietokeskuksesta/gen=KDE:n tietokeskuksen//
+=/KDE Joystick Control Module/Peliohjainten hallinta/elat=Peliohjainten hallinnasta//
+=/KDE Menu Editor/KDE:n valikkomuokkain/elat=KDE:n valikkomuokkaimesta/gen=KDE:n valikkomuokkaimen//
+=/KDE Style Module/KDE:n tyyliosio/elat=KDE:n tyyliosiosta//
+=/KDevelop/elat=KDevelopista/gen=KDevelopin/part=KDevelopia//
+=/KDevelop Platform/KDevelop-alusta/elat=KDevelop-alustasta//
+=/KJots/elat=KJotsista/gen=KJotsin//
+=/KMail/elat=KMailista/gen=KMailin//
+=/KNotes/elat=KNotesista/gen=KNotesin//
+=/KOrganizer/elat=KOrganizerista/gen=KOrganizerin//
+=:KTnef:elat=KTnefistä:gen=KTnefin::
+=/KWatchGnuPG/gen=KWatchGnuPG:stä//
+=/KWrite/elat=KWritesta/gen=KWriten//
+=/Kanagram/elat=Kanagramista/gen=Kanagramin//
+=/Kate/elat=Katesta/gen=Katen//
+=/Kate Part/Kate-osa/elat=Kate-osasta//
+=/Kate Session Applet/Kate-istuntosovelma/elat=Kate-istuntosovelmasta/gen=Kate-istuntosovelman//
+=:Keyboard:Näppäimistö:elat=Näppäimistösovelmasta:gen=Näppäimistösovelman:yleisnimi=kyllä::
+=/Kile/elat=Kilestä/gen=Kilen//
+=/Kleopatra/elat=Kleopatrasta/gen=Kleopatran//
+=/Klipper/elat=Klipperistä/gen=Klipperin//
+=:Konqueror Profiles:Konqueror-profiilit:elat=Konqueror-profiilisovelmasta:gen=Konqueror-profiilisovelman::
+=/Konsole/elat=Konsolesta/gen=Konsolen//
+=:Konsole Profiles:Konsole-profiilit:elat=Konsole-profiilisovelmasta:gen=Konsole-profiilisovelman::
+=/Kontact/elat=Kontactista/gen=Kontactin//
+=/Konversation/elat=Konversationista/gen=Konversationin//
+=:Kuvakehys:Picture Frame:elat=Kuvakehyksestä:gen=Kuvakehyksen:yleisnimi=kyllä::
+=:Käännin:Translator:elat=Kääntimestä:gen=Kääntimen:yleisnimi=kyllä::
+=:LCD Weather Station:LCD-sääasema:elat=LCD-sääasemasta:gen=LCD-sääaseman::
+=:LCD Weather Station (QML):LCD-sääasema (QML):elat=LCD-sääasemasta (QML):gen=LCD-sääaseman (QML)::
+=/Lancelot/elat=Lancelotista/gen=Lancelotin//
+=:Lancelot Launcher:Lancelot-käynnistin:elat=Lancelot-käynnistimestä:gen=Lancelot-käynnistimen::
+=/Luna/elat=Lunasta/gen=Lunan//
+=:Magnifique:Suurennuslasi:elat=Suurennuslasista:gen=Suurennuslasin:yleisnimi=kyllä::
+=:Media Player:Mediasoitin:elat=Mediasoittimesta:gen=Mediasoittimen:yleisnimi=kyllä::
+=:Messageviewer Header Theme Editor:Viestikatselimen otsaketeemamuokkain:elat=Viestikatselimen otsaketeemamuokkaimesta:gen=Viestikatselimen otsaketeemamuokkaimen::
+=:Microblogging:Mikroblogaussovelma:elat=Mikroblogaussovelmasta:gen=Mikroblogaussovelman:yleisnimi=kyllä::
+=:Muistilappu:Notes:gen=Muistilapun:yleisnimi=kyllä::
+=:Muon Discover:elat=Muon Discoverista:gen=Muon Discoverin::
+=/Muon Package Manager/Muon-paketinhallinta/elat=Muon-paketinhallinnasta/gen=Muon-paketinhallinnan//
+=/Muon Software Center/Muon-sovellusvalikoima/elat=Muon-sovellusvalikoimasta/gen=Muon-sovellusvalikoiman//
+=:Muon Update Manager:Muon-päivitystenhallinta:elat=Muon-päivitystenhallinnasta:gen=Muon-päivitystenhallinnan::
+=:News:Uutiset:elat=Uutissovelmasta:gen=Uutisten:yleisnimi=kyllä::
+=:Oikoluku:Spell Check:elat=Oikoluvusta:gen=Oikoluvun:yleisnimi=kyllä::
+=/Okteta/elat=Oktetasta/gen=Oktetan//
+=:Pager:Sivutin:elat=Sivuttimesta:gen=Sivuttimen:yleisnimi=kyllä::
+=:Paneeli:Panel:gen=Paneelin:yleisnimi=kyllä::
+=:Paneelivälilevy:Panel Spacer:elat=Paneelivälilevystä:gen=Paneelivälilevyn:yleisnimi=kyllä::
+=:Pikakäynnistin:Quicklaunch:elat=Pikakäynnistimestä:gen=Pikakäynnistimen:yleisnimi=kyllä::
+=:Puunäkymä:Tree View:elat=Puunäkymästä:yleisnimi=kyllä::
+=/Qwant/hakumuoto=Qwantilla//
+=/Qwant Images/Qwant-kuvahaku/hakumuoto=Qwant-kuvahaulla//
+=/Qwant News/Qwant-uutiset/hakumuoto=Qwant-uutisista//
+=/Qwant Shopping/Qwant-tuotehaku/hakumuoto=Qwant-tuotehaulla//
+=/Qwant Social/hakumuoto=Qwant Socialista//
+=/Qwant Videos/Qwant-videohaku/hakumuoto=Qwant-videohaulla//
+=:Roskakori:Trashcan:elat=Roskakorista:gen=Roskakorin:yleisnimi=kyllä::
+=/SSL Configuration Module/SSL-asetusosio/elat=SSL-asetusosiosta//
+=/Solid Device Actions Editor/Solid-laitetoimintojen editori/elat=Solid-laitetoimintojen editorista//
+=:Storage Service Manager:Tallennuspalvelun hallinta:elat=Tallennuspalvelun hallinnasta:gen=Tallennuspalvelun hallinnan:yleisnimi=kyllä::
+=:Sääennuste:Weather Forecast:elat=Sääennusteesta:gen=Sääennusteen:yleisnimi=kyllä::
+=:Sääennuste (QML):Weather Forecast (QML):elat=Sääennusteesta (QML):gen=Sääennusteen (QML):yleisnimi=kyllä::
+=:Task Manager:Tehtävienhallinta:elat=Tehtävienhallinnasta:gen=Tehtävienhallinnan:yleisnimi=kyllä::
+=:Unit Converter:Yksikkömuunnin:elat=Yksikkömuuntimesta:gen=Yksikkömuuntimen:yleisnimi=kyllä::
+=:Verkkoselain:Web Browser:elat=Verkkoselaimesta:gen=Verkkoselaimen:yleisnimi=kyllä::
+=/Web Slice/Web-siivu/elat=Web-siivusta/gen=Web-siivun//
