@@ -79,6 +79,9 @@ class KLocalizedStringPrivate;
  *
  * \c KLocalizedString instances are usually not constructed directly,
  * but through one of the wrapper \c \*i18n\* calls.
+ *
+ * For detailed information on how to use KI18n functions please refer
+ * to \ref prg_guide.
  */
 class KI18N_EXPORT KLocalizedString
 {
