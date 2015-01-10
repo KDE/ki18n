@@ -49,7 +49,7 @@ add_subdirectory(src)
 add_subdirectory(autotests)
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5I18n")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5I18n")
 
 ecm_configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/KF5I18nConfig.cmake.in"
                               "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
@@ -64,7 +64,7 @@ install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
 install(EXPORT KF5I18nTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5I18nTargets.cmake NAMESPACE KF5::)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h
-        DESTINATION ${KF5_INCLUDE_INSTALL_DIR} COMPONENT Devel)
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5} COMPONENT Devel)
 
 install( FILES
     cmake/KF5I18NMacros.cmake
