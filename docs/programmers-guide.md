@@ -1263,9 +1263,9 @@ should look like this:
 --c++ --kde \
 --from-code=UTF-8 \
 -c i18n \
--k i18n:1 -k i18nc:1c,2 -k i18np:1,2 -k i18ncp:1c,2,3 \
--k ki18n:1 -k ki18nc:1c,2 -k ki18np:1,2 -k ki18ncp:1c,2,3 \
--k I18N_NOOP:1 -k I18NC_NOOP:1c,2 \
+-ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki18ncp:1c,2,3 \
+-kki18n:1 -kki18nc:1c,2 -kki18np:1,2 -kki18ncp:1c,2,3 \
+-kI18N_NOOP:1 -kI18NC_NOOP:1c,2 \
 --copyright-holder=<author-of-original-text> \
 --msgid-bugs-address=<where-to-report-errors-in-original-text>
 ~~~
@@ -1284,8 +1284,8 @@ If there are semantic markup calls in the code (section \ref kuit_markup),
 the following `-k` options should be added as well:
 
 ~~~
--k xi18n:1 -k xi18nc:1c,2 -k xi18np:1,2 -k xi18ncp:1c,2,3 \
--k kxi18n:1 -k kxi18nc:1c,2 -k kxi18np:1,2 -k kxi18ncp:1c,2,3 \
+-kxi18n:1 -kxi18nc:1c,2 -kxi18np:1,2 -kxi18ncp:1c,2,3 \
+-kkxi18n:1 -kkxi18nc:1c,2 -kkxi18np:1,2 -kkxi18ncp:1c,2,3 \
 ~~~
 
 
