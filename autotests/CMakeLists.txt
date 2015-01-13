@@ -11,6 +11,7 @@ ecm_add_test(klocalizedstringtest.cpp
 # klocalizedstringtest needs the libintl include path
 target_include_directories(ki18n-klocalizedstringtest PRIVATE ${LibIntl_INCLUDE_DIRS})
 
+if (TARGET ktranscript)
 ecm_add_test(ktranscripttest.cpp testhelpers.cpp
     TEST_NAME "ki18n-ktranscripttest"
     LINK_LIBRARIES Qt5::Test KF5::I18n
@@ -27,3 +28,4 @@ ecm_add_test(ktranscriptcleantest.cpp ../src/ktranscript.cpp ../src/common_helpe
 )
 target_compile_definitions(ki18n-ktranscriptcleantest PRIVATE "KTRANSCRIPT_TESTBUILD")
 target_include_directories(ki18n-ktranscriptcleantest PRIVATE ..)
+endif()

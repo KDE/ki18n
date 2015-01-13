@@ -41,6 +41,7 @@ install(FILES
 )
 
 ### ktranscript plugin
+if (BUILD_WITH_QTSCRIPT)
 
 set(ktranscript_LIB_SRCS
     ktranscript.cpp
@@ -52,6 +53,7 @@ target_link_libraries(ktranscript PRIVATE Qt5::Script Qt5::Core)
 
 install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5)
 
+endif()
 
 include(ECMGeneratePriFile)
 ecm_generate_pri_file(BASE_NAME KI18n LIB_NAME KF5I18n DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KI18n)

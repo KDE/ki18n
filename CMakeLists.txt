@@ -24,7 +24,12 @@ ecm_setup_version(
 # Dependencies
 set(REQUIRED_QT_VERSION "5.2.0")
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Script)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
+
+option(BUILD_WITH_QTSCRIPT "Build with support for scripted translations (recommended)" ON)
+if (BUILD_WITH_QTSCRIPT)
+   find_package(Qt5Script ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+endif()
 
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
