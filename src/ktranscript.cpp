@@ -386,10 +386,10 @@ TsConfig readConfig(const QString &fname)
             if (p1 < 0) {
                 continue;
             }
-            QString field = line.left(p1).trimmed();
-            QString value = line.mid(p1 + 1).trimmed();
+            QStringRef field = line.leftRef(p1).trimmed();
+            QStringRef value = line.midRef(p1 + 1).trimmed();
             if (!field.isEmpty()) {
-                (*configGroup)[field] = value;
+                (*configGroup)[field.toString()] = value.toString();
             }
         }
     }
@@ -1096,7 +1096,7 @@ static QString toCaseFirst(const QString &qstr, int qnalt, bool toupper)
     while (i < len) {
         QChar c = qstr[i];
 
-        if (qnalt && !remainingAlts && qstr.mid(i, hlen) == head) {
+        if (qnalt && !remainingAlts && qstr.midRef(i, hlen) == head) {
             // An alternatives directive is just starting.
             i += 2;
             if (i >= len) {

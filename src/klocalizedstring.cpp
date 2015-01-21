@@ -34,7 +34,7 @@
 #include <QPluginLoader>
 #include <QDir>
 #include <QCoreApplication>
-#include <qstandardpaths.h>
+#include <QStandardPaths>
 
 #include <common_helpers_p.h>
 #include <kcatalog_p.h>
@@ -43,6 +43,8 @@
 #include <kuitmarkup_p.h>
 #include <klocalizedstring.h>
 
+static const QString SUBSTITUTE_ME=QStringLiteral("%1");
+
 // Truncate string, for output of long messages.
 static QString shortenMessage(const QString &str)
 {
@@ -50,7 +52,7 @@ static QString shortenMessage(const QString &str)
     if (str.length() <= maxlen) {
         return str;
     } else {
-        return str.left(maxlen).append(QLatin1String("..."));
+        return str.leftRef(maxlen) + QLatin1String("...");
     }
 }
 
@@ -273,16 +275,16 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
 
     , ourDomain("ki18n5")
     , applicationDomain()
-    , codeLanguage(QLatin1String("en_US"))
+    , codeLanguage(QStringLiteral("en_US"))
     , localeLanguages()
 
-    , theFence(QLatin1String("|/|"))
-    , startInterp(QLatin1String("$["))
-    , endInterp(QLatin1String("]"))
+    , theFence(QStringLiteral("|/|"))
+    , startInterp(QStringLiteral("$["))
+    , endInterp(QStringLiteral("]"))
     , scriptPlchar(QLatin1Char('%'))
     , scriptVachar(QLatin1Char('^'))
 
-    , scriptDir(QLatin1String("LC_SCRIPTS"))
+    , scriptDir(QStringLiteral("LC_SCRIPTS"))
     , scriptModules()
     , scriptModulesToLoad()
 
@@ -557,7 +559,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
             if (markupAware && !kls.d->markupAware) {
                 resdArg = Kuit::escape(resdArg);
             }
-            resdArg = QString::fromLatin1("%1").arg(resdArg, fieldWidth, fillChar);
+            resdArg = SUBSTITUTE_ME.arg(resdArg, fieldWidth, fillChar);
             resolvedArguments.append(resdArg);
         } else {
             QString resdArg = arguments[i];
@@ -865,7 +867,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                             shortenMessage(scriptedTranslation));
             return -1;
         }
-        if (scriptedTranslation.mid(tpos, ielen) == s->endInterp) {
+        if (scriptedTranslation.midRef(tpos, ielen) == s->endInterp) {
             break; // no more arguments
         }
 
@@ -1099,7 +1101,7 @@ KLocalizedString KLocalizedString::subs(int a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1113,7 +1115,7 @@ KLocalizedString KLocalizedString::subs(uint a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1127,7 +1129,7 @@ KLocalizedString KLocalizedString::subs(long a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1141,7 +1143,7 @@ KLocalizedString KLocalizedString::subs(ulong a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1155,7 +1157,7 @@ KLocalizedString KLocalizedString::subs(qlonglong a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1169,7 +1171,7 @@ KLocalizedString KLocalizedString::subs(qulonglong a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1179,7 +1181,7 @@ KLocalizedString KLocalizedString::subs(double a, int fieldWidth,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    kls.d->arguments.append(QString::fromLatin1("%1").arg(a, fieldWidth, format, precision, fillChar));
+    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, format, precision, fillChar));
     kls.d->values.append(static_cast<realn>(a));
     return kls;
 }
@@ -1189,7 +1191,7 @@ KLocalizedString KLocalizedString::subs(QChar a, int fieldWidth,
 {
     KLocalizedString kls(*this);
     QString baseArg = QString(a);
-    QString fmtdArg = QString::fromLatin1("%1").arg(a, fieldWidth, fillChar);
+    QString fmtdArg = SUBSTITUTE_ME.arg(a, fieldWidth, fillChar);
     kls.d->arguments.append(fmtdArg);
     kls.d->values.append(baseArg);
     return kls;
@@ -1200,7 +1202,7 @@ KLocalizedString KLocalizedString::subs(const QString &a, int fieldWidth,
 {
     KLocalizedString kls(*this);
     QString baseArg = a;
-    QString fmtdArg = QString::fromLatin1("%1").arg(a, fieldWidth, fillChar);
+    QString fmtdArg = SUBSTITUTE_ME.arg(a, fieldWidth, fillChar);
     kls.d->arguments.append(fmtdArg);
     kls.d->values.append(baseArg);
     return kls;
