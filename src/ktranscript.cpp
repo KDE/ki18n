@@ -360,7 +360,7 @@ TsConfig readConfig(const QString &fname)
         // Remove comment from the line.
         p1 = line.indexOf(QLatin1Char('#'));
         if (p1 >= 0) {
-            line = line.left(p1);
+            line.truncate(p1);
         }
         line = line.trimmed();
         if (line.isEmpty()) {

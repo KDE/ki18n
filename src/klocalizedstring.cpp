@@ -1009,14 +1009,14 @@ QVariant KLocalizedStringPrivate::segmentToValue(const QString &segment) const
     // value reference, or the reference is out of bounds.
 
     // Value reference must start with a special character.
-    if (segment.left(1) != s->scriptVachar) {
+    if (!segment.startsWith(s->scriptVachar)) {
         return QVariant();
     }
 
     // Reference number must start with 1-9.
     // (If numstr is empty, toInt() will return 0.)
     QString numstr = segment.mid(1);
-    if (numstr.left(1).toInt() < 1) {
+    if (numstr.leftRef(1).toInt() < 1) {
         return QVariant();
     }
 

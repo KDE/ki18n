@@ -89,14 +89,14 @@ static void parseUiMarker(const QString &context_,
         int pfmt = context.indexOf(QL1C('/'));
         if (pfmt >= 0) {
             formatName = context.mid(pfmt + 1);
-            context = context.left(pfmt);
+            context.truncate(pfmt);
         }
 
         // Possible subcue.
         int pcue = context.indexOf(QL1C(':'));
         if (pcue >= 0) {
             cueName = context.mid(pcue + 1);
-            context = context.left(pcue);
+            context.truncate(pcue);
         }
 
         // Role.
