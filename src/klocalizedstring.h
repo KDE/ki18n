@@ -161,7 +161,7 @@ public:
      *
      * \return finalized translation
      */
-    QString toString() const;
+    QString toString() const Q_REQUIRED_RESULT;
 
     /**
      * Like \c toString, but look for translation only in given languages.
@@ -173,7 +173,7 @@ public:
      * \param languages list of language codes (by decreasing priority)
      * \return finalized translation
      */
-    QString toString(const QStringList &languages) const;
+    QString toString(const QStringList &languages) const Q_REQUIRED_RESULT;
 
 #if 0 // until locale system is ready
     /**
@@ -196,7 +196,7 @@ public:
      * \param domain the translation domain
      * \return finalized translation
      */
-    QString toString(const char *domain) const;
+    QString toString(const char *domain) const Q_REQUIRED_RESULT;
 
     /**
      * Like \c toString, but resolve KUIT markup into given visual format.
@@ -209,7 +209,7 @@ public:
      * \param format the target visual format
      * \return finalized translation
      */
-    QString toString(Kuit::VisualFormat format) const;
+    QString toString(Kuit::VisualFormat format) const Q_REQUIRED_RESULT;
 
     /**
      * Indicate to look for translation only in given languages.
@@ -217,7 +217,7 @@ public:
      * \param languages list of language codes (by decreasing priority)
      * \return updated \c KLocalizedString
      */
-    KLocalizedString withLanguages(const QStringList &languages) const;
+    KLocalizedString withLanguages(const QStringList &languages) const Q_REQUIRED_RESULT;
 
 #if 0 // until locale system is ready
     /**
@@ -235,7 +235,7 @@ public:
      * \param domain the translation domain
      * \return updated \c KLocalizedString
      */
-    KLocalizedString withDomain(const char *domain) const;
+    KLocalizedString withDomain(const char *domain) const Q_REQUIRED_RESULT;
 
     /**
      * Indicate to resolve KUIT markup into given visual format.
@@ -245,7 +245,7 @@ public:
      * \param format the target visual format
      * \return updated \c KLocalizedString
      */
-    KLocalizedString withFormat(Kuit::VisualFormat format) const;
+    KLocalizedString withFormat(Kuit::VisualFormat format) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute an int argument into the message.
@@ -260,7 +260,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(int a, int fieldWidth = 0, int base = 10,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute an unsigned int argument into the message.
@@ -275,7 +275,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(uint a, int fieldWidth = 0, int base = 10,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute a long argument into the message.
@@ -290,7 +290,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(long a, int fieldWidth = 0, int base = 10,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute an unsigned long argument into the message.
@@ -305,7 +305,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(ulong a, int fieldWidth = 0, int base = 10,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute a long long argument into the message.
@@ -320,7 +320,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(qlonglong a, int fieldWidth = 0, int base = 10,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute an unsigned long long argument into the message.
@@ -335,7 +335,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(qulonglong a, int fieldWidth = 0, int base = 10,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute a double argument into the message.
@@ -351,7 +351,7 @@ public:
      */
     KLocalizedString subs(double a, int fieldWidth = 0,
                           char format = 'g', int precision = -1,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute a \c QChar argument into the message.
@@ -364,7 +364,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(QChar a, int fieldWidth = 0,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute a \c QString argument into the message.
@@ -377,7 +377,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(const QString &a, int fieldWidth = 0,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Substitute another \c KLocalizedString into the message.
@@ -390,7 +390,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString subs(const KLocalizedString &a, int fieldWidth = 0,
-                          QChar fillChar = QLatin1Char(' ')) const;
+                          QChar fillChar = QLatin1Char(' ')) const Q_REQUIRED_RESULT;
 
     /**
      * Add dynamic context to the message.
@@ -402,7 +402,7 @@ public:
      * \return updated \c KLocalizedString
      */
     KLocalizedString inContext(const QString &key,
-                               const QString &value) const;
+                               const QString &value) const Q_REQUIRED_RESULT;
 
     /**
      * Relax matching between placeholders and arguments.
@@ -421,7 +421,7 @@ public:
      *
      * \return updated \c KLocalizedString
      */
-    KLocalizedString relaxSubs() const;
+    KLocalizedString relaxSubs() const Q_REQUIRED_RESULT;
 
     /**
      * Do not resolve KUIT markup.
@@ -433,7 +433,7 @@ public:
      *
      * \return updated \c KLocalizedString
      */
-    KLocalizedString ignoreMarkup() const;
+    KLocalizedString ignoreMarkup() const Q_REQUIRED_RESULT;
 
     /**
      * Set the given domain as application's main domain.
@@ -555,7 +555,7 @@ public:
      *
      * \return path to the localized file if found, original path otherwise
      */
-    static QString localizedFilePath(const QString &filePath);
+    static QString localizedFilePath(const QString &filePath) Q_REQUIRED_RESULT;
 
     /**
      * Remove accelerator marker from a UI text label.
@@ -571,7 +571,7 @@ public:
      * \param label UI label which may contain an accelerator marker
      * \return label without the accelerator marker
      */
-    static QString removeAcceleratorMarker(const QString &label);
+    static QString removeAcceleratorMarker(const QString &label) Q_REQUIRED_RESULT;
 
     /**
      * Translate a message with Qt semantics.
@@ -589,7 +589,7 @@ public:
      *             Qt's \c lupdate and \c lconvert commands.
      */
     static QString translateQt(const char *context, const char *text,
-                               const char *comment, int n);
+                               const char *comment, int n) Q_REQUIRED_RESULT;
 
     /**
      * Add another domain to search for Qt translations.
