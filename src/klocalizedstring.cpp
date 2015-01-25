@@ -43,8 +43,6 @@
 #include <kuitmarkup_p.h>
 #include <klocalizedstring.h>
 
-static const QString SUBSTITUTE_ME=QStringLiteral("%1");
-
 // Truncate string, for output of long messages.
 static QString shortenMessage(const QString &str)
 {
@@ -273,7 +271,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
     : catalogs()
     , languages()
 
-    , ourDomain("ki18n5")
+    , ourDomain(QByteArrayLiteral("ki18n5"))
     , applicationDomain()
     , codeLanguage(QStringLiteral("en_US"))
     , localeLanguages()
@@ -559,7 +557,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
             if (markupAware && !kls.d->markupAware) {
                 resdArg = Kuit::escape(resdArg);
             }
-            resdArg = SUBSTITUTE_ME.arg(resdArg, fieldWidth, fillChar);
+            resdArg = QStringLiteral("%1").arg(resdArg, fieldWidth, fillChar);
             resolvedArguments.append(resdArg);
         } else {
             QString resdArg = arguments[i];
@@ -1101,7 +1099,7 @@ KLocalizedString KLocalizedString::subs(int a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1115,7 +1113,7 @@ KLocalizedString KLocalizedString::subs(uint a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1129,7 +1127,7 @@ KLocalizedString KLocalizedString::subs(long a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1143,7 +1141,7 @@ KLocalizedString KLocalizedString::subs(ulong a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1157,7 +1155,7 @@ KLocalizedString KLocalizedString::subs(qlonglong a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1171,7 +1169,7 @@ KLocalizedString KLocalizedString::subs(qulonglong a, int fieldWidth, int base,
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1181,7 +1179,7 @@ KLocalizedString KLocalizedString::subs(double a, int fieldWidth,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    kls.d->arguments.append(SUBSTITUTE_ME.arg(a, fieldWidth, format, precision, fillChar));
+    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, format, precision, fillChar));
     kls.d->values.append(static_cast<realn>(a));
     return kls;
 }
@@ -1191,7 +1189,7 @@ KLocalizedString KLocalizedString::subs(QChar a, int fieldWidth,
 {
     KLocalizedString kls(*this);
     QString baseArg = QString(a);
-    QString fmtdArg = SUBSTITUTE_ME.arg(a, fieldWidth, fillChar);
+    QString fmtdArg = QStringLiteral("%1").arg(a, fieldWidth, fillChar);
     kls.d->arguments.append(fmtdArg);
     kls.d->values.append(baseArg);
     return kls;
@@ -1202,7 +1200,7 @@ KLocalizedString KLocalizedString::subs(const QString &a, int fieldWidth,
 {
     KLocalizedString kls(*this);
     QString baseArg = a;
-    QString fmtdArg = SUBSTITUTE_ME.arg(a, fieldWidth, fillChar);
+    QString fmtdArg = QStringLiteral("%1").arg(a, fieldWidth, fillChar);
     kls.d->arguments.append(fmtdArg);
     kls.d->values.append(baseArg);
     return kls;
