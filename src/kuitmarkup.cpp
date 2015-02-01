@@ -196,11 +196,11 @@ KuitStaticData::KuitStaticData()
 
 void KuitStaticData::setXmlEntityData()
 {
-    QString LT=QStringLiteral("lt");
-    QString GT=QStringLiteral("gt");
-    QString AMP=QStringLiteral("amp");
-    QString APOS=QStringLiteral("apos");
-    QString QUOT=QStringLiteral("quot");
+    QString LT = QStringLiteral("lt");
+    QString GT = QStringLiteral("gt");
+    QString AMP = QStringLiteral("amp");
+    QString APOS = QStringLiteral("apos");
+    QString QUOT = QStringLiteral("quot");
 
     // Default XML entities, direct and inverse mapping.
     xmlEntities[LT] = QString(QL1C('<'));
@@ -669,13 +669,13 @@ void KuitSetupPrivate::setDefaultMarkup()
 {
     using namespace Kuit;
 
-    const QString INTERNAL_TOP_TAG_NAME=QStringLiteral("__kuit_internal_top__");
-    const QString TITLE=QStringLiteral("title");
-    const QString EMPHASIS=QStringLiteral("emphasis");
-    const QString COMMAND=QStringLiteral("command");
-    const QString WARNING=QStringLiteral("warning");
-    const QString LINK=QStringLiteral("link");
-    const QString NOTE=QStringLiteral("note");
+    const QString INTERNAL_TOP_TAG_NAME = QStringLiteral("__kuit_internal_top__");
+    const QString TITLE = QStringLiteral("title");
+    const QString EMPHASIS = QStringLiteral("emphasis");
+    const QString COMMAND = QStringLiteral("command");
+    const QString WARNING = QStringLiteral("warning");
+    const QString LINK = QStringLiteral("link");
+    const QString NOTE = QStringLiteral("note");
 
     // Macro to hide message from extraction.
 #define HI18NC ki18nc
@@ -1352,7 +1352,7 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
     bool isStructured = determineIsStructured(text, setup);
 #endif
 
-    const QString INTERNAL_TOP_TAG_NAME=QStringLiteral("__kuit_internal_top__");
+    const QString INTERNAL_TOP_TAG_NAME = QStringLiteral("__kuit_internal_top__");
     // Add top tag, not to confuse the parser.
     text = QStringLiteral("<%2>%1</%2>").arg(text, INTERNAL_TOP_TAG_NAME);
 
