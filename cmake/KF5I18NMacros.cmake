@@ -7,12 +7,8 @@
 find_package(Gettext REQUIRED)
 find_package(PythonInterp REQUIRED)
 
-if(KI18N_MODULE_DIR)
-    set(_pmap_compile_script ${KI18N_MODULE_DIR}/ts-pmap-compile.py)
-else()
-    # This script is needed when installing ki18n itself.
-    set(_pmap_compile_script ${CMAKE_SOURCE_DIR}/cmake/ts-pmap-compile.py)
-endif()
+set(_ki18n_pmap_compile_script ${CMAKE_CURRENT_LIST_DIR}/ts-pmap-compile.py)
+set(_ki18n_uic_script ${CMAKE_CURRENT_LIST_DIR}/kf5i18nuic.cmake)
 
 #create the implementation files from the ui files and add them to the list of sources
 #usage: KI18N_WRAP_UI(foo_SRCS ${ui_files})
@@ -33,7 +29,7 @@ macro (KI18N_WRAP_UI _sources )
          -DKDE_UIC_FILE:FILEPATH=${_tmp_FILE}
          -DKDE_UIC_H_FILE:FILEPATH=${_header}
          -DKDE_UIC_BASENAME:STRING=${_basename}
-         -P ${KI18N_MODULE_DIR}/kf5i18nuic.cmake
+         -P ${_ki18n_uic_script}
          MAIN_DEPENDENCY ${_tmp_FILE}
       )
       list(APPEND ${_sources} ${_header})
@@ -65,7 +61,7 @@ function(KI18N_INSTALL_TS_FILES lang scripts_dir)
                COMMAND ${PYTHON_EXECUTABLE}
                ARGS
                -B
-               ${_pmap_compile_script}
+               ${_ki18n_pmap_compile_script}
                ${CMAKE_CURRENT_SOURCE_DIR}/${pmap_file}
                ${pmapc_file}
                DEPENDS ${pmap_file})
