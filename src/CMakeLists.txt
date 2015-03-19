@@ -4,6 +4,7 @@ set(libki18n_SRCS
     kcatalog.cpp
     kuitmarkup.cpp
     common_helpers.cpp
+    main.cpp
 )
 
 add_library(KF5I18n ${libki18n_SRCS})
