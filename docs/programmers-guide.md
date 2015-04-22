@@ -1013,16 +1013,6 @@ This call can be made at any place in the code
 (e.g. there is no need to have `QApplication` constructed beforehand),
 but of course before any `i18n` call takes place.
 
-`KLocalizedString::setApplicationDomain` has one more effect.
-In any linked libraries which also use Ki18n, `i18n` calls will
-not return translations into given language if the application catalog
-for that language does not exist.
-This prevents a mix of translated and untranslated messages appearing
-in the user interface, when the application itself is not translated.
-For this reason, if the more verbose library call-domain connection
-described in the next section is used for application code as well,
-`setApplicationDomain` call should be made nevertheless.
-
 This is all there is to connecting calls and catalogs application's
 C++ source files. However, there may also be some non-code files
 that need connecting, and how to do this is some typical non-code
