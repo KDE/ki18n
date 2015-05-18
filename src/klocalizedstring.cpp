@@ -1123,7 +1123,7 @@ KLocalizedString KLocalizedString::subs(long a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(abs(a));
+        kls.d->number = static_cast<pluraln>(std::abs(a));
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
