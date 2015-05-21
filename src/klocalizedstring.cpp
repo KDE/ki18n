@@ -20,6 +20,8 @@
 // We don't want i18n to be expanded to i18nd here
 #undef TRANSLATION_DOMAIN
 
+#include <cmath>
+
 #include <QDebug>
 #include <QMutexLocker>
 #include <QStringList>
@@ -1095,7 +1097,7 @@ KLocalizedString KLocalizedString::subs(int a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(abs(a));
+        kls.d->number = static_cast<pluraln>(std::abs(a));
         kls.d->numberSet = true;
         kls.d->numberOrdinal = d->arguments.size();
     }
