@@ -20,7 +20,7 @@
 // We don't want i18n to be expanded to i18nd here
 #undef TRANSLATION_DOMAIN
 
-#include <cmath>
+#include <cstdlib>
 
 #include <QDebug>
 #include <QMutexLocker>
