@@ -127,6 +127,8 @@ def read_pmap (fname):
 
                         i += 1
                         state = s_nextEntry
+                        # This check covers no newline at end of file.
+                        if i >= slen: raise END_PROP_PARSE
 
             elif state == s_nextValue:
                 ip = i
