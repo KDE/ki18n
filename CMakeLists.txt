@@ -49,6 +49,9 @@ include(cmake/KF5I18NMacros.cmake)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
+if(MSVC)
+    remove_definitions(-DQT_STRICT_ITERATORS)
+endif()
 
 add_definitions(-DTRANSLATION_DOMAIN=\"ki18n5\")
 if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
