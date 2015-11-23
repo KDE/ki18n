@@ -39,6 +39,8 @@
  *
  * Then i18n*() functions should be available for use from the code loaded in
  * the engine, for the view.
+ *
+ * @since 5.17
  */
 
 class KI18N_EXPORT KLocalizedContext : public QObject
@@ -49,8 +51,6 @@ class KI18N_EXPORT KLocalizedContext : public QObject
      * This property only needs to be specified if the context is being run on a library.
      * in an application there is no need to set the translation domain as the application's
      * domain can be used.
-     *
-     * @since 5.17
      */
     Q_PROPERTY(QString translationDomain READ translationDomain WRITE setTranslationDomain NOTIFY translationDomainChanged)
 
