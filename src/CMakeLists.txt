@@ -4,6 +4,7 @@ set(libki18n_SRCS
     kcatalog.cpp
     kuitmarkup.cpp
     common_helpers.cpp
+    klocalizedcontext.cpp
     main.cpp
 )
 
@@ -28,6 +29,7 @@ install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS
 
 ecm_generate_headers(KI18n_HEADERS
   HEADER_NAMES
+    KLocalizedContext
     KLocalizedString
     KLocalizedTranslator
     KuitMarkup

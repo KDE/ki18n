@@ -1229,7 +1229,7 @@ For the moment masking the complete list of options as `$EXTOPTS`,
 source to create the catalog template `fooapp.pot`:
 
 ~~~
-find -name \*.cpp -o -name \*.h | sort \
+find -name \*.cpp -o -name \*.h -o -name \*.qml | sort \
 | xargs xgettext $EXTOPTS -o fooapp.pot
 ~~~
 
