@@ -40,6 +40,7 @@ KLocalizedContext::KLocalizedContext(QObject *parent)
 
 KLocalizedContext::~KLocalizedContext()
 {
+    delete d;
 }
 
 QString KLocalizedContext::translationDomain() const
