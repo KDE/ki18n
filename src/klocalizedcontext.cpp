@@ -34,13 +34,13 @@ public:
 
 KLocalizedContext::KLocalizedContext(QObject *parent)
     : QObject(parent)
-    , d(new KLocalizedContextPrivate)
+    , d_ptr(new KLocalizedContextPrivate)
 {
 }
 
 KLocalizedContext::~KLocalizedContext()
 {
-    delete d;
+    delete d_ptr;
 }
 
 QString KLocalizedContext::translationDomain() const
