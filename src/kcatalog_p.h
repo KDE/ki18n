@@ -124,7 +124,7 @@ public:
     static QSet<QString> availableCatalogLanguages(const QByteArray &domain);
 
 private:
-    Q_DISABLE_COPY(KCatalog);
+    Q_DISABLE_COPY(KCatalog)
 
     KCatalogPrivate *const d;
 };
