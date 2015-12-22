@@ -29,7 +29,18 @@ class KI18nDeclarativeTest : public QObject
 Q_OBJECT
 
 private Q_SLOTS:
+    void testLocalizedContext_data() {
+        QTest::addColumn<QString>("propertyName");
+        QTest::addColumn<QString>("value");
+
+        QTest::newRow("translation") << "testString" << QStringLiteral("Awesome");
+        QTest::newRow("plural translation") << "testStringPlural" << QStringLiteral("in 3 seconds");
+    }
+
     void testLocalizedContext() {
+        QFETCH(QString, propertyName);
+        QFETCH(QString, value);
+
         KLocalizedContext ctx;
         QUrl input = QUrl::fromLocalFile(QFINDTESTDATA("test.qml"));
 
@@ -38,9 +49,13 @@ private Q_SLOTS:
         QQmlComponent component(&engine, input, QQmlComponent::PreferSynchronous);
         QObject *object = component.create();
 
+        if (!object) {
+            qDebug() << "errors:" << component.errors();
+        }
+
         QVERIFY(object);
         QVERIFY(!component.isLoading());
-        QCOMPARE(object->property("testString").toString(), QStringLiteral("Awesome"));
+        QCOMPARE(object->property(propertyName.toUtf8().constData()).toString(), value);
     }
 };
 
