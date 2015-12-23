@@ -23,7 +23,7 @@
 #include <QTest>
 
 #include <KLocalizedContext>
-
+#include <QDebug>
 class KI18nDeclarativeTest : public QObject
 {
 Q_OBJECT
