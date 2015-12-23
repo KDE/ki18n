@@ -189,7 +189,7 @@ public:
 private:
 
     KuitSetup(const QByteArray &domain);
-    KuitSetup(const KuitSetup &);
+    Q_DISABLE_COPY(KuitSetup)
 
     KuitSetupPrivate *const d;
 };

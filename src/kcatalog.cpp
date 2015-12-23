@@ -110,10 +110,10 @@ KCatalog::~KCatalog()
 QString KCatalog::catalogLocaleDir(const QByteArray &domain,
                                    const QString &language)
 {
-    QString relpath = QString::fromLatin1("%1/LC_MESSAGES/%2.mo")
+    QString relpath = QStringLiteral("%1/LC_MESSAGES/%2.mo")
                       .arg(language, QFile::decodeName(domain));
     QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                          QString::fromLatin1("locale/") + relpath);
+                                          QStringLiteral("locale/") + relpath);
     QString localeDir;
     if (file.isEmpty()) {
         localeDir = QString();
@@ -128,14 +128,14 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
 {
     QString domain = QFile::decodeName(domain_);
     QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
-                                 QString::fromLatin1("locale"),
+                                 QStringLiteral("locale"),
                                  QStandardPaths::LocateDirectory);
     QSet<QString> availableLanguages;
     foreach (const QString &localDirPath, localeDirPaths) {
         QDir localeDir(localDirPath);
         QStringList languages = localeDir.entryList(QDir::AllDirs);
         foreach (const QString &language, languages) {
-            QString relPath = QString::fromLatin1("%1/LC_MESSAGES/%2.mo")
+            QString relPath = QStringLiteral("%1/LC_MESSAGES/%2.mo")
                               .arg(language, domain);
             if (localeDir.exists(relPath)) {
                 availableLanguages.insert(language);

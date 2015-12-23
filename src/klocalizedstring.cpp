@@ -395,24 +395,21 @@ void KLocalizedStringPrivate::translateRaw(const QByteArray &domain,
     // Empty msgid would result in returning the catalog header,
     // which is never intended, so warn and return empty translation.
     if (msgid.isNull() || msgid.isEmpty()) {
-        qWarning() << QString::fromLatin1(
-                       "KLocalizedString: "
-                       "Trying to look up translation of \"\", fix the code.");
+        qWarning() <<  "KLocalizedString: "
+                       "Trying to look up translation of \"\", fix the code.";
         language.clear();
         msgstr.clear();
         return;
     }
     // Gettext semantics allows empty context, but it is pointless, so warn.
     if (!msgctxt.isNull() && msgctxt.isEmpty()) {
-        qWarning() << QString::fromLatin1(
-                       "KLocalizedString: "
-                       "Using \"\" as context, fix the code.");
+        qWarning() <<  "KLocalizedString: "
+                       "Using \"\" as context, fix the code.";
     }
     // Gettext semantics allows empty plural, but it is pointless, so warn.
     if (!msgid_plural.isNull() && msgid_plural.isEmpty()) {
-        qWarning() << QString::fromLatin1(
-                       "KLocalizedString: "
-                       "Using \"\" as plural text, fix the code.");
+        qWarning() <<  "KLocalizedString: "
+                       "Using \"\" as plural text, fix the code.";
     }
 
     // Set translation to text in code language, in case no translation found.
@@ -482,10 +479,9 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
 
     // Assure the message has been supplied.
     if (text.isEmpty()) {
-        qWarning() << QString::fromLatin1(
-                       "Trying to convert empty KLocalizedString to QString.");
+        qWarning() << "Trying to convert empty KLocalizedString to QString.";
 #ifndef NDEBUG
-        return QLatin1String("(I18N_EMPTY_MESSAGE)");
+        return QStringLiteral("(I18N_EMPTY_MESSAGE)");
 #else
         return QString();
 #endif
@@ -493,7 +489,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
 
     // Check whether plural argument has been supplied, if message has plural.
     if (!plural.isEmpty() && !numberSet) {
-        qWarning() << QString::fromLatin1(
+        qWarning() << QStringLiteral(
                        "Plural argument to message {%1} not supplied before conversion.")
                    .arg(shortenMessage(QString::fromUtf8(text)));
     }
@@ -544,7 +540,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
     } else { // fencePos == 0
         // The msgstr starts with the script fence, no ordinary translation.
         // This is not allowed, consider message not translated.
-        qWarning() << QString::fromLatin1(
+        qWarning() << QStringLiteral(
                        "Scripted message {%1} without ordinary translation, discarded.")
                    .arg(shortenMessage(translation));
         translation =   plural.isEmpty() || number == 1
@@ -713,7 +709,7 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation,
 #ifndef NDEBUG
             if (!isPartial) {
                 // spoof the message
-                finalTranslation.append(QLatin1String("(I18N_ARGUMENT_MISSING)"));
+                finalTranslation.append(QStringLiteral("(I18N_ARGUMENT_MISSING)"));
             }
 #endif
         } else { // just fine
@@ -729,7 +725,7 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation,
         for (int i = 0; i < ords.size(); i++) {
             if (!ords.at(i)) {
                 gaps = true;
-                qWarning() << QString::fromLatin1(
+                qWarning() << QStringLiteral(
                                "Placeholder %%1 skipped in message {%2}.")
                            .arg(QString::number(i + 1), shortenMessage(translation));
             }
@@ -746,15 +742,15 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation,
 
         // Some spoofs.
         if (gaps) {
-            finalTranslation.append(QLatin1String("(I18N_GAPS_IN_PLACEHOLDER_SEQUENCE)"));
+            finalTranslation.append(QStringLiteral("(I18N_GAPS_IN_PLACEHOLDER_SEQUENCE)"));
         }
         if (ords.size() < arguments.size()) {
-            finalTranslation.append(QLatin1String("(I18N_EXCESS_ARGUMENTS_SUPPLIED)"));
+            finalTranslation.append(QStringLiteral("(I18N_EXCESS_ARGUMENTS_SUPPLIED)"));
         }
     }
     if (!isPartial) {
         if (!plural.isEmpty() && !numberSet) {
-            finalTranslation.append(QLatin1String("(I18N_PLURAL_ARGUMENT_MISSING)"));
+            finalTranslation.append(QStringLiteral("(I18N_PLURAL_ARGUMENT_MISSING)"));
         }
     }
 #endif
@@ -870,7 +866,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
             ++tpos;
         }
         if (tpos == slen) {
-            qWarning() << QString::fromLatin1(
+            qWarning() << QStringLiteral(
                            "Unclosed interpolation {%1} in message {%2}.")
                        .arg(scriptedTranslation.mid(pos, tpos - pos),
                             shortenMessage(scriptedTranslation));
@@ -903,7 +899,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                     ++tpos;
                 }
                 if (tpos == slen) {
-                    qWarning() << QString::fromLatin1(
+                    qWarning() << QStringLiteral(
                                    "Unclosed quote in interpolation {%1} in message {%2}.")
                                .arg(scriptedTranslation.mid(pos, tpos - pos),
                                     shortenMessage(scriptedTranslation));
@@ -944,7 +940,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                     ++tpos;
                 }
                 if (tpos == slen) {
-                    qWarning() << QString::fromLatin1(
+                    qWarning() << QStringLiteral(
                                    "Non-terminated interpolation {%1} in message {%2}.")
                                .arg(scriptedTranslation.mid(pos, tpos - pos),
                                     shortenMessage(scriptedTranslation));
@@ -999,7 +995,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
     if (!scriptError.isEmpty()) { // problem with evaluation
         fallback = true; // also signal fallback
         if (!scriptError.isEmpty()) {
-            qWarning() << QString::fromLatin1(
+            qWarning() << QStringLiteral(
                            "Interpolation {%1} in {%2} failed: %3")
                        .arg(scriptedTranslation.mid(pos, tpos - pos),
                             shortenMessage(scriptedTranslation),
@@ -1071,7 +1067,7 @@ QString KLocalizedStringPrivate::postTranscript(const QString &pcall,
 
     // If the evaluation went wrong.
     if (!scriptError.isEmpty()) {
-        qWarning() << QString::fromLatin1(
+        qWarning() << QStringLiteral(
                        "Post call {%1} for message {%2} failed: %3")
                    .arg(pcall, shortenMessage(msgid), scriptError);
         return QString();
@@ -1367,13 +1363,13 @@ void KLocalizedStringPrivate::loadTranscript()
     // QPluginLoader is just used to find the plugin
     QPluginLoader loader(QStringLiteral("kf5/ktranscript"));
     if (loader.fileName().isEmpty()) {
-        qWarning() << QString::fromLatin1("Cannot find Transcript plugin.");
+        qWarning() << "Cannot find Transcript plugin.";
         return;
     }
 
     QLibrary lib(loader.fileName());
     if (!lib.load()) {
-        qWarning() << QString::fromLatin1("Cannot load Transcript plugin:")
+        qWarning() << "Cannot load Transcript plugin:"
                    << lib.errorString();
         return;
     }
@@ -1381,8 +1377,7 @@ void KLocalizedStringPrivate::loadTranscript()
     InitFunc initf = (InitFunc) lib.resolve("load_transcript");
     if (!initf) {
         lib.unload();
-        qWarning() << QString::fromLatin1(
-                       "Cannot find function load_transcript in Transcript plugin.");
+        qWarning() << "Cannot find function load_transcript in Transcript plugin.";
         return;
     }
 
@@ -1459,9 +1454,8 @@ QString KLocalizedString::translateQt(const char *context,
     QMutexLocker lock(&s->klspMutex);
 
     if (!sourceText || !sourceText[0]) {
-        qWarning() << QString::fromLatin1(
-                       "KLocalizedString::translateQt: "
-                       "Trying to look up translation of \"\", fix the code.");
+        qWarning() <<  "KLocalizedString::translateQt: "
+                       "Trying to look up translation of \"\", fix the code.";
         return QString();
     }
 

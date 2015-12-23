@@ -62,7 +62,7 @@ static void subsVariant(KLocalizedString &trMessage, const QVariant &value)
 {
     switch(value.type()) {
         case QVariant::String:
-            trMessage = trMessage.subs(value.value<QString>());
+            trMessage = trMessage.subs(value.toString());
             break;
         case QVariant::Int:
             trMessage = trMessage.subs(value.toInt());
