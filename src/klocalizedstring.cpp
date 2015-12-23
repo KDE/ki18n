@@ -259,7 +259,7 @@ public:
     const QChar scriptVachar;
 
     const QString scriptDir;
-    QHash<QString, QStringList> scriptModules;
+    QHash<QString, QList<QByteArray> > scriptModules;
     QList<QStringList> scriptModulesToLoad;
 
     bool loadTranscriptCalled;

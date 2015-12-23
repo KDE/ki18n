@@ -98,6 +98,8 @@ typedef QString(*TagFormatter)(const QStringList &languages,
  * \return pointer to KUIT setup object
  */
 KuitSetup &setupForDomain(const char *domain);
+
+KuitSetup &setupForDomain(const QByteArray& domain);
 }
 
 class KLocalizedString;
@@ -111,7 +113,7 @@ class KuitFormatterPrivate;
  */
 class KI18N_EXPORT KuitSetup
 {
-    friend KuitSetup &Kuit::setupForDomain(const char *domain);
+    friend KuitSetup &Kuit::setupForDomain(const QByteArray& domain);
     friend class KuitFormatterPrivate;
 
 public:

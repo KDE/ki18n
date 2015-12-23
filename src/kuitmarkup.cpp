@@ -495,7 +495,7 @@ QString KuitTag::format(const QStringList &languages,
     return formattedText;
 }
 
-KuitSetup &Kuit::setupForDomain(const char *domain)
+KuitSetup &Kuit::setupForDomain(const QByteArray& domain)
 {
     KuitStaticData *s = staticData();
     KuitSetup *setup;
@@ -506,6 +506,11 @@ KuitSetup &Kuit::setupForDomain(const char *domain)
         s->domainSetups.insert(domain, setup);
     }
     return *setup;
+}
+
+KuitSetup &Kuit::setupForDomain(const char *domain)
+{
+    return setupForDomain(QByteArray(domain));
 }
 
 class KuitSetupPrivate
