@@ -120,6 +120,11 @@ static void resolveMessage(KLocalizedString &trMessage,
     }
 }
 
+static void resolvePlural(KLocalizedString &trMessage, const QVariant param)
+{
+    trMessage = trMessage.subs(param.toInt());
+}
+
 QString KLocalizedContext::i18n(const QString &message,
                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
@@ -181,7 +186,8 @@ QString KLocalizedContext::i18np(const QString &singular, const QString &plural,
         trMessage = ki18np(singular.toUtf8().constData(), plural.toUtf8().constData());
     }
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -203,7 +209,8 @@ QString KLocalizedContext::i18ncp(const QString &context, const QString &singula
         trMessage = ki18ncp(context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
     }
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -251,7 +258,8 @@ QString KLocalizedContext::i18ndp(const QString &domain, const QString &singular
 
     KLocalizedString trMessage = ki18ndp(domain.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -267,7 +275,8 @@ QString KLocalizedContext::i18ndcp(const QString &domain, const QString &context
 
     KLocalizedString trMessage = ki18ndcp(domain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -335,7 +344,8 @@ QString KLocalizedContext::xi18np(const QString &singular, const QString &plural
         trMessage = kxi18np(singular.toUtf8().constData(), plural.toUtf8().constData());
     }
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -357,7 +367,8 @@ QString KLocalizedContext::xi18ncp(const QString &context, const QString &singul
         trMessage = kxi18ncp(context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
     }
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -405,7 +416,8 @@ QString KLocalizedContext::xi18ndp(const QString &domain, const QString &singula
 
     KLocalizedString trMessage = ki18ndp(domain.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
@@ -421,7 +433,8 @@ QString KLocalizedContext::xi18ndcp(const QString &domain, const QString &contex
 
     KLocalizedString trMessage = kxi18ndcp(domain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
 
-    resolveMessage(trMessage, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+    resolvePlural(trMessage, param1);
+    resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }

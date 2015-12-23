@@ -37,8 +37,12 @@
  * view.engine()->rootContext()->setContextObject(new KLocalizedContext(view));
  * @endcode
  *
- * Then i18n*() functions should be available for use from the code loaded in
- * the engine, for the view.
+ * Then i18n*() and xi18n*() functions should be available for use from the code
+ * loaded in the engine, for the view.
+ *
+ * @note Plural functions differ from the C/C++ version. On QML/JS we can get a
+ * real value easily. To solve warnings on those cases we'll cast the first argument
+ * to make sure it's taken into account for the plural.
  *
  * @since 5.17
  */

@@ -34,7 +34,9 @@ private Q_SLOTS:
         QTest::addColumn<QString>("value");
 
         QTest::newRow("translation") << "testString" << QStringLiteral("Awesome");
-        QTest::newRow("plural translation") << "testStringPlural" << QStringLiteral("in 3 seconds");
+        QTest::newRow("singular translation") << "testStringSingular" << QStringLiteral("and 1 other window");
+        QTest::newRow("plural translation") << "testStringPlural" << QStringLiteral("and 3 other windows");
+        QTest::newRow("plural translation with domain") << "testStringPluralWithDomain" << QStringLiteral("in 3 seconds");
     }
 
     void testLocalizedContext() {
