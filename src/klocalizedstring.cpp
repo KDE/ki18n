@@ -227,6 +227,15 @@ class KLocalizedStringPrivate
                                       const QString &language);
 
     static void loadTranscript();
+
+    void checkNumber(pluraln a)
+    {
+        if (!plural.isEmpty() && !numberSet) {
+            number = a;
+            numberSet = true;
+            numberOrdinal = arguments.size();
+        }
+    }
 };
 
 typedef QHash<QString, KCatalog *> KCatalogPtrHash;
@@ -1096,11 +1105,7 @@ KLocalizedString KLocalizedString::subs(int a, int fieldWidth, int base,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(std::abs(a));
-        kls.d->numberSet = true;
-        kls.d->numberOrdinal = d->arguments.size();
-    }
+    kls.d->checkNumber(std::abs(a));
     kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
@@ -1110,11 +1115,7 @@ KLocalizedString KLocalizedString::subs(uint a, int fieldWidth, int base,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(a);
-        kls.d->numberSet = true;
-        kls.d->numberOrdinal = d->arguments.size();
-    }
+    kls.d->checkNumber(a);
     kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
@@ -1124,11 +1125,7 @@ KLocalizedString KLocalizedString::subs(long a, int fieldWidth, int base,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(std::abs(a));
-        kls.d->numberSet = true;
-        kls.d->numberOrdinal = d->arguments.size();
-    }
+    kls.d->checkNumber(std::abs(a));
     kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
@@ -1138,11 +1135,7 @@ KLocalizedString KLocalizedString::subs(ulong a, int fieldWidth, int base,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(a);
-        kls.d->numberSet = true;
-        kls.d->numberOrdinal = d->arguments.size();
-    }
+    kls.d->checkNumber(a);
     kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
@@ -1152,11 +1145,7 @@ KLocalizedString KLocalizedString::subs(qlonglong a, int fieldWidth, int base,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(qAbs(a));
-        kls.d->numberSet = true;
-        kls.d->numberOrdinal = d->arguments.size();
-    }
+    kls.d->checkNumber(qAbs(a));
     kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
@@ -1166,11 +1155,7 @@ KLocalizedString KLocalizedString::subs(qulonglong a, int fieldWidth, int base,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(a);
-        kls.d->numberSet = true;
-        kls.d->numberOrdinal = d->arguments.size();
-    }
+    kls.d->checkNumber(a);
     kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
