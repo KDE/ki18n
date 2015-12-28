@@ -214,6 +214,11 @@ QString msg = i18np("%1 image in album %2", "%1 images in album %2",
 The plural form is decided by the first integer-valued argument,
 which is `numImages` in this example. In rare cases when there are
 two or more integer arguments, they should be ordered carefully.
+
+In QML code, due to some limitations, always the first argument
+will be treated as plural-deciding, so it should be an appropriate
+number (integer or a round double); otherwise, behavior is undefined.
+
 It is also allowed to omit the plural-deciding placeholder, for example:
 
 ~~~
