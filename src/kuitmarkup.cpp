@@ -484,8 +484,7 @@ QString KuitTag::format(const QStringList &languages,
         }
     } else if (patterns.contains(attribKey)) {
         qWarning() << QStringLiteral(
-                       "Undefined visual format for tag <%1> and "
-                       "attribute combination %2: %3.")
+            "Undefined visual format for tag <%1> and attribute combination %2: %3.")
                    .arg(name, attribKey, s->namesByFormat.value(format));
     } else {
         qWarning() << QStringLiteral(
@@ -600,8 +599,7 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
         cue = s->cuesByName.value(cueName);
         if (!s->knownRoleCues.value(role).contains(cue)) {
             qWarning() << QStringLiteral(
-                           "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, "
-                           "visual format not set.")
+                "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, visual format not set.")
                        .arg(cueName, roleName, marker);
             return;
         }
@@ -1262,8 +1260,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
             if (!s->knownRoleCues.value(role).contains(cue)) {
                 cue = Kuit::UndefinedCue;
                 qWarning() << QStringLiteral(
-                               "Subcue ':%1' does not belong to role '@%2' "
-                               "in UI marker in context {%3}.")
+                               "Subcue ':%1' does not belong to role '@%2' in UI marker in context {%3}.")
                            .arg(cueName, roleName, shorten(context));
             }
         } else { // unknown or not given subcue
@@ -1421,9 +1418,7 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
 
     if (xml.hasError()) {
         qWarning() << QStringLiteral(
-                       "Markup error in message {%1}: %2. "
-                       "Last tag parsed: %3. "
-                       "Complete message follows:\n%4")
+            "Markup error in message {%1}: %2. Last tag parsed: %3. Complete message follows:\n%4")
                    .arg(shorten(text), xml.errorString(), lastElementName.toString(),
                         text);
         return QString();
@@ -1466,8 +1461,7 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
         } else {
             oel.handling = OpenEl::Dropout;
             qWarning() << QStringLiteral(
-                           "Structuring tag ('%1') cannot be subtag "
-                           "of phrase tag ('%2') in message {%3}.")
+                           "Structuring tag ('%1') cannot be subtag of phrase tag ('%2') in message {%3}.")
                        .arg(tag.name, etag.name, shorten(text));
         }
 
