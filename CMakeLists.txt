@@ -36,7 +36,7 @@ if (BUILD_WITH_QTSCRIPT)
 endif()
 
 include(KDEInstallDirs)
-include(KDEFrameworkCompilerSettings)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 
 find_package(LibIntl)
