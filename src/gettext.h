@@ -46,26 +46,13 @@
    The letter 'p' stands for 'particular' or 'special'.  */
 #ifdef DEFAULT_TEXT_DOMAIN
 # define pgettext(Msgctxt, Msgid) \
-    pgettext_aux (DEFAULT_TEXT_DOMAIN, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+    pgettext_aux (DEFAULT_TEXT_DOMAIN, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid)
 #else
 # define pgettext(Msgctxt, Msgid) \
-    pgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+    pgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid)
 #endif
 #define dpgettext(Domainname, Msgctxt, Msgid) \
-    pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
-#define dcpgettext(Domainname, Msgctxt, Msgid, Category) \
-    pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, Category)
-#ifdef DEFAULT_TEXT_DOMAIN
-# define npgettext(Msgctxt, Msgid, MsgidPlural, N) \
-    npgettext_aux (DEFAULT_TEXT_DOMAIN, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
-#else
-# define npgettext(Msgctxt, Msgid, MsgidPlural, N) \
-    npgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
-#endif
-#define dnpgettext(Domainname, Msgctxt, Msgid, MsgidPlural, N) \
-    npgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
-#define dcnpgettext(Domainname, Msgctxt, Msgid, MsgidPlural, N, Category) \
-    npgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, Category)
+    pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid)
 
 #ifdef __GNUC__
 __inline
@@ -76,34 +63,11 @@ inline
 #endif
 static const char *
 pgettext_aux(const char *domain,
-             const char *msg_ctxt_id, const char *msgid,
-             int category)
+             const char *msg_ctxt_id, const char *msgid)
 {
-    const char *translation = dcgettext(domain, msg_ctxt_id, category);
+    const char *translation = dgettext(domain, msg_ctxt_id);
     if (translation == msg_ctxt_id) {
         return msgid;
-    } else {
-        return translation;
-    }
-}
-
-#ifdef __GNUC__
-__inline
-#else
-#ifdef __cplusplus
-inline
-#endif
-#endif
-static const char *
-npgettext_aux(const char *domain,
-              const char *msg_ctxt_id, const char *msgid,
-              const char *msgid_plural, unsigned long int n,
-              int category)
-{
-    const char *translation =
-        dcngettext(domain, msg_ctxt_id, msgid_plural, n, category);
-    if (translation == msg_ctxt_id || translation == msgid_plural) {
-        return (n == 1 ? msgid : msgid_plural);
     } else {
         return translation;
     }
@@ -128,9 +92,9 @@ npgettext_aux(const char *domain,
 #endif
 
 #define pgettext_expr(Msgctxt, Msgid) \
-    dcpgettext_expr (NULL, Msgctxt, Msgid, LC_MESSAGES)
+    dpgettext_expr (NULL, Msgctxt, Msgid)
 #define dpgettext_expr(Domainname, Msgctxt, Msgid) \
-    dcpgettext_expr (Domainname, Msgctxt, Msgid, LC_MESSAGES)
+    dpgettext_expr (Domainname, Msgctxt, Msgid)
 
 #ifdef __GNUC__
 __inline
@@ -140,9 +104,8 @@ inline
 #endif
 #endif
 static const char *
-dcpgettext_expr(const char *domain,
-                const char *msgctxt, const char *msgid,
-                int category)
+dpgettext_expr(const char *domain,
+                const char *msgctxt, const char *msgid)
 {
     size_t msgctxt_len = strlen(msgctxt) + 1;
     size_t msgid_len = strlen(msgid) + 1;
@@ -161,7 +124,7 @@ dcpgettext_expr(const char *domain,
         memcpy(msg_ctxt_id, msgctxt, msgctxt_len - 1);
         msg_ctxt_id[msgctxt_len - 1] = '\004';
         memcpy(msg_ctxt_id + msgctxt_len, msgid, msgid_len);
-        translation = dcgettext(domain, msg_ctxt_id, category);
+        translation = dgettext(domain, msg_ctxt_id);
 #if !_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS
         if (msg_ctxt_id != buf) {
             free(msg_ctxt_id);
@@ -175,9 +138,9 @@ dcpgettext_expr(const char *domain,
 }
 
 #define npgettext_expr(Msgctxt, Msgid, MsgidPlural, N) \
-    dcnpgettext_expr (NULL, Msgctxt, Msgid, MsgidPlural, N, LC_MESSAGES)
+    dnpgettext_expr (NULL, Msgctxt, Msgid, MsgidPlural, N)
 #define dnpgettext_expr(Domainname, Msgctxt, Msgid, MsgidPlural, N) \
-    dcnpgettext_expr (Domainname, Msgctxt, Msgid, MsgidPlural, N, LC_MESSAGES)
+    dnpgettext_expr (Domainname, Msgctxt, Msgid, MsgidPlural, N)
 
 #ifdef __GNUC__
 __inline
@@ -187,10 +150,9 @@ inline
 #endif
 #endif
 static const char *
-dcnpgettext_expr(const char *domain,
+dnpgettext_expr(const char *domain,
                  const char *msgctxt, const char *msgid,
-                 const char *msgid_plural, unsigned long int n,
-                 int category)
+                 const char *msgid_plural, unsigned long int n)
 {
     size_t msgctxt_len = strlen(msgctxt) + 1;
     size_t msgid_len = strlen(msgid) + 1;
@@ -209,7 +171,7 @@ dcnpgettext_expr(const char *domain,
         memcpy(msg_ctxt_id, msgctxt, msgctxt_len - 1);
         msg_ctxt_id[msgctxt_len - 1] = '\004';
         memcpy(msg_ctxt_id + msgctxt_len, msgid, msgid_len);
-        translation = dcngettext(domain, msg_ctxt_id, msgid_plural, n, category);
+        translation = dngettext(domain, msg_ctxt_id, msgid_plural, n);
 #if !_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS
         if (msg_ctxt_id != buf) {
             free(msg_ctxt_id);
