@@ -86,19 +86,21 @@ KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
     d->language = QFile::encodeName(language_);
     d->localeDir = QFile::encodeName(catalogLocaleDir(domain, language_));
 
-    // Always get translations in UTF-8, regardless of user's environment.
-    bind_textdomain_codeset(d->domain, "UTF-8");
+    if (!d->localeDir.isEmpty()) {
+        // Always get translations in UTF-8, regardless of user's environment.
+        bind_textdomain_codeset(d->domain, "UTF-8");
 
-    // Invalidate current language, to trigger binding at next translate call.
-    KCatalogPrivate::currentLanguage.clear();
+        // Invalidate current language, to trigger binding at next translate call.
+        KCatalogPrivate::currentLanguage.clear();
 
-    if (!langenv) {
-        // Call putenv only here, to initialize LANGUAGE variable.
-        // Later only change langenv to what is currently needed.
-        langenv = new char[langenvMaxlen];
-        QByteArray baselang = qgetenv("LANGUAGE");
-        qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", baselang.constData());
-        putenv(langenv);
+        if (!langenv) {
+            // Call putenv only here, to initialize LANGUAGE variable.
+            // Later only change langenv to what is currently needed.
+            langenv = new char[langenvMaxlen];
+            QByteArray baselang = qgetenv("LANGUAGE");
+            qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", baselang.constData());
+            putenv(langenv);
+        }
     }
 }
 
@@ -187,38 +189,50 @@ void KCatalogPrivate::resetSystemLanguage()
 
 QString KCatalog::translate(const QByteArray &msgid) const
 {
-    QMutexLocker locker(&catalogStaticData()->mutex);
-    d->setupGettextEnv();
-    const char *msgstr = dgettext(d->domain.constData(), msgid.constData());
-    d->resetSystemLanguage();
-    return   msgstr != msgid
-             ? QString::fromUtf8(msgstr)
-             : QString();
+    if (!d->localeDir.isEmpty()) {
+        QMutexLocker locker(&catalogStaticData()->mutex);
+        d->setupGettextEnv();
+        const char *msgstr = dgettext(d->domain.constData(), msgid.constData());
+        d->resetSystemLanguage();
+        return msgstr != msgid
+               ? QString::fromUtf8(msgstr)
+               : QString();
+    } else {
+        return QString();
+    }
 }
 
 QString KCatalog::translate(const QByteArray &msgctxt,
                             const QByteArray &msgid) const
 {
-    QMutexLocker locker(&catalogStaticData()->mutex);
-    d->setupGettextEnv();
-    const char *msgstr = dpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData());
-    d->resetSystemLanguage();
-    return   msgstr != msgid
-             ? QString::fromUtf8(msgstr)
-             : QString();
+    if (!d->localeDir.isEmpty()) {
+        QMutexLocker locker(&catalogStaticData()->mutex);
+        d->setupGettextEnv();
+        const char *msgstr = dpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData());
+        d->resetSystemLanguage();
+        return   msgstr != msgid
+               ? QString::fromUtf8(msgstr)
+               : QString();
+    } else {
+        return QString();
+    }
 }
 
 QString KCatalog::translate(const QByteArray &msgid,
                             const QByteArray &msgid_plural,
                             qulonglong n) const
 {
-    QMutexLocker locker(&catalogStaticData()->mutex);
-    d->setupGettextEnv();
-    const char *msgstr = dngettext(d->domain.constData(), msgid.constData(), msgid_plural.constData(), n);
-    d->resetSystemLanguage();
-    return   msgstr != msgid && msgstr != msgid_plural
-             ? QString::fromUtf8(msgstr)
-             : QString();
+    if (!d->localeDir.isEmpty()) {
+        QMutexLocker locker(&catalogStaticData()->mutex);
+        d->setupGettextEnv();
+        const char *msgstr = dngettext(d->domain.constData(), msgid.constData(), msgid_plural.constData(), n);
+        d->resetSystemLanguage();
+        return   msgstr != msgid && msgstr != msgid_plural
+               ? QString::fromUtf8(msgstr)
+               : QString();
+    } else {
+        return QString();
+    }
 }
 
 QString KCatalog::translate(const QByteArray &msgctxt,
@@ -226,12 +240,16 @@ QString KCatalog::translate(const QByteArray &msgctxt,
                             const QByteArray &msgid_plural,
                             qulonglong n) const
 {
-    QMutexLocker locker(&catalogStaticData()->mutex);
-    d->setupGettextEnv();
-    const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData(), msgid_plural.constData(), n);
-    d->resetSystemLanguage();
-    return   msgstr != msgid && msgstr != msgid_plural
-             ? QString::fromUtf8(msgstr)
-             : QString();
+    if (!d->localeDir.isEmpty()) {
+        QMutexLocker locker(&catalogStaticData()->mutex);
+        d->setupGettextEnv();
+        const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData(), msgid_plural.constData(), n);
+        d->resetSystemLanguage();
+        return   msgstr != msgid && msgstr != msgid_plural
+               ? QString::fromUtf8(msgstr)
+               : QString();
+    } else {
+        return QString();
+    }
 }
 
