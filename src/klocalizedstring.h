@@ -471,6 +471,19 @@ public:
 #endif
 
     /**
+     * Get the languages for which translations will be made.
+     *
+     * Returned languages are ordered with decreasing priority.
+     *
+     * \return languages ordered list of language codes
+     * \see setLanguages
+     * \see clearLanguages
+     *
+     * \since 5.20.0
+     */
+    static QStringList languages();
+
+    /**
      * Set the languages for which translations will be made.
      *
      * This overrides the languages provided by the locale.
@@ -479,6 +492,7 @@ public:
      * \param languages ordered list of language codes
      * \see setLocale
      * \see clearLanguages
+     * \see languages
      */
     static void setLanguages(const QStringList &languages);
 
@@ -489,6 +503,7 @@ public:
      * provided by the locale.
      *
      * \see setLanguages
+     * \see languages
      */
     static void clearLanguages();
 

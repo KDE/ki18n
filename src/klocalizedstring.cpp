@@ -1243,6 +1243,13 @@ QByteArray KLocalizedString::applicationDomain()
     return s->applicationDomain;
 }
 
+QStringList KLocalizedString::languages()
+{
+    KLocalizedStringPrivateStatics *s = staticsKLSP();
+
+    return s->languages;
+}
+
 void KLocalizedString::setLanguages(const QStringList &languages)
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
