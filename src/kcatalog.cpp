@@ -147,10 +147,6 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
     return availableLanguages;
 }
 
-#ifdef Q_OS_WIN
-extern "C" int __declspec(dllimport) _nl_msg_cat_cntr;
-#endif
-
 void KCatalogPrivate::setupGettextEnv()
 {
     // Point Gettext to current language, recording system value for recovery.
@@ -171,12 +167,16 @@ void KCatalogPrivate::setupGettextEnv()
         //qDebug() << "bindtextdomain" << domain << localeDir;
         bindtextdomain(domain, localeDir);
 
-        // Magic to make sure Gettext doesn't use stale cached translation
+        // Magic to make sure GNU Gettext doesn't use stale cached translation
         // from previous language.
-#ifndef _MSC_VER
+#if defined(__USE_GNU_GETTEXT)
+#if defined(Q_OS_WIN)
+        extern "C" int __declspec(dllimport) _nl_msg_cat_cntr;
+#else
         extern int _nl_msg_cat_cntr;
 #endif
         ++_nl_msg_cat_cntr;
+#endif
     }
 }
 
