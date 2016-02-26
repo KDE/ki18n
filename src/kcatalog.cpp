@@ -41,6 +41,14 @@
 #endif
 #endif
 
+#if defined(__USE_GNU_GETTEXT)
+#if defined(Q_OS_WIN)
+    extern "C" int __declspec(dllimport) _nl_msg_cat_cntr;
+#else
+    extern int _nl_msg_cat_cntr;
+#endif
+#endif
+
 static char *langenv = 0;
 static const int langenvMaxlen = 42;
 // = "LANGUAGE=" + 32 chars for language code + terminating zero
@@ -170,11 +178,6 @@ void KCatalogPrivate::setupGettextEnv()
         // Magic to make sure GNU Gettext doesn't use stale cached translation
         // from previous language.
 #if defined(__USE_GNU_GETTEXT)
-#if defined(Q_OS_WIN)
-        extern "C" int __declspec(dllimport) _nl_msg_cat_cntr;
-#else
-        extern int _nl_msg_cat_cntr;
-#endif
         ++_nl_msg_cat_cntr;
 #endif
     }

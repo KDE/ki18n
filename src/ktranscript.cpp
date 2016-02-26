@@ -728,8 +728,13 @@ void Scriptface::put(const QString &propertyName, const QScriptValue &value)
 
 // ----------------------------------------------------------------------
 // Scriptface interface functions.
-#define SPREF SFNAME"."
 
+#ifdef _MSC_VER
+// Work around bizarre MSVC (2013) bug preventing use of QStringLiteral for concatenated string literals
+#    define SPREF(X) QString::fromLatin1(SFNAME "." X)
+#else
+#    define SPREF(X) QStringLiteral(SFNAME "." X)
+#endif
 
 QScriptValue Scriptface::load()
 {
@@ -741,15 +746,15 @@ QScriptValue Scriptface::setcall(const QScriptValue &name, const QScriptValue &f
 {
     if (!name.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setcall: expected string as first argument"));
+                          SPREF("setcall: expected string as first argument"));
     }
     if (!func.isFunction()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setcall: expected function as second argument"));
+                          SPREF("setcall: expected function as second argument"));
     }
     if (!(fval.isObject() || fval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setcall: expected object or null as third argument"));
+                          SPREF("setcall: expected object or null as third argument"));
     }
 
     QString qname = name.toString();
@@ -771,7 +776,7 @@ QScriptValue Scriptface::hascall(const QScriptValue &name)
 {
     if (!name.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"hascall: expected string as first argument"));
+                          SPREF("hascall: expected string as first argument"));
     }
 
     QString qname = name.toString();
@@ -784,18 +789,18 @@ QScriptValue Scriptface::acall()
 
     if (argv.size() < 1) {
         return throwError(context(), QScriptContext::SyntaxError,
-                          QStringLiteral(SPREF"acall: expected at least one argument (call name)"));
+                          SPREF("acall: expected at least one argument (call name)"));
     }
     if (!argv[0].isString()) {
         return throwError(context(), QScriptContext::SyntaxError,
-                          QStringLiteral(SPREF"acall: expected string as first argument (call name)"));
+                          SPREF("acall: expected string as first argument (call name)"));
     }
 
     // Get the function and its context object.
     QString callname = argv[0].toString();
     if (!funcs.contains(callname)) {
         return throwError(context(), QScriptContext::ReferenceError,
-                          QStringLiteral(SPREF"acall: unregistered call to '%1'").arg(callname));
+                          SPREF("acall: unregistered call to '%1'").arg(callname));
     }
     QScriptValue func = funcs[callname];
     QScriptValue fval = fvals[callname];
@@ -825,15 +830,15 @@ QScriptValue Scriptface::setcallForall(const QScriptValue &name, const QScriptVa
 {
     if (!name.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setcallForall: expected string as first argument"));
+                          SPREF("setcallForall: expected string as first argument"));
     }
     if (!func.isFunction()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setcallForall: expected function as second argument"));
+                          SPREF("setcallForall: expected function as second argument"));
     }
     if (!(fval.isObject() || fval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setcallForall: expected object or null as third argument"));
+                          SPREF("setcallForall: expected object or null as third argument"));
     }
 
     QString qname = name.toString();
@@ -871,13 +876,13 @@ QScriptValue Scriptface::subs(const QScriptValue &index)
 {
     if (!index.isNumber()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"subs: expected number as first argument"));
+                          SPREF("subs: expected number as first argument"));
     }
 
     int i = qRound(index.toNumber());
     if (i < 0 || i >= subList->size()) {
         return throwError(context(), QScriptContext::RangeError,
-                          QStringLiteral(SPREF"subs: index out of range"));
+                          SPREF("subs: index out of range"));
     }
 
     return QScriptValue(subList->at(i));
@@ -887,13 +892,13 @@ QScriptValue Scriptface::vals(const QScriptValue &index)
 {
     if (!index.isNumber()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"vals: expected number as first argument"));
+                          SPREF("vals: expected number as first argument"));
     }
 
     int i = qRound(index.toNumber());
     if (i < 0 || i >= valList->size()) {
         return throwError(context(), QScriptContext::RangeError,
-                          QStringLiteral(SPREF"vals: index out of range"));
+                          SPREF("vals: index out of range"));
     }
 
     return variantToJsValue(valList->at(i));
@@ -908,7 +913,7 @@ QScriptValue Scriptface::dynctxt(const QScriptValue &key)
 {
     if (!key.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"dynctxt: expected string as first argument"));
+                          SPREF("dynctxt: expected string as first argument"));
     }
 
     QString qkey = key.toString();
@@ -937,7 +942,7 @@ QScriptValue Scriptface::dbgputs(const QScriptValue &str)
 {
     if (!str.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"dbgputs: expected string as first argument"));
+                          SPREF("dbgputs: expected string as first argument"));
     }
 
     QString qstr = str.toString();
@@ -951,7 +956,7 @@ QScriptValue Scriptface::warnputs(const QScriptValue &str)
 {
     if (!str.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"warnputs: expected string as first argument"));
+                          SPREF("warnputs: expected string as first argument"));
     }
 
     QString qstr = str.toString();
@@ -970,7 +975,7 @@ QScriptValue Scriptface::normKey(const QScriptValue &phrase)
 {
     if (!phrase.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"normKey: expected string as argument"));
+                          SPREF("normKey: expected string as argument"));
     }
 
     QByteArray nqphrase = normKeystr(phrase.toString());
@@ -983,13 +988,13 @@ QScriptValue Scriptface::loadProps()
 
     if (globalKTI()->currentModulePath.isEmpty()) {
         return throwError(context(), QScriptContext::UnknownError,
-                          QStringLiteral(SPREF"loadProps: no current module path, aiiie..."));
+                          SPREF("loadProps: no current module path, aiiie..."));
     }
 
     for (int i = 0; i < fnames.size(); ++i) {
         if (!fnames[i].isString()) {
             return throwError(context(), QScriptContext::TypeError,
-                              QStringLiteral(SPREF"loadProps: expected string as file name"));
+                              SPREF("loadProps: expected string as file name"));
         }
     }
 
@@ -1008,7 +1013,7 @@ QScriptValue Scriptface::loadProps()
             QFile file_check(qfpath);
             if (!file_check.open(QIODevice::ReadOnly)) {
                 return throwError(context(), QScriptContext::UnknownError,
-                                  QStringLiteral(SPREF"loadProps: cannot read map '%1'")
+                                  SPREF("loadProps: cannot read map '%1'")
                                   .arg(qfpath));
             }
         }
@@ -1037,11 +1042,11 @@ QScriptValue Scriptface::getProp(const QScriptValue &phrase, const QScriptValue 
 {
     if (!phrase.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getProp: expected string as first argument"));
+                          SPREF("getProp: expected string as first argument"));
     }
     if (!prop.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getProp: expected string as second argument"));
+                          SPREF("getProp: expected string as second argument"));
     }
 
     QByteArray qphrase = normKeystr(phrase.toString());
@@ -1063,15 +1068,15 @@ QScriptValue Scriptface::setProp(const QScriptValue &phrase, const QScriptValue 
 {
     if (!phrase.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setProp: expected string as first argument"));
+                          SPREF("setProp: expected string as first argument"));
     }
     if (!prop.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setProp: expected string as second argument"));
+                          SPREF("setProp: expected string as second argument"));
     }
     if (!value.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"setProp: expected string as third argument"));
+                          SPREF("setProp: expected string as third argument"));
     }
 
     QByteArray qphrase = normKeystr(phrase.toString());
@@ -1144,11 +1149,11 @@ QScriptValue Scriptface::toUpperFirst(const QScriptValue &str, const QScriptValu
 {
     if (!str.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"toUpperFirst: expected string as first argument"));
+                          SPREF("toUpperFirst: expected string as first argument"));
     }
     if (!(nalt.isNumber() || nalt.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"toUpperFirst: expected number as second argument"));
+                          SPREF("toUpperFirst: expected number as second argument"));
     }
 
     QString qstr = str.toString();
@@ -1163,11 +1168,11 @@ QScriptValue Scriptface::toLowerFirst(const QScriptValue &str, const QScriptValu
 {
     if (!str.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"toLowerFirst: expected string as first argument"));
+                          SPREF("toLowerFirst: expected string as first argument"));
     }
     if (!(nalt.isNumber() || nalt.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"toLowerFirst: expected number as second argument"));
+                          SPREF("toLowerFirst: expected number as second argument"));
     }
 
     QString qstr = str.toString();
@@ -1182,13 +1187,11 @@ QScriptValue Scriptface::getConfString(const QScriptValue &key, const QScriptVal
 {
     if (!key.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral("getConfString: expected string "
-                          "as first argument"));
+                          QStringLiteral("getConfString: expected string as first argument"));
     }
     if (!(dval.isString() || dval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getConfString: expected string "
-                          "as second argument (when given)"));
+                          SPREF("getConfString: expected string as second argument (when given)"));
     }
 
     QString qkey = key.toString();
@@ -1203,13 +1206,11 @@ QScriptValue Scriptface::getConfBool(const QScriptValue &key, const QScriptValue
 {
     if (!key.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getConfBool: expected string as "
-                          "first argument"));
+                          SPREF("getConfBool: expected string as first argument"));
     }
     if (!(dval.isBoolean() || dval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getConfBool: expected boolean "
-                          "as second argument (when given)"));
+                          SPREF("getConfBool: expected boolean as second argument (when given)"));
     }
 
     static QStringList falsities;
@@ -1232,12 +1233,12 @@ QScriptValue Scriptface::getConfNumber(const QScriptValue &key, const QScriptVal
 {
     if (!key.isString()) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getConfNumber: expected string "
+                          SPREF("getConfNumber: expected string "
                           "as first argument"));
     }
     if (!(dval.isNumber() || dval.isNull())) {
         return throwError(context(), QScriptContext::TypeError,
-                          QStringLiteral(SPREF"getConfNumber: expected number "
+                          SPREF("getConfNumber: expected number "
                           "as second argument (when given)"));
     }
 
@@ -1261,13 +1262,13 @@ QScriptValue Scriptface::load(const QScriptValueList &fnames)
 {
     if (globalKTI()->currentModulePath.isEmpty()) {
         return throwError(context(), QScriptContext::UnknownError,
-                          QStringLiteral(SPREF"load: no current module path, aiiie..."));
+                          SPREF("load: no current module path, aiiie..."));
     }
 
     for (int i = 0; i < fnames.size(); ++i) {
         if (!fnames[i].isString()) {
             return throwError(context(), QScriptContext::TypeError,
-                              QStringLiteral(SPREF"load: expected string as file name"));
+                              SPREF("load: expected string as file name"));
         }
     }
 
@@ -1278,7 +1279,7 @@ QScriptValue Scriptface::load(const QScriptValueList &fnames)
         QFile file(qfpath);
         if (!file.open(QIODevice::ReadOnly)) {
             return throwError(context(), QScriptContext::UnknownError,
-                              QStringLiteral(SPREF"load: cannot read file '%1'") \
+                              SPREF("load: cannot read file '%1'") \
                               .arg(qfpath));
         }
 
@@ -1326,7 +1327,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
 {
     QFile file(fpath);
     if (!file.open(QIODevice::ReadOnly)) {
-        return QStringLiteral(SPREF"loadProps_text: cannot read file '%1'")
+        return SPREF("loadProps_text: cannot read file '%1'")
                .arg(fpath);
     }
     QTextStream stream(&file);
@@ -1356,7 +1357,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
                 }
             }
             if (i + 1 >= slen) {
-                return QStringLiteral(SPREF"loadProps_text: unexpected end "
+                return SPREF("loadProps_text: unexpected end "
                                            "of file in %1").arg(fpath);
             }
             if (s[i] != QLatin1Char('#')) {
@@ -1364,7 +1365,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
                 key_sep = s[i];
                 prop_sep = s[i + 1];
                 if (key_sep.isLetter() || prop_sep.isLetter()) {
-                    return  QStringLiteral(SPREF"loadProps_text: separator "
+                    return  SPREF("loadProps_text: separator "
                                                 "characters must not be letters at %1:%2")
                             .arg(fpath).arg(countLines(s, i));
                 }
@@ -1413,7 +1414,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
                 } else {
                     // End of entry.
                     if (ekeys.size() < 1) {
-                        return QStringLiteral(SPREF"loadProps_text: no entry key "
+                        return SPREF("loadProps_text: no entry key "
                                                    "for entry ending at %1:%2")
                                .arg(fpath).arg(countLines(s, i));
                     }
@@ -1437,7 +1438,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
                     goto END_PROP_PARSE;
                 }
                 if (s[i] == key_sep) {
-                    return QStringLiteral(SPREF"loadProps_text: property separator "
+                    return SPREF("loadProps_text: property separator "
                                                "inside property value at %1:%2")
                            .arg(fpath).arg(countLines(s, i));
                 }
@@ -1449,13 +1450,13 @@ QString Scriptface::loadProps_text(const QString &fpath)
             i += 1;
             state = s_nextKey;
         } else {
-            return QStringLiteral(SPREF"loadProps: internal error 10 at %1:%2")
+            return SPREF("loadProps: internal error 10 at %1:%2")
                    .arg(fpath).arg(countLines(s, i));
         }
 
         // To avoid infinite looping and stepping out.
         if (i == i_checkpoint || i >= slen) {
-            return QStringLiteral(SPREF"loadProps: internal error 20 at %1:%2")
+            return SPREF("loadProps: internal error 20 at %1:%2")
                    .arg(fpath).arg(countLines(s, i));
         }
     }
@@ -1463,7 +1464,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
 END_PROP_PARSE:
 
     if (state != s_nextEntry) {
-        return QStringLiteral(SPREF"loadProps: unexpected end of file in %1")
+        return SPREF("loadProps: unexpected end of file in %1")
                .arg(fpath);
     }
 
@@ -1523,7 +1524,7 @@ QString Scriptface::loadProps_bin(const QString &fpath)
 {
     QFile file(fpath);
     if (!file.open(QIODevice::ReadOnly)) {
-        return QStringLiteral(SPREF"loadProps: cannot read file '%1'")
+        return SPREF("loadProps: cannot read file '%1'")
                .arg(fpath);
     }
     // Collect header.
@@ -1537,7 +1538,7 @@ QString Scriptface::loadProps_bin(const QString &fpath)
     } else if (head == "TSPMAP01") {
         return loadProps_bin_01(fpath);
     } else {
-        return QStringLiteral(SPREF"loadProps: unknown version of compiled map '%1'")
+        return SPREF("loadProps: unknown version of compiled map '%1'")
                .arg(fpath);
     }
 }
@@ -1546,7 +1547,7 @@ QString Scriptface::loadProps_bin_00(const QString &fpath)
 {
     QFile file(fpath);
     if (!file.open(QIODevice::ReadOnly)) {
-        return QStringLiteral(SPREF"loadProps: cannot read file '%1'")
+        return SPREF("loadProps: cannot read file '%1'")
                .arg(fpath);
     }
     QByteArray fctmp = file.readAll();
@@ -1618,7 +1619,7 @@ QString Scriptface::loadProps_bin_00(const QString &fpath)
 END_PROP_PARSE:
 
     if (pos < 0) {
-        return QStringLiteral(SPREF"loadProps: corrupt compiled map '%1'")
+        return SPREF("loadProps: corrupt compiled map '%1'")
                .arg(fpath);
     }
 
@@ -1629,7 +1630,7 @@ QString Scriptface::loadProps_bin_01(const QString &fpath)
 {
     QFile *file = new QFile(fpath);
     if (!file->open(QIODevice::ReadOnly)) {
-        return QStringLiteral(SPREF"loadProps: cannot read file '%1'")
+        return SPREF("loadProps: cannot read file '%1'")
                .arg(fpath);
     }
 
@@ -1642,7 +1643,7 @@ QString Scriptface::loadProps_bin_01(const QString &fpath)
     QByteArray head = fstr.left(8);
     pos += 8;
     if (head != "TSPMAP01") {
-        return QStringLiteral(SPREF"loadProps: corrupt compiled map '%1'")
+        return SPREF("loadProps: corrupt compiled map '%1'")
                .arg(fpath);
     }
     quint32 numekeys = bin_read_int(fstr, fstr.size(), pos);
