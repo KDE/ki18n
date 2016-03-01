@@ -143,7 +143,7 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
     QSet<QString> availableLanguages;
     foreach (const QString &localDirPath, localeDirPaths) {
         QDir localeDir(localDirPath);
-        QStringList languages = localeDir.entryList(QDir::AllDirs);
+        QStringList languages = localeDir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
         foreach (const QString &language, languages) {
             QString relPath = QStringLiteral("%1/LC_MESSAGES/%2.mo")
                               .arg(language, domain);
