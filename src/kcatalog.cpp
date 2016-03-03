@@ -42,11 +42,7 @@
 #endif
 
 #if defined(__USE_GNU_GETTEXT)
-#if defined(Q_OS_WIN)
-    extern "C" int __declspec(dllimport) _nl_msg_cat_cntr;
-#else
-    extern int _nl_msg_cat_cntr;
-#endif
+extern "C" int Q_DECL_IMPORT _nl_msg_cat_cntr;
 #endif
 
 static char *langenv = 0;
