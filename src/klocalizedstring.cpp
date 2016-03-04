@@ -95,6 +95,30 @@ static void splitLocale(const QString &aLocale,
     language = locale;
 }
 
+static void appendLocaleString(QStringList &languages, const QString &value)
+{
+    // Process the value to create possible combinations.
+    QString language, country, modifier, charset;
+    splitLocale(value, language, country, modifier, charset);
+
+    if (!country.isEmpty() && !modifier.isEmpty()) {
+        languages +=   language + QLatin1Char('_')
+                       + country + QLatin1Char('@')
+                       + modifier;
+    }
+    // NOTE: Priority is unclear in case both the country and
+    // the modifier are present. Should really language@modifier be of
+    // higher priority than language_country?
+    // In at least one case (Serbian language), it is better this way.
+    if (!modifier.isEmpty()) {
+        languages += language + QLatin1Char('@') + modifier;
+    }
+    if (!country.isEmpty()) {
+        languages += language + QLatin1Char('_') + country;
+    }
+    languages += language;
+}
+
 static void appendLanguagesFromVariable(QStringList &languages,
                                         const char *envar, bool isList = false)
 {
@@ -104,29 +128,20 @@ static void appendLanguagesFromVariable(QStringList &languages,
         if (isList) {
             languages += value.split(QLatin1Char(':'));
         } else {
-            // Process the value to create possible combinations.
-            QString language, country, modifier, charset;
-            splitLocale(value, language, country, modifier, charset);
-
-            if (!country.isEmpty() && !modifier.isEmpty()) {
-                languages +=   language + QLatin1Char('_')
-                               + country + QLatin1Char('@')
-                               + modifier;
-            }
-            // NOTE: Priority is unclear in case both the country and
-            // the modifier are present. Should really language@modifier be of
-            // higher priority than language_country?
-            // In at least one case (Serbian language), it is better this way.
-            if (!modifier.isEmpty()) {
-                languages += language + QLatin1Char('@') + modifier;
-            }
-            if (!country.isEmpty()) {
-                languages += language + QLatin1Char('_') + country;
-            }
-            languages += language;
+            appendLocaleString(languages, value);
         }
     }
 }
+
+#ifndef Q_OS_UNIX
+static void appendLanguagesFromQLocale(QStringList &languages, const QLocale &locale)
+{
+    const QStringList uiLangs = locale.uiLanguages();
+    Q_FOREACH (QString value, uiLangs) {
+        appendLocaleString(languages, value.replace(QLatin1Char('-'), QLatin1Char('_')));
+    }
+}
+#endif
 
 // Extract the first country code from a list of language_COUNTRY strings.
 // Country code is converted to all lower case letters.
@@ -333,6 +348,11 @@ void KLocalizedStringPrivateStatics::initializeLocaleLanguages()
     appendLanguagesFromVariable(localeLanguages, "LC_ALL");
     appendLanguagesFromVariable(localeLanguages, "LC_MESSAGES");
     appendLanguagesFromVariable(localeLanguages, "LANG");
+#ifndef Q_OS_UNIX
+    // For non UNIX platforms the environment variables might not
+    // suffice so we add system locale UI languages, too.
+    appendLanguagesFromQLocale(localeLanguages, QLocale::system());
+#endif
 }
 
 KLocalizedString::KLocalizedString()
