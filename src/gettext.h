@@ -160,10 +160,10 @@ dnpgettext_expr(const char *domain,
     size_t msgctxt_len = strlen(msgctxt) + 1;
     size_t msgid_len = strlen(msgid) + 1;
     const char *translation;
+    int translation_found;
 #if _LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS
     char msg_ctxt_id[msgctxt_len + msgid_len];
 #else
-    int translation_found;
     char buf[1024];
     char *msg_ctxt_id =
         (msgctxt_len + msgid_len <= sizeof(buf)
