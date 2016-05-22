@@ -11,3 +11,7 @@ libraries:
  - qmake: KI18n
    cmake: "KF5::I18n"
 cmakename: KF5I18n
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 1
