@@ -74,15 +74,16 @@ static void splitLocale(const QString &aLocale,
         locale.truncate(f);
     }
 
-    f = locale.indexOf(QLatin1Char('.'));
-    if (f >= 0) {
-        charset = locale.mid(f + 1);
-        locale.truncate(f);
-    }
-
+    // now decompose into [language[_territory][.codeset][@modifier]]
     f = locale.indexOf(QLatin1Char('@'));
     if (f >= 0) {
         modifier = locale.mid(f + 1);
+        locale.truncate(f);
+    }
+
+    f = locale.indexOf(QLatin1Char('.'));
+    if (f >= 0) {
+        charset = locale.mid(f + 1);
         locale.truncate(f);
     }
 
@@ -100,6 +101,10 @@ static void appendLocaleString(QStringList &languages, const QString &value)
     // Process the value to create possible combinations.
     QString language, country, modifier, charset;
     splitLocale(value, language, country, modifier, charset);
+
+    if (language.isEmpty()) {
+        return;
+    }
 
     if (!country.isEmpty() && !modifier.isEmpty()) {
         languages +=   language + QLatin1Char('_')
