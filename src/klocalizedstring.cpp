@@ -131,7 +131,9 @@ static void appendLanguagesFromVariable(QStringList &languages,
     if (!qenvar.isEmpty()) {
         QString value = QFile::decodeName(qenvar);
         if (isList) {
-            languages += value.split(QLatin1Char(':'));
+            foreach(const QString &v, value.split(QLatin1Char(':'), QString::SkipEmptyParts)) {
+                appendLocaleString(languages, v);
+            }
         } else {
             appendLocaleString(languages, value);
         }
