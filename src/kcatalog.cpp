@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include "gettext.h"
+#include "config.h"
 
 #include <qstandardpaths.h>
 #include <QByteArray>
@@ -41,7 +42,7 @@
 #endif
 #endif
 
-#if defined(__USE_GNU_GETTEXT)
+#if defined(HAVE_NL_MSG_CAT_CNTR)
 extern "C" int Q_DECL_IMPORT _nl_msg_cat_cntr;
 #endif
 
@@ -190,9 +191,9 @@ void KCatalogPrivate::setupGettextEnv()
         //qDebug() << "bindtextdomain" << domain << localeDir;
         bindtextdomain(domain, localeDir);
 
+#if defined(HAVE_NL_MSG_CAT_CNTR)
         // Magic to make sure GNU Gettext doesn't use stale cached translation
         // from previous language.
-#if defined(__USE_GNU_GETTEXT)
         ++_nl_msg_cat_cntr;
 #endif
     }

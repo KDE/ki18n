@@ -62,3 +62,6 @@ else()
     message(STATUS "libintl is a separate library.")
     find_package_handle_standard_args(LibIntl REQUIRED_VARS LibIntl_INCLUDE_DIRS LibIntl_LIBRARIES)
 endif()
+
+set(CMAKE_REQUIRED_LIBRARIES ${LibIntl_LIBRARIES})
+check_cxx_source_compiles("extern \"C\" int _nl_msg_cat_cntr; int main(void) { ++_nl_msg_cat_cntr; return 0; }" HAVE_NL_MSG_CAT_CNTR)
