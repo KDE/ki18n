@@ -226,7 +226,12 @@ QString KCatalog::translate(const QByteArray &msgid,
         d->setupGettextEnv();
         const char *msgstr = dngettext(d->domain.constData(), msgid.constData(), msgid_plural.constData(), n);
         d->resetSystemLanguage();
-        return   msgstr != msgid && msgstr != msgid_plural
+        // If original and translation are same, dngettext will return
+        // the original pointer, which is generally fine, except in
+        // the corner cases where e.g. msgstr[1] is same as msgid.
+        // Therefore check for pointer difference only with msgid or
+        // only with msgid_plural, and not with both.
+        return   (n == 1 && msgstr != msgid) || (n != 1 && msgstr != msgid_plural)
                ? QString::fromUtf8(msgstr)
                : QString();
     } else {
@@ -244,7 +249,7 @@ QString KCatalog::translate(const QByteArray &msgctxt,
         d->setupGettextEnv();
         const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData(), msgid_plural.constData(), n);
         d->resetSystemLanguage();
-        return   msgstr != msgid && msgstr != msgid_plural
+        return   (n == 1 && msgstr != msgid) || (n != 1 && msgstr != msgid_plural)
                ? QString::fromUtf8(msgstr)
                : QString();
     } else {
