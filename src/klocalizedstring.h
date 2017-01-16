@@ -1013,7 +1013,7 @@ KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context,
  * \param comment Qt equivalent of disambiguation context
  * \return translated string
  */
-inline QString tr2i18n(const char *text, const char *comment = 0)
+inline QString tr2i18n(const char *text, const char *comment = nullptr)
 {
     if (comment && comment[0] && text && text[0]) {
         return ki18nc(comment, text).toString();
@@ -1035,7 +1035,7 @@ inline QString tr2i18n(const char *text, const char *comment = 0)
  * \return translated string
  */
 inline QString tr2i18nd(const char *domain,
-                        const char *text, const char *comment = 0)
+                        const char *text, const char *comment = nullptr)
 {
     if (comment && comment[0] && text && text[0]) {
         return ki18ndc(domain, comment, text).toString();
@@ -1055,7 +1055,7 @@ inline QString tr2i18nd(const char *domain,
  * \param comment Qt equivalent of disambiguation context
  * \return translated string
  */
-inline QString tr2xi18n(const char *text, const char *comment = 0)
+inline QString tr2xi18n(const char *text, const char *comment = nullptr)
 {
     if (comment && comment[0] && text && text[0]) {
         return kxi18nc(comment, text).toString();
@@ -1077,7 +1077,7 @@ inline QString tr2xi18n(const char *text, const char *comment = 0)
  * \return translated string
  */
 inline QString tr2xi18nd(const char *domain,
-                         const char *text, const char *comment = 0)
+                         const char *text, const char *comment = nullptr)
 {
     if (comment && comment[0] && text && text[0]) {
         return kxi18ndc(domain, comment, text).toString();

@@ -29,7 +29,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 QTEST_MAIN(KTranscriptCleanTest)
 
 KTranscriptCleanTest::KTranscriptCleanTest()
-    : m_transcript(0)
+    : m_transcript(nullptr)
 {
 }
 
@@ -41,7 +41,7 @@ void KTranscriptCleanTest::init()
 void KTranscriptCleanTest::cleanup()
 {
     autotestDestroyKTranscriptImp();
-    m_transcript = 0;
+    m_transcript = nullptr;
 }
 
 void KTranscriptCleanTest::test_data()

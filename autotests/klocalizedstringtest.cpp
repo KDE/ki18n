@@ -43,7 +43,7 @@ void KLocalizedStringTest::initTestCase()
     m_hasFrench = true;
     if (m_hasFrench) {
         setlocale(LC_ALL, "fr_FR.utf8");
-        if (setlocale(LC_ALL, NULL) != QByteArray("fr_FR.utf8")) {
+        if (setlocale(LC_ALL, nullptr) != QByteArray("fr_FR.utf8")) {
             qDebug() << "Failed to set locale to fr_FR.utf8.";
             m_hasFrench = false;
         }
@@ -471,7 +471,7 @@ void KLocalizedStringTest::translateToFrench()
 void KLocalizedStringTest::translateQt()
 {
     KLocalizedString::insertQtDomain("ki18n-test-qt");
-    QString result = KLocalizedString::translateQt("QPrintPreviewDialog", "Landscape", 0, 0);
+    QString result = KLocalizedString::translateQt("QPrintPreviewDialog", "Landscape", nullptr, 0);
     // When we use the default language, translateQt returns an empty string.
     QString expected = m_hasFrench ? QString("Paysage") : QString();
     QCOMPARE(result, expected);

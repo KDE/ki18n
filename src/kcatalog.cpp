@@ -45,7 +45,7 @@
 extern "C" int Q_DECL_IMPORT _nl_msg_cat_cntr;
 #endif
 
-static char *langenv = 0;
+static char *langenv = nullptr;
 static const int langenvMaxlen = 42;
 // = "LANGUAGE=" + 32 chars for language code + terminating zero
 

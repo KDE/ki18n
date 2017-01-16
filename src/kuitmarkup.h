@@ -157,7 +157,7 @@ public:
                        const QStringList &attribNames,
                        Kuit::VisualFormat format,
                        const KLocalizedString &pattern,
-                       Kuit::TagFormatter formatter = NULL,
+                       Kuit::TagFormatter formatter = nullptr,
                        int leadingNewlines = 0);
 
     /**

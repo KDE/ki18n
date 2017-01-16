@@ -37,7 +37,7 @@ extern "C"
 }
 
 KTranscriptTest::KTranscriptTest()
-    : m_transcript(0)
+    : m_transcript(nullptr)
 {
 }
 

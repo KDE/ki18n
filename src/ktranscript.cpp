@@ -90,7 +90,7 @@ class Scriptface : public QObject, public QScriptable
 {
     Q_OBJECT
 public:
-    explicit Scriptface(const TsConfigGroup &config, QObject *parent = 0);
+    explicit Scriptface(const TsConfigGroup &config, QObject *parent = nullptr);
     ~Scriptface();
 
     // Interface functions.
@@ -431,7 +431,7 @@ static QScriptValueList callArgsFromContext(QScriptContext *context)
 
 // ----------------------------------------------------------------------
 // Test build creation/destruction hooks
-static KTranscriptImp *s_transcriptInstance = 0;
+static KTranscriptImp *s_transcriptInstance = nullptr;
 
 KTranscriptImp *globalKTI()
 {
@@ -440,16 +440,16 @@ KTranscriptImp *globalKTI()
 
 KTranscript *autotestCreateKTranscriptImp()
 {
-    Q_ASSERT(s_transcriptInstance == 0);
+    Q_ASSERT(s_transcriptInstance == nullptr);
     s_transcriptInstance = new KTranscriptImp;
     return s_transcriptInstance;
 }
 
 void autotestDestroyKTranscriptImp()
 {
-    Q_ASSERT(s_transcriptInstance != 0);
+    Q_ASSERT(s_transcriptInstance != nullptr);
     delete s_transcriptInstance;
-    s_transcriptInstance = 0;
+    s_transcriptInstance = nullptr;
 }
 
 #else
@@ -698,7 +698,7 @@ void KTranscriptImp::setupInterpreter(const QString &lang)
 }
 
 Scriptface::Scriptface(const TsConfigGroup &config_, QObject *parent)
-    : QObject(parent), scriptEngine(new QScriptEngine(this)), fallbackRequest(0), config(config_)
+    : QObject(parent), scriptEngine(new QScriptEngine(this)), fallbackRequest(nullptr), config(config_)
 {
     QScriptEngine::QObjectWrapOptions wrapOptions;
     wrapOptions |= QScriptEngine::ExcludeSuperClassContents;

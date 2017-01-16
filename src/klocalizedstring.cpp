@@ -320,7 +320,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
     , scriptModulesToLoad()
 
     , loadTranscriptCalled(false)
-    , ktrs(NULL)
+    , ktrs(nullptr)
 
     , formatters()
 
@@ -641,7 +641,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
 
     // Execute any scripted post calls; they cannot modify the final result,
     // but are used to set states.
-    if (s->ktrs != NULL) {
+    if (s->ktrs != nullptr) {
         QStringList pcalls = s->ktrs->postCalls(language);
         foreach (const QString &pcall, pcalls) {
             postTranscript(pcall, language, country, finalTranslation,
@@ -810,7 +810,7 @@ QString KLocalizedStringPrivate::substituteTranscript(const QString &scriptedTra
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
 
-    if (s->ktrs == NULL) {
+    if (s->ktrs == nullptr) {
         // Scripting engine not available.
         return QString();
     }
@@ -1072,7 +1072,7 @@ QString KLocalizedStringPrivate::postTranscript(const QString &pcall,
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
 
-    if (s->ktrs == NULL) {
+    if (s->ktrs == nullptr) {
         // Scripting engine not available.
         // (Though this cannot happen, we wouldn't be here then.)
         return QString();
@@ -1392,7 +1392,7 @@ void KLocalizedStringPrivate::loadTranscript()
     QMutexLocker lock(&s->klspMutex);
 
     s->loadTranscriptCalled = true;
-    s->ktrs = NULL; // null indicates that Transcript is not available
+    s->ktrs = nullptr; // null indicates that Transcript is not available
 
     // QPluginLoader is just used to find the plugin
     QPluginLoader loader(QStringLiteral("kf5/ktranscript"));
@@ -1501,18 +1501,18 @@ QString KLocalizedString::translateQt(const char *context,
         if (comment && comment[0]) {
             // Comment given, go for context call.
             KLocalizedStringPrivate::translateRaw(domain, s->languages,
-                                                  comment, sourceText, 0, 0,
+                                                  comment, sourceText, nullptr, 0,
                                                   language, translation);
         } else {
             // Comment not given, go for try-fallback with context.
             if (context && context[0]) {
                 KLocalizedStringPrivate::translateRaw(domain, s->languages,
-                                                      context, sourceText, 0, 0,
+                                                      context, sourceText, nullptr, 0,
                                                       language, translation);
             }
             if (language.isEmpty() || language == s->codeLanguage) {
                 KLocalizedStringPrivate::translateRaw(domain, s->languages,
-                                                      0, sourceText, 0, 0,
+                                                      nullptr, sourceText, nullptr, 0,
                                                       language, translation);
             }
         }
@@ -1556,40 +1556,40 @@ void KLocalizedString::removeQtDomain(const char *domain)
 
 KLocalizedString ki18n(const char *text)
 {
-    return KLocalizedString(NULL, NULL, text, NULL, false);
+    return KLocalizedString(nullptr, nullptr, text, nullptr, false);
 }
 
 KLocalizedString ki18nc(const char *context, const char *text)
 {
-    return KLocalizedString(NULL, context, text, NULL, false);
+    return KLocalizedString(nullptr, context, text, nullptr, false);
 }
 
 KLocalizedString ki18np(const char *singular, const char *plural)
 {
-    return KLocalizedString(NULL, NULL, singular, plural, false);
+    return KLocalizedString(nullptr, nullptr, singular, plural, false);
 }
 
 KLocalizedString ki18ncp(const char *context,
                          const char *singular, const char *plural)
 {
-    return KLocalizedString(NULL, context, singular, plural, false);
+    return KLocalizedString(nullptr, context, singular, plural, false);
 }
 
 KLocalizedString ki18nd(const char *domain, const char *text)
 {
-    return KLocalizedString(domain, NULL, text, NULL, false);
+    return KLocalizedString(domain, nullptr, text, nullptr, false);
 }
 
 KLocalizedString ki18ndc(const char *domain, const char *context,
                          const char *text)
 {
-    return KLocalizedString(domain, context, text, NULL, false);
+    return KLocalizedString(domain, context, text, nullptr, false);
 }
 
 KLocalizedString ki18ndp(const char *domain,
                          const char *singular, const char *plural)
 {
-    return KLocalizedString(domain, NULL, singular, plural, false);
+    return KLocalizedString(domain, nullptr, singular, plural, false);
 }
 
 KLocalizedString ki18ndcp(const char *domain, const char *context,
@@ -1600,40 +1600,40 @@ KLocalizedString ki18ndcp(const char *domain, const char *context,
 
 KLocalizedString kxi18n(const char *text)
 {
-    return KLocalizedString(NULL, NULL, text, NULL, true);
+    return KLocalizedString(nullptr, nullptr, text, nullptr, true);
 }
 
 KLocalizedString kxi18nc(const char *context, const char *text)
 {
-    return KLocalizedString(NULL, context, text, NULL, true);
+    return KLocalizedString(nullptr, context, text, nullptr, true);
 }
 
 KLocalizedString kxi18np(const char *singular, const char *plural)
 {
-    return KLocalizedString(NULL, NULL, singular, plural, true);
+    return KLocalizedString(nullptr, nullptr, singular, plural, true);
 }
 
 KLocalizedString kxi18ncp(const char *context,
                           const char *singular, const char *plural)
 {
-    return KLocalizedString(NULL, context, singular, plural, true);
+    return KLocalizedString(nullptr, context, singular, plural, true);
 }
 
 KLocalizedString kxi18nd(const char *domain, const char *text)
 {
-    return KLocalizedString(domain, NULL, text, NULL, true);
+    return KLocalizedString(domain, nullptr, text, nullptr, true);
 }
 
 KLocalizedString kxi18ndc(const char *domain, const char *context,
                           const char *text)
 {
-    return KLocalizedString(domain, context, text, NULL, true);
+    return KLocalizedString(domain, context, text, nullptr, true);
 }
 
 KLocalizedString kxi18ndp(const char *domain,
                           const char *singular, const char *plural)
 {
-    return KLocalizedString(domain, NULL, singular, plural, true);
+    return KLocalizedString(domain, nullptr, singular, plural, true);
 }
 
 KLocalizedString kxi18ndcp(const char *domain, const char *context,
