@@ -59,7 +59,7 @@ class KI18N_EXPORT KLocalizedContext : public QObject
     Q_PROPERTY(QString translationDomain READ translationDomain WRITE setTranslationDomain NOTIFY translationDomainChanged)
 
 public:
-    explicit KLocalizedContext(QObject *parent = Q_NULLPTR);
+    explicit KLocalizedContext(QObject *parent = nullptr);
     ~KLocalizedContext() Q_DECL_OVERRIDE;
 
     QString translationDomain() const;
