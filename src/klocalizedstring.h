@@ -603,7 +603,7 @@ public:
      *             with roundtrip TS->PO->TS through
      *             Qt's \c lupdate and \c lconvert commands.
      */
-    static QString translateQt(const char *context, const char *text,
+    KI18N_DEPRECATED static QString translateQt(const char *context, const char *text,
                                const char *comment, int n) Q_REQUIRED_RESULT;
 
     /**
@@ -616,7 +616,7 @@ public:
      *
      * \deprecated
      */
-    static void insertQtDomain(const char *domain);
+    KI18N_DEPRECATED static void insertQtDomain(const char *domain);
 
     /**
      * Remove a domain from Qt translation lookup.
@@ -634,7 +634,7 @@ public:
      *
      * \deprecated
      */
-    static void removeQtDomain(const char *domain);
+    KI18N_DEPRECATED static void removeQtDomain(const char *domain);
 
 private:
     KLocalizedString(const char *domain,
