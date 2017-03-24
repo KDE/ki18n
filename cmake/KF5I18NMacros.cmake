@@ -57,53 +57,6 @@ macro (KI18N_WRAP_UI _sources )
    endforeach (_current_FILE)
 endmacro (KI18N_WRAP_UI)
 
-#install the scripts for a given language in the target folder
-#usage: KI18N_INSTALL_TS_FILES("ja" ${scripts_dir})
-function(KI18N_INSTALL_TS_FILES lang scripts_dir)
-   file(GLOB_RECURSE ts_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${scripts_dir}/*)
-   set(pmapc_files)
-   foreach(ts_file ${ts_files})
-      string(REGEX MATCH "\\.svn/" in_svn ${ts_file})
-      if(NOT in_svn)
-         # If ts_file is "path/to/foo/bar.js"
-         # We want subpath to contain "foo"
-         get_filename_component(subpath ${ts_file} DIRECTORY)
-         get_filename_component(subpath ${subpath} NAME)
-         install(FILES ${ts_file}
-                 DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_SCRIPTS/${subpath})
-         # If current file is a pmap, also install the compiled version.
-         get_filename_component(ts_ext ${ts_file} EXT)
-         if(ts_ext STREQUAL ".pmap")
-            set(pmap_file ${ts_file})
-            get_filename_component(pmap_basename ${ts_file} NAME)
-            set(pmapc_basename "${pmap_basename}c")
-            set(pmapc_file "${lang}-${subpath}-${pmapc_basename}")
-            add_custom_command(OUTPUT ${pmapc_file}
-               COMMAND ${PYTHON_EXECUTABLE}
-               ARGS
-               -B
-               ${_ki18n_pmap_compile_script}
-               ${CMAKE_CURRENT_SOURCE_DIR}/${pmap_file}
-               ${pmapc_file}
-               DEPENDS ${pmap_file})
-            install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${pmapc_file}
-                    DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_SCRIPTS/${subpath}
-                    RENAME ${pmapc_basename})
-            list(APPEND pmapc_files ${pmapc_file})
-         endif()
-      endif()
-   endforeach()
-   if(pmapc_files)
-      if(NOT TARGET pmapfiles)
-         add_custom_target(pmapfiles)
-      endif()
-      set(pmapc_target "pmapfiles-${lang}")
-      string(REPLACE "@" "_" pmapc_target ${pmapc_target})
-      add_custom_target(${pmapc_target} ALL DEPENDS ${pmapc_files})
-      add_dependencies(pmapfiles ${pmapc_target})
-   endif()
-endfunction()
-
 # KI18N_INSTALL(podir)
 # Search for .po files and scripting modules and install them to the standard
 # location.
@@ -118,10 +71,9 @@ endfunction()
 #          *.js
 #      *.po
 #
-# .po files are passed to the GETTEXT_PROCESS_PO_FILES function from the
-# CMake Gettext module.
+# .po files are passed to build-pofiles.cmake
 #
-# .js files are installed using KI18N_INSTALL_TS_FILES.
+# .js files are installed using build-tsfiles.cmake
 #
 # For example, given the following directory structure:
 #
@@ -137,92 +89,50 @@ endfunction()
 #   ${LOCALE_INSTALL_DIR}/fr/LC_MESSAGES or share/locale/fr/LC_MESSAGES if
 #   ${LOCALE_INSTALL_DIR} is not set.
 # - Installs kfoo.js in ${LOCALE_INSTALL_DIR}/fr/LC_SCRIPTS/kfoo
+#
+# KI18N_INSTALL_TS_FILES() is deprecated, use KI18N_INSTALL()
+#
 function(KI18N_INSTALL podir)
-    file(GLOB lang_dirs "${podir}/*")
     if (NOT LOCALE_INSTALL_DIR)
         set(LOCALE_INSTALL_DIR share/locale)
     endif()
-    foreach(lang_dir ${lang_dirs})
-        get_filename_component(lang ${lang_dir} NAME)
 
-        file(GLOB po_files "${lang_dir}/*.po")
-        _ki18n_gettext_process_po_files(${lang} ALL
-            INSTALL_DESTINATION ${LOCALE_INSTALL_DIR}
-            PO_FILES ${po_files}
-        )
-        ki18n_install_ts_files(${lang} ${lang_dir}/scripts)
-    endforeach()
+    get_filename_component(dirname ${LOCALE_INSTALL_DIR} NAME)
+    get_filename_component(destname ${LOCALE_INSTALL_DIR} DIRECTORY)
+
+    get_filename_component(absolute_podir ${podir} ABSOLUTE)
+    string(MD5 pathmd5 ${absolute_podir})
+
+    add_custom_target(pofiles-${pathmd5} ALL
+        COMMENT "Generating mo..."
+        COMMAND ${CMAKE_COMMAND}
+                -DGETTEXT_MSGFMT_EXECUTABLE=${GETTEXT_MSGFMT_EXECUTABLE}
+                -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
+                -DPO_DIR=${absolute_podir}
+                -P ${KF5I18n_DIR}/build-pofiles.cmake
+    )
+    add_custom_target(tsfiles-${pathmd5} ALL
+        COMMENT "Generating ts..."
+        COMMAND ${CMAKE_COMMAND}
+                -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE}
+                -D_ki18n_pmap_compile_script=${_ki18n_pmap_compile_script}
+                -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
+                -DPO_DIR=${absolute_podir}
+                -P ${KF5I18n_DIR}/build-tsfiles.cmake
+    )
+
+    if (NOT TARGET pofiles)
+        add_custom_target(pofiles)
+        add_custom_target(tsfiles)
+    endif()
+    add_dependencies(pofiles pofiles-${pathmd5})
+    add_dependencies(tsfiles tsfiles-${pathmd5})
+
+    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dirname})
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dirname} DESTINATION ${destname})
 endfunction()
 
-
-###############################################################################
-# The following code has been copied from CMake FindGettext.cmake and adjusted
-# to support processing multiple .po files with the same name in different
-# directories.
-#
-# CMake bug report: http://public.kitware.com/Bug/view.php?id=14904
-#
-# This code comes with the following license notice:
-#=============================================================================
-# Copyright 2007-2009 Kitware, Inc.
-# Copyright 2007      Alexander Neundorf <neundorf@kde.org>
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-function(_KI18N_GETTEXT_PROCESS_PO_FILES _lang)
-   set(_options ALL)
-   set(_oneValueArgs INSTALL_DESTINATION)
-   set(_multiValueArgs PO_FILES)
-   set(_gmoFiles)
-
-   CMAKE_PARSE_ARGUMENTS(_parsedArguments "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" ${ARGN})
-
-   foreach(_current_PO_FILE ${_parsedArguments_PO_FILES})
-      get_filename_component(_name ${_current_PO_FILE} NAME)
-      string(REGEX REPLACE "^(.+)(\\.[^.]+)$" "\\1" _basename ${_name})
-      set(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}-${_basename}.gmo)
-      add_custom_command(OUTPUT ${_gmoFile}
-            COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${_gmoFile} ${_current_PO_FILE}
-            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-            DEPENDS ${_current_PO_FILE}
-         )
-
-      if(_parsedArguments_INSTALL_DESTINATION)
-         install(FILES ${_gmoFile} DESTINATION ${_parsedArguments_INSTALL_DESTINATION}/${_lang}/LC_MESSAGES/ RENAME ${_basename}.mo)
-      endif()
-      list(APPEND _gmoFiles ${_gmoFile})
-   endforeach()
-
-
-  if(NOT TARGET pofiles)
-     add_custom_target(pofiles)
-  endif()
-
-  _KI18N_GETTEXT_GET_UNIQUE_TARGET_NAME( pofiles uniqueTargetName)
-
-   if(_parsedArguments_ALL)
-      add_custom_target(${uniqueTargetName} ALL DEPENDS ${_gmoFiles})
-   else()
-      add_custom_target(${uniqueTargetName} DEPENDS ${_gmoFiles})
-   endif()
-
-   add_dependencies(pofiles ${uniqueTargetName})
-
+function(ki18n_install_ts_files _lang)
+    message(AUTHOR_WARNING "KI18N_INSTALL_TS_FILES is deprecated!")
+    ki18n_install(${_lang})
 endfunction()
-
-function(_KI18N_GETTEXT_GET_UNIQUE_TARGET_NAME _name _unique_name)
-   set(propertyName "_KI18N_GETTEXT_UNIQUE_COUNTER_${_name}")
-   get_property(currentCounter GLOBAL PROPERTY "${propertyName}")
-   if(NOT currentCounter)
-      set(currentCounter 1)
-   endif()
-   set(${_unique_name} "${_name}_${currentCounter}" PARENT_SCOPE)
-   math(EXPR currentCounter "${currentCounter} + 1")
-   set_property(GLOBAL PROPERTY ${propertyName} ${currentCounter} )
-endfunction()
-# End of CMake copied code ####################################################

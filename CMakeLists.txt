@@ -82,6 +82,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h
 install( FILES
     cmake/KF5I18NMacros.cmake
     cmake/kf5i18nuic.cmake
+    cmake/build-pofiles.cmake
+    cmake/build-tsfiles.cmake
     cmake/ts-pmap-compile.py
     DESTINATION ${CMAKECONFIG_INSTALL_DIR} COMPONENT Devel )
 
