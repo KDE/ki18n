@@ -1143,7 +1143,7 @@ by adding the `translationDomain` attribute to the top element:
 
 ~~~
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="foolib_part" version="55" translationDomain="foolib">
+<gui name="foolib_part" version="55" translationDomain="foolib">
 ...
 ~~~
 
