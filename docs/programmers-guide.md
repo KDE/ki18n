@@ -1142,7 +1142,7 @@ the translation domain connection is established simply
 by adding the `translationDomain` attribute to the top element:
 
 ~~~
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="foolib_part" version="55" translationDomain="foolib">
 ...
 ~~~
