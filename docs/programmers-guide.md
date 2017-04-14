@@ -9,6 +9,7 @@ Programmer's Guide   {#prg_guide}
     -   [Writing Good Texts](#good_text)
     -   [Writing Good Contexts](#good_ctxt)
     -   [Extraction-Only Macros](#i18n_noop)
+    -   [Messages before creation of Q*Application instance](#before_qapp)
 -   [Connecting Calls to Catalogs](#link_cat)
     -   [Connecting to Catalogs in Application Code](#link_prog)
     -   [Connecting to Catalogs in Library Code](#link_lib)
@@ -385,6 +386,44 @@ a static context, like in the previous example, informing the translator
 of the available dynamic context keys and possible values.
 Like `subs` methods, `inContext` does not modify the parent instance,
 but returns a copy of it.
+
+<a name="before_qapp">
+
+### Messages before creation of Q*Application instance
+
+Fetching the translated messages only works after the Q*Application
+instance has been created. So any code which will be executed before
+and which handles text that should be translated has to delay
+the actual lookup in the catalog (like other locale-dependent actions),
+in one of two ways:
+either by using statically initialized character arrays wrapped in
+`I18N_*` macros for extraction, and later making the
+actual `i18n*` calls (see section \ref i18n_noop);
+or by using `ki18n*` calls to create `KLocalizedString` instances,
+which do not perform immediate catalog lookup, and later fetching
+the actual translation through their toString() methods (see
+section \ref spec_usage);
+
+One reason for this is that Gettext follows the standard C/POSIX locale
+settings. By standard on the start of a program all locale categories are
+fixed to the "C" locale, including the locale for the message catalog
+category (LC_MESSAGES).
+To use instead the locales specified by the environment variables,
+the locale values in the runtime need to be set to an empty string.
+This is usually done in one go for all locale categories by this call:
+~~~
+setlocale(LC_ALL, "");
+~~~
+From this point on the locale specific environment variables
+"LANGUAGE", "LC_*" and "LANG" are considered for deciding which locale
+to use for which category. This includes Gettext when picking the
+message catalog to use.
+
+The constructor of QCoreApplication (and thus its subclasses) does a call
+like that. Which means any `i18n*` calls done _after_ the creation of the
+QCoreApplication instance (or of its subclasses) will use a message catalog
+based on the locale specific environment variables, as one usually expects,
+But any calls _before_ will use a message catalog for the "C" locale.
 
 <a name="subs_notes">
 
