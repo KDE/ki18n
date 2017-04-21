@@ -45,6 +45,9 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
+# usually is called using find_package(KF5I18n),
+# KF5I18NMacros.cmake needs to know the scripts directory
+set(KF5I18n_DIR ${CMAKE_CURRENT_LIST_DIR}/cmake)
 include(cmake/KF5I18NMacros.cmake)
 
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
