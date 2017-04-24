@@ -34,3 +34,16 @@ ecm_add_test(ktranscriptcleantest.cpp ../src/ktranscript.cpp ../src/common_helpe
 target_compile_definitions(ki18n-ktranscriptcleantest PRIVATE "KTRANSCRIPT_TESTBUILD")
 target_include_directories(ki18n-ktranscriptcleantest PRIVATE ..)
 endif()
+
+add_test(ki18n_install ${CMAKE_CTEST_COMMAND}
+    --build-and-test
+    "${CMAKE_CURRENT_SOURCE_DIR}/ki18n_install"
+    "${CMAKE_CURRENT_BINARY_DIR}/ki18n_install"
+    --build-generator ${CMAKE_GENERATOR}
+    --build-makeprogram ${CMAKE_MAKE_PROGRAM}
+    --build-target install
+    --build-options
+        "-DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}"
+        "-DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/ki18n_install/destdir"
+        "-DKF5I18n_DIR=${KF5I18n_DIR}"
+    --test-command ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_SOURCE_DIR}/ki18n_install/test.cmake")

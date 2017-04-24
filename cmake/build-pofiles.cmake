@@ -1,4 +1,5 @@
 # Copyright (c) 2017 Aleix Pol Gonzalez <aleixpol@kde.org>
+# Copyright (c) 2017 Harald Sitter <sitter@kde.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -27,7 +28,11 @@
 file(GLOB_RECURSE pofiles RELATIVE "${PO_DIR}" "${PO_DIR}/**.po")
 
 foreach(pofile IN LISTS pofiles)
-    get_filename_component(name ${pofile} NAME_WE)
+    get_filename_component(name ${pofile} NAME)
+    # Regex the basename, cmake only allows stripping the longest extension, we
+    # need the shortest or we'll screw up "org.kde.plasma.kittens.po"
+    # https://bugs.kde.org/show_bug.cgi?id=379116
+    string(REGEX REPLACE "^(.+)(\\.[^.]+)$" "\\1" name ${name})
     get_filename_component(langdir ${pofile} DIRECTORY)
     set(dest ${COPY_TO}/${langdir}/LC_MESSAGES)
     file(MAKE_DIRECTORY ${dest})
