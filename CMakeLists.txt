@@ -55,7 +55,6 @@ if(MSVC)
     remove_definitions(-DQT_STRICT_ITERATORS)
 endif()
 
-add_definitions(-DTRANSLATION_DOMAIN=\"ki18n5\")
 if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
     ki18n_install(po)
 endif()
