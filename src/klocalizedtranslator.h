@@ -27,6 +27,8 @@
 class KLocalizedTranslatorPrivate;
 
 /**
+ * @class KLocalizedTranslator klocalizedtranslator.h <KLocalizedTranslator>
+ *
  * @brief A QTranslator using KLocalizedString for translations.
  *
  * This class allows to translate strings in Qt's translation system with KLocalizedString.

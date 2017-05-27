@@ -107,6 +107,8 @@ class KuitSetupPrivate;
 class KuitFormatterPrivate;
 
 /**
+ * @class KuitSetup kuitmarkup.h <KuitSetup>
+ *
  * Class for modifying KUIT markup in a given domain.
  *
  * Not directly constructed, but obtained through \c Kuit::setupForDomain.

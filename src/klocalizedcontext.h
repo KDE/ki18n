@@ -26,6 +26,8 @@
 #include <ki18n_export.h>
 
 /**
+ * @class KLocalizedContext klocalizedcontext.h <KLocalizedContext>
+ *
  * This class is meant to be used to simplify integration of the KI18n framework
  * in QML.
  *

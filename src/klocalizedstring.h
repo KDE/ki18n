@@ -72,6 +72,8 @@ class KLocalizedStringPrivate;
 #endif
 
 /**
+ * @class KLocalizedString klocalizedstring.h <KLocalizedString>
+ *
  * \short Class for producing and handling localized messages
  *
  * \c KLocalizedString handles translation and
