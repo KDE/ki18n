@@ -649,7 +649,7 @@ private:
 // Do not document every multi-argument i18n* call separately,
 // but provide special quasi-calls that only Doxygen sees.
 // Placed in front of ki18n* calls, because i18n* are more basic.
-#ifdef DOXYGEN_PREPROC
+#ifdef DOXYGEN_SHOULD_SKIP_THIS
 
 /**
  * Translate a string and substitute any arguments.
@@ -850,7 +850,7 @@ QString xi18ndcp(const char *domain,
                  const char *context, const char *singular, const char *plural,
                  const TYPE &arg...);
 
-#endif // DOXYGEN_PREPROC
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 /**
  * Create non-finalized translated string.
@@ -1090,7 +1090,7 @@ inline QString tr2xi18nd(const char *domain,
     }
 }
 
-#ifndef DOXYGEN_PREPROC
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 #ifndef NDEBUG
 #define I18N_ERR_MSG String_literal_as_second_argument_to_i18n___Perhaps_you_need_i18nc_or_i18np
@@ -1956,11 +1956,11 @@ inline QString xi18ndcp(const char *domain, const char *context, const char *sin
 }
 // <<<<< End of markup-aware context-plural calls with domain
 
-#endif // DOXYGEN_PREPROC
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif // KLOCALIZEDSTRING_H
 
-#ifndef DOXYGEN_PREPROC
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 // Outside of include guards, to be able to map and unmap domains
 // by successive inclusions of this header
@@ -2005,4 +2005,4 @@ inline QString xi18ndcp(const char *domain, const char *context, const char *sin
 #undef tr2xi18n
 #endif
 
-#endif // DOXYGEN_PREPROC
+#endif // DOXYGEN_SHOULD_SKIP_THIS
