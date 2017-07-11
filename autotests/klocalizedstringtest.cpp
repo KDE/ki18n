@@ -56,7 +56,7 @@ void KLocalizedStringTest::initTestCase()
     }
     QDir dataDir(m_tempDir.path());
     if (m_hasFrench) {
-        m_hasFrench = compileCatalogs(dataDir);
+        m_hasFrench = compileCatalogs({QFINDTESTDATA("po/fr/ki18n-test.po"), QFINDTESTDATA("po/fr/ki18n-test-qt.po")}, dataDir);
     }
     if (m_hasFrench) {
         qputenv("XDG_DATA_DIRS",
@@ -76,7 +76,7 @@ void KLocalizedStringTest::initTestCase()
 #endif
 }
 
-bool KLocalizedStringTest::compileCatalogs(const QDir &dataDir)
+bool KLocalizedStringTest::compileCatalogs(const QStringList &testPoPaths, const QDir &dataDir)
 {
     if (!dataDir.mkpath("locale/fr/LC_MESSAGES")) {
         qDebug() << "Failed to create locale subdirectory "
@@ -88,9 +88,6 @@ bool KLocalizedStringTest::compileCatalogs(const QDir &dataDir)
         qDebug() << "msgfmt(1) not found in path.";
         return false;
     }
-    QStringList testPoPaths;
-    testPoPaths << QFINDTESTDATA("po/fr/ki18n-test.po");
-    testPoPaths << QFINDTESTDATA("po/fr/ki18n-test-qt.po");
     foreach (const QString &testPoPath, testPoPaths) {
         int pos_1 = testPoPath.lastIndexOf(QLatin1Char('/'));
         int pos_2 = testPoPath.lastIndexOf(QLatin1Char('.'));
@@ -514,6 +511,20 @@ void KLocalizedStringTest::testLocalizedTranslator()
     QCOMPARE(app->translate("bar", "Job"), QStringLiteral("Job"));
     // with a mismatching disambiguation it shouldn't translate
     QCOMPARE(app->translate("foo", "Job", "bar"), QStringLiteral("Job"));
+}
+
+void KLocalizedStringTest::addCustomDomainPath()
+{
+    if (!m_hasFrench) {
+        QSKIP("French test files not usable.");
+    }
+    QTemporaryDir dir;
+    compileCatalogs({QFINDTESTDATA("po/fr/ki18n-test2.po")}, dir.path());
+    KLocalizedString::addDomainLocaleDir("ki18n-test2", dir.path() + "/locale");
+
+    QSet<QString> expectedAvailableTranslations({"en_US", "fr"});
+    QCOMPARE(KLocalizedString::availableDomainTranslations("ki18n-test2"), expectedAvailableTranslations);
+    QCOMPARE(i18nd("ki18n-test2", "Cheese"), QString::fromUtf8("Fromage"));
 }
 
 #include <QThreadPool>

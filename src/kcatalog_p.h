@@ -123,6 +123,8 @@ public:
      */
     static QSet<QString> availableCatalogLanguages(const QByteArray &domain);
 
+    static void addDomainLocaleDir(const QByteArray &domain, const QString &path);
+
 private:
     Q_DISABLE_COPY(KCatalog)
 

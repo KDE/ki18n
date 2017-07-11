@@ -35,6 +35,7 @@ private Q_SLOTS:
     void translateToFrenchLowlevel();
     void translateToFrench();
     void translateQt();
+    void addCustomDomainPath();
 
     void testThreads();
 
@@ -43,7 +44,7 @@ private Q_SLOTS:
 private:
     bool m_hasFrench;
     QTemporaryDir m_tempDir;
-    bool compileCatalogs(const QDir &dataDir);
+    bool compileCatalogs(const QStringList &catalogs, const QDir &dataDir);
 };
 
 #endif // KLOCALIZEDSTRINGTEST_H

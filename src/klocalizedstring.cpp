@@ -1554,6 +1554,10 @@ void KLocalizedString::removeQtDomain(const char *domain)
     }
 }
 
+void KLocalizedString::addDomainLocaleDir(const QByteArray &domain, const QString &path) {
+    KCatalog::addDomainLocaleDir(domain, path);
+}
+
 KLocalizedString ki18n(const char *text)
 {
     return KLocalizedString(nullptr, nullptr, text, nullptr, false);

@@ -557,6 +557,16 @@ public:
      */
     static QSet<QString> availableDomainTranslations(const QByteArray &domain);
 
+    /*
+     * Load locales for a domain from a specific location
+     * This is useful for resources which have their translation files
+     * outside of the usual $XDG_DATA_DIRS/locales location
+     *
+     * \param the domain to load resources from
+     * \path the full file path to the locale directory
+     */
+    static void addDomainLocaleDir(const QByteArray &domain, const QString &path);
+
     /**
      * Find a path to the localized file for the given original path.
      *

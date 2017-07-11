@@ -54,6 +54,7 @@ class KCatalogStaticData
 public:
     KCatalogStaticData() {}
 
+    QHash<QByteArray /*domain*/, QString /*directory*/> customCatalogDirs;
     QMutex mutex;
 };
 
@@ -118,6 +119,15 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
 {
     QString relpath = QStringLiteral("%1/LC_MESSAGES/%2.mo")
                       .arg(language, QFile::decodeName(domain));
+
+    {
+        QMutexLocker lock(&catalogStaticData->mutex);
+        const QString customLocaleDir = catalogStaticData->customCatalogDirs.value(domain);
+        if (!customLocaleDir.isEmpty() && QFileInfo::exists(customLocaleDir + QLatin1Char('/') + relpath)) {
+            return customLocaleDir;
+        }
+    }
+
     QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
                                           QStringLiteral("locale/") + relpath);
     QString localeDir;
@@ -136,6 +146,15 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
     QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
                                  QStringLiteral("locale"),
                                  QStandardPaths::LocateDirectory);
+
+    {
+        QMutexLocker lock(&catalogStaticData->mutex);
+        auto it = catalogStaticData->customCatalogDirs.constFind(domain_);
+        if (it != catalogStaticData->customCatalogDirs.constEnd()) {
+            localeDirPaths.prepend(*it);
+        }
+    }
+
     QSet<QString> availableLanguages;
     foreach (const QString &localDirPath, localeDirPaths) {
         QDir localeDir(localDirPath);
@@ -256,4 +275,11 @@ QString KCatalog::translate(const QByteArray &msgctxt,
         return QString();
     }
 }
+
+void KCatalog::addDomainLocaleDir(const QByteArray &domain, const QString &path)
+{
+    QMutexLocker(&catalogStaticData()->mutex);
+    catalogStaticData()->customCatalogDirs.insert(domain, path);
+}
+
 
