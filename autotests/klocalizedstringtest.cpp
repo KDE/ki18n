@@ -235,6 +235,8 @@ void KLocalizedStringTest::wrongSubs()
 
 void KLocalizedStringTest::semanticTags()
 {
+    KLocalizedString::setLanguages({"en"});
+
     // <application/>
     QCOMPARE(xi18nc("@action:inmenu", "Open with <application>%1</application>", "Okteta"),
              QString("Open with Okteta"));
