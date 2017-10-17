@@ -448,6 +448,12 @@ public:
      * This prevents mixing of translated and untranslated text
      * in the user interface.
      *
+     * This function should be called right after creating the instance
+     * of QCoreApplication or one of its subclasses. At that time the locale
+     * setup has been made, including what is hooked into the
+     * QCoreApplication startup, like KXMLGUI's language switching support.
+     * So the initialisation done by this function sees all the data it should.
+     *
      * \param domain the translation domain of the application
      */
     static void setApplicationDomain(const char *domain);

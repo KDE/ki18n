@@ -1053,9 +1053,10 @@ int main (int argc, char *argv[])
 }
 ~~~
 
-This call can be made at any place in the code
-(e.g. there is no need to have `QApplication` constructed beforehand),
-but of course before any `i18n` call takes place.
+This call must be made in the code before any `i18n` call takes place,
+and right after creating the instance of `QCoreApplication` or one
+of its subclasses. `ki18n` calls can still be made before, but the
+respective `KLocalizedString::toString()` has to be delayed to after that.
 
 This is all there is to connecting calls and catalogs application's
 C++ source files. However, there may also be some non-code files
