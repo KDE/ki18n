@@ -176,6 +176,7 @@ public:
     QHash<QByteArray, KuitSetup *> domainSetups;
 
     KuitStaticData();
+    ~KuitStaticData();
 
     void setXmlEntityData();
 
@@ -194,6 +195,12 @@ KuitStaticData::KuitStaticData()
     setUiMarkerData();
     setTextTransformData();
 }
+
+KuitStaticData::~KuitStaticData()
+{
+    qDeleteAll(domainSetups);
+}
+
 
 void KuitStaticData::setXmlEntityData()
 {
