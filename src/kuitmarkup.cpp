@@ -460,7 +460,8 @@ QString KuitTag::format(const QStringList &languages,
     KuitStaticData *s = staticData();
     QString formattedText = text;
     QString attribKey = attributeSetKey(attributes.keys());
-    if (patterns.contains(attribKey) && patterns.value(attribKey).contains(format)) {
+    const QHash<Kuit::VisualFormat, KLocalizedString> pattern = patterns.value(attribKey);
+    if (pattern.contains(format)) {
         QString modText;
         Kuit::TagFormatter formatter = formatters.value(attribKey).value(format);
         if (formatter != nullptr) {
@@ -468,7 +469,7 @@ QString KuitTag::format(const QStringList &languages,
         } else {
             modText = text;
         }
-        KLocalizedString aggText = patterns.value(attribKey).value(format);
+        KLocalizedString aggText = pattern.value(format);
         // line below is first-aid fix.for e.g. <emphasis strong='true'>.
         // TODO: proper handling of boolean attributes still needed
         aggText = aggText.relaxSubs();
@@ -497,10 +498,8 @@ QString KuitTag::format(const QStringList &languages,
 KuitSetup &Kuit::setupForDomain(const QByteArray& domain)
 {
     KuitStaticData *s = staticData();
-    KuitSetup *setup;
-    if (s->domainSetups.contains(domain)) {
-        setup = s->domainSetups.value(domain);
-    } else {
+    KuitSetup *setup = s->domainSetups.value(domain);
+    if (!setup) {
         setup = new KuitSetup(domain);
         s->domainSetups.insert(domain, setup);
     }
@@ -1240,11 +1239,8 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     parseUiMarker(context, roleName, cueName, formatName);
 
     // Set role from name.
-    Kuit::Role role;
-    if (s->rolesByName.contains(roleName)) { // known role
-        role = s->rolesByName.value(roleName);
-    } else { // unknown role
-        role = Kuit::UndefinedRole;
+    Kuit::Role role = s->rolesByName.value(roleName, Kuit::UndefinedRole);
+    if (role == Kuit::UndefinedRole) { // unknown role
         if (!roleName.isEmpty()) {
             qWarning() << QStringLiteral(
                            "Unknown role '@%1' in UI marker in context {%2}.")
@@ -1255,8 +1251,8 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     // Set subcue from name.
     Kuit::Cue cue;
     if (role != Kuit::UndefinedRole) {
-        if (s->cuesByName.contains(cueName)) { // known subcue
-            cue = s->cuesByName.value(cueName);
+        cue = s->cuesByName.value(cueName, Kuit::UndefinedCue);
+        if (cue != Kuit::UndefinedCue) { // known subcue
             if (!s->knownRoleCues.value(role).contains(cue)) {
                 cue = Kuit::UndefinedCue;
                 qWarning() << QStringLiteral(
@@ -1264,7 +1260,6 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
                            .arg(cueName, roleName, shorten(context));
             }
         } else { // unknown or not given subcue
-            cue = Kuit::UndefinedCue;
             if (!cueName.isEmpty()) {
                 qWarning() << QStringLiteral(
                                "Unknown subcue ':%1' in UI marker in context {%2}.")
@@ -1277,20 +1272,16 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     }
 
     // Set format from name, or by derivation from contex/subcue.
-    Kuit::VisualFormat format;
-    if (s->formatsByName.contains(formatName)) { // known format
-        format = s->formatsByName.value(formatName);
-    } else { // unknown or not given format
+    Kuit::VisualFormat format = s->formatsByName.value(formatName, Kuit::UndefinedFormat);
+    if (format == Kuit::UndefinedFormat) { // unknown or not given format
         // Check first if there is a format defined for role/subcue
-        // combination, then for role only, then default to undefined.
+        // combination, then for role only, otherwise default to undefined.
         if (setup.d->formatsByRoleCue.contains(role)) {
             if (setup.d->formatsByRoleCue.value(role).contains(cue)) {
                 format = setup.d->formatsByRoleCue.value(role).value(cue);
             } else {
                 format = setup.d->formatsByRoleCue.value(role).value(Kuit::UndefinedCue);
             }
-        } else {
-            format = Kuit::UndefinedFormat;
         }
         if (!formatName.isEmpty()) {
             qWarning() << QStringLiteral(
