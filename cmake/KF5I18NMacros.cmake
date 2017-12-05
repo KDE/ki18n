@@ -53,6 +53,7 @@ macro (KI18N_WRAP_UI _sources )
          -P ${_ki18n_uic_script}
          MAIN_DEPENDENCY ${_tmp_FILE}
       )
+      set_source_files_properties(${_header} PROPERTIES SKIP_AUTOMOC ON)
       list(APPEND ${_sources} ${_header})
    endforeach (_current_FILE)
 endmacro (KI18N_WRAP_UI)
