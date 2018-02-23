@@ -37,6 +37,27 @@ foreach(ts_file ${ts_files})
     file(COPY ${PO_DIR}/${ts_file} DESTINATION ${COPY_TO}/${subpath})
 endforeach()
 
+
+include(ProcessorCount)
+ProcessorCount(numberOfProcesses)
+
+set(i 0)
+set(commands)
+
+function(_processCommands)
+    if(NOT commands)
+        return()
+    endif()
+
+    execute_process(
+        ${commands}
+        RESULT_VARIABLE code
+    )
+    if(code)
+        message(FATAL_ERROR "failed generating: ${PO_DIR}")
+    endif()
+endfunction()
+
 file(GLOB_RECURSE pmap_files RELATIVE ${PO_DIR} "${PO_DIR}/**.pmap")
 foreach(pmap_file ${pmap_files})
     get_filename_component(pmap_basename ${pmap_file} NAME)
@@ -45,15 +66,18 @@ foreach(pmap_file ${pmap_files})
     set(pmapc_file "${COPY_TO}/${subpath}/${pmap_basename}c")
 
     message(STATUS "building... ${pmap_file} to ${pmapc_file}" )
-    execute_process(
+    list(APPEND commands
         COMMAND ${PYTHON_EXECUTABLE}
             -B
             ${_ki18n_pmap_compile_script}
             ${PO_DIR}/${pmap_file}
             ${pmapc_file}
-            RESULT_VARIABLE code
     )
-    if(code)
-        message(FATAL_ERROR "failed at creating ${pmap_file}...")
+    math(EXPR i "${i}+1")
+    if (i EQUAL ${numberOfProcesses})
+        _processCommands()
+        set(i 0)
     endif()
 endforeach()
+
+_processCommands()

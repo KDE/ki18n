@@ -27,6 +27,26 @@
 
 file(GLOB_RECURSE pofiles RELATIVE "${PO_DIR}" "${PO_DIR}/**.po")
 
+include(ProcessorCount)
+ProcessorCount(numberOfProcesses)
+
+set(i 0)
+set(commands)
+
+function(_processCommands)
+    if(NOT commands)
+        return()
+    endif()
+
+    execute_process(
+        ${commands}
+        RESULT_VARIABLE code
+    )
+    if(code)
+        message(FATAL_ERROR "failed generating ${PO_DIR}")
+    endif()
+endfunction()
+
 foreach(pofile IN LISTS pofiles)
     get_filename_component(name ${pofile} NAME)
     # Regex the basename, cmake only allows stripping the longest extension, we
@@ -37,12 +57,12 @@ foreach(pofile IN LISTS pofiles)
     set(dest ${COPY_TO}/${langdir}/LC_MESSAGES)
     file(MAKE_DIRECTORY ${dest})
 
-    message(STATUS "building... ${pofile} to ${name}.mo" )
-    execute_process(
-        COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${dest}/${name}.mo ${PO_DIR}/${pofile}
-        RESULT_VARIABLE code
-    )
-    if(code)
-        message(FATAL_ERROR "failed at generating ${name}.mo")
+    list(APPEND commands COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${dest}/${name}.mo ${PO_DIR}/${pofile})
+    math(EXPR i "${i}+1")
+    if(i EQUAL ${numberOfProcesses})
+        _processCommands()
+        set(i 0)
     endif()
 endforeach()
+
+_processCommands()
