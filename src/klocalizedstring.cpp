@@ -198,6 +198,14 @@ class KLocalizedStringPrivate
     bool markupAware;
     bool relaxedSubs;
 
+    KLocalizedStringPrivate()
+       : format()
+       , numberSet(false)
+       , markupAware(false)
+       , relaxedSubs(false)
+    {
+    }
+
     static void translateRaw(const QByteArray &domain,
                              const QStringList &languages,
                              const QByteArray &msgctxt,
