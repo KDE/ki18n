@@ -46,10 +46,17 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
+# KF5I18NMacros.cmake only needs to know the python executable path.
+# Due to CMake caching the variables, and KF5I18NMacros being included by KF5I18nConfig,
+# we have to hardcode the PYTHON_EXECUTABLE path or anything depending on KF5I18n
+# would be unable to find another Python version.
+find_package(PythonInterp REQUIRED)
+configure_file(cmake/KF5I18NMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake @ONLY)
+
 # usually is called using find_package(KF5I18n),
 # KF5I18NMacros.cmake needs to know the scripts directory
 set(KF5I18n_DIR ${CMAKE_CURRENT_LIST_DIR}/cmake)
-include(cmake/KF5I18NMacros.cmake)
+include(${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake)
 
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 if(MSVC)
@@ -96,7 +103,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h
         DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5} COMPONENT Devel)
 
 install( FILES
-    cmake/KF5I18NMacros.cmake
+    ${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake
     cmake/kf5i18nuic.cmake
     cmake/build-pofiles.cmake
     cmake/build-tsfiles.cmake
