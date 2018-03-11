@@ -19,8 +19,8 @@
 #ifndef KLOCALIZEDSTRINGTEST_H
 #define KLOCALIZEDSTRINGTEST_H
 
-#include <QtCore/QObject>
-#include <QtCore/QTemporaryDir>
+#include <QObject>
+#include <QTemporaryDir>
 
 class KLocalizedStringTest : public QObject
 {

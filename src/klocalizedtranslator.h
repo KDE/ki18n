@@ -22,7 +22,7 @@
 
 #include <ki18n_export.h>
 
-#include <QtCore/QTranslator>
+#include <QTranslator>
 
 class KLocalizedTranslatorPrivate;
 

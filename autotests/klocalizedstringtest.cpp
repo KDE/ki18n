@@ -27,14 +27,14 @@
 #include <locale.h>
 
 #include <QDebug>
-#include <QtTest/QtTest>
+#include <QtTest>
 
 #include <libintl.h>
 
 #include <klocalizedstring.h>
 
-#include <QtCore/QSet>
-#include <QtCore/QString>
+#include <QSet>
+#include <QString>
 
 void KLocalizedStringTest::initTestCase()
 {

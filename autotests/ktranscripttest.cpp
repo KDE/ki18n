@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "testhelpers.h"
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 #include <QDebug>
 

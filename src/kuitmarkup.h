@@ -22,9 +22,9 @@
 
 #include <ki18n_export.h>
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QHash>
+#include <QString>
+#include <QStringList>
+#include <QHash>
 
 class KuitSetup;
 

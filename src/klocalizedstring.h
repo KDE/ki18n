@@ -21,11 +21,11 @@
 
 #include <ki18n_export.h>
 
-#include <QtCore/QChar>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QSet>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QChar>
+#include <QLatin1Char>
+#include <QSet>
+#include <QString>
+#include <QStringList>
 
 #include <kuitmarkup.h>
 

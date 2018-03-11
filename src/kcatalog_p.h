@@ -21,9 +21,9 @@
 #ifndef KCATALOG_H
 #define KCATALOG_H
 
-#include <QtCore/QSet>
-#include <QtCore/QString>
-#include <QtCore/QByteArray>
+#include <QSet>
+#include <QString>
+#include <QByteArray>
 
 class KCatalogPrivate;
 
