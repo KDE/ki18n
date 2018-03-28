@@ -52,6 +52,11 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 # would be unable to find another Python version.
 find_package(PythonInterp REQUIRED)
 configure_file(cmake/KF5I18NMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake @ONLY)
+# Only needed to build the ki18n translations
+if(EXISTS ${KI18n_SOURCE_DIR}/po)
+   file(COPY ${KI18n_SOURCE_DIR}/cmake/ts-pmap-compile.py DESTINATION ${KI18n_BINARY_DIR}/cmake)
+   file(COPY ${KI18n_SOURCE_DIR}/cmake/kf5i18nuic.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
+endif()
 
 # usually is called using find_package(KF5I18n),
 # KF5I18NMacros.cmake needs to know the scripts directory
