@@ -9,7 +9,7 @@ find_package(ECM 5.45.0  NO_MODULE)
 set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://projects.kde.org/projects/kdesupport/extra-cmake-modules")
 feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${KI18n_SOURCE_DIR}/cmake ${KI18n_BINARY_DIR}/cmake)
 
 
 include(GenerateExportHeader)
@@ -52,11 +52,9 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 # would be unable to find another Python version.
 find_package(PythonInterp REQUIRED)
 configure_file(cmake/KF5I18NMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake @ONLY)
-# Only needed to build the ki18n translations
-if(EXISTS ${KI18n_SOURCE_DIR}/po)
-   file(COPY ${KI18n_SOURCE_DIR}/cmake/ts-pmap-compile.py DESTINATION ${KI18n_BINARY_DIR}/cmake)
-   file(COPY ${KI18n_SOURCE_DIR}/cmake/kf5i18nuic.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
-endif()
+# Needed to build the ki18n translations and run the autotests
+file(COPY ${KI18n_SOURCE_DIR}/cmake/ts-pmap-compile.py DESTINATION ${KI18n_BINARY_DIR}/cmake)
+file(COPY ${KI18n_SOURCE_DIR}/cmake/kf5i18nuic.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
 
 # usually is called using find_package(KF5I18n),
 # KF5I18NMacros.cmake needs to know the scripts directory
