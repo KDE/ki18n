@@ -62,6 +62,7 @@ foreach(pofile IN LISTS pofiles)
     if(i EQUAL ${numberOfProcesses})
         _processCommands()
         set(i 0)
+        set(commands)
     endif()
 endforeach()
 
