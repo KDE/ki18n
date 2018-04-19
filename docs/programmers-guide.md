@@ -790,6 +790,9 @@ when the component was introduced.
 <tr><td></td><td>:whatsthis<sup>5.0</sup></td>
     <td>Longer description of a widget's purpose and behavior,
         usually manually called up by the user.</td></tr>
+<tr><td></td><td>:placeholder<sup>5.46</sup></td>
+    <td>A hint what input is expected in an input field,
+        shown in the place of the input where there is none yet.</td></tr>
 <tr><td></td><td>:status<sup>5.0</sup></td>
     <td>A piece of text displayed in application's status view
         (e.g in the status bar).</td></tr>

@@ -149,7 +149,7 @@ enum Cue { // UI marker subcues
     SliderCue, SpinboxCue, ListboxCue, TextboxCue, ChooserCue,
     CheckCue, RadioCue,
     InlistboxCue, IntableCue, InrangeCue, IntextCue, ValuesuffixCue,
-    TooltipCue, WhatsthisCue, StatusCue, ProgressCue,
+    TooltipCue, WhatsthisCue, PlaceholderCue, StatusCue, ProgressCue,
     TipofthedayCue, CreditCue, ShellCue
 };
 
@@ -252,7 +252,7 @@ void KuitStaticData::setUiMarkerData()
              InmenuCue << InlistboxCue << IntableCue << InrangeCue
              << IntextCue << ValuesuffixCue);
     SET_ROLE(InfoRole,   QStringLiteral("info"),
-             TooltipCue << WhatsthisCue << StatusCue << ProgressCue
+             TooltipCue << WhatsthisCue << PlaceholderCue << StatusCue << ProgressCue
              << TipofthedayCue << CreditCue << ShellCue);
 
     // Cue names.
@@ -283,6 +283,7 @@ void KuitStaticData::setUiMarkerData()
     SET_CUE(ValuesuffixCue, QStringLiteral("valuesuffix"));
     SET_CUE(TooltipCue, QStringLiteral("tooltip"));
     SET_CUE(WhatsthisCue, QStringLiteral("whatsthis"));
+    SET_CUE(PlaceholderCue, QStringLiteral("placeholder"));
     SET_CUE(StatusCue, QStringLiteral("status"));
     SET_CUE(ProgressCue, QStringLiteral("progress"));
     SET_CUE(TipofthedayCue, QStringLiteral("tipoftheday"));
