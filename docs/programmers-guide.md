@@ -778,6 +778,9 @@ when the component was introduced.
 <tr><td></td><td>:intext<sup>5.0</sup></td>
     <td>Words and short phrases which are inserted into
         a larger piece of text.</td></tr>
+<tr><td></td><td>:valuesuffix<sup>5.46</sup></td>
+    <td>Suffix appended to a value, including any spacing
+        (e.g. in a spinbox).</td></tr>
 <tr><td><b>\@info</b><sup>5.0</sup></td><td></td>
     <td>Any transient information for the user.</td></tr>
 <tr><td></td><td>:tooltip<sup>5.0</sup></td>
