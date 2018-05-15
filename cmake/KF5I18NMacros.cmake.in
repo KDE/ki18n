@@ -105,35 +105,39 @@ function(KI18N_INSTALL podir)
     get_filename_component(absolute_podir ${podir} ABSOLUTE)
     string(MD5 pathmd5 ${absolute_podir})
 
-    add_custom_target(pofiles-${pathmd5} ALL
-        COMMENT "Generating mo..."
-        COMMAND ${CMAKE_COMMAND}
-                -DGETTEXT_MSGFMT_EXECUTABLE=${GETTEXT_MSGFMT_EXECUTABLE}
-                -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
-                -DPO_DIR=${absolute_podir}
-                -P ${KF5I18n_DIR}/build-pofiles.cmake
-    )
-    add_custom_target(tsfiles-${pathmd5} ALL
-        COMMENT "Generating ts..."
-        COMMAND ${CMAKE_COMMAND}
-                -DPYTHON_EXECUTABLE=${KI18N_PYTHON_EXECUTABLE}
-                -D_ki18n_pmap_compile_script=${_ki18n_pmap_compile_script}
-                -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
-                -DPO_DIR=${absolute_podir}
-                -P ${KF5I18n_DIR}/build-tsfiles.cmake
-    )
+    # Nothing to do if there's no podir and it would create an empty
+    # LOCALE_INSTALL_DIR in that case.
+    if (EXISTS "${absolute_podir}" AND IS_DIRECTORY "${absolute_podir}")
+        add_custom_target(pofiles-${pathmd5} ALL
+            COMMENT "Generating mo..."
+            COMMAND ${CMAKE_COMMAND}
+                    -DGETTEXT_MSGFMT_EXECUTABLE=${GETTEXT_MSGFMT_EXECUTABLE}
+                    -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
+                    -DPO_DIR=${absolute_podir}
+                    -P ${KF5I18n_DIR}/build-pofiles.cmake
+        )
+        add_custom_target(tsfiles-${pathmd5} ALL
+            COMMENT "Generating ts..."
+            COMMAND ${CMAKE_COMMAND}
+                    -DPYTHON_EXECUTABLE=${KI18N_PYTHON_EXECUTABLE}
+                    -D_ki18n_pmap_compile_script=${_ki18n_pmap_compile_script}
+                    -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
+                    -DPO_DIR=${absolute_podir}
+                    -P ${KF5I18n_DIR}/build-tsfiles.cmake
+        )
 
-    if (NOT TARGET pofiles)
-        add_custom_target(pofiles)
-    endif()
-    if (NOT TARGET tsfiles)
-        add_custom_target(tsfiles)
-    endif()
-    add_dependencies(pofiles pofiles-${pathmd5})
-    add_dependencies(tsfiles tsfiles-${pathmd5})
+        if (NOT TARGET pofiles)
+            add_custom_target(pofiles)
+        endif()
+        if (NOT TARGET tsfiles)
+            add_custom_target(tsfiles)
+        endif()
+        add_dependencies(pofiles pofiles-${pathmd5})
+        add_dependencies(tsfiles tsfiles-${pathmd5})
 
-    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dirname})
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dirname} DESTINATION ${destname})
+        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dirname})
+        install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dirname} DESTINATION ${destname})
+    endif()
 endfunction()
 
 #install the scripts for a given language in the target folder
