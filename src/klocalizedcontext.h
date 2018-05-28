@@ -62,7 +62,7 @@ class KI18N_EXPORT KLocalizedContext : public QObject
 
 public:
     explicit KLocalizedContext(QObject *parent = nullptr);
-    ~KLocalizedContext() Q_DECL_OVERRIDE;
+    ~KLocalizedContext() override;
 
     QString translationDomain() const;
     void setTranslationDomain(const QString &domain);

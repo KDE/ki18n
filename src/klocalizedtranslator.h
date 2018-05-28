@@ -70,7 +70,7 @@ class KI18N_EXPORT KLocalizedTranslator : public QTranslator
 public:
     explicit KLocalizedTranslator(QObject *parent = nullptr);
     virtual ~KLocalizedTranslator();
-    QString translate(const char *context, const char *sourceText, const char *disambiguation = nullptr, int n = -1) const Q_DECL_OVERRIDE;
+    QString translate(const char *context, const char *sourceText, const char *disambiguation = nullptr, int n = -1) const override;
 
     /**
      * Sets the @p translationDomain to be used.
