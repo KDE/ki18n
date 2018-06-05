@@ -121,7 +121,7 @@ public:
         entityMap = entities;
     }
 
-    QString resolveUndeclaredEntity(const QString &name) Q_DECL_OVERRIDE
+    QString resolveUndeclaredEntity(const QString &name) override
     {
         QString value = entityMap.value(name);
         // This will return empty string if the entity name is not known,

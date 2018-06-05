@@ -68,9 +68,9 @@ public:
                  const QString &ftrans,
                  QList<QStringList> &mods,
                  QString &error,
-                 bool &fallback) Q_DECL_OVERRIDE;
+                 bool &fallback) override;
 
-    QStringList postCalls(const QString &lang) Q_DECL_OVERRIDE;
+    QStringList postCalls(const QString &lang) override;
 
     // Lexical path of the module for the executing code.
     QString currentModulePath;
