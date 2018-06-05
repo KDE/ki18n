@@ -55,7 +55,7 @@ class KTranscriptImp : public KTranscript
 public:
 
     KTranscriptImp();
-    ~KTranscriptImp();
+    ~KTranscriptImp() override;
 
     QString eval(const QList<QVariant> &argv,
                  const QString &lang,
