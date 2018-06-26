@@ -53,6 +53,8 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 find_package(PythonInterp REQUIRED)
 configure_file(cmake/KF5I18NMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake @ONLY)
 # Needed to build the ki18n translations and run the autotests
+file(COPY ${KI18n_SOURCE_DIR}/cmake/build-pofiles.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
+file(COPY ${KI18n_SOURCE_DIR}/cmake/build-tsfiles.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
 file(COPY ${KI18n_SOURCE_DIR}/cmake/ts-pmap-compile.py DESTINATION ${KI18n_BINARY_DIR}/cmake)
 file(COPY ${KI18n_SOURCE_DIR}/cmake/kf5i18nuic.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
 
