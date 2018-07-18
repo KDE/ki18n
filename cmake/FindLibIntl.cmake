@@ -63,5 +63,6 @@ else()
     find_package_handle_standard_args(LibIntl REQUIRED_VARS LibIntl_INCLUDE_DIRS LibIntl_LIBRARIES)
 endif()
 
-set(CMAKE_REQUIRED_LIBRARIES ${LibIntl_LIBRARIES})
+# make sure we have -Wl,--no-undefined here, otherwise this test will always pass
+set(CMAKE_REQUIRED_LIBRARIES ${LibIntl_LIBRARIES} ${CMAKE_SHARED_LINKER_FLAGS})
 check_cxx_source_compiles("extern \"C\" int _nl_msg_cat_cntr; int main(void) { ++_nl_msg_cat_cntr; return 0; }" HAVE_NL_MSG_CAT_CNTR)
