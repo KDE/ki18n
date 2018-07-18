@@ -80,7 +80,7 @@ if (BUILD_TESTING)
 endif()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in"
-	"${CMAKE_CURRENT_SOURCE_DIR}/src/config.h")
+	"${CMAKE_CURRENT_BINARY_DIR}/src/config.h")
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5I18n")
