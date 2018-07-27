@@ -51,7 +51,7 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 # we have to hardcode the PYTHON_EXECUTABLE path or anything depending on KF5I18n
 # would be unable to find another Python version.
 find_package(PythonInterp REQUIRED)
-configure_file(cmake/KF5I18NMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake @ONLY)
+configure_file(cmake/KF5I18nMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF5I18nMacros.cmake @ONLY)
 # Needed to build the ki18n translations and run the autotests
 file(COPY ${KI18n_SOURCE_DIR}/cmake/build-pofiles.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
 file(COPY ${KI18n_SOURCE_DIR}/cmake/build-tsfiles.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
@@ -61,7 +61,7 @@ file(COPY ${KI18n_SOURCE_DIR}/cmake/kf5i18nuic.cmake DESTINATION ${KI18n_BINARY_
 # usually is called using find_package(KF5I18n),
 # KF5I18NMacros.cmake needs to know the scripts directory
 set(KF5I18n_DIR ${CMAKE_CURRENT_LIST_DIR}/cmake)
-include(${KI18n_BINARY_DIR}/cmake/KF5I18NMacros.cmake)
+include(${KI18n_BINARY_DIR}/cmake/KF5I18nMacros.cmake)
 
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 if(MSVC)
