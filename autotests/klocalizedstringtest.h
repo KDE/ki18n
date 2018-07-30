@@ -40,11 +40,13 @@ private Q_SLOTS:
 
     void testLocalizedTranslator();
     void semanticTags();
+    void multipleLanguages();
 
 private:
     bool m_hasFrench;
+    bool m_hasCatalan;
     QTemporaryDir m_tempDir;
-    bool compileCatalogs(const QStringList &catalogs, const QDir &dataDir);
+    bool compileCatalogs(const QStringList &catalogs, const QDir &dataDir, const QString &language);
 };
 
 #endif // KLOCALIZEDSTRINGTEST_H

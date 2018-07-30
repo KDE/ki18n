@@ -41,6 +41,14 @@ void KLocalizedStringTest::initTestCase()
     KLocalizedString::setApplicationDomain("ki18n-test");
 
     m_hasFrench = true;
+    m_hasCatalan = true;
+
+    setlocale(LC_ALL, "ca_ES.utf8");
+    if (setlocale(LC_ALL, nullptr) != QByteArray("ca_ES.utf8")) {
+        qDebug() << "Failed to set locale to ca_ES.utf8.";
+        m_hasCatalan = false;
+    }
+
     if (m_hasFrench) {
         setlocale(LC_ALL, "fr_FR.utf8");
         if (setlocale(LC_ALL, nullptr) != QByteArray("fr_FR.utf8")) {
@@ -56,7 +64,10 @@ void KLocalizedStringTest::initTestCase()
     }
     QDir dataDir(m_tempDir.path());
     if (m_hasFrench) {
-        m_hasFrench = compileCatalogs({QFINDTESTDATA("po/fr/ki18n-test.po"), QFINDTESTDATA("po/fr/ki18n-test-qt.po")}, dataDir);
+        m_hasFrench = compileCatalogs({QFINDTESTDATA("po/fr/ki18n-test.po"), QFINDTESTDATA("po/fr/ki18n-test-qt.po")}, dataDir, "fr");
+    }
+    if (m_hasCatalan) {
+        m_hasCatalan = compileCatalogs({QFINDTESTDATA("po/ca/ki18n-test.po")}, dataDir, "ca");
     }
     if (m_hasFrench) {
         qputenv("XDG_DATA_DIRS",
@@ -76,9 +87,10 @@ void KLocalizedStringTest::initTestCase()
 #endif
 }
 
-bool KLocalizedStringTest::compileCatalogs(const QStringList &testPoPaths, const QDir &dataDir)
+bool KLocalizedStringTest::compileCatalogs(const QStringList &testPoPaths, const QDir &dataDir, const QString &lang)
 {
-    if (!dataDir.mkpath("locale/fr/LC_MESSAGES")) {
+    const QString lcMessages = QString("locale/%1/LC_MESSAGES").arg(lang);
+    if (!dataDir.mkpath(lcMessages)) {
         qDebug() << "Failed to create locale subdirectory "
                  "inside temporary directory.";
         return false;
@@ -93,8 +105,8 @@ bool KLocalizedStringTest::compileCatalogs(const QStringList &testPoPaths, const
         int pos_2 = testPoPath.lastIndexOf(QLatin1Char('.'));
         QString domain = testPoPath.mid(pos_1 + 1, pos_2 - pos_1 - 1);
         QString testMoPath;
-        testMoPath = QString::fromLatin1("%1/locale/fr/LC_MESSAGES/%2.mo")
-                     .arg(dataDir.path(), domain);
+        testMoPath = QString::fromLatin1("%1/%3/%2.mo")
+                     .arg(dataDir.path(), domain, lcMessages);
         QProcess process;
         QStringList arguments;
         arguments << testPoPath << QLatin1String("-o") << testMoPath;
@@ -438,6 +450,9 @@ void KLocalizedStringTest::miscMethods()
         QSet<QString> availableLanguages;
         availableLanguages.insert("fr");
         availableLanguages.insert("en_US");
+        if (m_hasCatalan) {
+            availableLanguages.insert("ca");
+        }
         QCOMPARE(KLocalizedString::availableApplicationTranslations(),
                  availableLanguages);
     }
@@ -521,13 +536,35 @@ void KLocalizedStringTest::addCustomDomainPath()
         QSKIP("French test files not usable.");
     }
     QTemporaryDir dir;
-    compileCatalogs({QFINDTESTDATA("po/fr/ki18n-test2.po")}, dir.path());
+    compileCatalogs({QFINDTESTDATA("po/fr/ki18n-test2.po")}, dir.path(), "fr");
     KLocalizedString::addDomainLocaleDir("ki18n-test2", dir.path() + "/locale");
 
     QSet<QString> expectedAvailableTranslations({"en_US", "fr"});
     QCOMPARE(KLocalizedString::availableDomainTranslations("ki18n-test2"), expectedAvailableTranslations);
     QCOMPARE(i18nd("ki18n-test2", "Cheese"), QString::fromUtf8("Fromage"));
 }
+
+void KLocalizedStringTest::multipleLanguages()
+{
+    if (!m_hasFrench || !m_hasCatalan) {
+        QSKIP("French or Catalan test files not usable.");
+    }
+    KLocalizedString::setLanguages({"ca"});
+    QCOMPARE(i18n("Job"), QString::fromUtf8("Job")); // This is not the actual catalan translation but who cares
+    KLocalizedString::setLanguages({"fr"});
+    QCOMPARE(i18n("Job"), QString::fromUtf8("Tâche"));
+    KLocalizedString::setLanguages({"ca", "fr"});
+    QCOMPARE(i18n("Job"), QString::fromUtf8("Job")); // This is not the actual catalan translation but who cares
+
+
+    KLocalizedString::setLanguages({"ca"});
+    QCOMPARE(i18n("Loadable modules"), QString::fromUtf8("Loadable modules")); // The po doesn't have a translation so we get the English text
+    KLocalizedString::setLanguages({"fr"});
+    QCOMPARE(i18n("Loadable modules"), QString::fromUtf8("Modules chargeables"));
+    KLocalizedString::setLanguages({"ca", "fr"});
+    QCOMPARE(i18n("Loadable modules"), QString::fromUtf8("Modules chargeables")); // The Catalan po doesn't have a translation so we get the English text
+}
+
 
 #include <QThreadPool>
 #include <QtConcurrentRun>

@@ -211,9 +211,10 @@ QString KCatalog::translate(const QByteArray &msgid) const
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
         d->setupGettextEnv();
-        const char *msgstr = dgettext(d->domain.constData(), msgid.constData());
+        const char *msgid_char = msgid.constData();
+        const char *msgstr = dgettext(d->domain.constData(), msgid_char);
         d->resetSystemLanguage();
-        return msgstr != msgid
+        return msgstr != msgid_char // Yes we want pointer comparison
                ? QString::fromUtf8(msgstr)
                : QString();
     } else {
@@ -227,9 +228,10 @@ QString KCatalog::translate(const QByteArray &msgctxt,
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
         d->setupGettextEnv();
-        const char *msgstr = dpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData());
+        const char *msgid_char = msgid.constData();
+        const char *msgstr = dpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid_char);
         d->resetSystemLanguage();
-        return   msgstr != msgid
+        return   msgstr != msgid_char // Yes we want pointer comparison
                ? QString::fromUtf8(msgstr)
                : QString();
     } else {
@@ -244,14 +246,16 @@ QString KCatalog::translate(const QByteArray &msgid,
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
         d->setupGettextEnv();
-        const char *msgstr = dngettext(d->domain.constData(), msgid.constData(), msgid_plural.constData(), n);
+        const char *msgid_char = msgid.constData();
+        const char *msgid_plural_char = msgid_plural.constData();
+        const char *msgstr = dngettext(d->domain.constData(), msgid_char, msgid_plural_char, n);
         d->resetSystemLanguage();
         // If original and translation are same, dngettext will return
         // the original pointer, which is generally fine, except in
         // the corner cases where e.g. msgstr[1] is same as msgid.
         // Therefore check for pointer difference only with msgid or
         // only with msgid_plural, and not with both.
-        return   (n == 1 && msgstr != msgid) || (n != 1 && msgstr != msgid_plural)
+        return   (n == 1 && msgstr != msgid_char) || (n != 1 && msgstr != msgid_plural_char)
                ? QString::fromUtf8(msgstr)
                : QString();
     } else {
@@ -267,9 +271,11 @@ QString KCatalog::translate(const QByteArray &msgctxt,
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
         d->setupGettextEnv();
-        const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid.constData(), msgid_plural.constData(), n);
+        const char *msgid_char = msgid.constData();
+        const char *msgid_plural_char = msgid_plural.constData();
+        const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid_char, msgid_plural_char, n);
         d->resetSystemLanguage();
-        return   (n == 1 && msgstr != msgid) || (n != 1 && msgstr != msgid_plural)
+        return   (n == 1 && msgstr != msgid_char) || (n != 1 && msgstr != msgid_plural_char)
                ? QString::fromUtf8(msgstr)
                : QString();
     } else {
