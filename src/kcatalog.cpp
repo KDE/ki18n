@@ -132,9 +132,7 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
     QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
                                           QStringLiteral("locale/") + relpath);
     QString localeDir;
-    if (file.isEmpty()) {
-        localeDir = QString();
-    } else {
+    if (!file.isEmpty()) {
         // Path of the locale/ directory must be returned.
         localeDir = QFileInfo(file.left(file.size() - relpath.size())).absolutePath();
     }
