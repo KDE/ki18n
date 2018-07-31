@@ -124,8 +124,14 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
     {
         QMutexLocker lock(&catalogStaticData->mutex);
         const QString customLocaleDir = catalogStaticData->customCatalogDirs.value(domain);
-        if (!customLocaleDir.isEmpty() && QFileInfo::exists(customLocaleDir + QLatin1Char('/') + relpath)) {
+        const QString filename = customLocaleDir + QLatin1Char('/') + relpath;
+        if (!customLocaleDir.isEmpty() && QFileInfo::exists(filename)) {
+#if defined(Q_OS_ANDROID)
+            // The exact file name must be returned on Android because libintl-lite loads a catalog by filename with bindtextdomain()
+            return filename;
+#else
             return customLocaleDir;
+#endif
         }
     }
 
@@ -133,8 +139,13 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
                                           QStringLiteral("locale/") + relpath);
     QString localeDir;
     if (!file.isEmpty()) {
+#if defined(Q_OS_ANDROID)
+        // The exact file name must be returned on Android because libintl-lite loads a catalog by filename with bindtextdomain()
+        localeDir = file;
+#else
         // Path of the locale/ directory must be returned.
         localeDir = QFileInfo(file.left(file.size() - relpath.size())).absolutePath();
+#endif
     }
     return localeDir;
 }
