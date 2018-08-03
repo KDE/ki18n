@@ -1313,15 +1313,7 @@ bool KLocalizedString::isApplicationTranslatedInto(const QString &language)
 
 QSet<QString> KLocalizedString::availableApplicationTranslations()
 {
-    KLocalizedStringPrivateStatics *s = staticsKLSP();
-    QSet<QString> availableLanguages;
-    QByteArray domain = s->applicationDomain;
-    if (!domain.isEmpty()) {
-        availableLanguages = KCatalog::availableCatalogLanguages(domain);
-        availableLanguages.insert(s->codeLanguage);
-    }
-
-    return availableLanguages;
+    return availableDomainTranslations(staticsKLSP()->applicationDomain);
 }
 
 QSet<QString> KLocalizedString::availableDomainTranslations(const QByteArray &domain)
