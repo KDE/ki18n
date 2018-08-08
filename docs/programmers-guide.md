@@ -1804,7 +1804,7 @@ The second way to select the visual format is by using a `kxi18n*` call,
 and passing the format type to the `toString` method:
 
 ~~~
-kxi18n("@info", "Logging paused.").toString(Kuit::PlainText);
+kxi18nc("@info", "Logging paused.").toString(Kuit::PlainText);
 ~~~
 
 This will override any format implied by the UI marker if present.
@@ -1868,11 +1868,11 @@ contain some KUIT markup? This is done by using non-finalization
 the returned `KLocalizedString` object directly as argument:
 
 ~~~
-KLocalizedString stateDesc = kxi18nc(
+KLocalizedString stateDesc = kxi18n(
     "On <emphasis>indefinite</emphasis> hold.");
-QString msg = xi18n("@info",
-                    "<para>Task state:</para>"
-                    "<para>%1</para>", stateDesc);
+QString msg = xi18nc("@info",
+                     "<para>Task state:</para>"
+                     "<para>%1</para>", stateDesc);
 // msg == "<p>Task state:</p>"
 //        "<p>On <i>indefinite</i> hold.</p>"
 ~~~
