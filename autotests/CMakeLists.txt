@@ -45,5 +45,5 @@ add_test(ki18n_install ${CMAKE_CTEST_COMMAND}
     --build-options
         "-DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}"
         "-DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/ki18n_install/destdir"
-        "-DKF5I18n_DIR=${KF5I18n_DIR}"
+        "-DKF5I18n_DIR=${CMAKE_BINARY_DIR}/cmake"
     --test-command ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_SOURCE_DIR}/ki18n_install/test.cmake")

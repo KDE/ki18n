@@ -23,7 +23,7 @@ ecm_setup_version(
   PROJECT
   VARIABLE_PREFIX KI18N
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h"
-  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfigVersion.cmake"
+  PACKAGE_VERSION_FILE "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfigVersion.cmake"
   SOVERSION 5)
 
 # Dependencies
@@ -58,9 +58,9 @@ file(COPY ${KI18n_SOURCE_DIR}/cmake/build-tsfiles.cmake DESTINATION ${KI18n_BINA
 file(COPY ${KI18n_SOURCE_DIR}/cmake/ts-pmap-compile.py DESTINATION ${KI18n_BINARY_DIR}/cmake)
 file(COPY ${KI18n_SOURCE_DIR}/cmake/kf5i18nuic.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
 
-# usually is called using find_package(KF5I18n),
-# KF5I18nMacros.cmake needs to know the scripts directory
-set(KF5I18n_DIR ${CMAKE_CURRENT_LIST_DIR}/cmake)
+# Create dummy file to execute find_package(KF5I18n) within autotests/ki18n_install
+file(WRITE ${CMAKE_BINARY_DIR}/cmake/KF5I18nTargets.cmake "")
+
 include(${KI18n_BINARY_DIR}/cmake/KF5I18nMacros.cmake)
 
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
@@ -96,12 +96,12 @@ if (BUILD_QCH)
 endif()
 
 configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/KF5I18nConfig.cmake.in"
-                              "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
+                              "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfig.cmake"
                               INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
                               PATH_VARS  KF5_INCLUDE_INSTALL_DIR LIB_INSTALL_DIR CMAKE_INSTALL_PREFIX)
 
-install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfig.cmake"
-               "${CMAKE_CURRENT_BINARY_DIR}/KF5I18nConfigVersion.cmake"
+install(FILES  "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfig.cmake"
+               "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfigVersion.cmake"
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel)
 
