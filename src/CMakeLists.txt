@@ -64,7 +64,7 @@ install(FILES
 )
 
 ### ktranscript plugin
-if (BUILD_WITH_QTSCRIPT)
+if (BUILD_WITH_QML)
 
 set(ktranscript_LIB_SRCS
     ktranscript.cpp
@@ -72,7 +72,7 @@ set(ktranscript_LIB_SRCS
 )
 add_library(ktranscript MODULE ${ktranscript_LIB_SRCS})
 generate_export_header(ktranscript BASE_NAME KTranscript)
-target_link_libraries(ktranscript PRIVATE Qt5::Script Qt5::Core)
+target_link_libraries(ktranscript PRIVATE Qt5::Qml Qt5::Core)
 
 install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5)
 

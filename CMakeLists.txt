@@ -31,9 +31,9 @@ set(REQUIRED_QT_VERSION 5.8.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
 
-option(BUILD_WITH_QTSCRIPT "Build with support for scripted translations (recommended)" ON)
-if (BUILD_WITH_QTSCRIPT)
-   find_package(Qt5Script ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+option(BUILD_WITH_QML "Build with support for scripted translations (recommended)" ON)
+if (BUILD_WITH_QML)
+   find_package(Qt5Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
 
 include(KDEInstallDirs)

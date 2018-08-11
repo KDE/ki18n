@@ -29,7 +29,7 @@ target_compile_definitions(ki18n-ktranscripttest PRIVATE "KTRANSCRIPT_PATH=\"$<T
 # ktranscriptcleantest needs to directly compile ktranscript.cpp with an addition DEFINE
 ecm_add_test(ktranscriptcleantest.cpp ../src/ktranscript.cpp ../src/common_helpers.cpp
     TEST_NAME ki18n-ktranscriptcleantest
-    LINK_LIBRARIES Qt5::Script Qt5::Test Qt5::Concurrent KF5::I18n
+    LINK_LIBRARIES Qt5::Qml Qt5::Test Qt5::Concurrent KF5::I18n
 )
 target_compile_definitions(ki18n-ktranscriptcleantest PRIVATE "KTRANSCRIPT_TESTBUILD")
 target_include_directories(ki18n-ktranscriptcleantest PRIVATE ..)
