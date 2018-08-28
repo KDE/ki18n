@@ -25,6 +25,7 @@
 
 #include <qstandardpaths.h>
 #include <QByteArray>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -193,6 +194,10 @@ void KCatalogPrivate::setupGettextEnv()
     // Rebind text domain if language actually changed from the last time,
     // as locale directories may differ for different languages of same catalog.
     if (language != currentLanguage || !bindDone) {
+        Q_ASSERT_X(QCoreApplication::instance(), "KCatalogPrivate::setupGettextEnv", "You need to instantiate a Q*Application before using KCatalog");
+        if (!QCoreApplication::instance()) {
+            qWarning() << "KCatalog being used without a Q*Application instance. Some translations won't work";
+        }
 
         currentLanguage = language;
         bindDone = true;
