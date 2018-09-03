@@ -88,7 +88,7 @@ set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5I18n")
 if (BUILD_QCH)
     ecm_install_qch_export(
         TARGETS KF5I18n_QCH
-        FILE KF5I18nQchTargets.cmake
+        FILE "${CMAKE_BINARY_DIR}/cmake/KF5I18nQchTargets.cmake"
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
     )
