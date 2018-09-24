@@ -136,19 +136,23 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
         }
     }
 
-    QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                          QStringLiteral("locale/") + relpath);
+#if defined(Q_OS_ANDROID)
+// The exact file name must be returned on Android because libintl-lite loads a catalog by filename with bindtextdomain()
+    QString file = QDir::homePath()+QStringLiteral("/../qt-reserved-files/share/locale/") + relpath;
+    if (!QFile::exists(file)) {
+        file.clear();
+    }
+    return file;
+#else
+    const QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + relpath);
+
     QString localeDir;
     if (!file.isEmpty()) {
-#if defined(Q_OS_ANDROID)
-        // The exact file name must be returned on Android because libintl-lite loads a catalog by filename with bindtextdomain()
-        localeDir = file;
-#else
         // Path of the locale/ directory must be returned.
         localeDir = QFileInfo(file.left(file.size() - relpath.size())).absolutePath();
-#endif
     }
     return localeDir;
+#endif
 }
 
 QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
