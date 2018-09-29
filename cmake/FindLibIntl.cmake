@@ -45,6 +45,7 @@ find_path(LibIntl_INCLUDE_DIRS NAMES libintl.h)
 find_library(LibIntl_LIBRARIES NAMES intl libintl)
 
 include(CheckCXXSymbolExists)
+include(CMakePushCheckState)
 check_cxx_symbol_exists(dngettext libintl.h LibIntl_SYMBOL_FOUND)
 
 include(FindPackageHandleStandardArgs)
@@ -64,5 +65,7 @@ else()
 endif()
 
 # make sure we have -Wl,--no-undefined here, otherwise this test will always pass
+cmake_push_check_state()
 set(CMAKE_REQUIRED_LIBRARIES ${LibIntl_LIBRARIES} ${CMAKE_SHARED_LINKER_FLAGS})
 check_cxx_source_compiles("extern \"C\" int _nl_msg_cat_cntr; int main(void) { ++_nl_msg_cat_cntr; return 0; }" HAVE_NL_MSG_CAT_CNTR)
+cmake_pop_check_state()
