@@ -178,6 +178,9 @@ public:
     KuitStaticData();
     ~KuitStaticData();
 
+    KuitStaticData(const KuitStaticData &) = delete;
+    KuitStaticData &operator=(const KuitStaticData &) = delete;
+
     void setXmlEntityData();
 
     void setUiMarkerData();
