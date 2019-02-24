@@ -650,8 +650,8 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain,
     // Execute any scripted post calls; they cannot modify the final result,
     // but are used to set states.
     if (s->ktrs != nullptr) {
-        QStringList pcalls = s->ktrs->postCalls(language);
-        foreach (const QString &pcall, pcalls) {
+        const QStringList pcalls = s->ktrs->postCalls(language);
+        for (const QString &pcall : pcalls) {
             postTranscript(pcall, language, country, finalTranslation,
                            resolvedArguments, resolvedValues);
         }
