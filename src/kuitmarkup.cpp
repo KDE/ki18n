@@ -440,7 +440,7 @@ Q_GLOBAL_STATIC(KuitStaticData, staticData)
 static QString attributeSetKey(const QStringList &attribNames_)
 {
     QStringList attribNames = attribNames_;
-    qSort(attribNames);
+    std::sort(attribNames.begin(), attribNames.end());
     QString key = QL1C('[') + attribNames.join(QL1C(' ')) + QL1C(']');
     return key;
 }
