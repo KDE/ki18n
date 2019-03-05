@@ -145,7 +145,7 @@ static void appendLanguagesFromVariable(QStringList &languages,
 static void appendLanguagesFromQLocale(QStringList &languages, const QLocale &locale)
 {
     const QStringList uiLangs = locale.uiLanguages();
-    for (const QString &value : uiLangs) {
+    for (QString value : uiLangs) { // no const ref because of replace() below
         appendLocaleString(languages, value.replace(QLatin1Char('-'), QLatin1Char('_')));
     }
 }
