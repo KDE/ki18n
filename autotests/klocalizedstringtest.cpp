@@ -100,7 +100,7 @@ bool KLocalizedStringTest::compileCatalogs(const QStringList &testPoPaths, const
         qDebug() << "msgfmt(1) not found in path.";
         return false;
     }
-    foreach (const QString &testPoPath, testPoPaths) {
+    for (const QString &testPoPath : testPoPaths) {
         int pos_1 = testPoPath.lastIndexOf(QLatin1Char('/'));
         int pos_2 = testPoPath.lastIndexOf(QLatin1Char('.'));
         QString domain = testPoPath.mid(pos_1 + 1, pos_2 - pos_1 - 1);

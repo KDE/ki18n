@@ -131,7 +131,8 @@ static void appendLanguagesFromVariable(QStringList &languages,
     if (!qenvar.isEmpty()) {
         QString value = QFile::decodeName(qenvar);
         if (isList) {
-            foreach(const QString &v, value.split(QLatin1Char(':'), QString::SkipEmptyParts)) {
+            const auto listLanguages = value.split(QLatin1Char(':'), QString::SkipEmptyParts);
+            for (const QString &v : listLanguages) {
                 appendLocaleString(languages, v);
             }
         } else {
@@ -155,7 +156,7 @@ static void appendLanguagesFromQLocale(QStringList &languages, const QLocale &lo
 static QString extractCountry(const QStringList &languages)
 {
     QString country;
-    foreach (const QString &language, languages) {
+    for (const QString &language : languages) {
         int pos1 = language.indexOf(QLatin1Char('_'));
         if (pos1 >= 0) {
             ++pos1;
@@ -343,7 +344,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
 
 KLocalizedStringPrivateStatics::~KLocalizedStringPrivateStatics()
 {
-    foreach (const KCatalogPtrHash &languageCatalogs, catalogs) {
+    for (const KCatalogPtrHash &languageCatalogs : qAsConst(catalogs)) {
         qDeleteAll(languageCatalogs);
     }
     // ktrs is handled by QLibrary.
@@ -458,7 +459,7 @@ void KLocalizedStringPrivate::translateRaw(const QByteArray &domain,
     }
 
     // Languages are ordered from highest to lowest priority.
-    foreach (const QString &testLanguage, languages) {
+    for (const QString &testLanguage : languages) {
         // If code language reached, no catalog lookup is needed.
         if (testLanguage == s->codeLanguage) {
             return;
@@ -1434,7 +1435,7 @@ QString KLocalizedString::localizedFilePath(const QString &filePath)
     // Go through possible localized paths by priority of languages,
     // return first that exists.
     QString fileName = fileInfo.fileName();
-    foreach (const QString &lang, s->languages) {
+    for (const QString &lang : qAsConst(s->languages)) {
         QString locFilePath =   locDirPath + QLatin1Char('/')
                                 + lang + QLatin1Char('/')
                                 + fileName;
@@ -1497,7 +1498,7 @@ QString KLocalizedString::translateQt(const char *context,
     // was found, otherwise the original text was returned as translation.
     QString translation;
     QString language;
-    foreach (const QByteArray &domain, s->qtDomains) {
+    for (const QByteArray &domain : qAsConst(s->qtDomains)) {
         if (comment && comment[0]) {
             // Comment given, go for context call.
             KLocalizedStringPrivate::translateRaw(domain, s->languages,

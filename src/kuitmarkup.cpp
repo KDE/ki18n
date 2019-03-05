@@ -487,8 +487,8 @@ QString KuitTag::format(const QStringList &languages,
         aggText = aggText.relaxSubs();
         if (!aggText.isEmpty()) {
             aggText = aggText.subs(modText);
-            QStringList attributeOrder = attributeOrders.value(attribKey).value(format);
-            foreach (const QString &attribName, attributeOrder) {
+            const QStringList attributeOrder = attributeOrders.value(attribKey).value(format);
+            for (const QString &attribName : attributeOrder) {
                 aggText = aggText.subs(attributes.value(attribName));
             }
             formattedText = aggText.ignoreMarkup().toString(languages);
@@ -561,7 +561,7 @@ void KuitSetupPrivate::setTagPattern(const QString &tagName,
     }
     QStringList attribNames = attribNames_;
     attribNames.removeAll(QString());
-    foreach (const QString &attribName, attribNames) {
+    for (const QString &attribName : qAsConst(attribNames)) {
         tag.knownAttribs.insert(attribName);
     }
     QString attribKey = attributeSetKey(attribNames);
@@ -1405,9 +1405,9 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
             // Stream reader will automatically resolve default XML entities,
             // which is not desired in this case, as the entities are to be
             // resolved in finalizeVisualText. Convert back into entities.
-            QString ctext = xml.text().toString();
+            const QString ctext = xml.text().toString();
             QString nctext;
-            foreach (const QChar c, ctext) {
+            for (const QChar c : ctext) {
                 if (s->xmlEntitiesInverse.contains(c)) {
                     const QString entName = s->xmlEntitiesInverse[c];
                     nctext += QL1C('&') + entName + QL1C(';');
@@ -1442,7 +1442,8 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
 
     // Collect attribute names and values, and format attribute string.
     QStringList attribNames, attribValues;
-    foreach (const QXmlStreamAttribute &xatt, xml.attributes()) {
+    const auto listAttributes = xml.attributes();
+    for (const QXmlStreamAttribute &xatt : listAttributes) {
         attribNames += xatt.name().toString().toLower();
         attribValues += xatt.value().toString();
         QChar qc =   attribValues.last().indexOf(QL1C('\'')) < 0
