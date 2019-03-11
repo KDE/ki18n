@@ -120,7 +120,7 @@ static void resolveMessage(KLocalizedString &trMessage,
     }
 }
 
-static void resolvePlural(KLocalizedString &trMessage, const QVariant param)
+static void resolvePlural(KLocalizedString &trMessage, const QVariant &param)
 {
     trMessage = trMessage.subs(param.toInt());
 }
