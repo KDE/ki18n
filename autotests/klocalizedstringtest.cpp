@@ -123,6 +123,9 @@ bool KLocalizedStringTest::compileCatalogs(const QStringList &testPoPaths, const
 
 void KLocalizedStringTest::correctSubs()
 {
+    if (!m_hasFrench) {
+        QSKIP("French test files not usable.");
+    }
     // Warm up.
     QCOMPARE(i18n("Daisies, daisies"),
              QString("Daisies, daisies"));
@@ -219,7 +222,7 @@ void KLocalizedStringTest::correctSubs()
     QCOMPARE(ki18n("%1").subs(42, -5, 10, QChar('_')).toString(),
              QString("42___"));
     QCOMPARE(ki18n("%1").subs(4.2, 5, 'f', 2).toString(),
-             QString(" 4.20"));
+             QString(" 4,20"));
 }
 
 void KLocalizedStringTest::wrongSubs()

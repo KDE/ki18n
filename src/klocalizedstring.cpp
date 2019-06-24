@@ -1138,7 +1138,7 @@ KLocalizedString KLocalizedString::subs(int a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     kls.d->checkNumber(std::abs(a));
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1148,7 +1148,7 @@ KLocalizedString KLocalizedString::subs(uint a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     kls.d->checkNumber(a);
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1158,7 +1158,7 @@ KLocalizedString KLocalizedString::subs(long a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     kls.d->checkNumber(std::abs(a));
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1168,7 +1168,7 @@ KLocalizedString KLocalizedString::subs(ulong a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     kls.d->checkNumber(a);
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1178,7 +1178,7 @@ KLocalizedString KLocalizedString::subs(qlonglong a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     kls.d->checkNumber(qAbs(a));
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<intn>(a));
     return kls;
 }
@@ -1188,7 +1188,7 @@ KLocalizedString KLocalizedString::subs(qulonglong a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     kls.d->checkNumber(a);
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, base, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, base, fillChar));
     kls.d->values.append(static_cast<uintn>(a));
     return kls;
 }
@@ -1198,7 +1198,7 @@ KLocalizedString KLocalizedString::subs(double a, int fieldWidth,
                                         QChar fillChar) const
 {
     KLocalizedString kls(*this);
-    kls.d->arguments.append(QStringLiteral("%1").arg(a, fieldWidth, format, precision, fillChar));
+    kls.d->arguments.append(QStringLiteral("%L1").arg(a, fieldWidth, format, precision, fillChar));
     kls.d->values.append(static_cast<realn>(a));
     return kls;
 }
