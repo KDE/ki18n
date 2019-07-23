@@ -1170,8 +1170,8 @@ domain=fooapp
 uifile=fooconfpage.ui
 uihfile=$uifile.h
 uic -tr tr2i18n $uifile -o $uihfile
-sed -i 's/tr2i18n("")/QString::null/g' $uihfile
-sed -i 's/tr2i18n("", "")/QString::null/g' $uihfile
+sed -i 's/tr2i18n("")/QString()/g' $uihfile
+sed -i 's/tr2i18n("", "")/QString()/g' $uihfile
 sed -i "1i\#define TRANSLATION_DOMAIN \"$domain\"\n#include <klocalizedstring.h>" $uihfile
 ~~~
 
