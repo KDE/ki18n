@@ -36,8 +36,8 @@ set(KDE_UIC_CPP_FILE ${KDE_UIC_H_FILE})
 
 IF (_uic_CONTENTS)
   #replace tr218n("") with QString() to avoid warning from KLocale
-  STRING(REGEX REPLACE "tr2i18n\\(\"\"\\)" "QString\\(\\)" _uic_CONTENTS "${_uic_CONTENTS}" )
-  STRING(REGEX REPLACE "tr2i18n\\(\"\", \"\"\\)" "QString\\(\\)" _uic_CONTENTS "${_uic_CONTENTS}" )
+  STRING(REGEX REPLACE "tr2i18n\\(\"\"\\)" "QString\(\)" _uic_CONTENTS "${_uic_CONTENTS}" )
+  STRING(REGEX REPLACE "tr2i18n\\(\"\", \"\"\\)" "QString\(\)" _uic_CONTENTS "${_uic_CONTENTS}" )
   #replace image15_data with img15_filename to make enable_final work
   STRING(REGEX REPLACE "image([0-9]+)_data" "img\\1_${KDE_UIC_BASENAME}" _uic_CONTENTS "${_uic_CONTENTS}")
   #fixup include guard
