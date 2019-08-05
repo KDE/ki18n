@@ -42,7 +42,7 @@ set(_ki18n_build_pofiles_script ${CMAKE_CURRENT_LIST_DIR}/build-pofiles.cmake)
 set(_ki18n_build_tsfiles_script ${CMAKE_CURRENT_LIST_DIR}/build-tsfiles.cmake)
 
 #create the implementation files from the ui files and add them to the list of sources
-#usage: KI18N_WRAP_UI(foo_SRCS ${ui_files})
+#usage: KI18N_WRAP_UI(foo_SRCS ${ui_files}) or KI18N_WRAP_UI(TARGET ${ui_files})
 macro (KI18N_WRAP_UI _sources )
    if(NOT TARGET Qt5::uic)
       message(FATAL_ERROR "Qt5Widgets should be found before calling ki18n_wrap_ui(). Please add find_package(Qt5Widgets ...)")
@@ -68,7 +68,11 @@ macro (KI18N_WRAP_UI _sources )
          MAIN_DEPENDENCY ${_tmp_FILE}
       )
       set_source_files_properties(${_header} PROPERTIES SKIP_AUTOMOC ON)
-      list(APPEND ${_sources} ${_header})
+      if(TARGET ${_sources})
+         target_sources(${_sources} PRIVATE ${_header})
+      else()
+         list(APPEND ${_sources} ${_header})
+      endif()
    endforeach (_current_FILE)
 endmacro (KI18N_WRAP_UI)
 
