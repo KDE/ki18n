@@ -54,6 +54,8 @@ void KLocalizedStringTest::initTestCase()
         if (setlocale(LC_ALL, nullptr) != QByteArray("fr_FR.utf8")) {
             qDebug() << "Failed to set locale to fr_FR.utf8.";
             m_hasFrench = false;
+        } else {
+            QLocale::setDefault(QLocale("fr_FR")); // the setlocale is "too late" for Qt that already has created the default QLocale, so set it manually
         }
     }
     if (m_hasFrench) {
