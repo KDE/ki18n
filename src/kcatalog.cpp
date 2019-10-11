@@ -36,6 +36,8 @@
 
 #include <kcatalog_p.h>
 
+#include "ki18n_logging.h"
+
 // not defined on win32 :(
 #ifdef _WIN32
 #ifndef LC_MESSAGES
@@ -200,7 +202,7 @@ void KCatalogPrivate::setupGettextEnv()
     if (language != currentLanguage || !bindDone) {
         Q_ASSERT_X(QCoreApplication::instance(), "KCatalogPrivate::setupGettextEnv", "You need to instantiate a Q*Application before using KCatalog");
         if (!QCoreApplication::instance()) {
-            qWarning() << "KCatalog being used without a Q*Application instance. Some translations won't work";
+            qCWarning(KI18N) << "KCatalog being used without a Q*Application instance. Some translations won't work";
         }
 
         currentLanguage = language;

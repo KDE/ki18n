@@ -17,6 +17,7 @@ include(CMakePackageConfigHelpers)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
+include(ECMQtDeclareLoggingCategory)
 
 
 ecm_setup_version(
@@ -119,5 +120,7 @@ install( FILES
     cmake/build-tsfiles.cmake
     cmake/ts-pmap-compile.py
     DESTINATION ${CMAKECONFIG_INSTALL_DIR} COMPONENT Devel )
+
+install(FILES ki18n.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

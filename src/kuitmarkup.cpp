@@ -25,11 +25,12 @@
 #include <QStringList>
 #include <QPair>
 #include <QDir>
-#include <QDebug>
 
 #include <kuitmarkup.h>
 #include <kuitmarkup_p.h>
 #include <klocalizedstring.h>
+
+#include "ki18n_logging_kuit.h"
 
 #define QL1S(x) QLatin1String(x)
 #define QSL(x) QStringLiteral(x)
@@ -496,13 +497,13 @@ QString KuitTag::format(const QStringList &languages,
             formattedText = modText;
         }
     } else if (patterns.contains(attribKey)) {
-        qWarning() << QStringLiteral(
-            "Undefined visual format for tag <%1> and attribute combination %2: %3.")
-                   .arg(name, attribKey, s->namesByFormat.value(format));
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Undefined visual format for tag <%1> and attribute combination %2: %3.")
+                               .arg(name, attribKey, s->namesByFormat.value(format));
     } else {
-        qWarning() << QStringLiteral(
-                       "Undefined attribute combination for tag <%1>: %2.")
-                   .arg(name, attribKey);
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Undefined attribute combination for tag <%1>: %2.")
+                               .arg(name, attribKey);
     }
     return formattedText;
 }
@@ -594,14 +595,14 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
     if (s->rolesByName.contains(roleName)) {
         role = s->rolesByName.value(roleName);
     } else if (!roleName.isEmpty()) {
-        qWarning() << QStringLiteral(
-                       "Unknown role '@%1' in UI marker {%2}, visual format not set.")
-                   .arg(roleName, marker);
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Unknown role '@%1' in UI marker {%2}, visual format not set.")
+                               .arg(roleName, marker);
         return;
     } else {
-        qWarning() << QStringLiteral(
-                       "Empty role in UI marker {%1}, visual format not set.")
-                   .arg(marker);
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Empty role in UI marker {%1}, visual format not set.")
+                               .arg(marker);
         return;
     }
 
@@ -609,15 +610,15 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
     if (s->cuesByName.contains(cueName)) {
         cue = s->cuesByName.value(cueName);
         if (!s->knownRoleCues.value(role).contains(cue)) {
-            qWarning() << QStringLiteral(
-                "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, visual format not set.")
-                       .arg(cueName, roleName, marker);
+            qCWarning(KI18N_KUIT) << QStringLiteral(
+                                   "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, visual format not set.")
+                                   .arg(cueName, roleName, marker);
             return;
         }
     } else if (!cueName.isEmpty()) {
-        qWarning() << QStringLiteral(
-                       "Unknown subcue ':%1' in UI marker {%2}, visual format not set.")
-                   .arg(cueName, marker);
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Unknown subcue ':%1' in UI marker {%2}, visual format not set.")
+                               .arg(cueName, marker);
         return;
     } else {
         cue = Kuit::UndefinedCue;
@@ -1254,9 +1255,9 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     Kuit::Role role = s->rolesByName.value(roleName, Kuit::UndefinedRole);
     if (role == Kuit::UndefinedRole) { // unknown role
         if (!roleName.isEmpty()) {
-            qWarning() << QStringLiteral(
-                           "Unknown role '@%1' in UI marker in context {%2}.")
-                       .arg(roleName, shorten(context));
+            qCWarning(KI18N_KUIT) << QStringLiteral(
+                                   "Unknown role '@%1' in UI marker in context {%2}.")
+                                   .arg(roleName, shorten(context));
         }
     }
 
@@ -1267,15 +1268,15 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
         if (cue != Kuit::UndefinedCue) { // known subcue
             if (!s->knownRoleCues.value(role).contains(cue)) {
                 cue = Kuit::UndefinedCue;
-                qWarning() << QStringLiteral(
-                               "Subcue ':%1' does not belong to role '@%2' in UI marker in context {%3}.")
-                           .arg(cueName, roleName, shorten(context));
+                qCWarning(KI18N_KUIT) << QStringLiteral(
+                                       "Subcue ':%1' does not belong to role '@%2' in UI marker in context {%3}.")
+                                       .arg(cueName, roleName, shorten(context));
             }
         } else { // unknown or not given subcue
             if (!cueName.isEmpty()) {
-                qWarning() << QStringLiteral(
-                               "Unknown subcue ':%1' in UI marker in context {%2}.")
-                           .arg(cueName, shorten(context));
+                qCWarning(KI18N_KUIT) << QStringLiteral(
+                                       "Unknown subcue ':%1' in UI marker in context {%2}.")
+                                       .arg(cueName, shorten(context));
             }
         }
     } else {
@@ -1296,9 +1297,9 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
             }
         }
         if (!formatName.isEmpty()) {
-            qWarning() << QStringLiteral(
-                           "Unknown format '/%1' in UI marker for message {%2}.")
-                       .arg(formatName, shorten(context));
+            qCWarning(KI18N_KUIT) << QStringLiteral(
+                                   "Unknown format '/%1' in UI marker for message {%2}.")
+                                   .arg(formatName, shorten(context));
         }
     }
     if (format == Kuit::UndefinedFormat) {
@@ -1420,10 +1421,10 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
     }
 
     if (xml.hasError()) {
-        qWarning() << QStringLiteral(
-            "Markup error in message {%1}: %2. Last tag parsed: %3. Complete message follows:\n%4")
-                   .arg(shorten(text), xml.errorString(), lastElementName.toString(),
-                        text);
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Markup error in message {%1}: %2. Last tag parsed: %3. Complete message follows:\n%4")
+                               .arg(shorten(text), xml.errorString(), lastElementName.toString(),
+                               text);
         return QString();
     }
 
@@ -1464,9 +1465,9 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
             oel.handling = OpenEl::Proper;
         } else {
             oel.handling = OpenEl::Dropout;
-            qWarning() << QStringLiteral(
-                           "Structuring tag ('%1') cannot be subtag of phrase tag ('%2') in message {%3}.")
-                       .arg(tag.name, etag.name, shorten(text));
+            qCWarning(KI18N_KUIT) << QStringLiteral(
+                                   "Structuring tag ('%1') cannot be subtag of phrase tag ('%2') in message {%3}.")
+                                   .arg(tag.name, etag.name, shorten(text));
         }
 
         // Resolve attributes and compute attribute set key.
@@ -1477,9 +1478,9 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
                 attset << att;
                 oel.attributes[att] = attribValues[i];
             } else {
-                qWarning() << QStringLiteral(
-                               "Attribute '%1' not defined for tag '%2' in message {%3}.")
-                           .arg(att, tag.name, shorten(text));
+                qCWarning(KI18N_KUIT) << QStringLiteral(
+                                       "Attribute '%1' not defined for tag '%2' in message {%3}.")
+                                       .arg(att, tag.name, shorten(text));
             }
         }
 
@@ -1489,9 +1490,9 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
 
     } else { // unknown element, leave it in verbatim
         oel.handling = OpenEl::Ignored;
-        qWarning() << QStringLiteral(
-                       "Tag '%1' is not defined in message {%2}.")
-                   .arg(oel.name, shorten(text));
+        qCWarning(KI18N_KUIT) << QStringLiteral(
+                               "Tag '%1' is not defined in message {%2}.")
+                               .arg(oel.name, shorten(text));
     }
 
     return oel;

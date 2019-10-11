@@ -8,6 +8,18 @@ set(libki18n_SRCS
     main.cpp
 )
 
+ecm_qt_declare_logging_category(libki18n_SRCS
+    HEADER ki18n_logging.h
+    IDENTIFIER KI18N
+    CATEGORY_NAME kf5.ki18n
+)
+
+ecm_qt_declare_logging_category(libki18n_SRCS
+    HEADER ki18n_logging_kuit.h
+    IDENTIFIER KI18N_KUIT
+    CATEGORY_NAME kf5.ki18n.kuit
+)
+
 add_library(KF5I18n ${libki18n_SRCS})
 generate_export_header(KF5I18n BASE_NAME KI18n)
 add_library(KF5::I18n ALIAS KF5I18n)
