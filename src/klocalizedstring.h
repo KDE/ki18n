@@ -53,11 +53,12 @@ class KLocalizedStringPrivate;
 #define I18NC_NOOP(context, text) context, text
 #endif
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
 #ifndef I18N_NOOP2
 /**
  * Wrap string with context for extraction, discarding context.
  *
- * \deprecated Use \c I18NC_NOOP.
+ * \deprecated Since 5.0, use \c I18NC_NOOP.
  */
 #define I18N_NOOP2(context, text) text
 #endif
@@ -66,10 +67,11 @@ class KLocalizedStringPrivate;
 /**
  * Wrap string with context for extraction.
  *
- * \deprecated Old name for \c I18NC_NOOP.
+ * \deprecated Since 5.0, use \c I18NC_NOOP.
  */
 #define I18N_NOOP2_NOSTRIP(context, text) context, text
 #endif
+#endif // KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
 
 /**
  * @class KLocalizedString klocalizedstring.h <KLocalizedString>
@@ -606,6 +608,7 @@ public:
      */
     Q_REQUIRED_RESULT static QString removeAcceleratorMarker(const QString &label);
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Translate a message with Qt semantics.
      *
@@ -621,9 +624,12 @@ public:
      *             with roundtrip TS->PO->TS through
      *             Qt's \c lupdate and \c lconvert commands.
      */
-    Q_REQUIRED_RESULT KI18N_DEPRECATED static QString translateQt(const char *context, const char *text,
-                               const char *comment, int n);
+    KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
+    Q_REQUIRED_RESULT static QString translateQt(const char *context, const char *text,
+                                                 const char *comment, int n);
+#endif
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Add another domain to search for Qt translations.
      *
@@ -632,10 +638,13 @@ public:
      * \see translateQt
      * \see removeQtDomain
      *
-     * \deprecated
+     * \deprecated Since 5.0
      */
-    KI18N_DEPRECATED static void insertQtDomain(const char *domain);
+    KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
+    static void insertQtDomain(const char *domain);
+#endif
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Remove a domain from Qt translation lookup.
      *
@@ -650,9 +659,11 @@ public:
      * \see translateQt
      * \see insertQtDomain
      *
-     * \deprecated
+     * \deprecated Since 5.0
      */
-    KI18N_DEPRECATED static void removeQtDomain(const char *domain);
+    KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
+    static void removeQtDomain(const char *domain);
+#endif
 
 private:
     KLocalizedString(const char *domain,

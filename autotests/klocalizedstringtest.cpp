@@ -487,6 +487,7 @@ void KLocalizedStringTest::translateToFrench()
     QCOMPARE(i18n("Job"), QString::fromUtf8("Tâche"));
 }
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
 void KLocalizedStringTest::translateQt()
 {
     KLocalizedString::insertQtDomain("ki18n-test-qt");
@@ -509,6 +510,7 @@ void KLocalizedStringTest::translateQt()
 #endif
     KLocalizedString::removeQtDomain("ki18n-test-qt");
 }
+#endif
 
 void KLocalizedStringTest::testLocalizedTranslator()
 {
@@ -582,8 +584,10 @@ void KLocalizedStringTest::testThreads()
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::correctSubs));
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::correctSubs));
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::correctSubs));
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateQt));
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateQt));
+#endif
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateToFrench));
     sync.waitForFinished();
     QThreadPool::globalInstance()->setMaxThreadCount(1); // delete those threads

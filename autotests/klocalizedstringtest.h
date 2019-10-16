@@ -19,6 +19,7 @@
 #ifndef KLOCALIZEDSTRINGTEST_H
 #define KLOCALIZEDSTRINGTEST_H
 
+#include <ki18n_export.h>
 #include <QObject>
 #include <QTemporaryDir>
 
@@ -33,7 +34,9 @@ private Q_SLOTS:
     void miscMethods();
     void translateToFrenchLowlevel();
     void translateToFrench();
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
     void translateQt();
+#endif
     void addCustomDomainPath();
 
     void testThreads();

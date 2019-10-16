@@ -21,8 +21,15 @@ ecm_qt_declare_logging_category(libki18n_SRCS
 )
 
 add_library(KF5I18n ${libki18n_SRCS})
-generate_export_header(KF5I18n BASE_NAME KI18n)
 add_library(KF5::I18n ALIAS KF5I18n)
+ecm_generate_export_header(KF5I18n
+    BASE_NAME KI18n
+    # GROUP_BASE_NAME KF <- enable once all of KF modules use ecm_generate_export_header
+    VERSION ${KF5_VERSION}
+    DEPRECATED_BASE_VERSION 0
+    DEPRECATION_VERSIONS 5.0
+    EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
+)
 
 target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KI18n>")
 target_include_directories(KF5I18n PRIVATE ${LibIntl_INCLUDE_DIRS})

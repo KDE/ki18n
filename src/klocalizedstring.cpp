@@ -1454,6 +1454,7 @@ QString KLocalizedString::removeAcceleratorMarker(const QString &label)
     return ::removeAcceleratorMarker(label);
 }
 
+#if KI18N_BUILD_DEPRECATED_SINCE(5, 0)
 QString KLocalizedString::translateQt(const char *context,
                                       const char *sourceText,
                                       const char *comment,
@@ -1525,7 +1526,9 @@ QString KLocalizedString::translateQt(const char *context,
     // No proper translation found, return empty according to Qt semantics.
     return QString();
 }
+#endif
 
+#if KI18N_BUILD_DEPRECATED_SINCE(5, 0)
 void KLocalizedString::insertQtDomain(const char *domain)
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
@@ -1542,7 +1545,9 @@ void KLocalizedString::insertQtDomain(const char *domain)
         ++s->qtDomainInsertCount[pos];
     }
 }
+#endif
 
+#if KI18N_BUILD_DEPRECATED_SINCE(5, 0)
 void KLocalizedString::removeQtDomain(const char *domain)
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
@@ -1555,6 +1560,8 @@ void KLocalizedString::removeQtDomain(const char *domain)
         s->qtDomainInsertCount.removeAt(pos);
     }
 }
+#endif
+
 
 void KLocalizedString::addDomainLocaleDir(const QByteArray &domain, const QString &path) {
     KCatalog::addDomainLocaleDir(domain, path);
