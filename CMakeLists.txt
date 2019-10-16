@@ -11,6 +11,9 @@ feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKA
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${KI18n_SOURCE_DIR}/cmake ${KI18n_BINARY_DIR}/cmake)
 
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 include(GenerateExportHeader)
 include(CMakePackageConfigHelpers)
@@ -36,10 +39,6 @@ option(BUILD_WITH_QML "Build with support for scripted translations (recommended
 if (BUILD_WITH_QML)
    find_package(Qt5Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
-
-include(KDEInstallDirs)
-include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
-include(KDECMakeSettings)
 
 find_package(LibIntl)
 set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
