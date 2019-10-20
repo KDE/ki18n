@@ -24,7 +24,7 @@ add_library(KF5I18n ${libki18n_SRCS})
 add_library(KF5::I18n ALIAS KF5I18n)
 ecm_generate_export_header(KF5I18n
     BASE_NAME KI18n
-    # GROUP_BASE_NAME KF <- enable once all of KF modules use ecm_generate_export_header
+    GROUP_BASE_NAME KF
     VERSION ${KF5_VERSION}
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS 5.0
