@@ -2,12 +2,14 @@ remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 include(ECMAddTests)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test Qml Concurrent)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test Concurrent)
 
+if (BUILD_WITH_QML)
 ecm_add_test(ki18ndeclarativetest.cpp
     TEST_NAME "ki18n-declarativetest"
     LINK_LIBRARIES Qt5::Test Qt5::Qml KF5::I18n
 )
+endif()
 
 ecm_add_test(klocalizedstringtest.cpp
     TEST_NAME "ki18n-klocalizedstringtest"
