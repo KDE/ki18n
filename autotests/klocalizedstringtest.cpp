@@ -572,6 +572,18 @@ void KLocalizedStringTest::multipleLanguages()
     QCOMPARE(i18n("Loadable modules"), QString::fromUtf8("Modules chargeables")); // The Catalan po doesn't have a translation so we get the English text
 }
 
+void KLocalizedStringTest::untranslatedText()
+{
+    if (!m_hasFrench) {
+        QSKIP("French test files not usable.");
+    }
+    KLocalizedString s = ki18n("Job");
+    KLocalizedString::setLanguages({"fr"});
+    QCOMPARE(s.untranslatedText(), "Job");
+    QCOMPARE(s.toString(), QString::fromUtf8("Tâche"));
+    QCOMPARE(s.untranslatedText(), "Job");
+}
+
 
 #include <QThreadPool>
 #include <QtConcurrentRun>

@@ -1264,6 +1264,11 @@ KLocalizedString KLocalizedString::ignoreMarkup() const
     return kls;
 }
 
+QByteArray KLocalizedString::untranslatedText() const
+{
+    return d->text;
+}
+
 void KLocalizedString::setApplicationDomain(const char *domain)
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();

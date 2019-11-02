@@ -44,6 +44,7 @@ private Q_SLOTS:
     void testLocalizedTranslator();
     void semanticTags();
     void multipleLanguages();
+    void untranslatedText();
 
 private:
     bool m_hasFrench;

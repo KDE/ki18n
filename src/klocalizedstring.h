@@ -440,6 +440,13 @@ public:
     Q_REQUIRED_RESULT KLocalizedString ignoreMarkup() const;
 
     /**
+     * Returns the untranslated text.
+     *
+     * \since 5.64
+     */
+    Q_REQUIRED_RESULT QByteArray untranslatedText() const;
+
+    /**
      * Set the given domain as application's main domain.
      *
      * This function must be called in applications, in order to have
