@@ -53,16 +53,20 @@ class KLocalizedStringPrivate;
 #define I18NC_NOOP(context, text) context, text
 #endif
 
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
 #ifndef I18N_NOOP2
 /**
  * Wrap string with context for extraction, discarding context.
+ * WARNING: this means you'll need to pass the exact same context when calling i18nc() later on.
+ * Do not make typos...
+ * The preferred solution is to use I18NC_NOOP and store both @p context and @p text.
+ * I18NC_NOOP2 exists for cases where storing the context is not possible.
  *
- * \deprecated Since 5.0, use \c I18NC_NOOP.
+ * \deprecated between 5.0 and 5.64, re-enabled in 5.65
  */
 #define I18N_NOOP2(context, text) text
 #endif
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
 #ifndef I18N_NOOP2_NOSTRIP
 /**
  * Wrap string with context for extraction.
