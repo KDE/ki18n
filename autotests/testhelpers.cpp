@@ -24,7 +24,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <QtTest>
+#include <QTest>
 
 static const QString targetFileName = QStringLiteral("ktranscript.ini");
 

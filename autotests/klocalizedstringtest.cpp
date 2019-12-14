@@ -27,7 +27,10 @@
 #include <locale.h>
 
 #include <QDebug>
-#include <QtTest>
+#include <QTest>
+#include <QThread>
+#include <QStandardPaths>
+#include <QProcess>
 
 #include <libintl.h>
 
