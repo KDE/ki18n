@@ -19,6 +19,7 @@
 
 #include <QHash>
 #include <QSet>
+#include <QRegularExpression>
 #include <QRegExp>
 #include <QStack>
 #include <QXmlStreamReader>
@@ -1328,7 +1329,7 @@ bool KuitFormatterPrivate::determineIsStructured(const QString &text,
     return isStructured;
 }
 
-#define ENTITY_SUBRX "[a-z]+|#[0-9]+|#x[0-9a-fA-F]+"
+static const char s_entitySubRx[] = "[a-z]+|#[0-9]+|#x[0-9a-fA-F]+";
 
 QString KuitFormatterPrivate::toVisualText(const QString &text_,
         Kuit::VisualFormat format,
@@ -1339,13 +1340,14 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
     // Replace &-shortcut marker with "&amp;", not to confuse the parser;
     // but do not touch & which forms an XML entity as it is.
     QString original = text_;
+    // Regex is (see s_entitySubRx var): ^([a-z]+|#[0-9]+|#x[0-9a-fA-F]+);
+    static const QRegularExpression restRx(QLatin1String("^(") + QLatin1String(s_entitySubRx) + QLatin1String(");"));
+
     QString text;
     int p = original.indexOf(QL1C('&'));
     while (p >= 0) {
         text.append(original.midRef(0, p + 1));
         original.remove(0, p + 1);
-        static QRegExp staticRestRx(QLatin1String("^(" ENTITY_SUBRX ");"));
-        QRegExp restRx = staticRestRx; // QRegExp not thread-safe
         if (original.indexOf(restRx) != 0) { // not an entity
             text.append(QSL("amp;"));
         }
@@ -1563,33 +1565,28 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
 
     // Resolve XML entities.
     if (format != Kuit::RichText) {
-        static QRegExp staticEntRx(QLatin1String("&(" ENTITY_SUBRX ");"));
-        QRegExp entRx = staticEntRx; // QRegExp not thread-safe
-        int p = entRx.indexIn(text);
+        // regex is (see s_entitySubRx var): (&([a-z]+|#[0-9]+|#x[0-9a-fA-F]+);)
+        static const QRegularExpression entRx(QLatin1String("(&(") +  QLatin1String(s_entitySubRx) + QLatin1String(");)"));
+        QRegularExpressionMatch match;
         QString plain;
-        while (p >= 0) {
-            QString ent = entRx.capturedTexts().at(1);
-            plain.append(text.midRef(0, p));
-            text.remove(0, p + ent.length() + 2);
+        while ((match = entRx.match(text)).hasMatch()) {
+            const QString ent = match.captured(2);
+            plain.append(text.midRef(0, match.capturedStart(0)));
+            text.remove(0, match.capturedEnd(0));
             if (ent.startsWith(QL1C('#'))) { // numeric character entity
-                QChar c;
                 bool ok;
-                if (ent[1] == QL1C('x')) {
-                    c = QChar(ent.midRef(2).toInt(&ok, 16));
-                } else {
-                    c = QChar(ent.midRef(1).toInt(&ok, 10));
-                }
+                const QChar c = ent.at(1) == QL1C('x') ? QChar(ent.midRef(2).toInt(&ok, 16))
+                                                         : QChar(ent.midRef(1).toInt(&ok, 10));
                 if (ok) {
                     plain.append(c);
                 } else { // unknown Unicode point, leave as is
-                    plain.append(QL1C('&') + ent + QL1C(';'));
+                    plain.append(match.captured(0));
                 }
             } else if (s->xmlEntities.contains(ent)) { // known entity
                 plain.append(s->xmlEntities[ent]);
             } else { // unknown entity, just leave as is
-                plain.append(QL1C('&') + ent + QL1C(';'));
+                plain.append(match.captured(0));
             }
-            p = entRx.indexIn(text);
         }
         plain.append(text);
         text = plain;
@@ -1597,7 +1594,7 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
 
     // Add top tag.
     if (format == Kuit::RichText) {
-        text = QStringLiteral("<html>") + text + QStringLiteral("</html>");
+        text = QLatin1String("<html>") + text + QLatin1String("</html>");
     }
 
     return text;
