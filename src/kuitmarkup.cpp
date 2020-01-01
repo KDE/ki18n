@@ -21,6 +21,7 @@
 #include <QSet>
 #include <QRegularExpression>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QStack>
 #include <QXmlStreamReader>
 #include <QStringList>
@@ -395,16 +396,15 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages,
 {
     // Take '+' or '-' as input shortcut delimiter,
     // whichever is first encountered.
-    static QRegExp staticDelimRx(QStringLiteral("[+-]"));
-    QRegExp delimRx = staticDelimRx; // QRegExp not thread-safe
+    static const QRegularExpression delimRx(QStringLiteral("[+-]"));
 
-    int p = delimRx.indexIn(shstr); // find delimiter
+    const QRegularExpressionMatch match = delimRx.match(shstr);
     QStringList keys;
-    if (p < 0) { // single-key shortcut, no delimiter found
-        keys.append(shstr);
-    } else { // multi-key shortcut
-        QChar oldDelim = shstr[p];
+    if (match.hasMatch()) { // delimiter found, multi-key shortcut
+        const QString oldDelim = match.captured(0);
         keys = shstr.split(oldDelim, QString::SkipEmptyParts);
+    } else { // single-key shortcut, no delimiter found
+        keys.append(shstr);
     }
 
     for (int i = 0; i < keys.size(); ++i) {
@@ -423,18 +423,17 @@ QString KuitStaticData::toInterfacePath(const QStringList &languages,
 {
     // Take '/', '|' or "->" as input path delimiter,
     // whichever is first encountered.
-    static QRegExp staticDelimRx(QStringLiteral("\\||->"));
-    QRegExp delimRx = staticDelimRx; // QRegExp not thread-safe
-
-    int p = delimRx.indexIn(inpstr); // find delimiter
-    if (p < 0) { // single-element path, no delimiter found
-        return inpstr;
-    } else { // multi-element path
-        QString oldDelim = delimRx.capturedTexts().at(0);
+    static const QRegularExpression delimRx(QStringLiteral("\\||->"));
+    const QRegularExpressionMatch match = delimRx.match(inpstr);
+    if (match.hasMatch()) { // multi-element path
+        const QString oldDelim = match.captured(0);
         QStringList guiels = inpstr.split(oldDelim, QString::SkipEmptyParts);
         QString delim = guiPathDelim.value(format).toString(languages);
         return guiels.join(delim);
     }
+
+    // single-element path, no delimiter found
+    return inpstr;
 }
 
 Q_GLOBAL_STATIC(KuitStaticData, staticData)
