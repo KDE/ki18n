@@ -83,35 +83,18 @@ static void parseUiMarker(const QString &context_,
 {
     // UI marker is in the form @role:cue/format,
     // and must start just after any leading whitespace in the context string.
-    QString context = context_.trimmed();
-    if (context.startsWith(QL1C('@'))) { // found UI marker
-        static QRegExp staticWsRx(QStringLiteral("\\s"));
-        QRegExp wsRx = staticWsRx; // QRegExp not thread-safe
-        context = context.mid(1, wsRx.indexIn(context) - 1);
+    // Names remain untouched if UI marker is not found.
 
-        // Possible format.
-        int pfmt = context.indexOf(QL1C('/'));
-        if (pfmt >= 0) {
-            formatName = context.mid(pfmt + 1);
-            context.truncate(pfmt);
-        }
+    // Normalize all names, trimmed, all lower-case
+    QString context = context_.trimmed().toLower();
 
-        // Possible subcue.
-        int pcue = context.indexOf(QL1C(':'));
-        if (pcue >= 0) {
-            cueName = context.mid(pcue + 1);
-            context.truncate(pcue);
-        }
-
-        // Role.
-        roleName = context;
+    static const QRegularExpression rolesRx(QStringLiteral("^@(\\w+):?(\\w*)/?(\\w*)"));
+    const QRegularExpressionMatch match = rolesRx.match(context);
+    if (match.hasMatch()) {
+        roleName = match.captured(1);
+        cueName = match.captured(2);
+        formatName = match.captured(3);
     }
-    // Names remain untouched if marker was not found, which is fine.
-
-    // Normalize names.
-    roleName = roleName.trimmed().toLower();
-    cueName = cueName.trimmed().toLower();
-    formatName = formatName.trimmed().toLower();
 }
 
 // Custom entity resolver for QXmlStreamReader.
@@ -1314,12 +1297,11 @@ bool KuitFormatterPrivate::determineIsStructured(const QString &text,
 {
     // If the text opens with a structuring tag, then it is structured,
     // otherwise not. Leading whitespace is ignored for this purpose.
-    static QRegExp staticOpensWithTagRx(QStringLiteral("^\\s*<\\s*(\\w+)[^>]*>"));
-    QRegExp opensWithTagRx = staticOpensWithTagRx; // QRegExp not thread-safe
+    static const QRegularExpression opensWithTagRx(QStringLiteral("^\\s*<\\s*(\\w+)[^>]*>"));
     bool isStructured = false;
-    int p = opensWithTagRx.indexIn(text);
-    if (p >= 0) {
-        QString tagName = opensWithTagRx.capturedTexts().at(1).toLower();
+    const QRegularExpressionMatch match = opensWithTagRx.match(text);
+    if (match.hasMatch()) {
+        const QString tagName = match.captured(1).toLower();
         if (setup.d->knownTags.contains(tagName)) {
             const KuitTag &tag = setup.d->knownTags.value(tagName);
             isStructured = (tag.type == Kuit::StructTag);
