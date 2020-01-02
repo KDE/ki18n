@@ -1587,67 +1587,58 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
 {
     QString text = text_;
     QString ntext;
-    int pos;
 
     // Resolve tags simple-mindedly.
 
     // - tags with content
-    static QRegExp staticWrapRx(QStringLiteral("(<\\s*(\\w+)\\b([^>]*)>)(.*)(<\\s*/\\s*\\2\\s*>)"));
-    QRegExp wrapRx = staticWrapRx; // QRegExp not thread-safe
-    wrapRx.setMinimal(true);
-    pos = 0;
-    //ntext.clear();
-    while (true) {
-        int previousPos = pos;
-        pos = wrapRx.indexIn(text, previousPos);
-        if (pos < 0) {
-            ntext += text.midRef(previousPos);
-            break;
-        }
-        ntext += text.midRef(previousPos, pos - previousPos);
-        const QStringList capts = wrapRx.capturedTexts();
-        QString tagname = capts[2].toLower();
-        QString content = salvageMarkup(capts[4], format, setup);
+    static const QRegularExpression wrapRx(QStringLiteral("(<\\s*(\\w+)\\b([^>]*)>)(.*)(<\\s*/\\s*\\2\\s*>)"),
+                                           QRegularExpression::InvertedGreedinessOption);
+    QRegularExpressionMatchIterator iter = wrapRx.globalMatch(text);
+    QRegularExpressionMatch match;
+    int pos = 0;
+    while (iter.hasNext()) {
+        match = iter.next();
+        ntext += text.midRef(pos, match.capturedStart(0) - pos);
+        const QString tagname = match.captured(2).toLower();
+        const QString content = salvageMarkup(match.captured(4), format, setup);
         if (setup.d->knownTags.contains(tagname)) {
             const KuitTag &tag = setup.d->knownTags.value(tagname);
             QHash<QString, QString> attributes;
-            // TODO: Do not ignore attributes (in capts[3]).
+            // TODO: Do not ignore attributes (in match.captured(3)).
             ntext += tag.format(languageAsList,
                                 attributes, content,
                                 QStringList(), format);
         } else {
-            ntext += capts[1] + content + capts[5];
+            ntext += match.captured(1) + content + match.captured(5);
         }
-        pos += wrapRx.matchedLength();
+        pos = match.capturedEnd(0);
     }
+    // get the remaining part after the last match in "text"
+    ntext += text.midRef(pos);
     text = ntext;
 
     // - tags without content
-    static QRegExp staticNowrRx(QStringLiteral("<\\s*(\\w+)\\b([^>]*)/\\s*>"));
-    QRegExp nowrRx = staticNowrRx; // QRegExp not thread-safe
-    nowrRx.setMinimal(true);
+    static const QRegularExpression nowrRx(QStringLiteral("<\\s*(\\w+)\\b([^>]*)/\\s*>"),
+                                QRegularExpression::InvertedGreedinessOption);
+    iter = nowrRx.globalMatch(text);
     pos = 0;
     ntext.clear();
-    while (true) {
-        int previousPos = pos;
-        pos = nowrRx.indexIn(text, previousPos);
-        if (pos < 0) {
-            ntext += text.midRef(previousPos);
-            break;
-        }
-        ntext += text.midRef(previousPos, pos - previousPos);
-        const QStringList capts = nowrRx.capturedTexts();
-        QString tagname = capts[1].toLower();
+    while (iter.hasNext()) {
+        match = iter.next();
+        ntext += text.midRef(pos, match.capturedStart(0) - pos);
+        const QString tagname = match.captured(1).toLower();
         if (setup.d->knownTags.contains(tagname)) {
             const KuitTag &tag = setup.d->knownTags.value(tagname);
             ntext += tag.format(languageAsList,
                                 QHash<QString, QString>(), QString(),
                                 QStringList(), format);
         } else {
-            ntext += capts[0];
+            ntext += match.captured(0);
         }
-        pos += nowrRx.matchedLength();
+        pos = match.capturedEnd(0);
     }
+    // get the remaining part after the last match in "text"
+    ntext += text.midRef(pos);
     text = ntext;
 
     // Add top tag.

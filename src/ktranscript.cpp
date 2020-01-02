@@ -39,7 +39,6 @@
 #include <QIODevice>
 #include <QJSValueIterator>
 #include <QTextStream>
-#include <QRegExp>
 #include <QStandardPaths>
 #include <qendian.h>
 
