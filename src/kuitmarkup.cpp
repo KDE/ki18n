@@ -409,11 +409,11 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages,
 
     for (int i = 0; i < keys.size(); ++i) {
         // Normalize key, trim and all lower-case.
-        QString nkey = keys[i].trimmed().toLower();
+        const QString nkey = keys.at(i).trimmed().toLower();
         keys[i] = keyNames.contains(nkey) ? keyNames[nkey].toString(languages)
-                  : keys[i].trimmed();
+                                            : keys.at(i).trimmed();
     }
-    QString delim = comboKeyDelim.value(format).toString(languages);
+    const QString delim = comboKeyDelim.value(format).toString(languages);
     return keys.join(delim);
 }
 
@@ -428,7 +428,7 @@ QString KuitStaticData::toInterfacePath(const QStringList &languages,
     if (match.hasMatch()) { // multi-element path
         const QString oldDelim = match.captured(0);
         QStringList guiels = inpstr.split(oldDelim, QString::SkipEmptyParts);
-        QString delim = guiPathDelim.value(format).toString(languages);
+        const QString delim = guiPathDelim.value(format).toString(languages);
         return guiels.join(delim);
     }
 
