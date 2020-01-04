@@ -416,6 +416,18 @@ void KLocalizedStringTest::semanticTags()
              QString("<html><b>Danger</b>: This cannot be undone.</html>"));
 }
 
+void KLocalizedStringTest::setFormatForMarker()
+{
+    KLocalizedString::setLanguages({"en"});
+
+    QCOMPARE(xi18nc("@info:tooltip", "Hello world"),
+             QString("<html>Hello world</html>"));
+    KuitSetup &setup = Kuit::setupForDomain(KLocalizedString::applicationDomain());
+    setup.setFormatForMarker("@info:tooltip", Kuit::PlainText);
+    QCOMPARE(xi18nc("@info:tooltip", "Hello world"),
+             QString("Hello world"));
+}
+
 void
 KLocalizedStringTest::removeAcceleratorMarker()
 {

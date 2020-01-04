@@ -43,6 +43,7 @@ private Q_SLOTS:
 
     void testLocalizedTranslator();
     void semanticTags();
+    void setFormatForMarker();
     void multipleLanguages();
     void untranslatedText();
     void brokenTags();
