@@ -214,10 +214,32 @@ void KLocalizedStringTest::correctSubs()
              QString("E < *mc^2*"));
     QCOMPARE(xi18nc("@info", "E &lt; <emphasis>mc^2</emphasis>"),
              QString("<html>E &lt; <i>mc^2</i></html>"));
+    QCOMPARE(xi18nc("@info:status", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("E < *mc^2*"));
+    QCOMPARE(xi18nc("@info:progress", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("E < *mc^2*"));
+    QCOMPARE(xi18nc("@info:tooltip", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("<html>E &lt; <i>mc^2</i></html>"));
+    QCOMPARE(xi18nc("@info:shell", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("E < *mc^2*"));
     QCOMPARE(xi18n("E = mc^&#x0032;"),
              QString("E = mc^2"));
     QCOMPARE(xi18n("E = mc^&#0050;"),
              QString("E = mc^2"));
+
+    // with additional whitespace
+    QCOMPARE(xi18nc(" @info:progress ", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("E < *mc^2*"));
+    QCOMPARE(xi18nc(" @info:tooltip ", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("<html>E &lt; <i>mc^2</i></html>"));
+    QCOMPARE(xi18nc(" @info: progress ", "E &lt; <emphasis>mc^2</emphasis>"), // not parsed as a cue
+             QString("<html>E &lt; <i>mc^2</i></html>"));
+    QCOMPARE(xi18nc(" @info: tooltip ", "E &lt; <emphasis>mc^2</emphasis>"), // not parsed as a cue
+             QString("<html>E &lt; <i>mc^2</i></html>"));
+
+    QTest::ignoreMessage(QtWarningMsg, "\"Unknown subcue ':doesnotexist' in UI marker in context {@info:doesnotexist}.\"");
+    QCOMPARE(xi18nc("@info:doesnotexist", "E &lt; <emphasis>mc^2</emphasis>"),
+             QString("<html>E &lt; <i>mc^2</i></html>"));
 
     // Number formatting.
     QCOMPARE(ki18n("%1").subs(42).toString(),
