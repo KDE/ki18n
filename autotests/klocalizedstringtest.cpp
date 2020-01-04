@@ -36,6 +36,7 @@
 
 #include <klocalizedstring.h>
 
+#include <QRegularExpression>
 #include <QSet>
 #include <QString>
 
@@ -607,6 +608,14 @@ void KLocalizedStringTest::untranslatedText()
     QCOMPARE(s.untranslatedText(), "Job");
     QCOMPARE(s.toString(), QString::fromUtf8("Tâche"));
     QCOMPARE(s.untranslatedText(), "Job");
+}
+
+void KLocalizedStringTest::brokenTags()
+{
+    QTest::ignoreMessage(QtWarningMsg, QRegularExpression("Markup error in message {.*}: Opening and ending tag mismatch.. Last tag parsed: email. Complete message follows"));
+    QCOMPARE(xi18nc("@info",
+                    "Send bug reports to <email>%1<email>.", "konqi@kde.org"), // notice the missing '/' before "email"
+             QString("<html>Send bug reports to <email>konqi@kde.org<email>.</html>"));
 }
 
 

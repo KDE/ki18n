@@ -45,6 +45,7 @@ private Q_SLOTS:
     void semanticTags();
     void multipleLanguages();
     void untranslatedText();
+    void brokenTags();
 
 private:
     bool m_hasFrench;
