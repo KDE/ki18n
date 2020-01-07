@@ -83,17 +83,29 @@ static void parseUiMarker(const QString &context_,
 {
     // UI marker is in the form @role:cue/format,
     // and must start just after any leading whitespace in the context string.
-    // Names remain untouched if UI marker is not found.
-
-    // Normalize all names, trimmed, all lower-case
+    // Note that names remain untouched if the marker is not found.
+    // Normalize the whole string, all lowercase.
     QString context = context_.trimmed().toLower();
+    if (context.startsWith(QL1C('@'))) { // found UI marker
+        static const QRegularExpression wsRx(QStringLiteral("\\s"));
+        context = context.mid(1, wsRx.match(context).capturedStart(0) - 1);
 
-    static const QRegularExpression rolesRx(QStringLiteral("^@(\\w+):?(\\w*)/?(\\w*)"));
-    const QRegularExpressionMatch match = rolesRx.match(context);
-    if (match.hasMatch()) {
-        roleName = match.captured(1);
-        cueName = match.captured(2);
-        formatName = match.captured(3);
+        // Possible format.
+        int pfmt = context.indexOf(QL1C('/'));
+        if (pfmt >= 0) {
+            formatName = context.mid(pfmt + 1);
+            context.truncate(pfmt);
+        }
+
+        // Possible subcue.
+        int pcue = context.indexOf(QL1C(':'));
+        if (pcue >= 0) {
+            cueName = context.mid(pcue + 1);
+            context.truncate(pcue);
+        }
+
+        // Role.
+        roleName = context;
     }
 }
 
