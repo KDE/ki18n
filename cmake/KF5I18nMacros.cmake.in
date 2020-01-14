@@ -51,6 +51,11 @@ macro (KI18N_WRAP_UI _sources )
    foreach (_current_FILE ${ARGN})
 
       get_filename_component(_tmp_FILE ${_current_FILE} ABSOLUTE)
+      if(NOT EXISTS ${_tmp_FILE})
+         message(SEND_ERROR
+         " Cannot find ui file:\n \n"
+         "    ${_current_FILE}\n")
+      endif()
       get_filename_component(_basename ${_tmp_FILE} NAME_WE)
       set(_header ${CMAKE_CURRENT_BINARY_DIR}/ui_${_basename}.h)
 
