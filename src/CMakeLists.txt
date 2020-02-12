@@ -12,12 +12,16 @@ ecm_qt_declare_logging_category(libki18n_SRCS
     HEADER ki18n_logging.h
     IDENTIFIER KI18N
     CATEGORY_NAME kf5.ki18n
+    DESCRIPTION "KI18n"
+    EXPORT KI18N
 )
 
 ecm_qt_declare_logging_category(libki18n_SRCS
     HEADER ki18n_logging_kuit.h
     IDENTIFIER KI18N_KUIT
     CATEGORY_NAME kf5.ki18n.kuit
+    DESCRIPTION "KI18n KUIT"
+    EXPORT KI18N
 )
 
 add_library(KF5I18n ${libki18n_SRCS})
@@ -80,6 +84,13 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
     DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF5}/KI18n" COMPONENT Devel
 )
+
+ecm_qt_install_logging_categories(
+    EXPORT KI18N
+    FILE ki18n.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+)
+
 
 ### ktranscript plugin
 if (BUILD_WITH_QML)
