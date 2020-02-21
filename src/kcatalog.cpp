@@ -118,6 +118,35 @@ KCatalog::~KCatalog()
     delete d;
 }
 
+#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+static QString androidUnpackCatalog(const QString &relpath)
+{
+    // the catalog files are no longer extracted to the local file system
+    // by androiddeployqt starting with Qt 5.14, libintl however needs
+    // local files rather than qrc: or asset: URLs, so we unpack the .mo
+    // files on demand to the local cache folder
+
+    const QString cachePath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + QLatin1String("/org.kde.ki18n/") + relpath;
+    QFileInfo cacheFile(cachePath);
+    if (cacheFile.exists()) {
+        return cachePath;
+    }
+
+    const QString assetPath = QLatin1String("assets:/share/locale/") + relpath;
+    if (!QFileInfo::exists(assetPath)) {
+        return {};
+    }
+
+    QDir().mkpath(cacheFile.absolutePath());
+    QFile f(assetPath);
+    if (!f.copy(cachePath)) {
+        qCWarning(KI18N) << "Failed to copy catalog:" << f.errorString() << assetPath << cachePath;
+        return {};
+    }
+    return cachePath;
+}
+#endif
+
 QString KCatalog::catalogLocaleDir(const QByteArray &domain,
                                    const QString &language)
 {
@@ -139,12 +168,16 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
     }
 
 #if defined(Q_OS_ANDROID)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 // The exact file name must be returned on Android because libintl-lite loads a catalog by filename with bindtextdomain()
     QString file = QDir::homePath()+QStringLiteral("/../qt-reserved-files/share/locale/") + relpath;
     if (!QFile::exists(file)) {
         file.clear();
     }
     return file;
+#else
+    return androidUnpackCatalog(relpath);
+#endif
 #else
     const QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + relpath);
 
