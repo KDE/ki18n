@@ -397,7 +397,11 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages,
     QStringList keys;
     if (match.hasMatch()) { // delimiter found, multi-key shortcut
         const QString oldDelim = match.captured(0);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         keys = shstr.split(oldDelim, QString::SkipEmptyParts);
+#else
+        keys = shstr.split(oldDelim, Qt::SkipEmptyParts);
+#endif
     } else { // single-key shortcut, no delimiter found
         keys.append(shstr);
     }
@@ -422,7 +426,11 @@ QString KuitStaticData::toInterfacePath(const QStringList &languages,
     const QRegularExpressionMatch match = delimRx.match(inpstr);
     if (match.hasMatch()) { // multi-element path
         const QString oldDelim = match.captured(0);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         QStringList guiels = inpstr.split(oldDelim, QString::SkipEmptyParts);
+#else
+        QStringList guiels = inpstr.split(oldDelim, Qt::SkipEmptyParts);
+#endif
         const QString delim = guiPathDelim.value(format).toString(languages);
         return guiels.join(delim);
     }
