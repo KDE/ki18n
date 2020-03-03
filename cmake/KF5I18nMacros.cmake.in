@@ -49,7 +49,9 @@ macro (KI18N_WRAP_UI _sources )
          -P ${_ki18n_uic_script}
          MAIN_DEPENDENCY ${_tmp_FILE}
       )
+      set_source_files_properties(${_tmp_FILE} PROPERTIES SKIP_AUTOUIC ON)
       set_source_files_properties(${_header} PROPERTIES SKIP_AUTOMOC ON)
+      set_source_files_properties(${_header} PROPERTIES SKIP_AUTOUIC ON)
       if(TARGET ${_sources})
          target_sources(${_sources} PRIVATE ${_header})
       else()
