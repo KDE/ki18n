@@ -1,0 +1,793 @@
+# Finnish messages for kdelibs4.
+# Copyright © 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kdelibs package.
+# Kim Enkovaara <kim.enkovaara@iki.fi>, 2002,2003, 2005, 2006, 2007.
+# Tapio Kautto <eleknader@phnet.fi>, 2003, 2004.
+# Mikko Ikola <kola@netikka.fi>, 2003.
+# Teemu Rytilahti <teemu.rytilahti@d5k.net>, 2003, 2008.
+# Mikko Ikola <ikola@iki.fi>, 2003.
+# Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, 2003, 2004, 2008.
+# Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006, 2007.
+# Joonas Niilola <juippis@roskakori.org>, 2006.
+# Mikko Piippo <piippo@cc.helsinki.fi>, 2007.
+# Teemu Rytilahti <tpr@d5k.net>, 2008.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011.
+# Jorma Karvonen <karvonen.jorma@gmail.com>, 2010.
+# Lasse Liehu <lasse.liehu@gmail.com>, 2006, 2010, 2011, 2012, 2013, 2014, 2015.
+#
+# KDE Finnish translation sprint participants:
+# Author: Artnay
+# Author: Jl
+# Author: Lliehu
+# Author: Niklas Laxström
+# Author: Suhviksi
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-03-29 04:10+0200\n"
+"PO-Revision-Date: 2015-04-06 05:58+0200\n"
+"Last-Translator: Lasse Liehu <lasse.liehu@gmail.com>\n"
+"Language-Team: Finnish <lokalisointi@lists.coss.fi>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 2.0\n"
+"X-POT-Import-Date: 2013-01-13 20:43:21+0000\n"
+
+#. i18n: Decide which string is used to delimit keys in a keyboard
+#. shortcut (e.g. + in Ctrl+Alt+Tab) in plain text.
+#: kuitmarkup.cpp:297
+#, kde-format
+msgctxt "shortcut-key-delimiter/plain"
+msgid "+"
+msgstr "+"
+
+#. i18n: Decide which string is used to delimit keys in a keyboard
+#. shortcut (e.g. + in Ctrl+Alt+Tab) in rich text.
+#: kuitmarkup.cpp:301
+#, kde-format
+msgctxt "shortcut-key-delimiter/rich"
+msgid "+"
+msgstr "+"
+
+#. i18n: Decide which string is used to delimit elements in a GUI path
+#. (e.g. -> in "Go to Settings->Advanced->Core tab.") in plain text.
+#: kuitmarkup.cpp:305
+#, kde-format
+msgctxt "gui-path-delimiter/plain"
+msgid "→"
+msgstr "→"
+
+#. i18n: Decide which string is used to delimit elements in a GUI path
+#. (e.g. -> in "Go to Settings->Advanced->Core tab.") in rich text.
+#: kuitmarkup.cpp:309
+#, kde-format
+msgctxt "gui-path-delimiter/rich"
+msgid "→"
+msgstr "→"
+
+#: kuitmarkup.cpp:322
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Alt"
+msgstr "Alt"
+
+#: kuitmarkup.cpp:323
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "AltGr"
+msgstr "AltGr"
+
+#: kuitmarkup.cpp:324
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Backspace"
+msgstr "Askelpalautin"
+
+#: kuitmarkup.cpp:325
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "CapsLock"
+msgstr "Vaihtolukko"
+
+#: kuitmarkup.cpp:326
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Control"
+msgstr "Ctrl"
+
+#: kuitmarkup.cpp:327
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: kuitmarkup.cpp:328
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Del"
+msgstr "Delete"
+
+#: kuitmarkup.cpp:329
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Delete"
+msgstr "Delete"
+
+#: kuitmarkup.cpp:330
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Down"
+msgstr "Alanuoli"
+
+#: kuitmarkup.cpp:331
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "End"
+msgstr "End"
+
+#: kuitmarkup.cpp:332
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Enter"
+msgstr "Enter"
+
+#: kuitmarkup.cpp:333
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Esc"
+msgstr "Esc"
+
+#: kuitmarkup.cpp:334
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Escape"
+msgstr "Escape"
+
+#: kuitmarkup.cpp:335
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Home"
+msgstr "Home"
+
+#: kuitmarkup.cpp:336
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Hyper"
+msgstr "Hyper"
+
+#: kuitmarkup.cpp:337
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Ins"
+msgstr "Ins"
+
+#: kuitmarkup.cpp:338
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Insert"
+msgstr "Insert"
+
+#: kuitmarkup.cpp:339
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Left"
+msgstr "Vasen nuoli"
+
+#: kuitmarkup.cpp:340
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Menu"
+msgstr "Valikko"
+
+#: kuitmarkup.cpp:341
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Meta"
+msgstr "Meta"
+
+#: kuitmarkup.cpp:342
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "NumLock"
+msgstr "Num Lock"
+
+#: kuitmarkup.cpp:343
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PageDown"
+msgstr "Page Down"
+
+#: kuitmarkup.cpp:344
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PageUp"
+msgstr "Page Up"
+
+#: kuitmarkup.cpp:345
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PgDown"
+msgstr "Page Down"
+
+#: kuitmarkup.cpp:346
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PgUp"
+msgstr "Page Up"
+
+#: kuitmarkup.cpp:347
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PauseBreak"
+msgstr "Pause Break"
+
+#: kuitmarkup.cpp:348
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PrintScreen"
+msgstr "Print Screen"
+
+#: kuitmarkup.cpp:349
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "PrtScr"
+msgstr "PrtScr"
+
+#: kuitmarkup.cpp:350
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Return"
+msgstr "Return"
+
+#: kuitmarkup.cpp:351
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Right"
+msgstr "Oikea nuoli"
+
+#: kuitmarkup.cpp:352
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "ScrollLock"
+msgstr "Scroll Lock"
+
+#: kuitmarkup.cpp:353
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Shift"
+msgstr "Vaihto"
+
+#: kuitmarkup.cpp:354
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Space"
+msgstr "Välilyönti"
+
+#: kuitmarkup.cpp:355
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Super"
+msgstr "Super"
+
+#: kuitmarkup.cpp:356
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "SysReq"
+msgstr "SysReq"
+
+#: kuitmarkup.cpp:357
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Tab"
+msgstr "Sarkain"
+
+#: kuitmarkup.cpp:358
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Up"
+msgstr "Ylänuoli"
+
+#: kuitmarkup.cpp:359
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "Win"
+msgstr "Win"
+
+#: kuitmarkup.cpp:360
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F1"
+msgstr "F1"
+
+#: kuitmarkup.cpp:361
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F2"
+msgstr "F2"
+
+#: kuitmarkup.cpp:362
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F3"
+msgstr "F3"
+
+#: kuitmarkup.cpp:363
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F4"
+msgstr "F4"
+
+#: kuitmarkup.cpp:364
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F5"
+msgstr "F5"
+
+#: kuitmarkup.cpp:365
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F6"
+msgstr "F6"
+
+#: kuitmarkup.cpp:366
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F7"
+msgstr "F7"
+
+#: kuitmarkup.cpp:367
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F8"
+msgstr "F8"
+
+#: kuitmarkup.cpp:368
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F9"
+msgstr "F9"
+
+#: kuitmarkup.cpp:369
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F10"
+msgstr "F10"
+
+#: kuitmarkup.cpp:370
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F11"
+msgstr "F11"
+
+#: kuitmarkup.cpp:371
+#, kde-format
+msgctxt "keyboard-key-name"
+msgid "F12"
+msgstr "F12"
+
+#. i18n: The messages with context "tag-format-pattern <tag ...> format"
+#. are KUIT patterns for formatting the text found inside KUIT tags.
+#. The format is either "plain" or "rich", and tells if the pattern
+#. is used for plain text or rich text (which can use HTML tags).
+#. You may be in general satisfied with the patterns as they are in the
+#. original. Some things you may consider changing:
+#. - the proper quotes, those used in msgid are English-standard
+#. - the <i> and <b> tags, does your language script work well with them?
+#: kuitmarkup.cpp:733
+#, kde-format
+msgctxt "tag-format-pattern <title> plain"
+msgid "== %1 =="
+msgstr "== %1 =="
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:738
+#, kde-format
+msgctxt "tag-format-pattern <title> rich"
+msgid "<h2>%1</h2>"
+msgstr "<h2>%1</h2>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:746
+#, kde-format
+msgctxt "tag-format-pattern <subtitle> plain"
+msgid "~ %1 ~"
+msgstr "~ %1 ~"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:751
+#, kde-format
+msgctxt "tag-format-pattern <subtitle> rich"
+msgid "<h3>%1</h3>"
+msgstr "<h3>%1</h3>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:759
+#, kde-format
+msgctxt "tag-format-pattern <para> plain"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:764
+#, kde-format
+msgctxt "tag-format-pattern <para> rich"
+msgid "<p>%1</p>"
+msgstr "<p>%1</p>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:772
+#, kde-format
+msgctxt "tag-format-pattern <list> plain"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:777
+#, kde-format
+msgctxt "tag-format-pattern <list> rich"
+msgid "<ul>%1</ul>"
+msgstr "<ul>%1</ul>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:785
+#, kde-format
+msgctxt "tag-format-pattern <item> plain"
+msgid "  * %1"
+msgstr "  * %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:790
+#, kde-format
+msgctxt "tag-format-pattern <item> rich"
+msgid "<li>%1</li>"
+msgstr "<li>%1</li>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:797
+#, kde-format
+msgctxt "tag-format-pattern <note> plain"
+msgid "Note: %1"
+msgstr "Huomaa: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:802
+#, kde-format
+msgctxt "tag-format-pattern <note> rich"
+msgid "<i>Note</i>: %1"
+msgstr "<i>Huomaa</i>: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:808
+#, kde-format
+msgctxt ""
+"tag-format-pattern <note label=> plain\n"
+"%1 is the text, %2 is the note label"
+msgid "%2: %1"
+msgstr "%2: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:814
+#, kde-format
+msgctxt ""
+"tag-format-pattern <note label=> rich\n"
+"%1 is the text, %2 is the note label"
+msgid "<i>%2</i>: %1"
+msgstr "<i>%2</i>: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:821
+#, kde-format
+msgctxt "tag-format-pattern <warning> plain"
+msgid "WARNING: %1"
+msgstr "VAROITUS: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:826
+#, kde-format
+msgctxt "tag-format-pattern <warning> rich"
+msgid "<b>Warning</b>: %1"
+msgstr "<b>Varoitus</b>: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:832
+#, kde-format
+msgctxt ""
+"tag-format-pattern <warning label=> plain\n"
+"%1 is the text, %2 is the warning label"
+msgid "%2: %1"
+msgstr "%2: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:838
+#, kde-format
+msgctxt ""
+"tag-format-pattern <warning label=> rich\n"
+"%1 is the text, %2 is the warning label"
+msgid "<b>%2</b>: %1"
+msgstr "<b>%2</b>: %1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:845
+#, kde-format
+msgctxt "tag-format-pattern <link> plain"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:850
+#, kde-format
+msgctxt "tag-format-pattern <link> rich"
+msgid "<a href=\"%1\">%1</a>"
+msgstr "<a href=\"%1\">%1</a>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:856
+#, kde-format
+msgctxt ""
+"tag-format-pattern <link url=> plain\n"
+"%1 is the descriptive text, %2 is the URL"
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:862
+#, kde-format
+msgctxt ""
+"tag-format-pattern <link url=> rich\n"
+"%1 is the descriptive text, %2 is the URL"
+msgid "<a href=\"%2\">%1</a>"
+msgstr "<a href=\"%2\">%1</a>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:869
+#, kde-format
+msgctxt "tag-format-pattern <filename> plain"
+msgid "‘%1’"
+msgstr "”%1”"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:874
+#, kde-format
+msgctxt "tag-format-pattern <filename> rich"
+msgid "<tt>%1</tt>"
+msgstr "<tt>%1</tt>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:881
+#, kde-format
+msgctxt "tag-format-pattern <application> plain"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:886
+#, kde-format
+msgctxt "tag-format-pattern <application> rich"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:893
+#, kde-format
+msgctxt "tag-format-pattern <command> plain"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:898
+#, kde-format
+msgctxt "tag-format-pattern <command> rich"
+msgid "<tt>%1</tt>"
+msgstr "<tt>%1</tt>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:904
+#, kde-format
+msgctxt ""
+"tag-format-pattern <command section=> plain\n"
+"%1 is the command name, %2 is its man section"
+msgid "%1(%2)"
+msgstr "%1(%2)"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:910
+#, kde-format
+msgctxt ""
+"tag-format-pattern <command section=> rich\n"
+"%1 is the command name, %2 is its man section"
+msgid "<tt>%1(%2)</tt>"
+msgstr "<tt>%1(%2)</tt>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:917
+#, kde-format
+msgctxt "tag-format-pattern <resource> plain"
+msgid "“%1”"
+msgstr "”%1”"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:922
+#, kde-format
+msgctxt "tag-format-pattern <resource> rich"
+msgid "“%1”"
+msgstr "”%1”"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:929
+#, kde-format
+msgctxt "tag-format-pattern <icode> plain"
+msgid "“%1”"
+msgstr "”%1”"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:934
+#, kde-format
+msgctxt "tag-format-pattern <icode> rich"
+msgid "<tt>%1</tt>"
+msgstr "<tt>%1</tt>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:941
+#, kde-format
+msgctxt "tag-format-pattern <bcode> plain"
+msgid ""
+"\n"
+"%1\n"
+msgstr ""
+"\n"
+"%1\n"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:946
+#, kde-format
+msgctxt "tag-format-pattern <bcode> rich"
+msgid "<pre>%1</pre>"
+msgstr "<pre>%1</pre>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:953
+#, kde-format
+msgctxt "tag-format-pattern <shortcut> plain"
+msgid "%1"
+msgstr "%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:958
+#, kde-format
+msgctxt "tag-format-pattern <shortcut> rich"
+msgid "<b>%1</b>"
+msgstr "<b>%1</b>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:965
+#, kde-format
+msgctxt "tag-format-pattern <interface> plain"
+msgid "|%1|"
+msgstr "|%1|"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:970
+#, kde-format
+msgctxt "tag-format-pattern <interface> rich"
+msgid "<i>%1</i>"
+msgstr "<i>%1</i>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:977
+#, kde-format
+msgctxt "tag-format-pattern <emphasis> plain"
+msgid "*%1*"
+msgstr "*%1*"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:982
+#, kde-format
+msgctxt "tag-format-pattern <emphasis> rich"
+msgid "<i>%1</i>"
+msgstr "<i>%1</i>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:987
+#, kde-format
+msgctxt "tag-format-pattern <emphasis-strong> plain"
+msgid "**%1**"
+msgstr "**%1**"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:992
+#, kde-format
+msgctxt "tag-format-pattern <emphasis-strong> rich"
+msgid "<b>%1</b>"
+msgstr "<b>%1</b>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:999
+#, kde-format
+msgctxt "tag-format-pattern <placeholder> plain"
+msgid "&lt;%1&gt;"
+msgstr "&lt;%1&gt;"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1004
+#, kde-format
+msgctxt "tag-format-pattern <placeholder> rich"
+msgid "&lt;<i>%1</i>&gt;"
+msgstr "&lt;<i>%1</i>&gt;"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1011
+#, kde-format
+msgctxt "tag-format-pattern <email> plain"
+msgid "&lt;%1&gt;"
+msgstr "&lt;%1&gt;"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1016
+#, kde-format
+msgctxt "tag-format-pattern <email> rich"
+msgid "&lt;<a href=\"mailto:%1\">%1</a>&gt;"
+msgstr "&lt;<a href=\"mailto:%1\">%1</a>&gt;"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1022
+#, kde-format
+msgctxt ""
+"tag-format-pattern <email address=> plain\n"
+"%1 is name, %2 is address"
+msgid "%1 &lt;%2&gt;"
+msgstr "%1 &lt;%2&gt;"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1028
+#, kde-format
+msgctxt ""
+"tag-format-pattern <email address=> rich\n"
+"%1 is name, %2 is address"
+msgid "<a href=\"mailto:%2\">%1</a>"
+msgstr "<a href=\"mailto:%2\">%1</a>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1035
+#, kde-format
+msgctxt "tag-format-pattern <envar> plain"
+msgid "$%1"
+msgstr "$%1"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1040
+#, kde-format
+msgctxt "tag-format-pattern <envar> rich"
+msgid "<tt>$%1</tt>"
+msgstr "<tt>$%1</tt>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1047
+#, kde-format
+msgctxt "tag-format-pattern <message> plain"
+msgid "/%1/"
+msgstr "/%1/"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1052
+#, kde-format
+msgctxt "tag-format-pattern <message> rich"
+msgid "<i>%1</i>"
+msgstr "<i>%1</i>"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1059
+#, kde-format
+msgctxt "tag-format-pattern <nl> plain"
+msgid "%1\n"
+msgstr "%1\n"
+
+#. i18n: KUIT pattern, see the comment to the first of these entries above.
+#: kuitmarkup.cpp:1064
+#, kde-format
+msgctxt "tag-format-pattern <nl> rich"
+msgid "%1<br/>"
+msgstr "%1<br/>"
