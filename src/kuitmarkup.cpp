@@ -871,7 +871,7 @@ void KuitSetupPrivate::setDefaultMarkup()
     SET_PATTERN(QSL("filename"), QString(), RichText,
                 ki18nc("tag-format-pattern <filename> rich",
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
-                       "<tt>%1</tt>"),
+                       "‘<tt>%1</tt>’"),
                 tagFormatterFilename, 0);
 
     // -------> Application
