@@ -311,13 +311,13 @@ void KLocalizedStringTest::semanticTags()
              QString("<html>Assure that your <tt>$PATH</tt> is properly set.</html>"));
     // <filename/>
     QCOMPARE(xi18nc("@info", "Cannot read <filename>%1</filename>.", "data.dat"),
-             QString("<html>Cannot read <tt>data.dat</tt>.</html>"));
+             QString("<html>Cannot read \u2018<tt>data.dat</tt>\u2019.</html>"));
     // TODO: is nested <tt><tt></tt></tt> really wanted?
 #ifndef Q_OS_WIN
-    QString homeFooRc("<html><tt><tt>$HOME</tt>/.foorc</tt> does not exist.</html>");
+    QString homeFooRc("<html>\u2018<tt><tt>$HOME</tt>/.foorc</tt>\u2019 does not exist.</html>");
 #else
     //TODO $HOME -> %HOME% ?
-    QString homeFooRc("<html><tt><tt>$HOME</tt>\\.foorc</tt> does not exist.</html>");
+    QString homeFooRc("<html>\u2018<tt><tt>$HOME</tt>\\.foorc</tt>\u2019 does not exist.</html>");
 #endif
     QCOMPARE(xi18nc("@info",
                     "<filename><envar>HOME</envar>/.foorc</filename> does not exist."),
@@ -347,9 +347,9 @@ void KLocalizedStringTest::semanticTags()
              QString("<html>The fortune cookie says: <i>Nothing</i></html>"));
     // <nl/>
 #ifndef Q_OS_WIN
-    QString deleteEtcPasswd("<html>Do you really want to delete:<br/><tt>/etc/passwd</tt></html>");
+    QString deleteEtcPasswd("<html>Do you really want to delete:<br/>\u2018<tt>/etc/passwd</tt>\u2019</html>");
 #else
-    QString deleteEtcPasswd("<html>Do you really want to delete:<br/><tt>\\etc\\passwd</tt></html>");
+    QString deleteEtcPasswd("<html>Do you really want to delete:<br/>\u2018<tt>\\etc\\passwd</tt>\u2019</html>");
 #endif
     QCOMPARE(xi18nc("@info",
                     "Do you really want to delete:<nl/><filename>%1</filename>", "/etc/passwd"),
@@ -357,9 +357,9 @@ void KLocalizedStringTest::semanticTags()
 
     //check <nl/> within filename doesn't break (Windows path separators)
 #ifndef Q_OS_WIN
-    QString filenameWithNewline("<html><tt>/filename/with<br/>/newline</tt></html>");
+    QString filenameWithNewline("<html>\u2018<tt>/filename/with<br/>/newline</tt>\u2019</html>");
 #else
-    QString filenameWithNewline("<html><tt>\\filename\\with<br/>\\newline</tt></html>");
+    QString filenameWithNewline("<html>\u2018<tt>\\filename\\with<br/>\\newline</tt>\u2019</html>");
 #endif
     QCOMPARE(xi18nc("@info", "<filename>/filename/with<nl/>/newline</filename>"),
         filenameWithNewline);
