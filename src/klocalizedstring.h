@@ -563,7 +563,7 @@ public:
      */
     static QSet<QString> availableDomainTranslations(const QByteArray &domain);
 
-    /*
+    /**
      * Load locales for a domain from a specific location
      * This is useful for resources which have their translation files
      * outside of the usual $XDG_DATA_DIRS/locales location
