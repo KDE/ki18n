@@ -10,7 +10,7 @@
 #include "gettext.h"
 #include "config.h"
 
-#include <qstandardpaths.h>
+#include <QStandardPaths>
 #include <QByteArray>
 #include <QCoreApplication>
 #include <QDebug>
