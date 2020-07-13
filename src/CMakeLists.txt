@@ -11,7 +11,8 @@ set(libki18n_SRCS
 ecm_qt_declare_logging_category(libki18n_SRCS
     HEADER ki18n_logging.h
     IDENTIFIER KI18N
-    CATEGORY_NAME kf5.ki18n
+    CATEGORY_NAME kf.i18n
+    OLD_CATEGORY_NAMES kf5.ki18n
     DESCRIPTION "KI18n"
     EXPORT KI18N
 )
@@ -19,7 +20,8 @@ ecm_qt_declare_logging_category(libki18n_SRCS
 ecm_qt_declare_logging_category(libki18n_SRCS
     HEADER ki18n_logging_kuit.h
     IDENTIFIER KI18N_KUIT
-    CATEGORY_NAME kf5.ki18n.kuit
+    CATEGORY_NAME kf.i18n.kuit
+    OLD_CATEGORY_NAMES kf5.ki18n.kuit
     DESCRIPTION "KI18n KUIT"
     EXPORT KI18N
 )
