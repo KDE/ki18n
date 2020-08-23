@@ -16,6 +16,10 @@
 
 #include <kuitmarkup.h>
 
+// enforce header to be parsed before redefining i18n* with preprocessor macros
+// depending on TRANSLATION_DOMON (see bottom of file)
+#include <klocalizedcontext.h>
+
 class KLocalizedStringPrivate;
 
 /**
