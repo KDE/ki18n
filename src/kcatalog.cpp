@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <locale.h>
+#define GNULIB_NO_VLA 1
 #include "gettext.h"
 #include "config.h"
 
