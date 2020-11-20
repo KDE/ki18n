@@ -7,8 +7,6 @@
 #include <QHash>
 #include <QSet>
 #include <QRegularExpression>
-#include <QRegExp>
-#include <QRegularExpression>
 #include <QStack>
 #include <QXmlStreamReader>
 #include <QStringList>
