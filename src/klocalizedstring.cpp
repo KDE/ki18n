@@ -573,7 +573,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     // If there is also a scripted translation.
     if (!scriptedTranslation.isEmpty()) {
         // Evaluate scripted translation.
-        bool fallback;
+        bool fallback = false;
         scriptedTranslation = substituteTranscript(scriptedTranslation, language, country, finalTranslation, resolvedArguments, resolvedValues, fallback);
 
         // If any translation produced and no fallback requested.

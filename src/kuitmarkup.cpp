@@ -1378,6 +1378,8 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml, const OpenEl &enc
     // Collect attribute names and values, and format attribute string.
     QStringList attribNames, attribValues;
     const auto listAttributes = xml.attributes();
+    attribNames.reserve(listAttributes.size());
+    attribValues.reserve(listAttributes.size());
     for (const QXmlStreamAttribute &xatt : listAttributes) {
         attribNames += xatt.name().toString().toLower();
         attribValues += xatt.value().toString();
