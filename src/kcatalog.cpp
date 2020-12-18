@@ -105,7 +105,7 @@ KCatalog::~KCatalog()
     delete d;
 }
 
-#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+#if defined(Q_OS_ANDROID)
 static QString androidUnpackCatalog(const QString &relpath)
 {
     // the catalog files are no longer extracted to the local file system
@@ -155,16 +155,7 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
     }
 
 #if defined(Q_OS_ANDROID)
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-// The exact file name must be returned on Android because libintl-lite loads a catalog by filename with bindtextdomain()
-    QString file = QDir::homePath()+QStringLiteral("/../qt-reserved-files/share/locale/") + relpath;
-    if (!QFile::exists(file)) {
-        file.clear();
-    }
-    return file;
-#else
     return androidUnpackCatalog(relpath);
-#endif
 #else
     const QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + relpath);
 
