@@ -25,10 +25,7 @@ KLocalizedContext::KLocalizedContext(QObject *parent)
 {
 }
 
-KLocalizedContext::~KLocalizedContext()
-{
-    delete d_ptr;
-}
+KLocalizedContext::~KLocalizedContext() = default;
 
 QString KLocalizedContext::translationDomain() const
 {

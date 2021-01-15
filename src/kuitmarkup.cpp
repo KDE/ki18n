@@ -1082,10 +1082,7 @@ KuitSetup::KuitSetup(const QByteArray &domain)
     d->setDefaultFormats();
 }
 
-KuitSetup::~KuitSetup()
-{
-    delete d;
-}
+KuitSetup::~KuitSetup() = default;
 
 void KuitSetup::setTagPattern(const QString &tagName,
                               const QStringList &attribNames,

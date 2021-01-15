@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include <QVariant>
+#include <memory>
 #include <ki18n_export.h>
 
 /**
@@ -122,7 +123,7 @@ Q_SIGNALS:
     void translationDomainChanged(const QString& translationDomain);
 
 private:
-    class KLocalizedContextPrivate * const d_ptr;
+    std::unique_ptr<class KLocalizedContextPrivate> const d_ptr;
     Q_DECLARE_PRIVATE(KLocalizedContext)
 };
 

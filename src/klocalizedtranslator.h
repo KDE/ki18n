@@ -10,6 +10,8 @@
 
 #include <QTranslator>
 
+#include <memory>
+
 class KLocalizedTranslatorPrivate;
 
 /**
@@ -90,7 +92,7 @@ public:
     void removeContextToMonitor(const QString &context);
 
 private:
-    const QScopedPointer<KLocalizedTranslatorPrivate> d;
+    std::unique_ptr<KLocalizedTranslatorPrivate> const d;
 };
 
 #endif //KLOCALIZEDTRANSLATOR_H

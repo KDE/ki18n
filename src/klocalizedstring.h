@@ -14,6 +14,8 @@
 #include <QString>
 #include <QStringList>
 
+#include <memory>
+
 #include <kuitmarkup.h>
 
 // enforce header to be parsed before redefining i18n* with preprocessor macros
@@ -672,7 +674,8 @@ private:
                      const char *context, const char *text, const char *plural,
                      bool markupAware);
 
-    KLocalizedStringPrivate *const d;
+private:
+    std::unique_ptr<KLocalizedStringPrivate> const d;
 };
 
 // Do not document every multi-argument i18n* call separately,

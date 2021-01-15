@@ -11,6 +11,7 @@
 #include <QSet>
 #include <QString>
 #include <QByteArray>
+#include <memory>
 
 class KCatalogPrivate;
 
@@ -115,7 +116,7 @@ public:
 private:
     Q_DISABLE_COPY(KCatalog)
 
-    KCatalogPrivate *const d;
+    std::unique_ptr<KCatalogPrivate> const d;
 };
 
 #endif

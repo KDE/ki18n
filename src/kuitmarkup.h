@@ -12,6 +12,7 @@
 #include <QString>
 #include <QStringList>
 #include <QHash>
+#include <memory>
 
 class KuitSetup;
 
@@ -182,7 +183,7 @@ private:
     KuitSetup(const QByteArray &domain);
     Q_DISABLE_COPY(KuitSetup)
 
-    KuitSetupPrivate *const d;
+    std::unique_ptr<KuitSetupPrivate> const d;
 };
 
 #endif // KUITMARKUP_H

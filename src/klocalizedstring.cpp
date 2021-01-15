@@ -395,10 +395,7 @@ KLocalizedString &KLocalizedString::operator=(const KLocalizedString &rhs)
     return *this;
 }
 
-KLocalizedString::~KLocalizedString()
-{
-    delete d;
-}
+KLocalizedString::~KLocalizedString() = default;
 
 bool KLocalizedString::isEmpty() const
 {

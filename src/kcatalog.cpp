@@ -100,10 +100,7 @@ KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
     }
 }
 
-KCatalog::~KCatalog()
-{
-    delete d;
-}
+KCatalog::~KCatalog() = default;
 
 #if defined(Q_OS_ANDROID)
 static QString androidUnpackCatalog(const QString &relpath)
