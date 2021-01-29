@@ -31,7 +31,7 @@ add_library(KF5::I18n ALIAS KF5I18n)
 ecm_generate_export_header(KF5I18n
     BASE_NAME KI18n
     GROUP_BASE_NAME KF
-    VERSION ${KF5_VERSION}
+    VERSION ${KF_VERSION}
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS 5.0
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
@@ -114,7 +114,7 @@ if (BUILD_QCH)
         KF5I18n_QCH
         NAME KI18n
         BASE_NAME KF5I18n
-        VERSION ${KF5_VERSION}
+        VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${KI18n_HEADERS}
