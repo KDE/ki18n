@@ -102,7 +102,7 @@ endif()
 configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/KF5I18nConfig.cmake.in"
                               "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfig.cmake"
                               INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-                              PATH_VARS  KF5_INCLUDE_INSTALL_DIR LIB_INSTALL_DIR CMAKE_INSTALL_PREFIX)
+)
 
 install(FILES  "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfig.cmake"
                "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfigVersion.cmake"
