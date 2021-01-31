@@ -10,6 +10,7 @@
 #include <cstdlib>
 
 #include <QMutexLocker>
+#include <QRecursiveMutex>
 #include <QStringList>
 #include <QByteArray>
 #include <QChar>
@@ -289,7 +290,7 @@ public:
     QList<QByteArray> qtDomains;
     QList<int> qtDomainInsertCount;
 
-    QMutex klspMutex;
+    QRecursiveMutex klspMutex;
 
     KLocalizedStringPrivateStatics();
     ~KLocalizedStringPrivateStatics();
@@ -323,8 +324,6 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
 
     , qtDomains()
     , qtDomainInsertCount()
-
-    , klspMutex(QMutex::Recursive)
 {
     initializeLocaleLanguages();
     languages = localeLanguages;
