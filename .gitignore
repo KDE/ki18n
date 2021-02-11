@@ -22,3 +22,4 @@ CMakeLists.txt.user*
 doc-gen/
 .cmake/
 /.clang-format
+/compile_commands.json
