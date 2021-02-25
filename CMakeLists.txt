@@ -13,6 +13,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${KI18n_SOURCE_DIR}/cmake ${KI18n_BINAR
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
+include(KDEGitCommitHooks)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 include(ECMGenerateExportHeader)
@@ -123,3 +124,5 @@ install( FILES
     DESTINATION ${CMAKECONFIG_INSTALL_DIR} COMPONENT Devel )
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
+kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
