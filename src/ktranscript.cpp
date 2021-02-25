@@ -1275,16 +1275,14 @@ QString Scriptface::loadProps_text(const QString &fpath)
                 }
             }
             if (i + 1 >= slen) {
-                return SPREF("loadProps_text: unexpected end "
-                                           "of file in %1").arg(fpath);
+                return SPREF("loadProps_text: unexpected end of file in %1").arg(fpath);
             }
             if (s[i] != QLatin1Char('#')) {
                 // Separator characters for this entry.
                 key_sep = s[i];
                 prop_sep = s[i + 1];
                 if (key_sep.isLetter() || prop_sep.isLetter()) {
-                    return  SPREF("loadProps_text: separator "
-                                                "characters must not be letters at %1:%2")
+                    return  SPREF("loadProps_text: separator characters must not be letters at %1:%2")
                             .arg(fpath).arg(countLines(s, i));
                 }
 
@@ -1332,8 +1330,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
                 } else {
                     // End of entry.
                     if (ekeys.size() < 1) {
-                        return SPREF("loadProps_text: no entry key "
-                                                   "for entry ending at %1:%2")
+                        return SPREF("loadProps_text: no entry key for entry ending at %1:%2")
                                .arg(fpath).arg(countLines(s, i));
                     }
 
@@ -1356,8 +1353,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
                     goto END_PROP_PARSE;
                 }
                 if (s[i] == key_sep) {
-                    return SPREF("loadProps_text: property separator "
-                                               "inside property value at %1:%2")
+                    return SPREF("loadProps_text: property separator inside property value at %1:%2")
                            .arg(fpath).arg(countLines(s, i));
                 }
             }

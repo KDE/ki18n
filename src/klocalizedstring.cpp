@@ -949,9 +949,9 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                 QString seg;
                 // Find whitespace, quote, opening or closing sequence.
                 while (tpos < slen
-                        && !scriptedTranslation[tpos].isSpace()
-                        && scriptedTranslation[tpos] != QLatin1Char('\'')
-                        && scriptedTranslation.mid(tpos, islen) != s->startInterp
+                        && !scriptedTranslation[tpos].isSpace() //
+                        && scriptedTranslation[tpos] != QLatin1Char('\'') //
+                        && scriptedTranslation.mid(tpos, islen) != s->startInterp //
                         && scriptedTranslation.mid(tpos, ielen) != s->endInterp) {
                     if (scriptedTranslation[tpos] == QLatin1Char('\\')) {
                         ++tpos;    // escape next character

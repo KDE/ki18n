@@ -44,7 +44,7 @@ enum VisualFormat {
     /**
      * Terminal escape sequences.
      */
-    TermText = 30
+    TermText = 30,
 };
 
 /**
@@ -58,7 +58,7 @@ enum TagClass {
     /**
      * Tags spliting text into paragraph-level blocks.
      */
-    StructTag = 1
+    StructTag = 1,
 };
 
 /**

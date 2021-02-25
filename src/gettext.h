@@ -3,7 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-
+// clang-format off
 #ifndef _LIBGETTEXT_H
 #define _LIBGETTEXT_H 1
 
@@ -184,3 +184,4 @@ dnpgettext_expr(const char *domain,
 #endif
 
 #endif /* _LIBGETTEXT_H */
+// clang-format on

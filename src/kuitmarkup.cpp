@@ -122,7 +122,7 @@ namespace Kuit
 
 enum Role { // UI marker roles
     UndefinedRole,
-    ActionRole, TitleRole, OptionRole, LabelRole, ItemRole, InfoRole
+    ActionRole, TitleRole, OptionRole, LabelRole, ItemRole, InfoRole,
 };
 
 enum Cue { // UI marker subcues
@@ -133,7 +133,7 @@ enum Cue { // UI marker subcues
     CheckCue, RadioCue,
     InlistboxCue, IntableCue, InrangeCue, IntextCue, ValuesuffixCue,
     TooltipCue, WhatsthisCue, PlaceholderCue, StatusCue, ProgressCue,
-    TipofthedayCue, CreditCue, ShellCue
+    TipofthedayCue, CreditCue, ShellCue,
 };
 
 }
@@ -213,7 +213,7 @@ void KuitStaticData::setXmlEntityData()
 
     xmlEntityResolver.setEntities(xmlEntities);
 }
-
+// clang-format off
 void KuitStaticData::setUiMarkerData()
 {
     using namespace Kuit;
@@ -369,6 +369,7 @@ void KuitStaticData::setTextTransformData()
     SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F12"));
     // TODO: Add rest of the key names?
 }
+// clang-format on
 
 QString KuitStaticData::toKeyCombo(const QStringList &languages,
                                    const QString &shstr,
@@ -673,6 +674,7 @@ void KuitSetupPrivate::setDefaultMarkup()
     const QString LINK = QStringLiteral("link");
     const QString NOTE = QStringLiteral("note");
 
+    // clang-format off
     // Macro to hide message from extraction.
 #define HI18NC ki18nc
 
@@ -1053,6 +1055,7 @@ void KuitSetupPrivate::setDefaultMarkup()
                        // i18n: KUIT pattern, see the comment to the first of these entries above.
                        "%1<br/>"),
                 nullptr, 0);
+    // clang-format on
 }
 
 void KuitSetupPrivate::setDefaultFormats()
