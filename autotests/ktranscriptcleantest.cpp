@@ -38,7 +38,7 @@ void KTranscriptCleanTest::test_data()
 
     // Example test case, replace with first clean-slate test
     QTest::newRow("test_basic")
-        << (QVariantList() << "test_basic" << "foo")
+        << QVariantList{"test_basic", "foo"}
         << false
         << "foo bar";
 }
