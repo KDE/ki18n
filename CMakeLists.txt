@@ -43,10 +43,10 @@ if (BUILD_WITH_QML)
    find_package(Qt5Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
 
-find_package(LibIntl)
-set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
-	URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
-	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
+find_package(Intl)
+set_package_properties(Intl PROPERTIES TYPE REQUIRED
+       URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
+       PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
 # KF5I18nMacros.cmake only needs to know the python executable path.
