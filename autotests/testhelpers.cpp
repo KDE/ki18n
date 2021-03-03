@@ -41,8 +41,7 @@ bool deployTestConfig()
     }
 
     if (!sourceFile.copy(targetFile.absoluteFilePath())) {
-        qWarning() << "Failed to copy test config file" << sourceFile.fileName()
-                   << "to target location" << targetFile.absoluteFilePath();
+        qWarning() << "Failed to copy test config file" << sourceFile.fileName() << "to target location" << targetFile.absoluteFilePath();
         return false;
     }
 

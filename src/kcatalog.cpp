@@ -5,12 +5,11 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include <stdlib.h>
-#include <locale.h>
-#include "gettext.h"
 #include "config.h"
+#include "gettext.h"
+#include <locale.h>
+#include <stdlib.h>
 
-#include <QStandardPaths>
 #include <QByteArray>
 #include <QCoreApplication>
 #include <QDebug>
@@ -19,6 +18,7 @@
 #include <QFileInfo>
 #include <QMutexLocker>
 #include <QSet>
+#include <QStandardPaths>
 #include <QStringList>
 
 #include <kcatalog_p.h>
@@ -43,7 +43,9 @@ static const int langenvMaxlen = 42;
 class KCatalogStaticData
 {
 public:
-    KCatalogStaticData() {}
+    KCatalogStaticData()
+    {
+    }
 
     QHash<QByteArray /*domain*/, QString /*directory*/> customCatalogDirs;
     QMutex mutex;
@@ -71,7 +73,8 @@ public:
 
 KCatalogPrivate::KCatalogPrivate()
     : bindDone(false)
-{}
+{
+}
 
 QByteArray KCatalogPrivate::currentLanguage;
 
@@ -131,11 +134,9 @@ static QString androidUnpackCatalog(const QString &relpath)
 }
 #endif
 
-QString KCatalog::catalogLocaleDir(const QByteArray &domain,
-                                   const QString &language)
+QString KCatalog::catalogLocaleDir(const QByteArray &domain, const QString &language)
 {
-    QString relpath = QStringLiteral("%1/LC_MESSAGES/%2.mo")
-                      .arg(language, QFile::decodeName(domain));
+    QString relpath = QStringLiteral("%1/LC_MESSAGES/%2.mo").arg(language, QFile::decodeName(domain));
 
     {
         QMutexLocker lock(&catalogStaticData->mutex);
@@ -168,9 +169,7 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain,
 QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
 {
     QString domain = QFile::decodeName(domain_);
-    QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
-                                 QStringLiteral("locale"),
-                                 QStandardPaths::LocateDirectory);
+    QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("locale"), QStandardPaths::LocateDirectory);
 
     {
         QMutexLocker lock(&catalogStaticData->mutex);
@@ -185,8 +184,7 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
         QDir localeDir(localDirPath);
         const QStringList languages = localeDir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
         for (const QString &language : languages) {
-            QString relPath = QStringLiteral("%1/LC_MESSAGES/%2.mo")
-                              .arg(language, domain);
+            QString relPath = QStringLiteral("%1/LC_MESSAGES/%2.mo").arg(language, domain);
             if (localeDir.exists(relPath)) {
                 availableLanguages.insert(language);
             }
@@ -216,7 +214,7 @@ void KCatalogPrivate::setupGettextEnv()
         currentLanguage = language;
         bindDone = true;
 
-        //qDebug() << "bindtextdomain" << domain << localeDir;
+        // qDebug() << "bindtextdomain" << domain << localeDir;
         bindtextdomain(domain, localeDir);
 
 #if defined(HAVE_NL_MSG_CAT_CNTR)
@@ -243,15 +241,14 @@ QString KCatalog::translate(const QByteArray &msgid) const
         const char *msgstr = dgettext(d->domain.constData(), msgid_char);
         d->resetSystemLanguage();
         return msgstr != msgid_char // Yes we want pointer comparison
-               ? QString::fromUtf8(msgstr)
-               : QString();
+            ? QString::fromUtf8(msgstr)
+            : QString();
     } else {
         return QString();
     }
 }
 
-QString KCatalog::translate(const QByteArray &msgctxt,
-                            const QByteArray &msgid) const
+QString KCatalog::translate(const QByteArray &msgctxt, const QByteArray &msgid) const
 {
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
@@ -259,17 +256,15 @@ QString KCatalog::translate(const QByteArray &msgctxt,
         const char *msgid_char = msgid.constData();
         const char *msgstr = dpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid_char);
         d->resetSystemLanguage();
-        return   msgstr != msgid_char // Yes we want pointer comparison
-               ? QString::fromUtf8(msgstr)
-               : QString();
+        return msgstr != msgid_char // Yes we want pointer comparison
+            ? QString::fromUtf8(msgstr)
+            : QString();
     } else {
         return QString();
     }
 }
 
-QString KCatalog::translate(const QByteArray &msgid,
-                            const QByteArray &msgid_plural,
-                            qulonglong n) const
+QString KCatalog::translate(const QByteArray &msgid, const QByteArray &msgid_plural, qulonglong n) const
 {
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
@@ -283,18 +278,13 @@ QString KCatalog::translate(const QByteArray &msgid,
         // the corner cases where e.g. msgstr[1] is same as msgid.
         // Therefore check for pointer difference only with msgid or
         // only with msgid_plural, and not with both.
-        return   (n == 1 && msgstr != msgid_char) || (n != 1 && msgstr != msgid_plural_char)
-               ? QString::fromUtf8(msgstr)
-               : QString();
+        return (n == 1 && msgstr != msgid_char) || (n != 1 && msgstr != msgid_plural_char) ? QString::fromUtf8(msgstr) : QString();
     } else {
         return QString();
     }
 }
 
-QString KCatalog::translate(const QByteArray &msgctxt,
-                            const QByteArray &msgid,
-                            const QByteArray &msgid_plural,
-                            qulonglong n) const
+QString KCatalog::translate(const QByteArray &msgctxt, const QByteArray &msgid, const QByteArray &msgid_plural, qulonglong n) const
 {
     if (!d->localeDir.isEmpty()) {
         QMutexLocker locker(&catalogStaticData()->mutex);
@@ -303,9 +293,7 @@ QString KCatalog::translate(const QByteArray &msgctxt,
         const char *msgid_plural_char = msgid_plural.constData();
         const char *msgstr = dnpgettext_expr(d->domain.constData(), msgctxt.constData(), msgid_char, msgid_plural_char, n);
         d->resetSystemLanguage();
-        return   (n == 1 && msgstr != msgid_char) || (n != 1 && msgstr != msgid_plural_char)
-               ? QString::fromUtf8(msgstr)
-               : QString();
+        return (n == 1 && msgstr != msgid_char) || (n != 1 && msgstr != msgid_plural_char) ? QString::fromUtf8(msgstr) : QString();
     } else {
         return QString();
     }
@@ -316,5 +304,3 @@ void KCatalog::addDomainLocaleDir(const QByteArray &domain, const QString &path)
     QMutexLocker(&catalogStaticData()->mutex);
     catalogStaticData()->customCatalogDirs.insert(domain, path);
 }
-
-

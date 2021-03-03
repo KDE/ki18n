@@ -7,25 +7,24 @@
 #ifndef KTRANSCRIPT_P_H
 #define KTRANSCRIPT_P_H
 
-#include <QVariant>
+#include <QHash>
 #include <QList>
 #include <QStringList>
-#include <QHash>
+#include <QVariant>
 
 /**
-  * @internal
-  * (used by KLocalizedString)
-  *
-  * @c KTranscript provides support for programmable translations.
-  * The class is abstract in order to facilitate dynamic loading.
-  *
-  * @author Chusslove Illich <caslav.ilic@gmx.net>
-  * @short class for supporting programmable translations
-  */
+ * @internal
+ * (used by KLocalizedString)
+ *
+ * @c KTranscript provides support for programmable translations.
+ * The class is abstract in order to facilitate dynamic loading.
+ *
+ * @author Chusslove Illich <caslav.ilic@gmx.net>
+ * @short class for supporting programmable translations
+ */
 class KTranscript
 {
 public:
-
     /**
      * Evaluates interpolation.
      *
@@ -71,7 +70,9 @@ public:
     /**
      * Destructor.
      */
-    virtual ~KTranscript() {}
+    virtual ~KTranscript()
+    {
+    }
 };
 
 #ifdef KTRANSCRIPT_TESTBUILD

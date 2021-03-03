@@ -4,18 +4,18 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include <QHash>
-#include <QSet>
-#include <QRegularExpression>
-#include <QStack>
-#include <QXmlStreamReader>
-#include <QStringList>
-#include <QPair>
 #include <QDir>
+#include <QHash>
+#include <QPair>
+#include <QRegularExpression>
+#include <QSet>
+#include <QStack>
+#include <QStringList>
+#include <QXmlStreamReader>
 
+#include <klocalizedstring.h>
 #include <kuitmarkup.h>
 #include <kuitmarkup_p.h>
-#include <klocalizedstring.h>
 
 #include "ki18n_logging_kuit.h"
 
@@ -61,10 +61,7 @@ static QString shorten(const QString &str)
     }
 }
 
-static void parseUiMarker(const QString &context_,
-                          QString &roleName,
-                          QString &cueName,
-                          QString &formatName)
+static void parseUiMarker(const QString &context_, QString &roleName, QString &cueName, QString &formatName)
 {
     // UI marker is in the form @role:cue/format,
     // and must start just after any leading whitespace in the context string.
@@ -98,7 +95,6 @@ static void parseUiMarker(const QString &context_,
 class KuitEntityResolver : public QXmlStreamEntityResolver
 {
 public:
-
     void setEntities(const QHash<QString, QString> &entities)
     {
         entityMap = entities;
@@ -113,35 +109,58 @@ public:
     }
 
 private:
-
     QHash<QString, QString> entityMap;
 };
 
 namespace Kuit
 {
-
 enum Role { // UI marker roles
     UndefinedRole,
-    ActionRole, TitleRole, OptionRole, LabelRole, ItemRole, InfoRole,
+    ActionRole,
+    TitleRole,
+    OptionRole,
+    LabelRole,
+    ItemRole,
+    InfoRole,
 };
 
 enum Cue { // UI marker subcues
     UndefinedCue,
-    ButtonCue, InmenuCue, IntoolbarCue,
-    WindowCue, MenuCue, TabCue, GroupCue, ColumnCue, RowCue,
-    SliderCue, SpinboxCue, ListboxCue, TextboxCue, ChooserCue,
-    CheckCue, RadioCue,
-    InlistboxCue, IntableCue, InrangeCue, IntextCue, ValuesuffixCue,
-    TooltipCue, WhatsthisCue, PlaceholderCue, StatusCue, ProgressCue,
-    TipofthedayCue, CreditCue, ShellCue,
+    ButtonCue,
+    InmenuCue,
+    IntoolbarCue,
+    WindowCue,
+    MenuCue,
+    TabCue,
+    GroupCue,
+    ColumnCue,
+    RowCue,
+    SliderCue,
+    SpinboxCue,
+    ListboxCue,
+    TextboxCue,
+    ChooserCue,
+    CheckCue,
+    RadioCue,
+    InlistboxCue,
+    IntableCue,
+    InrangeCue,
+    IntextCue,
+    ValuesuffixCue,
+    TooltipCue,
+    WhatsthisCue,
+    PlaceholderCue,
+    StatusCue,
+    ProgressCue,
+    TipofthedayCue,
+    CreditCue,
+    ShellCue,
 };
-
 }
 
 class KuitStaticData
 {
 public:
-
     QHash<QString, QString> xmlEntities;
     QHash<QString, QString> xmlEntitiesInverse;
     KuitEntityResolver xmlEntityResolver;
@@ -150,7 +169,7 @@ public:
     QHash<QString, Kuit::Cue> cuesByName;
     QHash<QString, Kuit::VisualFormat> formatsByName;
     QHash<Kuit::VisualFormat, QString> namesByFormat;
-    QHash<Kuit::Role, QSet<Kuit::Cue> > knownRoleCues;
+    QHash<Kuit::Role, QSet<Kuit::Cue>> knownRoleCues;
 
     QHash<Kuit::VisualFormat, KLocalizedString> comboKeyDelim;
     QHash<Kuit::VisualFormat, KLocalizedString> guiPathDelim;
@@ -169,10 +188,8 @@ public:
     void setUiMarkerData();
 
     void setTextTransformData();
-    QString toKeyCombo(const QStringList &languages,
-                       const QString &shstr, Kuit::VisualFormat format);
-    QString toInterfacePath(const QStringList &languages,
-                            const QString &inpstr, Kuit::VisualFormat format);
+    QString toKeyCombo(const QStringList &languages, const QString &shstr, Kuit::VisualFormat format);
+    QString toInterfacePath(const QStringList &languages, const QString &inpstr, Kuit::VisualFormat format);
 };
 
 KuitStaticData::KuitStaticData()
@@ -186,7 +203,6 @@ KuitStaticData::~KuitStaticData()
 {
     qDeleteAll(domainSetups);
 }
-
 
 void KuitStaticData::setXmlEntityData()
 {
@@ -371,9 +387,7 @@ void KuitStaticData::setTextTransformData()
 }
 // clang-format on
 
-QString KuitStaticData::toKeyCombo(const QStringList &languages,
-                                   const QString &shstr,
-                                   Kuit::VisualFormat format)
+QString KuitStaticData::toKeyCombo(const QStringList &languages, const QString &shstr, Kuit::VisualFormat format)
 {
     // Take '+' or '-' as input shortcut delimiter,
     // whichever is first encountered.
@@ -391,16 +405,13 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages,
     for (int i = 0; i < keys.size(); ++i) {
         // Normalize key, trim and all lower-case.
         const QString nkey = keys.at(i).trimmed().toLower();
-        keys[i] = keyNames.contains(nkey) ? keyNames[nkey].toString(languages)
-                                            : keys.at(i).trimmed();
+        keys[i] = keyNames.contains(nkey) ? keyNames[nkey].toString(languages) : keys.at(i).trimmed();
     }
     const QString delim = comboKeyDelim.value(format).toString(languages);
     return keys.join(delim);
 }
 
-QString KuitStaticData::toInterfacePath(const QStringList &languages,
-                                        const QString &inpstr,
-                                        Kuit::VisualFormat format)
+QString KuitStaticData::toInterfacePath(const QStringList &languages, const QString &inpstr, Kuit::VisualFormat format)
 {
     // Take '/', '|' or "->" as input path delimiter,
     // whichever is first encountered.
@@ -430,13 +441,12 @@ static QString attributeSetKey(const QStringList &attribNames_)
 class KuitTag
 {
 public:
-
     QString name;
     Kuit::TagClass type;
     QSet<QString> knownAttribs;
-    QHash<QString, QHash<Kuit::VisualFormat, QStringList> > attributeOrders;
-    QHash<QString, QHash<Kuit::VisualFormat, KLocalizedString> > patterns;
-    QHash<QString, QHash<Kuit::VisualFormat, Kuit::TagFormatter> > formatters;
+    QHash<QString, QHash<Kuit::VisualFormat, QStringList>> attributeOrders;
+    QHash<QString, QHash<Kuit::VisualFormat, KLocalizedString>> patterns;
+    QHash<QString, QHash<Kuit::VisualFormat, Kuit::TagFormatter>> formatters;
     int leadingNewlines;
     QString format(const QStringList &languages,
                    const QHash<QString, QString> &attributes,
@@ -478,18 +488,15 @@ QString KuitTag::format(const QStringList &languages,
             formattedText = modText;
         }
     } else if (patterns.contains(attribKey)) {
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Undefined visual format for tag <%1> and attribute combination %2: %3.")
-                               .arg(name, attribKey, s->namesByFormat.value(format));
+        qCWarning(KI18N_KUIT)
+            << QStringLiteral("Undefined visual format for tag <%1> and attribute combination %2: %3.").arg(name, attribKey, s->namesByFormat.value(format));
     } else {
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Undefined attribute combination for tag <%1>: %2.")
-                               .arg(name, attribKey);
+        qCWarning(KI18N_KUIT) << QStringLiteral("Undefined attribute combination for tag <%1>: %2.").arg(name, attribKey);
     }
     return formattedText;
 }
 
-KuitSetup &Kuit::setupForDomain(const QByteArray& domain)
+KuitSetup &Kuit::setupForDomain(const QByteArray &domain)
 {
     KuitStaticData *s = staticData();
     KuitSetup *setup = s->domainSetups.value(domain);
@@ -508,7 +515,6 @@ KuitSetup &Kuit::setupForDomain(const char *domain)
 class KuitSetupPrivate
 {
 public:
-
     void setTagPattern(const QString &tagName,
                        const QStringList &attribNames,
                        Kuit::VisualFormat format,
@@ -525,7 +531,7 @@ public:
 
     QByteArray domain;
     QHash<QString, KuitTag> knownTags;
-    QHash<Kuit::Role, QHash<Kuit::Cue, Kuit::VisualFormat> > formatsByRoleCue;
+    QHash<Kuit::Role, QHash<Kuit::Cue, Kuit::VisualFormat>> formatsByRoleCue;
 };
 
 void KuitSetupPrivate::setTagPattern(const QString &tagName,
@@ -553,8 +559,7 @@ void KuitSetupPrivate::setTagPattern(const QString &tagName,
     tag.leadingNewlines = leadingNewlines_;
 }
 
-void KuitSetupPrivate::setTagClass(const QString &tagName,
-                                   Kuit::TagClass aClass)
+void KuitSetupPrivate::setTagClass(const QString &tagName, Kuit::TagClass aClass)
 {
     bool isNewTag = knownTags.contains(tagName);
     KuitTag &tag = knownTags[tagName];
@@ -564,8 +569,7 @@ void KuitSetupPrivate::setTagClass(const QString &tagName,
     tag.type = aClass;
 }
 
-void KuitSetupPrivate::setFormatForMarker(const QString &marker,
-        Kuit::VisualFormat format)
+void KuitSetupPrivate::setFormatForMarker(const QString &marker, Kuit::VisualFormat format)
 {
     KuitStaticData *s = staticData();
 
@@ -576,14 +580,10 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
     if (s->rolesByName.contains(roleName)) {
         role = s->rolesByName.value(roleName);
     } else if (!roleName.isEmpty()) {
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Unknown role '@%1' in UI marker {%2}, visual format not set.")
-                               .arg(roleName, marker);
+        qCWarning(KI18N_KUIT) << QStringLiteral("Unknown role '@%1' in UI marker {%2}, visual format not set.").arg(roleName, marker);
         return;
     } else {
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Empty role in UI marker {%1}, visual format not set.")
-                               .arg(marker);
+        qCWarning(KI18N_KUIT) << QStringLiteral("Empty role in UI marker {%1}, visual format not set.").arg(marker);
         return;
     }
 
@@ -591,15 +591,12 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
     if (s->cuesByName.contains(cueName)) {
         cue = s->cuesByName.value(cueName);
         if (!s->knownRoleCues.value(role).contains(cue)) {
-            qCWarning(KI18N_KUIT) << QStringLiteral(
-                                   "Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, visual format not set.")
-                                   .arg(cueName, roleName, marker);
+            qCWarning(KI18N_KUIT)
+                << QStringLiteral("Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, visual format not set.").arg(cueName, roleName, marker);
             return;
         }
     } else if (!cueName.isEmpty()) {
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Unknown subcue ':%1' in UI marker {%2}, visual format not set.")
-                               .arg(cueName, marker);
+        qCWarning(KI18N_KUIT) << QStringLiteral("Unknown subcue ':%1' in UI marker {%2}, visual format not set.").arg(cueName, marker);
         return;
     } else {
         cue = Kuit::UndefinedCue;
@@ -608,13 +605,9 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker,
     formatsByRoleCue[role][cue] = format;
 }
 
-#define TAG_FORMATTER_ARGS \
-    const QStringList &languages, \
-    const QString &tagName, \
-    const QHash<QString, QString> &attributes, \
-    const QString &text, \
-    const QStringList &tagPath, \
-    Kuit::VisualFormat format
+#define TAG_FORMATTER_ARGS                                                                                                                                     \
+    const QStringList &languages, const QString &tagName, const QHash<QString, QString> &attributes, const QString &text, const QStringList &tagPath,          \
+        Kuit::VisualFormat format
 
 static QString tagFormatterFilename(TAG_FORMATTER_ARGS)
 {
@@ -1094,8 +1087,7 @@ void KuitSetup::setTagPattern(const QString &tagName,
                               Kuit::TagFormatter formatter,
                               int leadingNewlines)
 {
-    d->setTagPattern(tagName, attribNames, format, pattern, formatter,
-                     leadingNewlines);
+    d->setTagPattern(tagName, attribNames, format, pattern, formatter, leadingNewlines);
 }
 
 void KuitSetup::setTagClass(const QString &tagName, Kuit::TagClass aClass)
@@ -1103,8 +1095,7 @@ void KuitSetup::setTagClass(const QString &tagName, Kuit::TagClass aClass)
     d->setTagClass(tagName, aClass);
 }
 
-void KuitSetup::setFormatForMarker(const QString &marker,
-                                   Kuit::VisualFormat format)
+void KuitSetup::setFormatForMarker(const QString &marker, Kuit::VisualFormat format)
 {
     d->setFormatForMarker(marker, format);
 }
@@ -1112,12 +1103,9 @@ void KuitSetup::setFormatForMarker(const QString &marker,
 class KuitFormatterPrivate
 {
 public:
-
     KuitFormatterPrivate(const QString &language);
 
-    QString format(const QByteArray &domain,
-                   const QString &context, const QString &text,
-                   Kuit::VisualFormat format) const;
+    QString format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const;
 
     // Get metatranslation (formatting patterns, etc.)
     QString metaTr(const char *context, const char *text) const;
@@ -1129,32 +1117,24 @@ public:
     void setTextTransformData();
 
     // Determine visual format by parsing the UI marker in the context.
-    static Kuit::VisualFormat formatFromUiMarker(const QString &context,
-            const KuitSetup &setup);
+    static Kuit::VisualFormat formatFromUiMarker(const QString &context, const KuitSetup &setup);
 
     // Determine if text has block structure (multiple paragraphs, etc).
-    static bool determineIsStructured(const QString &text,
-                                      const KuitSetup &setup);
+    static bool determineIsStructured(const QString &text, const KuitSetup &setup);
 
     // Format KUIT text into visual text.
-    QString toVisualText(const QString &text,
-                         Kuit::VisualFormat format,
-                         const KuitSetup &setup) const;
+    QString toVisualText(const QString &text, Kuit::VisualFormat format, const KuitSetup &setup) const;
 
     // Final touches to the formatted text.
-    QString finalizeVisualText(const QString &ftext,
-                               Kuit::VisualFormat format) const;
+    QString finalizeVisualText(const QString &ftext, Kuit::VisualFormat format) const;
 
     // In case of markup errors, try to make result not look too bad.
-    QString salvageMarkup(const QString &text,
-                          Kuit::VisualFormat format,
-                          const KuitSetup &setup) const;
+    QString salvageMarkup(const QString &text, Kuit::VisualFormat format, const KuitSetup &setup) const;
 
     // Data for XML parsing state.
     class OpenEl
     {
     public:
-
         enum Handling { Proper, Ignored, Dropout };
 
         KuitTag tag;
@@ -1167,22 +1147,15 @@ public:
     };
 
     // Gather data about current element for the parse state.
-    KuitFormatterPrivate::OpenEl parseOpenEl(const QXmlStreamReader &xml,
-            const OpenEl &enclosingOel,
-            const QString &text,
-            const KuitSetup &setup) const;
+    KuitFormatterPrivate::OpenEl parseOpenEl(const QXmlStreamReader &xml, const OpenEl &enclosingOel, const QString &text, const KuitSetup &setup) const;
 
     // Format text of the element.
-    QString formatSubText(const QString &ptext, const OpenEl &oel,
-                          Kuit::VisualFormat format,
-                          const KuitSetup &setup) const;
+    QString formatSubText(const QString &ptext, const OpenEl &oel, Kuit::VisualFormat format, const KuitSetup &setup) const;
 
     // Count number of newlines at start and at end of text.
-    static void countWrappingNewlines(const QString &ptext,
-                                      int &numle, int &numtr);
+    static void countWrappingNewlines(const QString &ptext, int &numle, int &numtr);
 
 private:
-
     QString language;
     QStringList languageAsList;
 
@@ -1197,9 +1170,7 @@ KuitFormatterPrivate::KuitFormatterPrivate(const QString &language_)
 {
 }
 
-QString KuitFormatterPrivate::format(const QByteArray &domain,
-                                     const QString &context, const QString &text,
-                                     Kuit::VisualFormat format) const
+QString KuitFormatterPrivate::format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const
 {
     const KuitSetup &setup = Kuit::setupForDomain(domain);
 
@@ -1223,8 +1194,7 @@ QString KuitFormatterPrivate::format(const QByteArray &domain,
     return ftext;
 }
 
-Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &context,
-        const KuitSetup &setup)
+Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &context, const KuitSetup &setup)
 {
     KuitStaticData *s = staticData();
 
@@ -1235,9 +1205,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     Kuit::Role role = s->rolesByName.value(roleName, Kuit::UndefinedRole);
     if (role == Kuit::UndefinedRole) { // unknown role
         if (!roleName.isEmpty()) {
-            qCWarning(KI18N_KUIT) << QStringLiteral(
-                                   "Unknown role '@%1' in UI marker in context {%2}.")
-                                   .arg(roleName, shorten(context));
+            qCWarning(KI18N_KUIT) << QStringLiteral("Unknown role '@%1' in UI marker in context {%2}.").arg(roleName, shorten(context));
         }
     }
 
@@ -1248,15 +1216,12 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
         if (cue != Kuit::UndefinedCue) { // known subcue
             if (!s->knownRoleCues.value(role).contains(cue)) {
                 cue = Kuit::UndefinedCue;
-                qCWarning(KI18N_KUIT) << QStringLiteral(
-                                       "Subcue ':%1' does not belong to role '@%2' in UI marker in context {%3}.")
-                                       .arg(cueName, roleName, shorten(context));
+                qCWarning(KI18N_KUIT)
+                    << QStringLiteral("Subcue ':%1' does not belong to role '@%2' in UI marker in context {%3}.").arg(cueName, roleName, shorten(context));
             }
         } else { // unknown or not given subcue
             if (!cueName.isEmpty()) {
-                qCWarning(KI18N_KUIT) << QStringLiteral(
-                                       "Unknown subcue ':%1' in UI marker in context {%2}.")
-                                       .arg(cueName, shorten(context));
+                qCWarning(KI18N_KUIT) << QStringLiteral("Unknown subcue ':%1' in UI marker in context {%2}.").arg(cueName, shorten(context));
             }
         }
     } else {
@@ -1277,9 +1242,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
             }
         }
         if (!formatName.isEmpty()) {
-            qCWarning(KI18N_KUIT) << QStringLiteral(
-                                   "Unknown format '/%1' in UI marker for message {%2}.")
-                                   .arg(formatName, shorten(context));
+            qCWarning(KI18N_KUIT) << QStringLiteral("Unknown format '/%1' in UI marker for message {%2}.").arg(formatName, shorten(context));
         }
     }
     if (format == Kuit::UndefinedFormat) {
@@ -1289,8 +1252,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     return format;
 }
 
-bool KuitFormatterPrivate::determineIsStructured(const QString &text,
-        const KuitSetup &setup)
+bool KuitFormatterPrivate::determineIsStructured(const QString &text, const KuitSetup &setup)
 {
     // If the text opens with a structuring tag, then it is structured,
     // otherwise not. Leading whitespace is ignored for this purpose.
@@ -1309,9 +1271,7 @@ bool KuitFormatterPrivate::determineIsStructured(const QString &text,
 
 static const char s_entitySubRx[] = "[a-z]+|#[0-9]+|#x[0-9a-fA-F]+";
 
-QString KuitFormatterPrivate::toVisualText(const QString &text_,
-        Kuit::VisualFormat format,
-        const KuitSetup &setup) const
+QString KuitFormatterPrivate::toVisualText(const QString &text_, Kuit::VisualFormat format, const KuitSetup &setup) const
 {
     KuitStaticData *s = staticData();
 
@@ -1380,8 +1340,7 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
 
             // Append formatted text segment.
             QString ptext = openEls.top().formattedText; // preceding text
-            openEls.top().formattedText += formatSubText(ptext, oel,
-                                           format, setup);
+            openEls.top().formattedText += formatSubText(ptext, oel, format, setup);
         } else if (xml.isCharacters()) {
             // Stream reader will automatically resolve default XML entities,
             // which is not desired in this case, as the entities are to be
@@ -1401,10 +1360,8 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
     }
 
     if (xml.hasError()) {
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Markup error in message {%1}: %2. Last tag parsed: %3. Complete message follows:\n%4")
-                               .arg(shorten(text), xml.errorString(), lastElementName.toString(),
-                               text);
+        qCWarning(KI18N_KUIT) << QStringLiteral("Markup error in message {%1}: %2. Last tag parsed: %3. Complete message follows:\n%4")
+                                     .arg(shorten(text), xml.errorString(), lastElementName.toString(), text);
         return QString();
     }
 
@@ -1413,10 +1370,7 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_,
 }
 
 KuitFormatterPrivate::OpenEl
-KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
-                                  const OpenEl &enclosingOel,
-                                  const QString &text,
-                                  const KuitSetup &setup) const
+KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml, const OpenEl &enclosingOel, const QString &text, const KuitSetup &setup) const
 {
     OpenEl oel;
     oel.name = xml.name().toString().toLower();
@@ -1427,10 +1381,8 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
     for (const QXmlStreamAttribute &xatt : listAttributes) {
         attribNames += xatt.name().toString().toLower();
         attribValues += xatt.value().toString();
-        QChar qc =   attribValues.last().indexOf(QL1C('\'')) < 0
-                     ? QL1C('\'') : QL1C('"');
-        oel.attribStr +=   QL1C(' ') + attribNames.last() + QL1C('=')
-                           + qc + attribValues.last() + qc;
+        QChar qc = attribValues.last().indexOf(QL1C('\'')) < 0 ? QL1C('\'') : QL1C('"');
+        oel.attribStr += QL1C(' ') + attribNames.last() + QL1C('=') + qc + attribValues.last() + qc;
     }
 
     if (setup.d->knownTags.contains(oel.name)) { // known KUIT element
@@ -1439,15 +1391,12 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
 
         // If this element can be contained within enclosing element,
         // mark it proper, otherwise mark it for removal.
-        if (tag.name.isEmpty()
-                || tag.type == Kuit::PhraseTag
-                || etag.type == Kuit::StructTag) {
+        if (tag.name.isEmpty() || tag.type == Kuit::PhraseTag || etag.type == Kuit::StructTag) {
             oel.handling = OpenEl::Proper;
         } else {
             oel.handling = OpenEl::Dropout;
-            qCWarning(KI18N_KUIT) << QStringLiteral(
-                                   "Structuring tag ('%1') cannot be subtag of phrase tag ('%2') in message {%3}.")
-                                   .arg(tag.name, etag.name, shorten(text));
+            qCWarning(KI18N_KUIT)
+                << QStringLiteral("Structuring tag ('%1') cannot be subtag of phrase tag ('%2') in message {%3}.").arg(tag.name, etag.name, shorten(text));
         }
 
         // Resolve attributes and compute attribute set key.
@@ -1458,9 +1407,7 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
                 attset << att;
                 oel.attributes[att] = attribValues[i];
             } else {
-                qCWarning(KI18N_KUIT) << QStringLiteral(
-                                       "Attribute '%1' not defined for tag '%2' in message {%3}.")
-                                       .arg(att, tag.name, shorten(text));
+                qCWarning(KI18N_KUIT) << QStringLiteral("Attribute '%1' not defined for tag '%2' in message {%3}.").arg(att, tag.name, shorten(text));
             }
         }
 
@@ -1470,24 +1417,17 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml,
 
     } else { // unknown element, leave it in verbatim
         oel.handling = OpenEl::Ignored;
-        qCWarning(KI18N_KUIT) << QStringLiteral(
-                               "Tag '%1' is not defined in message {%2}.")
-                               .arg(oel.name, shorten(text));
+        qCWarning(KI18N_KUIT) << QStringLiteral("Tag '%1' is not defined in message {%2}.").arg(oel.name, shorten(text));
     }
 
     return oel;
 }
 
-QString KuitFormatterPrivate::formatSubText(const QString &ptext,
-        const OpenEl &oel,
-        Kuit::VisualFormat format,
-        const KuitSetup &setup) const
+QString KuitFormatterPrivate::formatSubText(const QString &ptext, const OpenEl &oel, Kuit::VisualFormat format, const KuitSetup &setup) const
 {
     if (oel.handling == OpenEl::Proper) {
         const KuitTag &tag = setup.d->knownTags.value(oel.name);
-        QString ftext = tag.format(languageAsList,
-                                   oel.attributes, oel.formattedText,
-                                   oel.tagPath, format);
+        QString ftext = tag.format(languageAsList, oel.attributes, oel.formattedText, oel.tagPath, format);
 
         // Handle leading newlines, if this is not start of the text
         // (ptext is the preceding text).
@@ -1509,17 +1449,14 @@ QString KuitFormatterPrivate::formatSubText(const QString &ptext,
         return ftext;
 
     } else if (oel.handling == OpenEl::Ignored) {
-        return   QL1C('<') + oel.name + oel.attribStr + QL1C('>')
-                 + oel.formattedText
-                 + QSL("</") + oel.name + QL1C('>');
+        return QL1C('<') + oel.name + oel.attribStr + QL1C('>') + oel.formattedText + QSL("</") + oel.name + QL1C('>');
 
     } else { // oel.handling == OpenEl::Dropout
         return oel.formattedText;
     }
 }
 
-void KuitFormatterPrivate::countWrappingNewlines(const QString &text,
-        int &numle, int &numtr)
+void KuitFormatterPrivate::countWrappingNewlines(const QString &text, int &numle, int &numtr)
 {
     int len = text.length();
     // Number of newlines at start of text.
@@ -1534,8 +1471,7 @@ void KuitFormatterPrivate::countWrappingNewlines(const QString &text,
     }
 }
 
-QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
-        Kuit::VisualFormat format) const
+QString KuitFormatterPrivate::finalizeVisualText(const QString &text_, Kuit::VisualFormat format) const
 {
     KuitStaticData *s = staticData();
 
@@ -1544,7 +1480,7 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
     // Resolve XML entities.
     if (format != Kuit::RichText) {
         // regex is (see s_entitySubRx var): (&([a-z]+|#[0-9]+|#x[0-9a-fA-F]+);)
-        static const QRegularExpression entRx(QLatin1String("(&(") +  QLatin1String(s_entitySubRx) + QLatin1String(");)"));
+        static const QRegularExpression entRx(QLatin1String("(&(") + QLatin1String(s_entitySubRx) + QLatin1String(");)"));
         QRegularExpressionMatch match;
         QString plain;
         while ((match = entRx.match(text)).hasMatch()) {
@@ -1553,8 +1489,7 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
             text.remove(0, match.capturedEnd(0));
             if (ent.startsWith(QL1C('#'))) { // numeric character entity
                 bool ok;
-                const QChar c = ent.at(1) == QL1C('x') ? QChar(ent.midRef(2).toInt(&ok, 16))
-                                                         : QChar(ent.midRef(1).toInt(&ok, 10));
+                const QChar c = ent.at(1) == QL1C('x') ? QChar(ent.midRef(2).toInt(&ok, 16)) : QChar(ent.midRef(1).toInt(&ok, 10));
                 if (ok) {
                     plain.append(c);
                 } else { // unknown Unicode point, leave as is
@@ -1578,9 +1513,7 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_,
     return text;
 }
 
-QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
-        Kuit::VisualFormat format,
-        const KuitSetup &setup) const
+QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFormat format, const KuitSetup &setup) const
 {
     QString text = text_;
     QString ntext;
@@ -1588,8 +1521,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
     // Resolve tags simple-mindedly.
 
     // - tags with content
-    static const QRegularExpression wrapRx(QStringLiteral("(<\\s*(\\w+)\\b([^>]*)>)(.*)(<\\s*/\\s*\\2\\s*>)"),
-                                           QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression wrapRx(QStringLiteral("(<\\s*(\\w+)\\b([^>]*)>)(.*)(<\\s*/\\s*\\2\\s*>)"), QRegularExpression::InvertedGreedinessOption);
     QRegularExpressionMatchIterator iter = wrapRx.globalMatch(text);
     QRegularExpressionMatch match;
     int pos = 0;
@@ -1602,9 +1534,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
             const KuitTag &tag = setup.d->knownTags.value(tagname);
             QHash<QString, QString> attributes;
             // TODO: Do not ignore attributes (in match.captured(3)).
-            ntext += tag.format(languageAsList,
-                                attributes, content,
-                                QStringList(), format);
+            ntext += tag.format(languageAsList, attributes, content, QStringList(), format);
         } else {
             ntext += match.captured(1) + content + match.captured(5);
         }
@@ -1615,8 +1545,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
     text = ntext;
 
     // - tags without content
-    static const QRegularExpression nowrRx(QStringLiteral("<\\s*(\\w+)\\b([^>]*)/\\s*>"),
-                                QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression nowrRx(QStringLiteral("<\\s*(\\w+)\\b([^>]*)/\\s*>"), QRegularExpression::InvertedGreedinessOption);
     iter = nowrRx.globalMatch(text);
     pos = 0;
     ntext.clear();
@@ -1626,9 +1555,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_,
         const QString tagname = match.captured(1).toLower();
         if (setup.d->knownTags.contains(tagname)) {
             const KuitTag &tag = setup.d->knownTags.value(tagname);
-            ntext += tag.format(languageAsList,
-                                QHash<QString, QString>(), QString(),
-                                QStringList(), format);
+            ntext += tag.format(languageAsList, QHash<QString, QString>(), QString(), QStringList(), format);
         } else {
             ntext += match.captured(0);
         }
@@ -1656,9 +1583,7 @@ KuitFormatter::~KuitFormatter()
     delete d;
 }
 
-QString KuitFormatter::format(const QByteArray &domain,
-                              const QString &context, const QString &text,
-                              Kuit::VisualFormat format) const
+QString KuitFormatter::format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const
 {
     return d->format(domain, context, text, format);
 }

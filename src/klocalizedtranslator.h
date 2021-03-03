@@ -95,4 +95,4 @@ private:
     std::unique_ptr<KLocalizedTranslatorPrivate> const d;
 };
 
-#endif //KLOCALIZEDTRANSLATOR_H
+#endif // KLOCALIZEDTRANSLATOR_H

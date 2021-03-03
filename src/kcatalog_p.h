@@ -8,9 +8,9 @@
 #ifndef KCATALOG_H
 #define KCATALOG_H
 
+#include <QByteArray>
 #include <QSet>
 #include <QString>
-#include <QByteArray>
 #include <memory>
 
 class KCatalogPrivate;
@@ -72,8 +72,7 @@ public:
      *
      * @return translated message if found, <tt>QString()</tt> otherwise
      */
-    QString translate(const QByteArray &msgid, const QByteArray &msgid_plural,
-                      qulonglong n) const;
+    QString translate(const QByteArray &msgid, const QByteArray &msgid_plural, qulonglong n) const;
 
     /**
      * Get translation of given message with plural forms with given context.
@@ -87,8 +86,7 @@ public:
      *
      * @return translated message if found, <tt>QString()</tt> otherwise
      */
-    QString translate(const QByteArray &msgctxt, const QByteArray &msgid,
-                      const QByteArray &msgid_plural, qulonglong n) const;
+    QString translate(const QByteArray &msgctxt, const QByteArray &msgid, const QByteArray &msgid_plural, qulonglong n) const;
 
     /**
      * Find the locale directory for the given domain in the given language.
@@ -98,8 +96,7 @@ public:
      *
      * @return the locale directory if found, <tt>QByteArray()</tt> otherwise.
      */
-    static QString catalogLocaleDir(const QByteArray &domain,
-                                    const QString &language);
+    static QString catalogLocaleDir(const QByteArray &domain, const QString &language);
 
     /**
      * Find the all languages for which the translation catalog

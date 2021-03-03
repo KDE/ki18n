@@ -10,8 +10,8 @@
 
 #include <QObject>
 #include <QVariant>
-#include <memory>
 #include <ki18n_export.h>
+#include <memory>
 
 /**
  * @class KLocalizedContext klocalizedcontext.h <KLocalizedContext>
@@ -56,71 +56,223 @@ public:
     void setTranslationDomain(const QString &domain);
 
     Q_INVOKABLE QString i18n(const QString &message,
-                             const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                             const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+                             const QVariant &p1 = QVariant(),
+                             const QVariant &p2 = QVariant(),
+                             const QVariant &p3 = QVariant(),
+                             const QVariant &p4 = QVariant(),
+                             const QVariant &p5 = QVariant(),
+                             const QVariant &p6 = QVariant(),
+                             const QVariant &p7 = QVariant(),
+                             const QVariant &p8 = QVariant(),
+                             const QVariant &p9 = QVariant(),
+                             const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18nc(const QString &context, const QString &message,
-                              const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                              const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18nc(const QString &context,
+                              const QString &message,
+                              const QVariant &p1 = QVariant(),
+                              const QVariant &p2 = QVariant(),
+                              const QVariant &p3 = QVariant(),
+                              const QVariant &p4 = QVariant(),
+                              const QVariant &p5 = QVariant(),
+                              const QVariant &p6 = QVariant(),
+                              const QVariant &p7 = QVariant(),
+                              const QVariant &p8 = QVariant(),
+                              const QVariant &p9 = QVariant(),
+                              const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18np(const QString &singular, const QString &plural,
-                              const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                              const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18np(const QString &singular,
+                              const QString &plural,
+                              const QVariant &p1 = QVariant(),
+                              const QVariant &p2 = QVariant(),
+                              const QVariant &p3 = QVariant(),
+                              const QVariant &p4 = QVariant(),
+                              const QVariant &p5 = QVariant(),
+                              const QVariant &p6 = QVariant(),
+                              const QVariant &p7 = QVariant(),
+                              const QVariant &p8 = QVariant(),
+                              const QVariant &p9 = QVariant(),
+                              const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18ncp(const QString &context, const QString &singular, const QString &plural,
-                               const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                               const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18ncp(const QString &context,
+                               const QString &singular,
+                               const QString &plural,
+                               const QVariant &p1 = QVariant(),
+                               const QVariant &p2 = QVariant(),
+                               const QVariant &p3 = QVariant(),
+                               const QVariant &p4 = QVariant(),
+                               const QVariant &p5 = QVariant(),
+                               const QVariant &p6 = QVariant(),
+                               const QVariant &p7 = QVariant(),
+                               const QVariant &p8 = QVariant(),
+                               const QVariant &p9 = QVariant(),
+                               const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18nd(const QString &domain, const QString &message,
-                              const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                              const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18nd(const QString &domain,
+                              const QString &message,
+                              const QVariant &p1 = QVariant(),
+                              const QVariant &p2 = QVariant(),
+                              const QVariant &p3 = QVariant(),
+                              const QVariant &p4 = QVariant(),
+                              const QVariant &p5 = QVariant(),
+                              const QVariant &p6 = QVariant(),
+                              const QVariant &p7 = QVariant(),
+                              const QVariant &p8 = QVariant(),
+                              const QVariant &p9 = QVariant(),
+                              const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18ndc(const QString &domain, const QString &context, const QString &message,
-                               const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                               const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18ndc(const QString &domain,
+                               const QString &context,
+                               const QString &message,
+                               const QVariant &p1 = QVariant(),
+                               const QVariant &p2 = QVariant(),
+                               const QVariant &p3 = QVariant(),
+                               const QVariant &p4 = QVariant(),
+                               const QVariant &p5 = QVariant(),
+                               const QVariant &p6 = QVariant(),
+                               const QVariant &p7 = QVariant(),
+                               const QVariant &p8 = QVariant(),
+                               const QVariant &p9 = QVariant(),
+                               const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18ndp(const QString &domain, const QString &singular, const QString &plural,
-                               const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                               const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18ndp(const QString &domain,
+                               const QString &singular,
+                               const QString &plural,
+                               const QVariant &p1 = QVariant(),
+                               const QVariant &p2 = QVariant(),
+                               const QVariant &p3 = QVariant(),
+                               const QVariant &p4 = QVariant(),
+                               const QVariant &p5 = QVariant(),
+                               const QVariant &p6 = QVariant(),
+                               const QVariant &p7 = QVariant(),
+                               const QVariant &p8 = QVariant(),
+                               const QVariant &p9 = QVariant(),
+                               const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString i18ndcp(const QString &domain, const QString &context, const QString &singular, const QString &plural,
-                                const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                                const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString i18ndcp(const QString &domain,
+                                const QString &context,
+                                const QString &singular,
+                                const QString &plural,
+                                const QVariant &p1 = QVariant(),
+                                const QVariant &p2 = QVariant(),
+                                const QVariant &p3 = QVariant(),
+                                const QVariant &p4 = QVariant(),
+                                const QVariant &p5 = QVariant(),
+                                const QVariant &p6 = QVariant(),
+                                const QVariant &p7 = QVariant(),
+                                const QVariant &p8 = QVariant(),
+                                const QVariant &p9 = QVariant(),
+                                const QVariant &p10 = QVariant()) const;
 
     Q_INVOKABLE QString xi18n(const QString &message,
-                             const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                             const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+                              const QVariant &p1 = QVariant(),
+                              const QVariant &p2 = QVariant(),
+                              const QVariant &p3 = QVariant(),
+                              const QVariant &p4 = QVariant(),
+                              const QVariant &p5 = QVariant(),
+                              const QVariant &p6 = QVariant(),
+                              const QVariant &p7 = QVariant(),
+                              const QVariant &p8 = QVariant(),
+                              const QVariant &p9 = QVariant(),
+                              const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18nc(const QString &context, const QString &message,
-                              const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                              const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18nc(const QString &context,
+                               const QString &message,
+                               const QVariant &p1 = QVariant(),
+                               const QVariant &p2 = QVariant(),
+                               const QVariant &p3 = QVariant(),
+                               const QVariant &p4 = QVariant(),
+                               const QVariant &p5 = QVariant(),
+                               const QVariant &p6 = QVariant(),
+                               const QVariant &p7 = QVariant(),
+                               const QVariant &p8 = QVariant(),
+                               const QVariant &p9 = QVariant(),
+                               const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18np(const QString &singular, const QString &plural,
-                              const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                              const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18np(const QString &singular,
+                               const QString &plural,
+                               const QVariant &p1 = QVariant(),
+                               const QVariant &p2 = QVariant(),
+                               const QVariant &p3 = QVariant(),
+                               const QVariant &p4 = QVariant(),
+                               const QVariant &p5 = QVariant(),
+                               const QVariant &p6 = QVariant(),
+                               const QVariant &p7 = QVariant(),
+                               const QVariant &p8 = QVariant(),
+                               const QVariant &p9 = QVariant(),
+                               const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18ncp(const QString &context, const QString &singular, const QString &plural,
-                               const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                               const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18ncp(const QString &context,
+                                const QString &singular,
+                                const QString &plural,
+                                const QVariant &p1 = QVariant(),
+                                const QVariant &p2 = QVariant(),
+                                const QVariant &p3 = QVariant(),
+                                const QVariant &p4 = QVariant(),
+                                const QVariant &p5 = QVariant(),
+                                const QVariant &p6 = QVariant(),
+                                const QVariant &p7 = QVariant(),
+                                const QVariant &p8 = QVariant(),
+                                const QVariant &p9 = QVariant(),
+                                const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18nd(const QString &domain, const QString &message,
-                              const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                              const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18nd(const QString &domain,
+                               const QString &message,
+                               const QVariant &p1 = QVariant(),
+                               const QVariant &p2 = QVariant(),
+                               const QVariant &p3 = QVariant(),
+                               const QVariant &p4 = QVariant(),
+                               const QVariant &p5 = QVariant(),
+                               const QVariant &p6 = QVariant(),
+                               const QVariant &p7 = QVariant(),
+                               const QVariant &p8 = QVariant(),
+                               const QVariant &p9 = QVariant(),
+                               const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18ndc(const QString &domain, const QString &context, const QString &message,
-                               const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                               const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18ndc(const QString &domain,
+                                const QString &context,
+                                const QString &message,
+                                const QVariant &p1 = QVariant(),
+                                const QVariant &p2 = QVariant(),
+                                const QVariant &p3 = QVariant(),
+                                const QVariant &p4 = QVariant(),
+                                const QVariant &p5 = QVariant(),
+                                const QVariant &p6 = QVariant(),
+                                const QVariant &p7 = QVariant(),
+                                const QVariant &p8 = QVariant(),
+                                const QVariant &p9 = QVariant(),
+                                const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18ndp(const QString &domain, const QString &singular, const QString &plural,
-                               const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                               const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18ndp(const QString &domain,
+                                const QString &singular,
+                                const QString &plural,
+                                const QVariant &p1 = QVariant(),
+                                const QVariant &p2 = QVariant(),
+                                const QVariant &p3 = QVariant(),
+                                const QVariant &p4 = QVariant(),
+                                const QVariant &p5 = QVariant(),
+                                const QVariant &p6 = QVariant(),
+                                const QVariant &p7 = QVariant(),
+                                const QVariant &p8 = QVariant(),
+                                const QVariant &p9 = QVariant(),
+                                const QVariant &p10 = QVariant()) const;
 
-    Q_INVOKABLE QString xi18ndcp(const QString &domain, const QString &context, const QString &singular, const QString &plural,
-                                const QVariant &p1 = QVariant(), const QVariant &p2 = QVariant(), const QVariant &p3 = QVariant(), const QVariant &p4 = QVariant(), const QVariant &p5 = QVariant(),
-                                const QVariant &p6 = QVariant(), const QVariant &p7 = QVariant(), const QVariant &p8 = QVariant(), const QVariant &p9 = QVariant(), const QVariant &p10 = QVariant()) const;
+    Q_INVOKABLE QString xi18ndcp(const QString &domain,
+                                 const QString &context,
+                                 const QString &singular,
+                                 const QString &plural,
+                                 const QVariant &p1 = QVariant(),
+                                 const QVariant &p2 = QVariant(),
+                                 const QVariant &p3 = QVariant(),
+                                 const QVariant &p4 = QVariant(),
+                                 const QVariant &p5 = QVariant(),
+                                 const QVariant &p6 = QVariant(),
+                                 const QVariant &p7 = QVariant(),
+                                 const QVariant &p8 = QVariant(),
+                                 const QVariant &p9 = QVariant(),
+                                 const QVariant &p10 = QVariant()) const;
 
 Q_SIGNALS:
-    void translationDomainChanged(const QString& translationDomain);
+    void translationDomainChanged(const QString &translationDomain);
 
 private:
     std::unique_ptr<class KLocalizedContextPrivate> const d_ptr;

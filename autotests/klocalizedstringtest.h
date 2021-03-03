@@ -7,9 +7,9 @@
 #ifndef KLOCALIZEDSTRINGTEST_H
 #define KLOCALIZEDSTRINGTEST_H
 
-#include <ki18n_export.h>
 #include <QObject>
 #include <QTemporaryDir>
+#include <ki18n_export.h>
 
 class KLocalizedStringTest : public QObject
 {

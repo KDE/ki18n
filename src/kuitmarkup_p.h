@@ -22,19 +22,18 @@ QString escape(const QString &text);
 }
 
 /**
-  * @internal
-  * (used by KLocalizedString)
-  *
-  * KuitFormatter resolves KUIT markup in user interface text
-  * into appropriate visual formatting.
-  *
-  * @author Chusslove Illich <caslav.ilic@gmx.net>
-  * @short class for formatting KUIT markup in UI messages
-  */
+ * @internal
+ * (used by KLocalizedString)
+ *
+ * KuitFormatter resolves KUIT markup in user interface text
+ * into appropriate visual formatting.
+ *
+ * @author Chusslove Illich <caslav.ilic@gmx.net>
+ * @short class for formatting KUIT markup in UI messages
+ */
 class KuitFormatter
 {
 public:
-
     /**
      * Constructor.
      *
@@ -53,9 +52,7 @@ public:
      * @param format target visual format
      * @param isArgument whether this text is inserted into an outer text
      */
-    QString format(const QByteArray &domain,
-                   const QString &context, const QString &text,
-                   Kuit::VisualFormat format) const;
+    QString format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const;
 
     /**
      * Destructor.
@@ -63,7 +60,6 @@ public:
     ~KuitFormatter();
 
 private:
-
     KuitFormatter(const KuitFormatter &t);
     KuitFormatter &operator=(const KuitFormatter &t);
 

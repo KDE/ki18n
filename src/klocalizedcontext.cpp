@@ -44,33 +44,40 @@ void KLocalizedContext::setTranslationDomain(const QString &domain)
 
 static void subsVariant(KLocalizedString &trMessage, const QVariant &value)
 {
-    switch(value.type()) {
-        case QVariant::String:
+    switch (value.type()) {
+    case QVariant::String:
+        trMessage = trMessage.subs(value.toString());
+        break;
+    case QVariant::Int:
+        trMessage = trMessage.subs(value.toInt());
+        break;
+    case QVariant::Double:
+        trMessage = trMessage.subs(value.toDouble());
+        break;
+    case QVariant::Char:
+        trMessage = trMessage.subs(value.toChar());
+        break;
+    default:
+        if (value.canConvert(QVariant::String)) {
             trMessage = trMessage.subs(value.toString());
-            break;
-        case QVariant::Int:
-            trMessage = trMessage.subs(value.toInt());
-            break;
-        case QVariant::Double:
-            trMessage = trMessage.subs(value.toDouble());
-            break;
-        case QVariant::Char:
-            trMessage = trMessage.subs(value.toChar());
-            break;
-        default:
-            if (value.canConvert(QVariant::String)) {
-                trMessage = trMessage.subs(value.toString());
-            } else {
-                trMessage = trMessage.subs(QStringLiteral("???"));
-                qCWarning(KI18N) << "couldn't convert" << value << "to translate";
-            }
-
+        } else {
+            trMessage = trMessage.subs(QStringLiteral("???"));
+            qCWarning(KI18N) << "couldn't convert" << value << "to translate";
+        }
     }
 }
 
 static void resolveMessage(KLocalizedString &trMessage,
-                           const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                           const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10 = QString())
+                           const QVariant &param1,
+                           const QVariant &param2,
+                           const QVariant &param3,
+                           const QVariant &param4,
+                           const QVariant &param5,
+                           const QVariant &param6,
+                           const QVariant &param7,
+                           const QVariant &param8,
+                           const QVariant &param9,
+                           const QVariant &param10 = QString())
 {
     if (!param1.isNull()) {
         subsVariant(trMessage, param1);
@@ -110,8 +117,16 @@ static void resolvePlural(KLocalizedString &trMessage, const QVariant &param)
 }
 
 QString KLocalizedContext::i18n(const QString &message,
-                                const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+                                const QVariant &param1,
+                                const QVariant &param2,
+                                const QVariant &param3,
+                                const QVariant &param4,
+                                const QVariant &param5,
+                                const QVariant &param6,
+                                const QVariant &param7,
+                                const QVariant &param8,
+                                const QVariant &param9,
+                                const QVariant &param10) const
 {
     if (message.isEmpty()) {
         qCWarning(KI18N) << "i18n() needs at least one parameter";
@@ -131,9 +146,18 @@ QString KLocalizedContext::i18n(const QString &message,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18nc(const QString &context, const QString &message,
-                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18nc(const QString &context,
+                                 const QString &message,
+                                 const QVariant &param1,
+                                 const QVariant &param2,
+                                 const QVariant &param3,
+                                 const QVariant &param4,
+                                 const QVariant &param5,
+                                 const QVariant &param6,
+                                 const QVariant &param7,
+                                 const QVariant &param8,
+                                 const QVariant &param9,
+                                 const QVariant &param10) const
 {
     if (context.isEmpty() || message.isEmpty()) {
         qCWarning(KI18N) << "i18nc() needs at least two arguments";
@@ -153,9 +177,18 @@ QString KLocalizedContext::i18nc(const QString &context, const QString &message,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18np(const QString &singular, const QString &plural,
-                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18np(const QString &singular,
+                                 const QString &plural,
+                                 const QVariant &param1,
+                                 const QVariant &param2,
+                                 const QVariant &param3,
+                                 const QVariant &param4,
+                                 const QVariant &param5,
+                                 const QVariant &param6,
+                                 const QVariant &param7,
+                                 const QVariant &param8,
+                                 const QVariant &param9,
+                                 const QVariant &param10) const
 {
     if (singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "i18np() needs at least two arguments";
@@ -176,9 +209,19 @@ QString KLocalizedContext::i18np(const QString &singular, const QString &plural,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18ncp(const QString &context, const QString &singular, const QString &plural,
-                                  const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                  const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18ncp(const QString &context,
+                                  const QString &singular,
+                                  const QString &plural,
+                                  const QVariant &param1,
+                                  const QVariant &param2,
+                                  const QVariant &param3,
+                                  const QVariant &param4,
+                                  const QVariant &param5,
+                                  const QVariant &param6,
+                                  const QVariant &param7,
+                                  const QVariant &param8,
+                                  const QVariant &param9,
+                                  const QVariant &param10) const
 {
     if (context.isEmpty() || singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "i18ncp() needs at least three arguments";
@@ -188,7 +231,8 @@ QString KLocalizedContext::i18ncp(const QString &context, const QString &singula
     Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
-        trMessage = ki18ndcp(d->m_translationDomain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
+        trMessage =
+            ki18ndcp(d->m_translationDomain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
     } else {
         trMessage = ki18ncp(context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
     }
@@ -199,9 +243,18 @@ QString KLocalizedContext::i18ncp(const QString &context, const QString &singula
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18nd(const QString &domain, const QString &message,
-                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18nd(const QString &domain,
+                                 const QString &message,
+                                 const QVariant &param1,
+                                 const QVariant &param2,
+                                 const QVariant &param3,
+                                 const QVariant &param4,
+                                 const QVariant &param5,
+                                 const QVariant &param6,
+                                 const QVariant &param7,
+                                 const QVariant &param8,
+                                 const QVariant &param9,
+                                 const QVariant &param10) const
 {
     if (domain.isEmpty() || message.isEmpty()) {
         qCWarning(KI18N) << "i18nd() needs at least two parameters";
@@ -215,9 +268,19 @@ QString KLocalizedContext::i18nd(const QString &domain, const QString &message,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18ndc(const QString &domain, const QString &context, const QString &message,
-                                  const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                  const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18ndc(const QString &domain,
+                                  const QString &context,
+                                  const QString &message,
+                                  const QVariant &param1,
+                                  const QVariant &param2,
+                                  const QVariant &param3,
+                                  const QVariant &param4,
+                                  const QVariant &param5,
+                                  const QVariant &param6,
+                                  const QVariant &param7,
+                                  const QVariant &param8,
+                                  const QVariant &param9,
+                                  const QVariant &param10) const
 {
     if (domain.isEmpty() || context.isEmpty() || message.isEmpty()) {
         qCWarning(KI18N) << "i18ndc() needs at least three arguments";
@@ -231,9 +294,19 @@ QString KLocalizedContext::i18ndc(const QString &domain, const QString &context,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18ndp(const QString &domain, const QString &singular, const QString &plural,
-                                  const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                  const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18ndp(const QString &domain,
+                                  const QString &singular,
+                                  const QString &plural,
+                                  const QVariant &param1,
+                                  const QVariant &param2,
+                                  const QVariant &param3,
+                                  const QVariant &param4,
+                                  const QVariant &param5,
+                                  const QVariant &param6,
+                                  const QVariant &param7,
+                                  const QVariant &param8,
+                                  const QVariant &param9,
+                                  const QVariant &param10) const
 {
     if (domain.isEmpty() || singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "i18ndp() needs at least three arguments";
@@ -248,16 +321,28 @@ QString KLocalizedContext::i18ndp(const QString &domain, const QString &singular
     return trMessage.toString();
 }
 
-QString KLocalizedContext::i18ndcp(const QString &domain, const QString &context, const QString &singular, const QString &plural,
-                                   const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                   const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::i18ndcp(const QString &domain,
+                                   const QString &context,
+                                   const QString &singular,
+                                   const QString &plural,
+                                   const QVariant &param1,
+                                   const QVariant &param2,
+                                   const QVariant &param3,
+                                   const QVariant &param4,
+                                   const QVariant &param5,
+                                   const QVariant &param6,
+                                   const QVariant &param7,
+                                   const QVariant &param8,
+                                   const QVariant &param9,
+                                   const QVariant &param10) const
 {
     if (domain.isEmpty() || context.isEmpty() || singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "i18ndcp() needs at least four arguments";
         return QString();
     }
 
-    KLocalizedString trMessage = ki18ndcp(domain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
+    KLocalizedString trMessage =
+        ki18ndcp(domain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
 
     resolvePlural(trMessage, param1);
     resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
@@ -268,8 +353,16 @@ QString KLocalizedContext::i18ndcp(const QString &domain, const QString &context
 /////////////////////////
 
 QString KLocalizedContext::xi18n(const QString &message,
-                                const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+                                 const QVariant &param1,
+                                 const QVariant &param2,
+                                 const QVariant &param3,
+                                 const QVariant &param4,
+                                 const QVariant &param5,
+                                 const QVariant &param6,
+                                 const QVariant &param7,
+                                 const QVariant &param8,
+                                 const QVariant &param9,
+                                 const QVariant &param10) const
 {
     if (message.isEmpty()) {
         qCWarning(KI18N) << "xi18n() needs at least one parameter";
@@ -289,9 +382,18 @@ QString KLocalizedContext::xi18n(const QString &message,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18nc(const QString &context, const QString &message,
-                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18nc(const QString &context,
+                                  const QString &message,
+                                  const QVariant &param1,
+                                  const QVariant &param2,
+                                  const QVariant &param3,
+                                  const QVariant &param4,
+                                  const QVariant &param5,
+                                  const QVariant &param6,
+                                  const QVariant &param7,
+                                  const QVariant &param8,
+                                  const QVariant &param9,
+                                  const QVariant &param10) const
 {
     if (context.isEmpty() || message.isEmpty()) {
         qCWarning(KI18N) << "xi18nc() needs at least two arguments";
@@ -311,9 +413,18 @@ QString KLocalizedContext::xi18nc(const QString &context, const QString &message
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18np(const QString &singular, const QString &plural,
-                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18np(const QString &singular,
+                                  const QString &plural,
+                                  const QVariant &param1,
+                                  const QVariant &param2,
+                                  const QVariant &param3,
+                                  const QVariant &param4,
+                                  const QVariant &param5,
+                                  const QVariant &param6,
+                                  const QVariant &param7,
+                                  const QVariant &param8,
+                                  const QVariant &param9,
+                                  const QVariant &param10) const
 {
     if (singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "xi18np() needs at least two arguments";
@@ -334,9 +445,19 @@ QString KLocalizedContext::xi18np(const QString &singular, const QString &plural
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18ncp(const QString &context, const QString &singular, const QString &plural,
-                                  const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                  const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18ncp(const QString &context,
+                                   const QString &singular,
+                                   const QString &plural,
+                                   const QVariant &param1,
+                                   const QVariant &param2,
+                                   const QVariant &param3,
+                                   const QVariant &param4,
+                                   const QVariant &param5,
+                                   const QVariant &param6,
+                                   const QVariant &param7,
+                                   const QVariant &param8,
+                                   const QVariant &param9,
+                                   const QVariant &param10) const
 {
     if (context.isEmpty() || singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "xi18ncp() needs at least three arguments";
@@ -346,7 +467,8 @@ QString KLocalizedContext::xi18ncp(const QString &context, const QString &singul
     Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
-        trMessage = kxi18ndcp(d->m_translationDomain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
+        trMessage =
+            kxi18ndcp(d->m_translationDomain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
     } else {
         trMessage = kxi18ncp(context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
     }
@@ -357,9 +479,18 @@ QString KLocalizedContext::xi18ncp(const QString &context, const QString &singul
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18nd(const QString &domain, const QString &message,
-                                 const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                 const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18nd(const QString &domain,
+                                  const QString &message,
+                                  const QVariant &param1,
+                                  const QVariant &param2,
+                                  const QVariant &param3,
+                                  const QVariant &param4,
+                                  const QVariant &param5,
+                                  const QVariant &param6,
+                                  const QVariant &param7,
+                                  const QVariant &param8,
+                                  const QVariant &param9,
+                                  const QVariant &param10) const
 {
     if (domain.isEmpty() || message.isEmpty()) {
         qCWarning(KI18N) << "xi18nd() needs at least two parameters";
@@ -373,9 +504,19 @@ QString KLocalizedContext::xi18nd(const QString &domain, const QString &message,
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18ndc(const QString &domain, const QString &context, const QString &message,
-                                  const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                  const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18ndc(const QString &domain,
+                                   const QString &context,
+                                   const QString &message,
+                                   const QVariant &param1,
+                                   const QVariant &param2,
+                                   const QVariant &param3,
+                                   const QVariant &param4,
+                                   const QVariant &param5,
+                                   const QVariant &param6,
+                                   const QVariant &param7,
+                                   const QVariant &param8,
+                                   const QVariant &param9,
+                                   const QVariant &param10) const
 {
     if (domain.isEmpty() || context.isEmpty() || message.isEmpty()) {
         qCWarning(KI18N) << "x18ndc() needs at least three arguments";
@@ -389,9 +530,19 @@ QString KLocalizedContext::xi18ndc(const QString &domain, const QString &context
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18ndp(const QString &domain, const QString &singular, const QString &plural,
-                                  const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                  const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18ndp(const QString &domain,
+                                   const QString &singular,
+                                   const QString &plural,
+                                   const QVariant &param1,
+                                   const QVariant &param2,
+                                   const QVariant &param3,
+                                   const QVariant &param4,
+                                   const QVariant &param5,
+                                   const QVariant &param6,
+                                   const QVariant &param7,
+                                   const QVariant &param8,
+                                   const QVariant &param9,
+                                   const QVariant &param10) const
 {
     if (domain.isEmpty() || singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "xi18ndp() needs at least three arguments";
@@ -406,20 +557,31 @@ QString KLocalizedContext::xi18ndp(const QString &domain, const QString &singula
     return trMessage.toString();
 }
 
-QString KLocalizedContext::xi18ndcp(const QString &domain, const QString &context, const QString &singular, const QString &plural,
-                                   const QVariant &param1, const QVariant &param2, const QVariant &param3, const QVariant &param4, const QVariant &param5,
-                                   const QVariant &param6, const QVariant &param7, const QVariant &param8, const QVariant &param9, const QVariant &param10) const
+QString KLocalizedContext::xi18ndcp(const QString &domain,
+                                    const QString &context,
+                                    const QString &singular,
+                                    const QString &plural,
+                                    const QVariant &param1,
+                                    const QVariant &param2,
+                                    const QVariant &param3,
+                                    const QVariant &param4,
+                                    const QVariant &param5,
+                                    const QVariant &param6,
+                                    const QVariant &param7,
+                                    const QVariant &param8,
+                                    const QVariant &param9,
+                                    const QVariant &param10) const
 {
     if (domain.isEmpty() || context.isEmpty() || singular.isEmpty() || plural.isEmpty()) {
         qCWarning(KI18N) << "xi18ndcp() needs at least four arguments";
         return QString();
     }
 
-    KLocalizedString trMessage = kxi18ndcp(domain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
+    KLocalizedString trMessage =
+        kxi18ndcp(domain.toUtf8().constData(), context.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
 
     resolvePlural(trMessage, param1);
     resolveMessage(trMessage, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
     return trMessage.toString();
 }
-

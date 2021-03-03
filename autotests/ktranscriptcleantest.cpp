@@ -37,10 +37,7 @@ void KTranscriptCleanTest::test_data()
     QTest::addColumn<QString>("expected");
 
     // Example test case, replace with first clean-slate test
-    QTest::newRow("test_basic")
-        << QVariantList{"test_basic", "foo"}
-        << false
-        << "foo bar";
+    QTest::newRow("test_basic") << QVariantList{"test_basic", "foo"} << false << "foo bar";
 }
 
 void KTranscriptCleanTest::test()
@@ -56,7 +53,8 @@ void KTranscriptCleanTest::test()
     dynamicContext.insert("origin", "neverwhere");
     QString msgid = "source-text";
     QStringList subs;
-    subs << "10" << "qwyx";
+    subs << "10"
+         << "qwyx";
     QList<QVariant> values;
     values << 10 << "qwyx";
     QString ordinaryTranslation = "translated-text";
@@ -67,11 +65,7 @@ void KTranscriptCleanTest::test()
 
     QString error;
     bool fallback;
-    QString result = m_transcript->eval(
-                         argv, language, country,
-                         msgctxt, dynamicContext, msgid,
-                         subs, values, ordinaryTranslation,
-                         modules, error, fallback);
+    QString result = m_transcript->eval(argv, language, country, msgctxt, dynamicContext, msgid, subs, values, ordinaryTranslation, modules, error, fallback);
 
     if (!error.isEmpty()) {
         QFAIL(qPrintable(error));

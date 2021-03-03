@@ -5,8 +5,8 @@
 */
 
 #include <QCoreApplication>
-#include <QLocale>
 #include <QLibraryInfo>
+#include <QLocale>
 #include <QTranslator>
 
 // load global Qt translation, needed in KDE e.g. by lots of builtin dialogs (QColorDialog, QFontDialog) that we use

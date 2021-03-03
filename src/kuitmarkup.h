@@ -9,9 +9,9 @@
 
 #include <ki18n_export.h>
 
+#include <QHash>
 #include <QString>
 #include <QStringList>
-#include <QHash>
 #include <memory>
 
 class KuitSetup;
@@ -72,12 +72,12 @@ enum TagClass {
  * \param format the target visual format
  * \return formatted text
  */
-typedef QString(*TagFormatter)(const QStringList &languages,
-                               const QString &tagName,
-                               const QHash<QString, QString> &attributes,
-                               const QString &text,
-                               const QStringList &tagPath,
-                               Kuit::VisualFormat format);
+typedef QString (*TagFormatter)(const QStringList &languages,
+                                const QString &tagName,
+                                const QHash<QString, QString> &attributes,
+                                const QString &text,
+                                const QStringList &tagPath,
+                                Kuit::VisualFormat format);
 
 /**
  * Get hold of the KUIT setup object for a given domain.
@@ -87,7 +87,7 @@ typedef QString(*TagFormatter)(const QStringList &languages,
  */
 KI18N_EXPORT KuitSetup &setupForDomain(const char *domain); // KF6 TODO: remove, the QByteArray overload is enough
 
-KI18N_EXPORT KuitSetup &setupForDomain(const QByteArray& domain);
+KI18N_EXPORT KuitSetup &setupForDomain(const QByteArray &domain);
 }
 
 class KLocalizedString;
@@ -103,11 +103,10 @@ class KuitFormatterPrivate;
  */
 class KI18N_EXPORT KuitSetup
 {
-    friend KuitSetup &Kuit::setupForDomain(const QByteArray& domain);
+    friend KuitSetup &Kuit::setupForDomain(const QByteArray &domain);
     friend class KuitFormatterPrivate;
 
 public:
-
     /**
      * Destructor.
      */
@@ -179,7 +178,6 @@ public:
     void setFormatForMarker(const QString &marker, Kuit::VisualFormat format);
 
 private:
-
     KuitSetup(const QByteArray &domain);
     Q_DISABLE_COPY(KuitSetup)
 

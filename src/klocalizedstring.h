@@ -260,8 +260,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(int a, int fieldWidth = 0, int base = 10,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(int a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute an unsigned int argument into the message.
@@ -275,8 +274,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(uint a, int fieldWidth = 0, int base = 10,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(uint a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute a long argument into the message.
@@ -290,8 +288,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(long a, int fieldWidth = 0, int base = 10,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(long a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute an unsigned long argument into the message.
@@ -305,8 +302,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(ulong a, int fieldWidth = 0, int base = 10,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(ulong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute a long long argument into the message.
@@ -320,8 +316,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(qlonglong a, int fieldWidth = 0, int base = 10,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(qlonglong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute an unsigned long long argument into the message.
@@ -335,8 +330,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(qulonglong a, int fieldWidth = 0, int base = 10,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(qulonglong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute a double argument into the message.
@@ -350,9 +344,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(double a, int fieldWidth = 0,
-                                            char format = 'g', int precision = -1,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(double a, int fieldWidth = 0, char format = 'g', int precision = -1, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute a \c QChar argument into the message.
@@ -364,8 +356,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(QChar a, int fieldWidth = 0,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(QChar a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute a \c QString argument into the message.
@@ -377,8 +368,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(const QString &a, int fieldWidth = 0,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(const QString &a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Substitute another \c KLocalizedString into the message.
@@ -390,8 +380,7 @@ public:
      *                 field width is greater than argument width
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString subs(const KLocalizedString &a, int fieldWidth = 0,
-                                            QChar fillChar = QLatin1Char(' ')) const;
+    Q_REQUIRED_RESULT KLocalizedString subs(const KLocalizedString &a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
     /**
      * Add dynamic context to the message.
@@ -402,8 +391,7 @@ public:
      * \param value context value
      * \return updated \c KLocalizedString
      */
-    Q_REQUIRED_RESULT KLocalizedString inContext(const QString &key,
-                                                 const QString &value) const;
+    Q_REQUIRED_RESULT KLocalizedString inContext(const QString &key, const QString &value) const;
 
     /**
      * Relax matching between placeholders and arguments.
@@ -629,8 +617,7 @@ public:
      *             Qt's \c lupdate and \c lconvert commands.
      */
     KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
-    Q_REQUIRED_RESULT static QString translateQt(const char *context, const char *text,
-                                                 const char *comment, int n);
+    Q_REQUIRED_RESULT static QString translateQt(const char *context, const char *text, const char *comment, int n);
 #endif
 
 #if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
@@ -670,9 +657,7 @@ public:
 #endif
 
 private:
-    KLocalizedString(const char *domain,
-                     const char *context, const char *text, const char *plural,
-                     bool markupAware);
+    KLocalizedString(const char *domain, const char *context, const char *text, const char *plural, bool markupAware);
 
 private:
     std::unique_ptr<KLocalizedStringPrivate> const d;
@@ -725,8 +710,7 @@ QString i18np(const char *singular, const char *plural, const TYPE &arg...);
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString i18ncp(const char *context, const char *singular, const char *plural,
-               const TYPE &arg...);
+QString i18ncp(const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
 /**
  * Translate a string from domain and substitute any arguments.
@@ -749,8 +733,7 @@ QString i18nd(const char *domain, const char *text, const TYPE &arg...);
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString i18ndc(const char *domain, const char *context, const char *text,
-               const TYPE &arg...);
+QString i18ndc(const char *domain, const char *context, const char *text, const TYPE &arg...);
 
 /**
  * Translate a string from domain with plural and substitute any arguments.
@@ -762,8 +745,7 @@ QString i18ndc(const char *domain, const char *context, const char *text,
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString i18ndp(const char *domain, const char *singular, const char *plural,
-               const TYPE &arg...);
+QString i18ndp(const char *domain, const char *singular, const char *plural, const TYPE &arg...);
 
 /**
  * Translate a string from domain with context and plural
@@ -777,9 +759,7 @@ QString i18ndp(const char *domain, const char *singular, const char *plural,
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString i18ndcp(const char *domain,
-                const char *context, const char *singular, const char *plural,
-                const TYPE &arg...);
+QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
 /**
  * Translate a markup-aware string and substitute any arguments.
@@ -824,8 +804,7 @@ QString xi18np(const char *singular, const char *plural, const TYPE &arg...);
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString xi18ncp(const char *context, const char *singular, const char *plural,
-                const TYPE &arg...);
+QString xi18ncp(const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
 /**
  * Translate a markup-aware string from domain and substitute any arguments.
@@ -849,8 +828,7 @@ QString xi18nd(const char *domain, const char *text, const TYPE &arg...);
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString xi18ndc(const char *domain, const char *context, const char *text,
-                const TYPE &arg...);
+QString xi18ndc(const char *domain, const char *context, const char *text, const TYPE &arg...);
 
 /**
  * Translate a markup-aware string from domain with plural
@@ -863,8 +841,7 @@ QString xi18ndc(const char *domain, const char *context, const char *text,
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString xi18ndp(const char *domain, const char *singular, const char *plural,
-                const TYPE &arg...);
+QString xi18ndp(const char *domain, const char *singular, const char *plural, const TYPE &arg...);
 
 /**
  * Translate a markup-aware string from domain with context and plural
@@ -878,9 +855,7 @@ QString xi18ndp(const char *domain, const char *singular, const char *plural,
  *            admissible types according to \c KLocalizedString::subs methods
  * \return translated string
  */
-QString xi18ndcp(const char *domain,
-                 const char *context, const char *singular, const char *plural,
-                 const TYPE &arg...);
+QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
 #endif // K_DOXYGEN
 
@@ -1068,8 +1043,7 @@ inline QString tr2i18n(const char *text, const char *comment = nullptr)
  * \param comment Qt equivalent of disambiguation context
  * \return translated string
  */
-inline QString tr2i18nd(const char *domain,
-                        const char *text, const char *comment = nullptr)
+inline QString tr2i18nd(const char *domain, const char *text, const char *comment = nullptr)
 {
     if (comment && comment[0] && text && text[0]) {
         return ki18ndc(domain, comment, text).toString();
@@ -1110,8 +1084,7 @@ inline QString tr2xi18n(const char *text, const char *comment = nullptr)
  * \param comment Qt equivalent of disambiguation context
  * \return translated string
  */
-inline QString tr2xi18nd(const char *domain,
-                         const char *text, const char *comment = nullptr)
+inline QString tr2xi18nd(const char *domain, const char *text, const char *comment = nullptr)
 {
     if (comment && comment[0] && text && text[0]) {
         return kxi18ndc(domain, comment, text).toString();
@@ -1126,11 +1099,18 @@ inline QString tr2xi18nd(const char *domain,
 
 #ifndef NDEBUG
 #define I18N_ERR_MSG String_literal_as_second_argument_to_i18n___Perhaps_you_need_i18nc_or_i18np
-template <typename T, int s> class I18nTypeCheck
+template<typename T, int s>
+class I18nTypeCheck
 {
-public: static void I18N_ERR_MSG() {}
+public:
+    static void I18N_ERR_MSG()
+    {
+    }
 };
-template <int s> class I18nTypeCheck<char[s], s> {};
+template<int s>
+class I18nTypeCheck<char[s], s>
+{
+};
 #define STATIC_ASSERT_NOT_LITERAL_STRING(T) I18nTypeCheck<T, sizeof(T)>::I18N_ERR_MSG();
 #else
 #define STATIC_ASSERT_NOT_LITERAL_STRING(T)
@@ -1142,56 +1122,57 @@ inline QString i18n(const char *text)
 {
     return ki18n(text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString i18n(const char *text, const A1 &a1)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
 inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString
+i18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
@@ -1204,48 +1185,59 @@ inline QString i18nc(const char *context, const char *text)
 {
     return ki18nc(context, text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString i18nc(const char *context, const char *text, const A1 &a1)
 {
     return ki18nc(context, text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2)
 {
     return ki18nc(context, text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString
+i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18nc(const char *context,
+                     const char *text,
+                     const A1 &a1,
+                     const A2 &a2,
+                     const A3 &a3,
+                     const A4 &a4,
+                     const A5 &a5,
+                     const A6 &a6,
+                     const A7 &a7,
+                     const A8 &a8,
+                     const A9 &a9)
 {
     return ki18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1253,48 +1245,59 @@ inline QString i18nc(const char *context, const char *text, const A1 &a1, const 
 
 // >>>>> Plural calls
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1)
 {
     return ki18np(singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString
+i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18np(const char *singular,
+                     const char *plural,
+                     const A1 &a1,
+                     const A2 &a2,
+                     const A3 &a3,
+                     const A4 &a4,
+                     const A5 &a5,
+                     const A6 &a6,
+                     const A7 &a7,
+                     const A8 &a8,
+                     const A9 &a9)
 {
     return ki18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1302,48 +1305,79 @@ inline QString i18np(const char *singular, const char *plural, const A1 &a1, con
 
 // >>>>> Context-plural calls
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1)
 {
     return ki18ncp(context, singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString
+i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString i18ncp(const char *context,
+                      const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString i18ncp(const char *context,
+                      const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18ncp(const char *context,
+                      const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8,
+                      const A9 &a9)
 {
     return ki18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1355,56 +1389,67 @@ inline QString i18nd(const char *domain, const char *text)
 {
     return ki18nd(domain, text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString
+i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18nd(const char *domain,
+                     const char *text,
+                     const A1 &a1,
+                     const A2 &a2,
+                     const A3 &a3,
+                     const A4 &a4,
+                     const A5 &a5,
+                     const A6 &a6,
+                     const A7 &a7,
+                     const A8 &a8,
+                     const A9 &a9)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return ki18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
@@ -1417,48 +1462,79 @@ inline QString i18ndc(const char *domain, const char *context, const char *text)
 {
     return ki18ndc(domain, context, text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1)
 {
     return ki18ndc(domain, context, text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString
+i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString i18ndc(const char *domain,
+                      const char *context,
+                      const char *text,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString i18ndc(const char *domain,
+                      const char *context,
+                      const char *text,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18ndc(const char *domain,
+                      const char *context,
+                      const char *text,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8,
+                      const A9 &a9)
 {
     return ki18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1466,48 +1542,79 @@ inline QString i18ndc(const char *domain, const char *context, const char *text,
 
 // >>>>> Plural calls with domain
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1)
 {
     return ki18ndp(domain, singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString
+i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString i18ndp(const char *domain,
+                      const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString i18ndp(const char *domain,
+                      const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18ndp(const char *domain,
+                      const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8,
+                      const A9 &a9)
 {
     return ki18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1515,48 +1622,92 @@ inline QString i18ndp(const char *domain, const char *singular, const char *plur
 
 // >>>>> Context-plural calls with domain
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
-inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
+template<typename A1, typename A2, typename A3, typename A4>
+inline QString
+i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
-inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
+inline QString
+i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString i18ndcp(const char *domain,
+                       const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString i18ndcp(const char *domain,
+                       const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString i18ndcp(const char *domain,
+                       const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString i18ndcp(const char *domain,
+                       const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8,
+                       const A9 &a9)
 {
     return ki18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1568,56 +1719,57 @@ inline QString xi18n(const char *text)
 {
     return kxi18n(text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString xi18n(const char *text, const A1 &a1)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
 inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString
+xi18n(const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18n(text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
@@ -1630,48 +1782,59 @@ inline QString xi18nc(const char *context, const char *text)
 {
     return kxi18nc(context, text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1)
 {
     return kxi18nc(context, text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString
+xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18nc(const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18nc(const char *context,
+                      const char *text,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8,
+                      const A9 &a9)
 {
     return kxi18nc(context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1679,48 +1842,60 @@ inline QString xi18nc(const char *context, const char *text, const A1 &a1, const
 
 // >>>>> Markup-aware plural calls
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString xi18np(const char *singular, const char *plural, const A1 &a1)
 {
     return kxi18np(singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString
+xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString
+xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18np(const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18np(const char *singular,
+                      const char *plural,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8,
+                      const A9 &a9)
 {
     return kxi18np(singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1728,48 +1903,79 @@ inline QString xi18np(const char *singular, const char *plural, const A1 &a1, co
 
 // >>>>> Markup-aware context-plural calls
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1)
 {
     return kxi18ncp(context, singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString
+xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString xi18ncp(const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString xi18ncp(const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18ncp(const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18ncp(const char *context,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8,
+                       const A9 &a9)
 {
     return kxi18ncp(context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1781,56 +1987,67 @@ inline QString xi18nd(const char *domain, const char *text)
 {
     return kxi18nd(domain, text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString
+xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18nd(const char *domain, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18nd(const char *domain,
+                      const char *text,
+                      const A1 &a1,
+                      const A2 &a2,
+                      const A3 &a3,
+                      const A4 &a4,
+                      const A5 &a5,
+                      const A6 &a6,
+                      const A7 &a7,
+                      const A8 &a8,
+                      const A9 &a9)
 {
     STATIC_ASSERT_NOT_LITERAL_STRING(A1)
     return kxi18nd(domain, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
@@ -1843,48 +2060,79 @@ inline QString xi18ndc(const char *domain, const char *context, const char *text
 {
     return kxi18ndc(domain, context, text).toString();
 }
-template <typename A1>
+template<typename A1>
 inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1)
 {
     return kxi18ndc(domain, context, text).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString
+xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString xi18ndc(const char *domain,
+                       const char *context,
+                       const char *text,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString xi18ndc(const char *domain,
+                       const char *context,
+                       const char *text,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18ndc(const char *domain, const char *context, const char *text, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18ndc(const char *domain,
+                       const char *context,
+                       const char *text,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8,
+                       const A9 &a9)
 {
     return kxi18ndc(domain, context, text).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1892,48 +2140,79 @@ inline QString xi18ndc(const char *domain, const char *context, const char *text
 
 // >>>>> Markup-aware plural calls with domain
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
+template<typename A1, typename A2, typename A3, typename A4>
 inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
 inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString
+xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString xi18ndp(const char *domain,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString xi18ndp(const char *domain,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18ndp(const char *domain, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18ndp(const char *domain,
+                       const char *singular,
+                       const char *plural,
+                       const A1 &a1,
+                       const A2 &a2,
+                       const A3 &a3,
+                       const A4 &a4,
+                       const A5 &a5,
+                       const A6 &a6,
+                       const A7 &a7,
+                       const A8 &a8,
+                       const A9 &a9)
 {
     return kxi18ndp(domain, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }
@@ -1941,48 +2220,99 @@ inline QString xi18ndp(const char *domain, const char *singular, const char *plu
 
 // >>>>> Markup-aware context-plural calls with domain
 // Autogenerated; contact maintainer for batch changes.
-template <typename A1>
+template<typename A1>
 inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).toString();
 }
-template <typename A1, typename A2>
+template<typename A1, typename A2>
 inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).toString();
 }
-template <typename A1, typename A2, typename A3>
+template<typename A1, typename A2, typename A3>
 inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4>
-inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
+template<typename A1, typename A2, typename A3, typename A4>
+inline QString
+xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5>
-inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5)
+template<typename A1, typename A2, typename A3, typename A4, typename A5>
+inline QString xi18ndcp(const char *domain,
+                        const char *context,
+                        const char *singular,
+                        const char *plural,
+                        const A1 &a1,
+                        const A2 &a2,
+                        const A3 &a3,
+                        const A4 &a4,
+                        const A5 &a5)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+inline QString xi18ndcp(const char *domain,
+                        const char *context,
+                        const char *singular,
+                        const char *plural,
+                        const A1 &a1,
+                        const A2 &a2,
+                        const A3 &a3,
+                        const A4 &a4,
+                        const A5 &a5,
+                        const A6 &a6)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+inline QString xi18ndcp(const char *domain,
+                        const char *context,
+                        const char *singular,
+                        const char *plural,
+                        const A1 &a1,
+                        const A2 &a2,
+                        const A3 &a3,
+                        const A4 &a4,
+                        const A5 &a5,
+                        const A6 &a6,
+                        const A7 &a7)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
+inline QString xi18ndcp(const char *domain,
+                        const char *context,
+                        const char *singular,
+                        const char *plural,
+                        const A1 &a1,
+                        const A2 &a2,
+                        const A3 &a3,
+                        const A4 &a4,
+                        const A5 &a5,
+                        const A6 &a6,
+                        const A7 &a7,
+                        const A8 &a8)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).toString();
 }
-template <typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const A1 &a1, const A2 &a2, const A3 &a3, const A4 &a4, const A5 &a5, const A6 &a6, const A7 &a7, const A8 &a8, const A9 &a9)
+template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
+inline QString xi18ndcp(const char *domain,
+                        const char *context,
+                        const char *singular,
+                        const char *plural,
+                        const A1 &a1,
+                        const A2 &a2,
+                        const A3 &a3,
+                        const A4 &a4,
+                        const A5 &a5,
+                        const A6 &a6,
+                        const A7 &a7,
+                        const A8 &a8,
+                        const A9 &a9)
 {
     return kxi18ndcp(domain, context, singular, plural).subs(a1).subs(a2).subs(a3).subs(a4).subs(a5).subs(a6).subs(a7).subs(a8).subs(a9).toString();
 }

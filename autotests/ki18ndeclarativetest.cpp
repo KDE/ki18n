@@ -4,19 +4,20 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include <QQmlEngine>
 #include <QQmlComponent>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QTest>
 
 #include <KLocalizedContext>
 #include <QDebug>
 class KI18nDeclarativeTest : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 
 private Q_SLOTS:
-    void testLocalizedContext_data() {
+    void testLocalizedContext_data()
+    {
         QTest::addColumn<QString>("propertyName");
         QTest::addColumn<QString>("value");
 
@@ -26,7 +27,8 @@ private Q_SLOTS:
         QTest::newRow("plural translation with domain") << "testStringPluralWithDomain" << QStringLiteral("in 3 seconds");
     }
 
-    void testLocalizedContext() {
+    void testLocalizedContext()
+    {
         QFETCH(QString, propertyName);
         QFETCH(QString, value);
 
