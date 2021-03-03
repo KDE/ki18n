@@ -1270,12 +1270,8 @@ void KLocalizedStringPrivate::locateScriptingModule(const QByteArray &domain, co
 
     QMutexLocker lock(&s->klspMutex);
 
-    // Assemble module's relative path.
-    QString modrpath = language + QLatin1Char('/') + s->scriptDir + QLatin1Char('/') + QString::fromLatin1(domain) + QLatin1Char('/')
-        + QString::fromLatin1(domain) + QLatin1String(".js");
-
-    // Try to find this module.
-    QString modapath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale") + QLatin1Char('/') + modrpath);
+    QString modapath = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                              QLatin1String("locale/%1/%2/%3/%3.js").arg(language, s->scriptDir, QLatin1String{domain}));
 
     // If the module exists and hasn't been already included.
     if (!modapath.isEmpty() && !s->scriptModules[language].contains(domain)) {

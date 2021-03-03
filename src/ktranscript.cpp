@@ -315,7 +315,11 @@ QJSValue variantToJsValue(const QVariant &val)
         return QJSValue(val.toString());
     } else if (vtype == QVariant::Bool) {
         return QJSValue(val.toBool());
-    } else if (vtype == QVariant::Double || vtype == QVariant::Int || vtype == QVariant::UInt || vtype == QVariant::LongLong || vtype == QVariant::ULongLong) {
+    } else if (vtype == QVariant::Double //
+               || vtype == QVariant::Int //
+               || vtype == QVariant::UInt //
+               || vtype == QVariant::LongLong //
+               || vtype == QVariant::ULongLong) {
         return QJSValue(val.toDouble());
     } else {
         return QJSValue::UndefinedValue;
