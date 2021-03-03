@@ -6,9 +6,10 @@
 */
 
 #include "config.h"
-#include "gettext.h"
-#include <locale.h>
-#include <stdlib.h>
+
+#include <kcatalog_p.h>
+
+#include "ki18n_logging.h"
 
 #include <QByteArray>
 #include <QCoreApplication>
@@ -21,9 +22,10 @@
 #include <QStandardPaths>
 #include <QStringList>
 
-#include <kcatalog_p.h>
+#include <locale.h>
+#include <stdlib.h> // Must be included before gettext.h
 
-#include "ki18n_logging.h"
+#include "gettext.h"
 
 // not defined on win32 :(
 #ifdef _WIN32
