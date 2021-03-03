@@ -23,9 +23,9 @@
 #include <QStringList>
 
 #include <locale.h>
-#include <stdlib.h> // Must be included before gettext.h
+#include <stdlib.h>
 
-#include "gettext.h"
+#include "gettext.h" // Must be included after <stdlib.h>
 
 // not defined on win32 :(
 #ifdef _WIN32
