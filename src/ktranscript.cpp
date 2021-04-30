@@ -378,9 +378,11 @@ TsConfig readConfig(const QString &fname)
             if (p1 < 0) {
                 continue;
             }
-            QStringRef field = line.leftRef(p1).trimmed();
-            QStringRef value = line.midRef(p1 + 1).trimmed();
+
+            const QStringView lineView(line);
+            const QStringView field = lineView.left(p1).trimmed();
             if (!field.isEmpty()) {
+                const QStringView value = lineView.mid(p1 + 1).trimmed();
                 (*configGroup)[field.toString()] = value.toString();
             }
         }
@@ -1003,7 +1005,7 @@ static QString toCaseFirst(const QString &qstr, int qnalt, bool toupper)
     // If the first letter is found within an alternatives directive,
     // change case of the first letter in each of the alternatives.
     QString qstrcc = qstr;
-    int len = qstr.length();
+    const int len = qstr.length();
     QChar altSep;
     int remainingAlts = 0;
     bool checkCase = true;
@@ -1012,7 +1014,7 @@ static QString toCaseFirst(const QString &qstr, int qnalt, bool toupper)
     while (i < len) {
         QChar c = qstr[i];
 
-        if (qnalt && !remainingAlts && qstr.midRef(i, hlen) == head) {
+        if (qnalt && !remainingAlts && QStringView(qstr).mid(i, hlen) == head) {
             // An alternatives directive is just starting.
             i += 2;
             if (i >= len) {

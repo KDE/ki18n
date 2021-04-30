@@ -57,7 +57,7 @@ static QString shorten(const QString &str)
     if (str.length() <= maxlen) {
         return str;
     } else {
-        return str.leftRef(maxlen) + QSL("...");
+        return QStringView(str).left(maxlen) + QSL("...");
     }
 }
 
@@ -1284,7 +1284,7 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_, Kuit::VisualFor
     QString text;
     int p = original.indexOf(QL1C('&'));
     while (p >= 0) {
-        text.append(original.midRef(0, p + 1));
+        text.append(QStringView(original).mid(0, p + 1));
         original.remove(0, p + 1);
         if (original.indexOf(restRx) != 0) { // not an entity
             text.append(QSL("amp;"));
@@ -1486,21 +1486,26 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_, Kuit::Vis
         QRegularExpressionMatch match;
         QString plain;
         while ((match = entRx.match(text)).hasMatch()) {
-            const QString ent = match.captured(2);
-            plain.append(text.midRef(0, match.capturedStart(0)));
+            plain.append(QStringView(text).mid(0, match.capturedStart(0)));
             text.remove(0, match.capturedEnd(0));
+            const QString ent = match.captured(2);
             if (ent.startsWith(QL1C('#'))) { // numeric character entity
                 bool ok;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                QStringView entView(ent);
+                const QChar c = ent.at(1) == QL1C('x') ? QChar(entView.mid(2).toInt(&ok, 16)) : QChar(entView.mid(1).toInt(&ok, 10));
+#else
                 const QChar c = ent.at(1) == QL1C('x') ? QChar(ent.midRef(2).toInt(&ok, 16)) : QChar(ent.midRef(1).toInt(&ok, 10));
+#endif
                 if (ok) {
                     plain.append(c);
                 } else { // unknown Unicode point, leave as is
-                    plain.append(match.captured(0));
+                    plain.append(match.capturedView(0));
                 }
             } else if (s->xmlEntities.contains(ent)) { // known entity
                 plain.append(s->xmlEntities[ent]);
             } else { // unknown entity, just leave as is
-                plain.append(match.captured(0));
+                plain.append(match.capturedView(0));
             }
         }
         plain.append(text);
@@ -1529,7 +1534,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFo
     int pos = 0;
     while (iter.hasNext()) {
         match = iter.next();
-        ntext += text.midRef(pos, match.capturedStart(0) - pos);
+        ntext += QStringView(text).mid(pos, match.capturedStart(0) - pos);
         const QString tagname = match.captured(2).toLower();
         const QString content = salvageMarkup(match.captured(4), format, setup);
         if (setup.d->knownTags.contains(tagname)) {
@@ -1543,7 +1548,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFo
         pos = match.capturedEnd(0);
     }
     // get the remaining part after the last match in "text"
-    ntext += text.midRef(pos);
+    ntext += QStringView(text).mid(pos);
     text = ntext;
 
     // - tags without content
@@ -1553,7 +1558,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFo
     ntext.clear();
     while (iter.hasNext()) {
         match = iter.next();
-        ntext += text.midRef(pos, match.capturedStart(0) - pos);
+        ntext += QStringView(text).mid(pos, match.capturedStart(0) - pos);
         const QString tagname = match.captured(1).toLower();
         if (setup.d->knownTags.contains(tagname)) {
             const KuitTag &tag = setup.d->knownTags.value(tagname);
@@ -1564,7 +1569,7 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFo
         pos = match.capturedEnd(0);
     }
     // get the remaining part after the last match in "text"
-    ntext += text.midRef(pos);
+    ntext += QStringView(text).mid(pos);
     text = ntext;
 
     // Add top tag.
