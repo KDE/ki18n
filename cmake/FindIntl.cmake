@@ -2,7 +2,7 @@
 # file Copyright.txt or https://cmake.org/licensing for details.
 
 # This file is backported from https://gitlab.kitware.com/cmake/cmake/-/blob/master/Modules/FindIntl.cmake at 8b30e7adfb1b5ede0d7ba7103a856b8989067484
-# to get the imported target without depending on CMake 3.20. It has been slightly adapted to work outside the CMake source tree.
+# to get the imported target without depending on CMake 3.20. It has been slightly adapted to work outside the CMake source tree and include 543b8ae67c57500bf3cabde75bf1599904d6e482.
 
 #[=======================================================================[.rst:
 FindIntl
@@ -184,3 +184,6 @@ if(Intl_FOUND)
       INTERFACE_LINK_LIBRARIES "${Intl_LIBRARIES}")
   endif()
 endif()
+
+set(CMAKE_REQUIRED_LIBRARIES ${Intl_LIBRARIES})
+check_cxx_source_compiles("extern \"C\" int _nl_msg_cat_cntr; int main(void) { ++_nl_msg_cat_cntr; return 0; }" HAVE_NL_MSG_CAT_CNTR)
