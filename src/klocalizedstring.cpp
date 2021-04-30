@@ -39,7 +39,7 @@ static QString shortenMessage(const QString &str)
     if (str.length() <= maxlen) {
         return str;
     } else {
-        return str.leftRef(maxlen) + QLatin1String("...");
+        return QStringView(str).left(maxlen) + QLatin1String("...");
     }
 }
 
@@ -823,9 +823,9 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
 
     // Split interpolation into arguments.
     QList<QVariant> iargs;
-    int slen = scriptedTranslation.length();
-    int islen = s->startInterp.length();
-    int ielen = s->endInterp.length();
+    const int slen = scriptedTranslation.length();
+    const int islen = s->startInterp.length();
+    const int ielen = s->endInterp.length();
     int tpos = pos + s->startInterp.length();
     while (1) {
         // Skip whitespace.
@@ -837,7 +837,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                                     .arg(scriptedTranslation.mid(pos, tpos - pos), shortenMessage(scriptedTranslation));
             return -1;
         }
-        if (scriptedTranslation.midRef(tpos, ielen) == s->endInterp) {
+        if (QStringView(scriptedTranslation).mid(tpos, ielen) == s->endInterp) {
             break; // no more arguments
         }
 
@@ -981,7 +981,12 @@ QVariant KLocalizedStringPrivate::segmentToValue(const QString &segment) const
     // Reference number must start with 1-9.
     // (If numstr is empty, toInt() will return 0.)
     QString numstr = segment.mid(1);
-    if (numstr.leftRef(1).toInt() < 1) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    int numstrAsInt = QStringView(numstr).left(1).toInt();
+#else
+    int numstrAsInt = numstr.leftRef(1).toInt();
+#endif
+    if (numstrAsInt < 1) {
         return QVariant();
     }
 
