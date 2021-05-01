@@ -13,8 +13,10 @@ endif()
 
 ecm_add_test(klocalizedstringtest.cpp
     TEST_NAME "ki18n-klocalizedstringtest"
-    LINK_LIBRARIES Qt5::Test Qt5::Concurrent KF5::I18n Intl::Intl
+    LINK_LIBRARIES Qt5::Test Qt5::Concurrent KF5::I18n ${LibIntl_LIBRARIES}
 )
+# klocalizedstringtest needs the libintl include path
+target_include_directories(ki18n-klocalizedstringtest PRIVATE ${LibIntl_INCLUDE_DIRS})
 
 if (TARGET ktranscript)
 ecm_add_test(ktranscripttest.cpp testhelpers.cpp
