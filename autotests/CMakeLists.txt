@@ -49,3 +49,6 @@ add_test(ki18n_install ${CMAKE_CTEST_COMMAND}
         "-DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/ki18n_install/destdir"
         "-DKF5I18n_DIR=${CMAKE_BINARY_DIR}/cmake"
     --test-command ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_SOURCE_DIR}/ki18n_install/test.cmake")
+
+ecm_add_test(kcountrytest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)
+ecm_add_test(kcountrysubdivisiontest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)

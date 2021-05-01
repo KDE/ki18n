@@ -49,6 +49,11 @@ set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
 	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
+find_package(IsoCodes)
+set_package_properties(IsoCodes PROPERTIES TYPE RUNTIME
+    PURPOSE "Translation catalogs for countries, country subdivisions, languages and currencies"
+)
+
 # KF5I18nMacros.cmake only needs to know the python executable path.
 # Due to CMake caching the variables, and KF5I18nMacros being included by KF5I18nConfig,
 # we have to hardcode the PYTHON_EXECUTABLE path or anything depending on KF5I18n

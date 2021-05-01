@@ -9,6 +9,11 @@ target_sources(KF5I18n PRIVATE
     common_helpers.cpp
     klocalizedcontext.cpp
     main.cpp
+
+    isocodes.cpp
+    isocodescache.cpp
+    kcountry.cpp
+    kcountrysubdivision.cpp
 )
 
 ecm_qt_declare_logging_category(KF5I18n
@@ -42,6 +47,7 @@ target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_
 target_include_directories(KF5I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
 
 target_link_libraries(KF5I18n PUBLIC Qt5::Core)
+target_link_libraries(KF5I18n PRIVATE Qt5::CorePrivate)
 # This is only required for platforms which don't use glibc (with glibc LibIntl_LIBRARIES will be empty)
 target_link_libraries(KF5I18n PRIVATE ${LibIntl_LIBRARIES})
 target_compile_options(KF5I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
@@ -60,6 +66,8 @@ ecm_generate_headers(KI18n_HEADERS
     KLocalizedTranslator
     KuitMarkup
     KuitSetup
+    KCountry
+    KCountrySubdivision
     REQUIRED_HEADERS KI18n_HEADERS
 )
 
