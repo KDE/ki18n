@@ -45,7 +45,7 @@ target_link_libraries(KF5I18n PUBLIC Qt5::Core)
 target_link_libraries(KF5I18n PRIVATE ${LibIntl_LIBRARIES})
 target_compile_options(KF5I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
 
-set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION_STRING}
+set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION}
                                          SOVERSION ${KI18N_SOVERSION}
                                          EXPORT_NAME I18n
 )
