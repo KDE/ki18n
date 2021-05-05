@@ -31,6 +31,7 @@ private Q_SLOTS:
         QVERIFY(s.code().isEmpty());
         QVERIFY(!s.parent().isValid());
         QVERIFY(s.subdivisions().isEmpty());
+        QVERIFY(s.timeZoneIds().isEmpty());
     }
 
     void testLookup()
@@ -114,6 +115,29 @@ private Q_SLOTS:
             QCOMPARE(s.subdivisions().size(), 0);
             QCOMPARE(s.country(), c);
         }
+    }
+
+    void testTimezone()
+    {
+        auto tzs = KCountrySubdivision::fromCode("DE-BE").timeZoneIds();
+        QCOMPARE(tzs.size(), 1);
+        QCOMPARE(tzs.at(0), "Europe/Berlin");
+
+        tzs = KCountrySubdivision::fromCode("FR-IDF").timeZoneIds();
+        QCOMPARE(tzs.size(), 1);
+        QCOMPARE(tzs.at(0), "Europe/Paris");
+        tzs = KCountrySubdivision::fromCode("FR-LRE").timeZoneIds();
+        QCOMPARE(tzs.size(), 1);
+        QCOMPARE(tzs.at(0), "Indian/Reunion");
+
+        tzs = KCountrySubdivision::fromCode("ES-CN").timeZoneIds();
+        QCOMPARE(tzs.size(), 1);
+        QCOMPARE(tzs.at(0), "Atlantic/Canary");
+
+        tzs = KCountrySubdivision::fromCode("US-OR").timeZoneIds();
+        QCOMPARE(tzs.size(), 2);
+        QCOMPARE(tzs.at(0), "America/Los_Angeles");
+        QCOMPARE(tzs.at(1), "America/Boise");
     }
 };
 

@@ -10,6 +10,7 @@
 #include "kcountrysubdivision.h"
 #include "ki18n_logging.h"
 #include "klocalizedstring.h"
+#include "timezonedata_p.h"
 
 #include <private/qlocale_p.h>
 
@@ -105,6 +106,36 @@ QLocale::Country KCountry::country() const
     }
 
     return QLocalePrivate::codeToCountry(alpha2());
+}
+
+QList<const char *> KCountry::timeZoneIds() const
+{
+    QList<const char *> tzs;
+    if (d == 0) {
+        return tzs;
+    }
+
+    const auto countryIt = std::lower_bound(TimezoneData::countryTimezoneMapBegin(), TimezoneData::countryTimezoneMapEnd(), d);
+    if (countryIt != TimezoneData::countryTimezoneMapEnd() && (*countryIt).key == d) {
+        tzs.push_back(TimezoneData::ianaIdLookup((*countryIt).value));
+        return tzs;
+    }
+
+    const auto [subdivBegin, subdivEnd] =
+        std::equal_range(TimezoneData::subdivisionTimezoneMapBegin(), TimezoneData::subdivisionTimezoneMapEnd(), d, [](auto lhs, auto rhs) {
+            if constexpr (std::is_same_v<decltype(lhs), uint16_t>)
+                return lhs < (rhs.key >> 16);
+            else
+                return (lhs.key >> 16) < rhs;
+        });
+    for (auto it = subdivBegin; it != subdivEnd; ++it) {
+        const auto tzId = TimezoneData::ianaIdLookup((*it).value);
+        if (!tzs.contains(tzId)) {
+            tzs.push_back(tzId);
+        }
+    }
+
+    return tzs;
 }
 
 QString KCountry::currencyCode() const

@@ -14,6 +14,7 @@ target_sources(KF5I18n PRIVATE
     isocodescache.cpp
     kcountry.cpp
     kcountrysubdivision.cpp
+    timezonedata.cpp
 )
 
 ecm_qt_declare_logging_category(KF5I18n

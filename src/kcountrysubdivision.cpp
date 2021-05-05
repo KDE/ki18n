@@ -11,6 +11,7 @@
 #include "ki18n_logging.h"
 
 #include "klocalizedstring.h"
+#include "timezonedata_p.h"
 
 #include <cstring>
 
@@ -96,6 +97,30 @@ KCountrySubdivision KCountrySubdivision::parent() const
     }
 
     return s;
+}
+
+QList<const char *> KCountrySubdivision::timeZoneIds() const
+{
+    QList<const char *> tzs;
+    if (d == 0) {
+        return tzs;
+    }
+
+    const auto [subdivBegin, subdivEnd] = std::equal_range(TimezoneData::subdivisionTimezoneMapBegin(), TimezoneData::subdivisionTimezoneMapEnd(), d);
+    if (subdivBegin != subdivEnd) {
+        tzs.reserve(std::distance(subdivBegin, subdivEnd));
+        for (auto it = subdivBegin; it != subdivEnd; ++it) {
+            tzs.push_back(TimezoneData::ianaIdLookup((*it).value));
+        }
+        return tzs;
+    }
+
+    const auto countryIt = std::lower_bound(TimezoneData::countryTimezoneMapBegin(), TimezoneData::countryTimezoneMapEnd(), uint16_t(d >> 16));
+    if (countryIt != TimezoneData::countryTimezoneMapEnd() && (*countryIt).key == (d >> 16)) {
+        tzs.push_back(TimezoneData::ianaIdLookup((*countryIt).value));
+    }
+
+    return tzs;
 }
 
 QList<KCountrySubdivision> KCountrySubdivision::subdivisions() const

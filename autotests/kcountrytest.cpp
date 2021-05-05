@@ -34,6 +34,7 @@ private Q_SLOTS:
         QVERIFY(c.subdivisions().isEmpty());
         QCOMPARE(c.country(), QLocale::AnyCountry);
         QVERIFY(c.currencyCode().isEmpty());
+        QVERIFY(c.timeZoneIds().isEmpty());
     }
 
     void testLookup()
@@ -108,6 +109,23 @@ private Q_SLOTS:
             QVERIFY(!c.emojiFlag().isEmpty());
             QVERIFY(c.country() != QLocale::AnyCountry);
         }
+    }
+
+    void testTimezone()
+    {
+        auto tzs = KCountry::fromAlpha2("BE").timeZoneIds();
+        QCOMPARE(tzs.size(), 1);
+        QCOMPARE(tzs.at(0), "Europe/Brussels");
+
+        tzs = KCountry::fromAlpha2("DE").timeZoneIds();
+        QCOMPARE(tzs.size(), 1); // we don't want Europe/Busingen as well here
+        QCOMPARE(tzs.at(0), "Europe/Berlin");
+
+        tzs = KCountry::fromAlpha2("ES").timeZoneIds();
+        QCOMPARE(tzs.size(), 3);
+        QCOMPARE(tzs.at(0), "Europe/Madrid");
+        QCOMPARE(tzs.at(1), "Africa/Ceuta");
+        QCOMPARE(tzs.at(2), "Atlantic/Canary");
     }
 };
 
