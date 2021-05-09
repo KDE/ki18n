@@ -14,6 +14,8 @@ target_sources(KF5I18n PRIVATE
     isocodescache.cpp
     kcountry.cpp
     kcountrysubdivision.cpp
+    spatial_index_entry.cpp
+    spatial_index_property.cpp
     timezonedata.cpp
 )
 

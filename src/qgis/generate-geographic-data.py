@@ -4,6 +4,7 @@
 import os
 import qgis
 from LayerTasks import *
+from SpatialIndexTasks import *
 from TimezoneTableTasks import *
 from config import *
 
@@ -21,7 +22,8 @@ class MainTask(QgsTask):
         self.tzToCountryMapTask = TimezoneToCountryMapTask(context)
         self.addSubTask(self.tzToCountryMapTask, [self.loadLayersTask], QgsTask.ParentDependsOnSubTask)
 
-        # TODO compute spatial index
+        self.spatialIndexTask = SpatialIndexerTask(context, self.loadLayersTask)
+        self.addSubTask(self.spatialIndexTask, [self.loadLayersTask, self.regionToTzMapTask], QgsTask.ParentDependsOnSubTask)
 
     def run(self):
         QgsMessageLog.logMessage('Generation completed.', LOG_CATEGORY, Qgis.Info)

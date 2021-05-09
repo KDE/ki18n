@@ -180,6 +180,8 @@ static constexpr const MapEntry<uint32_t> subdivision_timezone_map[] = {
         out.write("};\n")
         out.close()
 
+        self.context['countryToTimezoneMap'] = countryToTz
+        self.context['subdivisionToTimezoneMap'] = subdivToTz
         return True
 
 # Compute timezone to country mapping

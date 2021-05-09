@@ -106,5 +106,20 @@ TZID_MAP = {
     'Europe/Mariehamn': 'Europe/Helsinki'
 }
 
+#
+# parameters for the spatial index
+#
+featureAreaRatioThreshold = 0.02 # 1% at zDepth 11 is ~150m
+zDepth = 11 # minimum tile size is 1/(2^zdepth), amount of bits needed to store z index is 2*zDepth
+
+# z-order curve coverage parameters
+xStart = -180
+xRange = 360
+# cut out artic regions (starting at 60°S and 80°N), that saves about 23% z-order curve coverage which we
+# can better use to increase precision in more relevant areas
+yStart = -60
+yRange = 140
+
+
 # constants
 LOG_CATEGORY = 'KI18n Data Generator'
