@@ -1,4 +1,7 @@
-set(libki18n_SRCS
+add_library(KF5I18n)
+add_library(KF5::I18n ALIAS KF5I18n)
+
+target_sources(KF5I18n PRIVATE
     klocalizedstring.cpp
     klocalizedtranslator.cpp
     kcatalog.cpp
@@ -8,7 +11,7 @@ set(libki18n_SRCS
     main.cpp
 )
 
-ecm_qt_declare_logging_category(libki18n_SRCS
+ecm_qt_declare_logging_category(KF5I18n
     HEADER ki18n_logging.h
     IDENTIFIER KI18N
     CATEGORY_NAME kf.i18n
@@ -17,7 +20,7 @@ ecm_qt_declare_logging_category(libki18n_SRCS
     EXPORT KI18N
 )
 
-ecm_qt_declare_logging_category(libki18n_SRCS
+ecm_qt_declare_logging_category(KF5I18n
     HEADER ki18n_logging_kuit.h
     IDENTIFIER KI18N_KUIT
     CATEGORY_NAME kf.i18n.kuit
@@ -26,8 +29,6 @@ ecm_qt_declare_logging_category(libki18n_SRCS
     EXPORT KI18N
 )
 
-add_library(KF5I18n ${libki18n_SRCS})
-add_library(KF5::I18n ALIAS KF5I18n)
 ecm_generate_export_header(KF5I18n
     BASE_NAME KI18n
     GROUP_BASE_NAME KF
@@ -97,11 +98,12 @@ ecm_qt_install_logging_categories(
 ### ktranscript plugin
 if (BUILD_WITH_QML)
 
-set(ktranscript_LIB_SRCS
+add_library(ktranscript MODULE)
+
+target_sources(ktranscript PRIVATE
     ktranscript.cpp
     common_helpers.cpp
 )
-add_library(ktranscript MODULE ${ktranscript_LIB_SRCS})
 generate_export_header(ktranscript BASE_NAME KTranscript)
 target_link_libraries(ktranscript PRIVATE Qt5::Qml Qt5::Core)
 
