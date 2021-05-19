@@ -139,6 +139,33 @@ private Q_SLOTS:
         QCOMPARE(tzs.at(0), "America/Los_Angeles");
         QCOMPARE(tzs.at(1), "America/Boise");
     }
+
+    void testFromLocation_data()
+    {
+        QTest::addColumn<float>("lat");
+        QTest::addColumn<float>("lon");
+        QTest::addColumn<QString>("code");
+
+        QTest::newRow("invalid") << -91.0f << 361.0f << QString();
+        QTest::newRow("out-of-coverage") << 90.0f << 0.0f << QString();
+
+        QTest::newRow("US-AK") << 65.0f << -155.0f << QStringLiteral("US-AK");
+        QTest::newRow("US-CA") << 37.7f << -122.0f << QStringLiteral("US-CA");
+        QTest::newRow("FR-IDF") << 48.7f << 2.5f << QStringLiteral("FR-IDF");
+        QTest::newRow("DE-BW") << 48.7f << 9.0f << QStringLiteral("DE-BW");
+    }
+
+    void testFromLocation()
+    {
+        QFETCH(float, lat);
+        QFETCH(float, lon);
+        QFETCH(QString, code);
+
+        const auto s = KCountrySubdivision::fromLocation(lat, lon);
+        QCOMPARE(s.code(), code);
+        const auto c = KCountry::fromLocation(lat, lon);
+        QCOMPARE(s.country(), c);
+    }
 };
 
 QTEST_GUILESS_MAIN(KCountrySubdivisionTest)

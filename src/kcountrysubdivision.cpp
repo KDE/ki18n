@@ -9,8 +9,8 @@
 #include "isocodescache_p.h"
 #include "kcountry.h"
 #include "ki18n_logging.h"
-
 #include "klocalizedstring.h"
+#include "spatial_index_p.h"
 #include "timezonedata_p.h"
 
 #include <cstring>
@@ -177,6 +177,16 @@ KCountrySubdivision KCountrySubdivision::fromCode(const char *code)
     KCountrySubdivision s;
     if (code) {
         s.d = validatedSubdivisionKey(IsoCodes::subdivisionCodeToKey(code, std::strlen(code)));
+    }
+    return s;
+}
+
+KCountrySubdivision KCountrySubdivision::fromLocation(float latitude, float longitude)
+{
+    const auto entry = SpatialIndex::lookup(latitude, longitude);
+    KCountrySubdivision s;
+    if (entry.m_subdiv & 0xffff) {
+        s.d = entry.m_subdiv;
     }
     return s;
 }

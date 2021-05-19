@@ -127,6 +127,53 @@ private Q_SLOTS:
         QCOMPARE(tzs.at(1), "Africa/Ceuta");
         QCOMPARE(tzs.at(2), "Atlantic/Canary");
     }
+
+    void testFromLocation_data()
+    {
+        QTest::addColumn<float>("lat");
+        QTest::addColumn<float>("lon");
+        QTest::addColumn<QString>("country");
+        QTest::addColumn<bool>("canBeConflict"); // for test close to the border, no result is acceptable, a wrong one isn't
+
+        QTest::newRow("invalid") << 400.0f << 25.0f << QString() << false;
+        QTest::newRow("out-of-coverage") << -90.0f << 0.0f << QString() << false;
+
+        // basic checks in all quadrants
+        QTest::newRow("BR") << -8.0f << -35.0f << QStringLiteral("BR") << false;
+        QTest::newRow("CA") << 44.0f << -79.5f << QStringLiteral("CA") << false;
+        QTest::newRow("DE") << 52.4f << 13.1f << QStringLiteral("DE") << false;
+        QTest::newRow("NZ") << -36.5f << 175.0f << QStringLiteral("NZ") << false;
+
+        // important KDE locations
+        QTest::newRow("Randa") << 46.0998f << 7.781469f << QStringLiteral("CH") << false;
+
+        // Maastricht (NL), very close to the BE border
+        QTest::newRow("Maastricht") << 50.8505f << 5.6881f << QStringLiteral("NL") << true;
+        // Aachen, at the BE/DE/NL corner
+        QTest::newRow("Aachen") << 50.7717f << 6.04235f << QStringLiteral("DE") << true;
+        // Geneva (CH), very close to the FR border
+        QTest::newRow("Geneva") << 46.23213f << 6.10636f << QStringLiteral("CH") << true;
+        // Busingen (DE), enclosed by CH
+        QTest::newRow("Busingen") << 47.69947f << 8.68833f << QStringLiteral("DE") << true;
+        // Tijuana (MX), close to US
+        QTest::newRow("Tijuana") << 32.54274f << -116.97505f << QStringLiteral("MX") << true;
+
+        // Baarle, the ultimate special case, NL/BE differs house by house
+        QTest::newRow("you-got-to-be-kidding-me") << 51.44344f << 4.93373f << QString() << false;
+    }
+
+    void testFromLocation()
+    {
+        QFETCH(float, lat);
+        QFETCH(float, lon);
+        QFETCH(QString, country);
+        QFETCH(bool, canBeConflict);
+
+        auto c = KCountry::fromLocation(lat, lon);
+        if (!canBeConflict || c.isValid()) {
+            QCOMPARE(c.alpha2(), country);
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(KCountryTest)

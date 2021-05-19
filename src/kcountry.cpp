@@ -10,6 +10,7 @@
 #include "kcountrysubdivision.h"
 #include "ki18n_logging.h"
 #include "klocalizedstring.h"
+#include "spatial_index_p.h"
 #include "timezonedata_p.h"
 
 #include <private/qlocale_p.h>
@@ -252,6 +253,14 @@ KCountry KCountry::fromAlpha3(const char *alpha3Code)
         return c;
     }
     c.d = alpha3Lookup(IsoCodes::alpha3CodeToKey(alpha3Code, std::strlen(alpha3Code)));
+    return c;
+}
+
+KCountry KCountry::fromLocation(float latitude, float longitude)
+{
+    const auto entry = SpatialIndex::lookup(latitude, longitude);
+    KCountry c;
+    c.d = entry.m_subdiv >> 16;
     return c;
 }
 
