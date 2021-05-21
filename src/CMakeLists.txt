@@ -14,6 +14,7 @@ target_sources(KF5I18n PRIVATE
     isocodescache.cpp
     kcountry.cpp
     kcountrysubdivision.cpp
+    ktimezone.cpp
     spatial_index.cpp
     spatial_index_entry.cpp
     spatial_index_property.cpp
@@ -72,6 +73,7 @@ ecm_generate_headers(KI18n_HEADERS
     KuitSetup
     KCountry
     KCountrySubdivision
+    KTimeZone
     REQUIRED_HEADERS KI18n_HEADERS
 )
 

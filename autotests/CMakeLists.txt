@@ -52,3 +52,4 @@ add_test(ki18n_install ${CMAKE_CTEST_COMMAND}
 
 ecm_add_test(kcountrytest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)
 ecm_add_test(kcountrysubdivisiontest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)
+ecm_add_test(ktimezonetest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)

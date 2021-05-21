@@ -12,7 +12,12 @@
 #include <QLocale>
 #include <QMetaType>
 
+class KCountry;
 class KCountrySubdivision;
+namespace KTimeZone
+{
+KCountry country(const char *);
+}
 
 /** Information about an ISO 3166-1 country.
  *  The information provided here are aggregated from the following sources:
@@ -100,6 +105,7 @@ public:
 
 private:
     friend class KCountrySubdivision;
+    friend KCountry KTimeZone::country(const char *);
     uint16_t d;
 };
 
