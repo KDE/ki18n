@@ -64,20 +64,21 @@ bool IsoCodesCache::loadIso3166_1Cache()
     if (!f->open(QFile::ReadOnly) || f->fileTime(QFile::FileModificationTime) < jsonFi.lastModified() || f->size() < 8) {
         return false;
     }
+    m_iso3166_1CacheSize = f->size();
 
     // validate cache file is usable
     // header matches
-    const auto data = f->map(0, f->size());
+    const auto data = f->map(0, m_iso3166_1CacheSize);
     if (*reinterpret_cast<const uint32_t *>(data) != Iso3166_1CacheHeader) {
         return false;
     }
     // lookup tables fit into the available size
     const auto size = *(reinterpret_cast<const uint32_t *>(data) + 1);
-    if (sizeof(Iso3166_1CacheHeader) + sizeof(size) + size * sizeof(MapEntry<uint16_t>) * 2 >= (std::size_t)f->size()) {
+    if (sizeof(Iso3166_1CacheHeader) + sizeof(size) + size * sizeof(MapEntry<uint16_t>) * 2 >= m_iso3166_1CacheSize) {
         return false;
     }
     // string table is 0 terminated
-    if (data[f->size() - 1] != '\0') {
+    if (data[m_iso3166_1CacheSize - 1] != '\0') {
         return false;
     }
 
@@ -105,7 +106,7 @@ const char *IsoCodesCache::countryStringTableLookup(uint16_t offset) const
 {
     if (m_iso3166_1CacheData) {
         offset += 2 * sizeof(uint32_t) + 2 * countryCount() * sizeof(MapEntry<uint16_t>);
-        return m_iso3166_1CacheFile->size() > offset ? reinterpret_cast<const char *>(m_iso3166_1CacheData + offset) : nullptr;
+        return m_iso3166_1CacheSize > offset ? reinterpret_cast<const char *>(m_iso3166_1CacheData + offset) : nullptr;
     }
     return nullptr;
 }
@@ -183,27 +184,28 @@ bool IsoCodesCache::loadIso3166_2Cache()
     if (!f->open(QFile::ReadOnly) || f->fileTime(QFile::FileModificationTime) < jsonFi.lastModified() || f->size() < 8) {
         return false;
     }
+    m_iso3166_2CacheSize = f->size();
 
     // validate cache file is usable
     // header matches
-    const auto data = f->map(0, f->size());
+    const auto data = f->map(0, m_iso3166_2CacheSize);
     if (*reinterpret_cast<const uint32_t *>(data) != Iso3166_2CacheHeader) {
         return false;
     }
     // name lookup table fits into the available size
     auto size = *(reinterpret_cast<const uint32_t *>(data) + 1);
     auto offset = 3 * sizeof(uint32_t) + size * sizeof(MapEntry<uint32_t>);
-    if (offset >= (std::size_t)f->size()) {
+    if (offset >= m_iso3166_2CacheSize) {
         return false;
     }
     // hierarchy map boundary check
     size = *(reinterpret_cast<const uint32_t *>(data + offset) - 1);
     offset += size * sizeof(MapEntry<uint32_t>);
-    if (offset >= (std::size_t)f->size()) {
+    if (offset >= m_iso3166_2CacheSize) {
         return false;
     }
     // string table is 0 terminated
-    if (data[f->size() - 1] != '\0') {
+    if (data[m_iso3166_2CacheSize - 1] != '\0') {
         return false;
     }
 
@@ -240,7 +242,7 @@ const char *IsoCodesCache::subdivisionStringTableLookup(uint16_t offset) const
 {
     if (m_iso3166_2CacheData) {
         offset += 3 * sizeof(uint32_t) + (subdivisionCount() + subdivisionHierachyMapSize()) * sizeof(MapEntry<uint32_t>);
-        return m_iso3166_2CacheFile->size() > offset ? reinterpret_cast<const char *>(m_iso3166_2CacheData + offset) : nullptr;
+        return m_iso3166_2CacheSize > offset ? reinterpret_cast<const char *>(m_iso3166_2CacheData + offset) : nullptr;
     }
     return nullptr;
 }

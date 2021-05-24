@@ -64,8 +64,10 @@ private:
 
     std::unique_ptr<QFile> m_iso3166_1CacheFile;
     const uint8_t *m_iso3166_1CacheData = nullptr;
+    std::size_t m_iso3166_1CacheSize = 0;
     std::unique_ptr<QFile> m_iso3166_2CacheFile;
     const uint8_t *m_iso3166_2CacheData = nullptr;
+    std::size_t m_iso3166_2CacheSize = 0;
 };
 
 #endif // ISOCODESCACHE_H
