@@ -7,6 +7,7 @@
 #include "kcountry.h"
 #include "isocodes_p.h"
 #include "isocodescache_p.h"
+#include "kcatalog_p.h"
 #include "kcountrysubdivision.h"
 #include "ki18n_logging.h"
 #include "klocalizedstring.h"
@@ -267,6 +268,29 @@ KCountry KCountry::fromLocation(float latitude, float longitude)
 KCountry KCountry::fromQLocale(QLocale::Country country)
 {
     return fromAlpha2(QLocalePrivate::countryToCode(country).data());
+}
+
+KCountry KCountry::fromName(QStringView name)
+{
+    if (name.isEmpty()) {
+        return {};
+    }
+
+    auto cache = IsoCodesCache::instance();
+    cache->loadIso3166_1();
+
+    const auto langs = KCatalog::availableCatalogLanguages("iso_3166-1");
+    for (const auto &lang : langs) {
+        const auto catalog = KCatalog("iso_3166-1", lang);
+        for (auto it = cache->countryNameMapBegin(); it != cache->countryNameMapEnd(); ++it) {
+            if (catalog.translate(cache->countryStringTableLookup((*it).value)).compare(name, Qt::CaseInsensitive) == 0) {
+                KCountry c;
+                c.d = (*it).key;
+                return c;
+            }
+        }
+    }
+    return {};
 }
 
 QList<KCountry> KCountry::allCountries()

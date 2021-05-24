@@ -174,6 +174,23 @@ private Q_SLOTS:
             QCOMPARE(c.alpha2(), country);
         }
     }
+
+    void testFromName()
+    {
+        QVERIFY(!KCountry::fromName(u"").isValid());
+        QVERIFY(!KCountry::fromName(u"Disneyland").isValid());
+
+        QCOMPARE(KCountry::fromName(u"new zealand").alpha2(), QLatin1String("NZ"));
+        QCOMPARE(KCountry::fromName(u"Nouvelle-Zélande").alpha2(), QLatin1String("NZ"));
+        QCOMPARE(KCountry::fromName(u"NEUSEELAND").alpha2(), QLatin1String("NZ"));
+    }
+
+    void benchmarkFromName()
+    {
+        QBENCHMARK {
+            QCOMPARE(KCountry::fromName(u"Nouvelle-Zélande").alpha2(), QLatin1String("NZ"));
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(KCountryTest)
