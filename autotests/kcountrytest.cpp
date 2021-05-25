@@ -183,6 +183,22 @@ private Q_SLOTS:
         QCOMPARE(KCountry::fromName(u"new zealand").alpha2(), QLatin1String("NZ"));
         QCOMPARE(KCountry::fromName(u"Nouvelle-Zélande").alpha2(), QLatin1String("NZ"));
         QCOMPARE(KCountry::fromName(u"NEUSEELAND").alpha2(), QLatin1String("NZ"));
+
+        // diacritic normalization
+        QCOMPARE(KCountry::fromName(u"Österreich").alpha2(), QLatin1String("AT"));
+        QCOMPARE(KCountry::fromName(u"Østrig").alpha2(), QLatin1String("AT"));
+        QCOMPARE(KCountry::fromName(u"osterreich").alpha2(), QLatin1String("AT"));
+        QCOMPARE(KCountry::fromName(u"대한민국").alpha2(), QLatin1String("KR"));
+
+        // unique prefix/suffix
+        QCOMPARE(KCountry::fromName(u"United States").alpha2(), QLatin1String("US"));
+        QCOMPARE(KCountry::fromName(u"Ünīted  States\nOf Amérìcâ").alpha2(), QLatin1String("US"));
+        QCOMPARE(KCountry::fromName(u"Arab Emirates").alpha2(), QLatin1String("AE"));
+        QCOMPARE(KCountry::fromName(u"United").alpha2(), QString());
+        QCOMPARE(KCountry::fromName(u"Bundesrepuplik Deutschland").alpha2(), QLatin1String("DE"));
+
+        // code fallbacks
+        QCOMPARE(KCountry::fromName(u"USA").alpha2(), QLatin1String("US"));
     }
 
     void benchmarkFromName()

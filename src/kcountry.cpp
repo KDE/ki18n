@@ -270,26 +270,111 @@ KCountry KCountry::fromQLocale(QLocale::Country country)
     return fromAlpha2(QLocalePrivate::countryToCode(country).data());
 }
 
+static QString normalizeCountryName(QStringView name)
+{
+    QString res;
+    res.reserve(name.size());
+    for (const auto c : name) {
+        // the following needs to be done fairly fine-grained, as this can easily mess up scripts
+        // that rely on some non-letter characters to work
+        // all values used below were obtained by similar code in KContacts, which used to do
+        // a full offline pre-computation of this and checked for ambiguities introduced by too
+        // aggressive normalization
+        switch (c.category()) {
+        // strip decorative elements that don't contribute to identification (parenthesis, dashes, quotes, etc)
+        case QChar::Punctuation_Connector:
+        case QChar::Punctuation_Dash:
+        case QChar::Punctuation_Open:
+        case QChar::Punctuation_Close:
+        case QChar::Punctuation_InitialQuote:
+        case QChar::Punctuation_FinalQuote:
+        case QChar::Punctuation_Other:
+            continue;
+        default:
+            break;
+        }
+
+        if (c.isSpace()) {
+            continue;
+        }
+
+        // if the character has a canonical decomposition skip the combining diacritic markers following it
+        // this works particularly well for Latin, but messes up Hangul
+        if (c.script() != QChar::Script_Hangul && c.decompositionTag() == QChar::Canonical) {
+            res.push_back(c.decomposition().at(0).toCaseFolded());
+        } else {
+            res.push_back(c.toCaseFolded());
+        }
+    }
+
+    return res;
+}
+
+static void checkSubstringMatch(QStringView lhs, QStringView rhs, uint16_t code, uint16_t &result)
+{
+    if (result == std::numeric_limits<uint16_t>::max() || rhs.isEmpty()) {
+        return;
+    }
+    const auto matches = lhs.startsWith(rhs) || rhs.startsWith(lhs) || lhs.endsWith(rhs) || rhs.endsWith(lhs);
+    if (!matches) {
+        return;
+    }
+    result = result == 0 ? code : std::numeric_limits<uint16_t>::max();
+}
+
 KCountry KCountry::fromName(QStringView name)
 {
     if (name.isEmpty()) {
         return {};
     }
+    const auto normalizedName = normalizeCountryName(name);
 
     auto cache = IsoCodesCache::instance();
     cache->loadIso3166_1();
 
+    uint16_t substrMatch = 0;
+
+    // check untranslated names
+    for (auto it = cache->countryNameMapBegin(); it != cache->countryNameMapEnd(); ++it) {
+        const auto normalizedCountry = normalizeCountryName(QString::fromUtf8(cache->countryStringTableLookup((*it).value)));
+        if (normalizedName == normalizedCountry) {
+            KCountry c;
+            c.d = (*it).key;
+            return c;
+        }
+        checkSubstringMatch(normalizedName, normalizedCountry, (*it).key, substrMatch);
+    }
+
+    // check translated names
     const auto langs = KCatalog::availableCatalogLanguages("iso_3166-1");
     for (const auto &lang : langs) {
         const auto catalog = KCatalog("iso_3166-1", lang);
         for (auto it = cache->countryNameMapBegin(); it != cache->countryNameMapEnd(); ++it) {
-            if (catalog.translate(cache->countryStringTableLookup((*it).value)).compare(name, Qt::CaseInsensitive) == 0) {
+            const auto normalizedCountry = normalizeCountryName(catalog.translate(cache->countryStringTableLookup((*it).value)));
+            if (normalizedName == normalizedCountry) {
                 KCountry c;
                 c.d = (*it).key;
                 return c;
             }
+            checkSubstringMatch(normalizedName, normalizedCountry, (*it).key, substrMatch);
         }
     }
+
+    // unique prefix/suffix match
+    if (substrMatch != std::numeric_limits<uint16_t>::max() && substrMatch != 0) {
+        KCountry c;
+        c.d = substrMatch;
+        return c;
+    }
+
+    // fallback to code lookups
+    if (normalizedName.size() == 3) {
+        return fromAlpha3(normalizedName);
+    }
+    if (normalizedName.size() == 2) {
+        return fromAlpha2(normalizedName);
+    }
+
     return {};
 }
 
