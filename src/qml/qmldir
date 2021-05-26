@@ -1,0 +1,3 @@
+module org.kde.ki18n
+plugin ki18nqmlplugin
+classname KI18nQmlPlugin
