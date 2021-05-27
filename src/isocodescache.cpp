@@ -105,8 +105,8 @@ const MapEntry<uint16_t> *IsoCodesCache::countryAlpha3MapBegin() const
 const char *IsoCodesCache::countryStringTableLookup(uint16_t offset) const
 {
     if (m_iso3166_1CacheData) {
-        offset += 2 * sizeof(uint32_t) + 2 * countryCount() * sizeof(MapEntry<uint16_t>);
-        return m_iso3166_1CacheSize > offset ? reinterpret_cast<const char *>(m_iso3166_1CacheData + offset) : nullptr;
+        const auto pos = offset + 2 * sizeof(uint32_t) + 2 * countryCount() * sizeof(MapEntry<uint16_t>);
+        return m_iso3166_1CacheSize > pos ? reinterpret_cast<const char *>(m_iso3166_1CacheData + pos) : nullptr;
     }
     return nullptr;
 }
@@ -241,8 +241,8 @@ const MapEntry<uint32_t> *IsoCodesCache::subdivisionParentMapBegin() const
 const char *IsoCodesCache::subdivisionStringTableLookup(uint16_t offset) const
 {
     if (m_iso3166_2CacheData) {
-        offset += 3 * sizeof(uint32_t) + (subdivisionCount() + subdivisionHierachyMapSize()) * sizeof(MapEntry<uint32_t>);
-        return m_iso3166_2CacheSize > offset ? reinterpret_cast<const char *>(m_iso3166_2CacheData + offset) : nullptr;
+        const auto pos = offset + 3 * sizeof(uint32_t) + (subdivisionCount() + subdivisionHierachyMapSize()) * sizeof(MapEntry<uint32_t>);
+        return m_iso3166_2CacheSize > pos ? reinterpret_cast<const char *>(m_iso3166_2CacheData + pos) : nullptr;
     }
     return nullptr;
 }

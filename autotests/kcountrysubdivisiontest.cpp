@@ -70,6 +70,13 @@ private Q_SLOTS:
         QCOMPARE(s.code(), QLatin1String("CZ-10"));
         QCOMPARE(KCountrySubdivision::fromCode("cz-10"), s);
 
+        s = KCountrySubdivision::fromCode("us-or");
+        QVERIFY(s.isValid());
+        QCOMPARE(s.country().alpha2(), QLatin1String("US"));
+        QVERIFY(!s.parent().isValid());
+        QCOMPARE(s.code(), QLatin1String("US-OR"));
+        QCOMPARE(s.name(), QLatin1String("Oregon"));
+
         QVERIFY(!KCountrySubdivision::fromCode(u"ZZ-ABC").isValid());
         QVERIFY(!KCountrySubdivision::fromCode("NZ-999").isValid());
         QVERIFY(!KCountrySubdivision::fromCode("AT-9-9").isValid());
