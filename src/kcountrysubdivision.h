@@ -28,6 +28,7 @@ class KI18N_EXPORT KCountrySubdivision
     Q_PROPERTY(KCountry country READ country)
     Q_PROPERTY(KCountrySubdivision parent READ parent)
     Q_PROPERTY(QList<KCountrySubdivision> subdivisions READ subdivisions)
+    Q_PROPERTY(QStringList timeZoneIds READ timeZoneIdsStringList)
 
 public:
     /** Creates an invalid/empty KCountrySubdivision instance.
@@ -78,6 +79,8 @@ public:
     static KCountrySubdivision fromLocation(float latitude, float longitude);
 
 private:
+    QStringList timeZoneIdsStringList() const;
+
     friend class KCountry;
     uint32_t d;
 };

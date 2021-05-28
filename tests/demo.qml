@@ -49,6 +49,9 @@ QQC2.ApplicationWindow {
         QQC2.Label {
             text: "Currency: " + (currentCountry ? currentCountry.currencyCode : "N/A")
         }
+        QQC2.Label {
+            text: "Timezones: " + (currentCountry ? currentCountry.timeZoneIds.join(', '): "N/A")
+        }
 
         QQC2.TextField {
             Layout.fillWidth: true
@@ -81,6 +84,9 @@ QQC2.ApplicationWindow {
         QQC2.Label {
             text: "Country: " + (currentSubdiv ? currentSubdiv.country.alpha2 : "N/A")
         }
+        QQC2.Label {
+            text: "Timezones: " + (currentSubdiv ? currentSubdiv.timeZoneIds.join(', '): "N/A")
+        }
         QQC2.ComboBox {
             Layout.fillWidth: true
             visible: currentSubdiv != undefined && currentSubdiv.subdivisions.length > 0
@@ -112,6 +118,7 @@ QQC2.ApplicationWindow {
                 } else {
                     currentCountry = KCountry.fromLocation(latitude.text, longitude.text);
                 }
+                timezoneAtLocationLabel.text = KTimeZone.fromLocation(latitude.text, longitude.text);
             }
 
             QQC2.TextField {
@@ -125,6 +132,10 @@ QQC2.ApplicationWindow {
                 onEditingFinished: parent.searchByLocation()
             }
 
+        }
+
+        QQC2.Label {
+            id: timezoneAtLocationLabel
         }
 
         Item { Layout.fillHeight: true }

@@ -391,3 +391,14 @@ QList<KCountry> KCountry::allCountries()
     });
     return l;
 }
+
+QStringList KCountry::timeZoneIdsStringList() const
+{
+    const auto tzIds = timeZoneIds();
+    QStringList l;
+    l.reserve(tzIds.size());
+    std::transform(tzIds.begin(), tzIds.end(), std::back_inserter(l), [](const char *tzId) {
+        return QString::fromUtf8(tzId);
+    });
+    return l;
+}

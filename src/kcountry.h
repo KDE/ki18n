@@ -39,6 +39,7 @@ class KI18N_EXPORT KCountry
     Q_PROPERTY(QString emojiFlag READ emojiFlag)
     Q_PROPERTY(QString currencyCode READ currencyCode)
     Q_PROPERTY(QList<KCountrySubdivision> subdivisions READ subdivisions)
+    Q_PROPERTY(QStringList timeZoneIds READ timeZoneIdsStringList)
 
 public:
     /** Creates an invalid/empty KCountry instance.
@@ -104,6 +105,8 @@ public:
     static QList<KCountry> allCountries();
 
 private:
+    QStringList timeZoneIdsStringList() const;
+
     friend class KCountrySubdivision;
     friend KCountry KTimeZone::country(const char *);
     uint16_t d;

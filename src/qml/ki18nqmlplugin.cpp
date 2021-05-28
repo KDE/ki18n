@@ -75,6 +75,24 @@ public:
     QJSEngine *m_engine = nullptr;
 };
 
+class KTimeZoneWrapper
+{
+    Q_GADGET
+public:
+    Q_INVOKABLE QJSValue fromLocation(double latitude, double longitude) const
+    {
+        const auto tzId = KTimeZone::fromLocation(latitude, longitude);
+        return tzId ? QString::fromUtf8(tzId) : QJSValue(QJSValue::UndefinedValue);
+    }
+
+    Q_INVOKABLE QJSValue country(const QString &tzId) const
+    {
+        return toJsValue(KTimeZone::country(tzId.toUtf8()), m_engine);
+    }
+
+    QJSEngine *m_engine = nullptr;
+};
+
 void KI18nQmlPlugin::registerTypes(const char *)
 {
     qRegisterMetaType<KCountry>();
@@ -92,6 +110,11 @@ void KI18nQmlPlugin::registerTypes(const char *)
             KCountrySubdivisionFactory factory;
             factory.m_engine = engine;
             return engine->toScriptValue(factory);
+        });
+        qmlRegisterSingletonType("org.kde.ki18n", 1, 0, "KTimeZone", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
+            KTimeZoneWrapper wrapper;
+            wrapper.m_engine = engine;
+            return engine->toScriptValue(wrapper);
         });
     }
 }

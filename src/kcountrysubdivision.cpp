@@ -190,3 +190,14 @@ KCountrySubdivision KCountrySubdivision::fromLocation(float latitude, float long
     }
     return s;
 }
+
+QStringList KCountrySubdivision::timeZoneIdsStringList() const
+{
+    const auto tzIds = timeZoneIds();
+    QStringList l;
+    l.reserve(tzIds.size());
+    std::transform(tzIds.begin(), tzIds.end(), std::back_inserter(l), [](const char *tzId) {
+        return QString::fromUtf8(tzId);
+    });
+    return l;
+}
