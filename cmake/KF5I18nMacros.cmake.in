@@ -20,7 +20,7 @@ set(_ki18n_build_tsfiles_script ${CMAKE_CURRENT_LIST_DIR}/build-tsfiles.cmake)
 
 # Creates the implementation files from the ui files and adds them to the list of sources,
 # either to the variable of the given name or, since KF 5.62, if the given argument is
-# a target, to the list of private sources of that target.
+# a target (must not be an alias), to the list of private sources of that target.
 #
 #   ki18n_wrap_ui(<sources_var_name(|target (since 5.62))>
 #      [<ui_file> [...]]
@@ -34,6 +34,12 @@ set(_ki18n_build_tsfiles_script ${CMAKE_CURRENT_LIST_DIR}/build-tsfiles.cmake)
 macro (KI18N_WRAP_UI _sources )
    if(NOT TARGET Qt5::uic)
       message(FATAL_ERROR "Qt5Widgets should be found before calling ki18n_wrap_ui(). Please add find_package(Qt5Widgets ...)")
+   endif()
+   if (TARGET ${_sources})
+      get_target_property(aliased_target ${_sources} ALIASED_TARGET)
+      if(aliased_target)
+         message(FATAL_ERROR "Target argument passed to ki18n_wrap_ui must not be an alias: ${_sources}")
+      endif()
    endif()
 
    foreach (_current_FILE ${ARGN})
