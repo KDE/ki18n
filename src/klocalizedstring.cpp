@@ -10,7 +10,6 @@
 #include <cstdlib>
 
 #include <QByteArray>
-#include <QChar>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
@@ -29,7 +28,6 @@
 #include <kcatalog_p.h>
 #include <klocalizedstring.h>
 #include <ktranscript_p.h>
-#include <kuitmarkup.h>
 #include <kuitmarkup_p.h>
 
 #include "ki18n_logging.h"

@@ -5,12 +5,10 @@
 */
 
 #include <QDir>
-#include <QHash>
 #include <QPair>
 #include <QRegularExpression>
 #include <QSet>
 #include <QStack>
-#include <QStringList>
 #include <QXmlStreamReader>
 
 #include <klocalizedstring.h>
