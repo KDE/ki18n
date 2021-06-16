@@ -55,6 +55,8 @@ public:
     QString translationDomain() const;
     void setTranslationDomain(const QString &domain);
 
+    Q_INVOKABLE QString i18nlist(const QStringList& list);
+
     Q_INVOKABLE QString i18n(const QString &message,
                              const QVariant &p1 = QVariant(),
                              const QVariant &p2 = QVariant(),

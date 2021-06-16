@@ -116,6 +116,11 @@ static void resolvePlural(KLocalizedString &trMessage, const QVariant &param)
     trMessage = trMessage.subs(param.toInt());
 }
 
+QString KLocalizedContext::i18nlist(const QStringList& list)
+{
+    return ki18nlist(list);
+}
+
 QString KLocalizedContext::i18n(const QString &message,
                                 const QVariant &param1,
                                 const QVariant &param2,

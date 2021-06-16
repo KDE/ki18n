@@ -896,6 +896,14 @@ KLocalizedString KI18N_EXPORT ki18np(const char *singular, const char *plural);
 KLocalizedString KI18N_EXPORT ki18ncp(const char *context, const char *singular, const char *plural);
 
 /**
+ * Formats a list of noun phrases.
+ *
+ * \param items list of items to translate
+ * \return localised string
+ */
+QString KI18N_EXPORT ki18nlist(const QStringList& items);
+
+/**
  * Create non-finalized translated string from domain.
  *
  * \param domain domain in which to look for translations

@@ -1476,6 +1476,38 @@ KLocalizedString ki18ncp(const char *context, const char *singular, const char *
     return KLocalizedString(nullptr, context, singular, plural, false);
 }
 
+/**
+ * Formats a list of noun phrases.
+ *
+ * \param items list of items to translate
+ * \return localised string
+ */
+QString KI18N_EXPORT ki18nlist(const QStringList& items)
+{
+    Q_ASSERT(items.length() >= 1);
+
+    if (items.length() == 1) {
+        return items[0];
+    }
+
+    if (items.length() == 2) {
+        return i18nc("A list of two items. The items can be used to format any sort of nouns, e.g. a list of people, places, things.", "%1 and %2", items[0], items[1]);
+    }
+
+    auto mut = items;
+
+    auto last = mut.takeLast();
+    auto slast = mut.takeLast();
+
+    auto b = i18nc("The end of a list of 3 or more items. In English, this is '{0}, and {1}'.", "%1, and %2", slast, last);
+
+    while (mut.length() > 1) {
+        b = i18nc("The middle of a list of 4 or more items. In English, this is '{0}, {1}'", "%1, %2", mut.takeLast());
+    }
+
+    return i18nc("The start of a list of 3 or more items. In English, this is '{0}, {1}'", "%1, %2", mut.takeLast(), b);
+}
+
 KLocalizedString ki18nd(const char *domain, const char *text)
 {
     return KLocalizedString(domain, nullptr, text, nullptr, false);
