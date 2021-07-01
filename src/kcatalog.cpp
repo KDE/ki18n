@@ -34,7 +34,7 @@
 #endif
 #endif
 
-#if defined(HAVE_NL_MSG_CAT_CNTR)
+#if HAVE_NL_MSG_CAT_CNTR
 extern "C" int Q_DECL_IMPORT _nl_msg_cat_cntr;
 #endif
 
@@ -219,7 +219,7 @@ void KCatalogPrivate::setupGettextEnv()
         // qDebug() << "bindtextdomain" << domain << localeDir;
         bindtextdomain(domain, localeDir);
 
-#if defined(HAVE_NL_MSG_CAT_CNTR)
+#if HAVE_NL_MSG_CAT_CNTR
         // Magic to make sure GNU Gettext doesn't use stale cached translation
         // from previous language.
         ++_nl_msg_cat_cntr;
