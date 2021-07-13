@@ -1226,7 +1226,7 @@ to have messages looked up in the domain set by
 `KLocalizedString::setApplicationDomain` call in the code.
 
 If strings contain KUIT markup (section \ref kuit_markup),
-additionaly the field `TranslationMarkup=true` should be set.
+additionally the field `TranslationMarkup=true` should be set.
 
 <a name="handle_cat">
 

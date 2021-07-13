@@ -56,7 +56,7 @@ enum TagClass {
      */
     PhraseTag = 0,
     /**
-     * Tags spliting text into paragraph-level blocks.
+     * Tags splitting text into paragraph-level blocks.
      */
     StructTag = 1,
 };

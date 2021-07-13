@@ -1227,7 +1227,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
         cue = Kuit::UndefinedCue;
     }
 
-    // Set format from name, or by derivation from contex/subcue.
+    // Set format from name, or by derivation from context/subcue.
     Kuit::VisualFormat format = s->formatsByName.value(formatName, Kuit::UndefinedFormat);
     if (format == Kuit::UndefinedFormat) { // unknown or not given format
         // Check first if there is a format defined for role/subcue
