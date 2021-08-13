@@ -571,7 +571,9 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker, Kuit::VisualFor
 {
     KuitStaticData *s = staticData();
 
-    QString roleName, cueName, formatName;
+    QString roleName;
+    QString cueName;
+    QString formatName;
     parseUiMarker(marker, roleName, cueName, formatName);
 
     Kuit::Role role;
@@ -1196,7 +1198,9 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
 {
     KuitStaticData *s = staticData();
 
-    QString roleName, cueName, formatName;
+    QString roleName;
+    QString cueName;
+    QString formatName;
     parseUiMarker(context, roleName, cueName, formatName);
 
     // Set role from name.
@@ -1374,7 +1378,8 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml, const OpenEl &enc
     oel.name = xml.name().toString().toLower();
 
     // Collect attribute names and values, and format attribute string.
-    QStringList attribNames, attribValues;
+    QStringList attribNames;
+    QStringList attribValues;
     const auto listAttributes = xml.attributes();
     attribNames.reserve(listAttributes.size());
     attribValues.reserve(listAttributes.size());
@@ -1433,7 +1438,10 @@ QString KuitFormatterPrivate::formatSubText(const QString &ptext, const OpenEl &
         // (ptext is the preceding text).
         if (!ptext.isEmpty() && tag.leadingNewlines > 0) {
             // Count number of present newlines.
-            int pnumle, pnumtr, fnumle, fnumtr;
+            int pnumle;
+            int pnumtr;
+            int fnumle;
+            int fnumtr;
             countWrappingNewlines(ptext, pnumle, pnumtr);
             countWrappingNewlines(ftext, fnumle, fnumtr);
             // Number of leading newlines already present.

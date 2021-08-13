@@ -84,7 +84,10 @@ static void splitLocale(const QString &aLocale, QString &language, QString &coun
 static void appendLocaleString(QStringList &languages, const QString &value)
 {
     // Process the value to create possible combinations.
-    QString language, country, modifier, charset;
+    QString language;
+    QString country;
+    QString modifier;
+    QString charset;
     splitLocale(value, language, country, modifier, charset);
 
     if (language.isEmpty()) {
@@ -498,12 +501,14 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     Kuit::VisualFormat resolvedFormat = format;
 
     // Get raw translation.
-    QString language, rawTranslation;
+    QString language;
+    QString rawTranslation;
     translateRaw(resolvedDomain, resolvedLanguages, context, text, plural, number, language, rawTranslation);
     QString country = extractCountry(resolvedLanguages);
 
     // Set ordinary translation and possibly scripted translation.
-    QString translation, scriptedTranslation;
+    QString translation;
+    QString scriptedTranslation;
     int fencePos = rawTranslation.indexOf(s->theFence);
     if (fencePos > 0) {
         // Script fence has been found, strip the scripted from the

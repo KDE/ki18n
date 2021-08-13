@@ -347,7 +347,8 @@ TsConfig readConfig(const QString &fname)
 #endif
     while (!stream.atEnd()) {
         QString line = stream.readLine();
-        int p1, p2;
+        int p1;
+        int p2;
 
         // Remove comment from the line.
         p1 = line.indexOf(QLatin1Char('#'));
@@ -755,8 +756,9 @@ QJSValue Scriptface::acallInternal(const QJSValue &args)
 
     // Execute function.
     QJSValueList arglist;
-    while (it.next())
+    while (it.next()) {
         arglist.append(it.value());
+    }
 
     QJSValue val;
     if (fval.isObject()) {
@@ -1228,7 +1230,8 @@ QString Scriptface::loadProps_text(const QString &fpath)
     int slen = s.length();
     int state = s_nextEntry;
     QByteArray pkey;
-    QChar prop_sep, key_sep;
+    QChar prop_sep;
+    QChar key_sep;
     int i = 0;
     while (1) {
         int i_checkpoint = i;
