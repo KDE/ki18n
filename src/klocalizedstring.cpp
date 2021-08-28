@@ -315,7 +315,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
 
 KLocalizedStringPrivateStatics::~KLocalizedStringPrivateStatics()
 {
-    for (const KCatalogPtrHash &languageCatalogs : qAsConst(catalogs)) {
+    for (const KCatalogPtrHash &languageCatalogs : std::as_const(catalogs)) {
         qDeleteAll(languageCatalogs);
     }
     // ktrs is handled by QLibrary.
@@ -1346,7 +1346,7 @@ QString KLocalizedString::localizedFilePath(const QString &filePath)
     // Go through possible localized paths by priority of languages,
     // return first that exists.
     QString fileName = fileInfo.fileName();
-    for (const QString &lang : qAsConst(s->languages)) {
+    for (const QString &lang : std::as_const(s->languages)) {
         QString locFilePath = locDirPath + QLatin1Char('/') + lang + QLatin1Char('/') + fileName;
         QFileInfo locFileInfo(locFilePath);
         if (locFileInfo.isFile() && locFileInfo.isReadable()) {
@@ -1405,7 +1405,7 @@ QString KLocalizedString::translateQt(const char *context, const char *sourceTex
     // was found, otherwise the original text was returned as translation.
     QString translation;
     QString language;
-    for (const QByteArray &domain : qAsConst(s->qtDomains)) {
+    for (const QByteArray &domain : std::as_const(s->qtDomains)) {
         if (comment && comment[0]) {
             // Comment given, go for context call.
             KLocalizedStringPrivate::translateRaw(domain, s->languages, comment, sourceText, nullptr, 0, language, translation);

@@ -182,7 +182,7 @@ QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
     }
 
     QSet<QString> availableLanguages;
-    for (const QString &localDirPath : qAsConst(localeDirPaths)) {
+    for (const QString &localDirPath : std::as_const(localeDirPaths)) {
         QDir localeDir(localDirPath);
         const QStringList languages = localeDir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
         for (const QString &language : languages) {

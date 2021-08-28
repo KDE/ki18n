@@ -637,7 +637,7 @@ void KTranscriptImp::loadModules(const QList<QStringList> &mods, QString &error)
     // Unset module path.
     currentModulePath.clear();
 
-    for (const QString &merr : qAsConst(modErrors)) {
+    for (const QString &merr : std::as_const(modErrors)) {
         error.append(merr + QLatin1Char('\n'));
     }
 }
@@ -1305,7 +1305,7 @@ QString Scriptface::loadProps_text(const QString &fpath)
 
                     // Add collected entry into global store,
                     // once for each entry key (QHash implicitly shared).
-                    for (const QByteArray &ekey : qAsConst(ekeys)) {
+                    for (const QByteArray &ekey : std::as_const(ekeys)) {
                         phraseProps[ekey] = props;
                     }
 
@@ -1486,7 +1486,7 @@ QString Scriptface::loadProps_bin_00(const QString &fpath)
 
         // Add collected entry into global store,
         // once for each entry key (QHash implicitly shared).
-        for (const QByteArray &ekey : qAsConst(ekeys)) {
+        for (const QByteArray &ekey : std::as_const(ekeys)) {
             phraseProps[ekey] = props;
         }
     }

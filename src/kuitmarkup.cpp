@@ -547,7 +547,7 @@ void KuitSetupPrivate::setTagPattern(const QString &tagName,
     }
     QStringList attribNames = attribNames_;
     attribNames.removeAll(QString());
-    for (const QString &attribName : qAsConst(attribNames)) {
+    for (const QString &attribName : std::as_const(attribNames)) {
         tag.knownAttribs.insert(attribName);
     }
     QString attribKey = attributeSetKey(attribNames);
