@@ -1019,6 +1019,10 @@ There are also two deprecated macros:
 which means that the context must be repeated verbatim in
 the corresponding `i18nc` call.
 
+The `I18NP_NOOP` and `I18NCP_NOOP` macros are the counterparts
+to `*i18np` and `*i18ncp` calls and support plural texts and
+plural texts with context.
+
 In general, `I18N*_NOOP` macros make it harder to follow
 i18n in the code, and should be avoided when possible.
 

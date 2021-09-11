@@ -70,6 +70,26 @@ class KLocalizedStringPrivate;
 #endif
 #endif // KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
 
+#ifndef I18NP_NOOP
+/**
+ * Wrap string with plural for extraction.
+ *
+ * See \ref i18n_noop for use cases.
+ * @since 5.87
+ */
+#define I18NP_NOOP(singular, plural) singular, plural
+#endif
+
+#ifndef I18NCP_NOOP
+/**
+ * Wrap string with context and plural for extraction.
+ *
+ * See \ref i18n_noop for use cases.
+ * @since 5.87
+ */
+#define I18NCP_NOOP(context, singular, plural) context, singular, plural
+#endif
+
 /**
  * @class KLocalizedString klocalizedstring.h <KLocalizedString>
  *
