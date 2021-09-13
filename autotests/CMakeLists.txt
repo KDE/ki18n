@@ -29,7 +29,7 @@ ecm_add_test(ktranscripttest.cpp testhelpers.cpp
 target_compile_definitions(ki18n-ktranscripttest PRIVATE "KTRANSCRIPT_PATH=\"$<TARGET_FILE:ktranscript>\"")
 
 # ktranscriptcleantest needs to directly compile ktranscript.cpp with an addition DEFINE
-ecm_add_test(ktranscriptcleantest.cpp ../src/ktranscript.cpp ../src/common_helpers.cpp
+ecm_add_test(ktranscriptcleantest.cpp ../src/i18n/ktranscript.cpp ../src/i18n/common_helpers.cpp
     TEST_NAME ki18n-ktranscriptcleantest
     LINK_LIBRARIES Qt5::Qml Qt5::Test Qt5::Concurrent KF5::I18n
 )
@@ -50,6 +50,6 @@ add_test(ki18n_install ${CMAKE_CTEST_COMMAND}
         "-DKF5I18n_DIR=${CMAKE_BINARY_DIR}/cmake"
     --test-command ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_SOURCE_DIR}/ki18n_install/test.cmake")
 
-ecm_add_test(kcountrytest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)
-ecm_add_test(kcountrysubdivisiontest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)
-ecm_add_test(ktimezonetest.cpp LINK_LIBRARIES KF5::I18n Qt5::Test)
+ecm_add_test(kcountrytest.cpp LINK_LIBRARIES KF5::I18nLocaleData Qt5::Test)
+ecm_add_test(kcountrysubdivisiontest.cpp LINK_LIBRARIES KF5::I18nLocaleData Qt5::Test)
+ecm_add_test(ktimezonetest.cpp LINK_LIBRARIES KF5::I18nLocaleData Qt5::Test)

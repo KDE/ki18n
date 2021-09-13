@@ -7,7 +7,7 @@
 #ifndef KCOUNTRY_H
 #define KCOUNTRY_H
 
-#include "ki18n_export.h"
+#include "ki18nlocaledata_export.h"
 
 #include <QLocale>
 #include <QMetaType>
@@ -30,7 +30,7 @@ KCountry country(const char *);
  *
  *  @since 5.88
  */
-class KI18N_EXPORT KCountry
+class KI18NLOCALEDATA_EXPORT KCountry
 {
     Q_GADGET
     Q_PROPERTY(QString alpha2 READ alpha2)

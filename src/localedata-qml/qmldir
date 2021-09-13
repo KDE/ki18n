@@ -1,0 +1,3 @@
+module org.kde.i18n.localeData
+plugin ki18nlocaledataqmlplugin
+classname KI18nLocaleDataQmlPlugin

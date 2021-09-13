@@ -6,7 +6,7 @@
 
 #include "isocodes_p.h"
 #include "isocodescache_p.h"
-#include "ki18n_logging.h"
+#include "logging.h"
 
 #include <QDir>
 #include <QFile>
@@ -113,12 +113,12 @@ const char *IsoCodesCache::countryStringTableLookup(uint16_t offset) const
 
 void IsoCodesCache::createIso3166_1Cache()
 {
-    qCDebug(KI18N) << "Rebuilding ISO 3166-1 cache";
+    qCDebug(KI18NLD) << "Rebuilding ISO 3166-1 cache";
     const auto path = isoCodesPath(u"iso_3166-1.json");
 
     QFile file(path);
     if (!file.open(QFile::ReadOnly)) {
-        qCWarning(KI18N) << "Unable to open iso_3166-1.json" << path << file.errorString();
+        qCWarning(KI18NLD) << "Unable to open iso_3166-1.json" << path << file.errorString();
         return;
     }
 
@@ -152,7 +152,7 @@ void IsoCodesCache::createIso3166_1Cache()
     QDir().mkpath(cachePath());
     QFile cache(cacheFilePath(u"iso_3166-1"));
     if (!cache.open(QFile::WriteOnly)) {
-        qCWarning(KI18N) << "Failed to write ISO 3166-1 cache:" << cache.errorString() << cache.fileName();
+        qCWarning(KI18NLD) << "Failed to write ISO 3166-1 cache:" << cache.errorString() << cache.fileName();
         return;
     }
 
@@ -249,12 +249,12 @@ const char *IsoCodesCache::subdivisionStringTableLookup(uint16_t offset) const
 
 void IsoCodesCache::createIso3166_2Cache()
 {
-    qCDebug(KI18N) << "Rebuilding ISO 3166-2 cache";
+    qCDebug(KI18NLD) << "Rebuilding ISO 3166-2 cache";
     const auto path = isoCodesPath(u"iso_3166-2.json");
 
     QFile file(path);
     if (!file.open(QFile::ReadOnly)) {
-        qCWarning(KI18N) << "Unable to open iso_3166-2.json" << path << file.errorString();
+        qCWarning(KI18NLD) << "Unable to open iso_3166-2.json" << path << file.errorString();
         return;
     }
 
@@ -286,7 +286,7 @@ void IsoCodesCache::createIso3166_2Cache()
     QDir().mkpath(cachePath());
     QFile cache(cacheFilePath(u"iso_3166-2"));
     if (!cache.open(QFile::WriteOnly)) {
-        qCWarning(KI18N) << "Failed to write ISO 3166-2 cache:" << cache.errorString() << cache.fileName();
+        qCWarning(KI18NLD) << "Failed to write ISO 3166-2 cache:" << cache.errorString() << cache.fileName();
         return;
     }
 

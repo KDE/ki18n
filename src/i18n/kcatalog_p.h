@@ -8,6 +8,8 @@
 #ifndef KCATALOG_H
 #define KCATALOG_H
 
+#include "ki18n_export.h"
+
 #include <QByteArray>
 #include <QSet>
 #include <QString>
@@ -20,9 +22,9 @@ class KCatalogPrivate;
  * It takes care of needed Gettext bindings.
  *
  * @see KLocalizedString
- * @internal
+ * @internal exported only for use in KI18nLocaleData.
  */
-class KCatalog
+class KI18N_EXPORT KCatalog
 {
 public:
     /**

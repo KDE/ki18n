@@ -7,7 +7,7 @@
 #ifndef KCOUNTRYSUBDIVISION_H
 #define KCOUNTRYSUBDIVISION_H
 
-#include "ki18n_export.h"
+#include "ki18nlocaledata_export.h"
 
 #include <QMetaType>
 
@@ -20,7 +20,7 @@ class KCountry;
  *
  *  @since 5.88
  */
-class KI18N_EXPORT KCountrySubdivision
+class KI18NLOCALEDATA_EXPORT KCountrySubdivision
 {
     Q_GADGET
     Q_PROPERTY(QString code READ code)

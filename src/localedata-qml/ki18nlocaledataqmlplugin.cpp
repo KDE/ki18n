@@ -13,7 +13,9 @@
 #include <QQmlEngine>
 #include <QQmlExtensionPlugin>
 
-class KI18nQmlPlugin : public QQmlExtensionPlugin
+#include <cstring>
+
+class KI18nLocaleDataQmlPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
@@ -93,25 +95,27 @@ public:
     QJSEngine *m_engine = nullptr;
 };
 
-void KI18nQmlPlugin::registerTypes(const char *)
+void KI18nLocaleDataQmlPlugin::registerTypes(const char *uri)
 {
+    Q_ASSERT(std::strcmp(uri, "org.kde.i18n.localeData") == 0);
+
     qRegisterMetaType<KCountry>();
     qRegisterMetaType<KCountrySubdivision>();
     qRegisterMetaType<QList<KCountrySubdivision>>();
 
     // HACK qmlplugindump chokes on gadget singletons, to the point of breaking ecm_find_qmlmodule()
     if (QCoreApplication::applicationName() != QLatin1String("qmlplugindump")) {
-        qmlRegisterSingletonType("org.kde.ki18n", 1, 0, "KCountry", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
+        qmlRegisterSingletonType(uri, 1, 0, "Country", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
             KCountryFactory factory;
             factory.m_engine = engine;
             return engine->toScriptValue(factory);
         });
-        qmlRegisterSingletonType("org.kde.ki18n", 1, 0, "KCountrySubdivision", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
+        qmlRegisterSingletonType(uri, 1, 0, "CountrySubdivision", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
             KCountrySubdivisionFactory factory;
             factory.m_engine = engine;
             return engine->toScriptValue(factory);
         });
-        qmlRegisterSingletonType("org.kde.ki18n", 1, 0, "KTimeZone", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
+        qmlRegisterSingletonType(uri, 1, 0, "TimeZone", [](QQmlEngine *, QJSEngine *engine) -> QJSValue {
             KTimeZoneWrapper wrapper;
             wrapper.m_engine = engine;
             return engine->toScriptValue(wrapper);
@@ -119,4 +123,4 @@ void KI18nQmlPlugin::registerTypes(const char *)
     }
 }
 
-#include "ki18nqmlplugin.moc"
+#include "ki18nlocaledataqmlplugin.moc"

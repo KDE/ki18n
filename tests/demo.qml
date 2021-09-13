@@ -7,7 +7,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.15 as QQC2
-import org.kde.ki18n 1.0
+import org.kde.i18n.localeData 1.0
 
 QQC2.ApplicationWindow {
     visible: true
@@ -23,7 +23,7 @@ QQC2.ApplicationWindow {
         QQC2.ComboBox {
             id: countrySelector
             Layout.fillWidth: true
-            model: KCountry.allCountries
+            model: Country.allCountries
             delegate: QQC2.ItemDelegate {
                 text: modelData.emojiFlag + " " + modelData.name + " (" + modelData.alpha2 + ")"
                 onClicked: {
@@ -56,7 +56,7 @@ QQC2.ApplicationWindow {
         QQC2.TextField {
             Layout.fillWidth: true
             placeholderText: "search country by name or ISO code"
-            onEditingFinished: currentCountry = KCountry.fromName(text)
+            onEditingFinished: currentCountry = Country.fromName(text)
         }
 
         QQC2.ComboBox {
@@ -105,20 +105,20 @@ QQC2.ApplicationWindow {
             Layout.fillWidth: true
             placeholderText: "search country subdivision by ISO code"
             onEditingFinished: {
-                currentSubdiv = KCountrySubdivision.fromCode(text)
+                currentSubdiv = CountrySubdivision.fromCode(text)
                 currentCountry = currentSubdiv ? currentSubdiv.country : undefined
             }
         }
 
         RowLayout {
             function searchByLocation() {
-                currentSubdiv = KCountrySubdivision.fromLocation(latitude.text, longitude.text);
+                currentSubdiv = CountrySubdivision.fromLocation(latitude.text, longitude.text);
                 if (currentSubdiv) {
                     currentCountry = currentSubdiv.country;
                 } else {
-                    currentCountry = KCountry.fromLocation(latitude.text, longitude.text);
+                    currentCountry = Country.fromLocation(latitude.text, longitude.text);
                 }
-                timezoneAtLocationLabel.text = KTimeZone.fromLocation(latitude.text, longitude.text);
+                timezoneAtLocationLabel.text = TimeZone.fromLocation(latitude.text, longitude.text);
             }
 
             QQC2.TextField {

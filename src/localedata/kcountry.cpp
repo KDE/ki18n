@@ -9,8 +9,8 @@
 #include "isocodescache_p.h"
 #include "kcatalog_p.h"
 #include "kcountrysubdivision.h"
-#include "ki18n_logging.h"
 #include "klocalizedstring.h"
+#include "logging.h"
 #include "spatial_index_p.h"
 #include "timezonedata_p.h"
 
@@ -152,7 +152,7 @@ QString KCountry::currencyCode() const
         if (currency.isEmpty()) {
             currency = l.currencySymbol(QLocale::CurrencyIsoCode);
         } else if (currency != l.currencySymbol(QLocale::CurrencyIsoCode)) {
-            qCDebug(KI18N) << "conflicting currency information in QLocale for" << alpha2();
+            qCDebug(KI18NLD) << "conflicting currency information in QLocale for" << alpha2();
             return {};
         }
     }
