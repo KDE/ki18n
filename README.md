@@ -1,8 +1,11 @@
 # KI18n
 
-KDE Gettext-based UI text internationalization
+There's two libraries provided, KI18n for Gettext-based text internationalization,
+and KI18nLocaleData for access to data about countries and timezones.
 
-## Introduction
+## KDE Gettext-based UI text internationalization
+
+### Introduction
 
 KI18n provides functionality for internationalizing user interface text
 in applications, based on the GNU Gettext translation system.
@@ -14,8 +17,7 @@ and translators, which can help to achieve a higher overall quality
 of source and translated text. This includes argument capturing,
 customizable markup, and translation scripting.
 
-
-## Usage
+### Usage
 
 If you are using CMake, you need to have
 
@@ -30,3 +32,19 @@ Information on using KI18n as a translation mechanism can be found in the
 [programmer's guide](@ref prg_guide) and the [translator's guide](@ref trn_guide).
 
 
+## Locale data lookup
+
+### Introduction
+
+KI18nLocaleData provides access to information about:
+* Countries as per ISO 3166-1, via KCountry.
+* Country sub-divisions as per ISO 3166-2, via KCountrySubdivision.
+* IANA timezones, via KTimeZone.
+
+These elements can be looked up via their corresponding standardized identifiers,
+geo coordinate or (localized) name.
+
+### Usage
+
+Some of this information is read from [iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes/)
+at runtime, so the iso-codes data files and translation catalogs need to be installed.
