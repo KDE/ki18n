@@ -44,6 +44,8 @@ KI18nLocaleData provides access to information about:
 These elements can be looked up via their corresponding standardized identifiers,
 geo coordinate or (localized) name.
 
+Besides the C++ API, a [QML API](@ref locale_data_qml_api) is also available.
+
 ### Usage
 
 Some of this information is read from [iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes/)
