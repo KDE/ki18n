@@ -397,7 +397,7 @@ and which handles text that should be translated has to delay
 the actual lookup in the catalog (like other locale-dependent actions),
 in one of two ways:
 either by using statically initialized character arrays wrapped in
-`I18N_*` macros for extraction, and later making the
+`kli18n*` functions for extraction, and later making the
 actual `i18n*` calls (see section \ref i18n_noop);
 or by using `ki18n*` calls to create `KLocalizedString` instances,
 which do not perform immediate catalog lookup, and later fetching
@@ -955,30 +955,30 @@ translators into new languages.
 
 <a name="i18n_noop">
 
-### Extraction-Only Macros
+### Extraction-Only Functions
 
 Sometimes it is convenient only to mark a message for extraction
 (into the catalog template, as described in \ref handle_extract),
 and to place the actual `i18n` call somewhere else.
 A typical case of this are global static initializers,
 where only POD types can be safely used.
-For this purpose `I18N*_NOOP` macros are provided.
+For this purpose `kli18n*` functions are provided.
 
-The `I18N_NOOP` macro is the counterpart to `*i18n` calls,
+The `kli18n` function is the counterpart to `*i18n` calls,
 and it is used like this:
 
 ~~~
 typedef struct
 {
-    const char *description;
+    const KLazyLocalizedString description;
     const char *regExp;
 } term;
-// Inert I18N_NOOP macros here...
+
 static const term items[] = {
-    {I18N_NOOP("any character"), "."},
-    {I18N_NOOP("start of line"), "^"},
-    {I18N_NOOP("end of line"), "$"},
-    {I18N_NOOP("repeats, zero or more times"), "*"},
+    {kli18n("any character"), "."},
+    {kli18n("start of line"), "^"},
+    {kli18n("end of line"), "$"},
+    {kli18n("repeats, zero or more times"), "*"},
     ...
 };
 
@@ -989,38 +989,33 @@ void populatePatternMenu (QMenu *menu)
     for (uint i = 0; i < sizeof(items) / sizeof(items[0]); i++) {
         menu->addAction(new RegExpAction(menu,
                                          // ...actual i18n call here.
-                                         i18n(items[i].description),
+                                         KLocalizedString(items[i].description).toString(),
                                          items[i].regExp));
     }
 }
 ~~~
 
 
-The `I18NC_NOOP` macro is the counterpart to `*i18nc` calls:
+The `kli18nc` macro is the counterpart to `*i18nc` calls:
 
 ~~~
 typedef struct
 {
-    const char *description, *abbrev;
+    const KLocalizedString abbrev;
 } unitDef;
 static const unitDef units[] = {
-    {I18N_NOOP2_NOSTRIP("unit for 2^10 bytes", "KiB")},
-    {I18N_NOOP2_NOSTRIP("unit for 2^20 bytes", "MiB")},
+    {kli18nc("unit for 2^10 bytes", "KiB")},
+    {kli18nc("unit for 2^20 bytes", "MiB")},
     ...
 }
 ...
-    QString unitAbbrev = i18nc(units[i].description, units[i].abbrev);
+    QString unitAbbrev = KLocalizedString(units[i].abbrev).toString();
 ~~~
 
-
-There are also two deprecated macros:
-`I18N_NOOP2_NOSTRIP` is simply the old name of `I18NC_NOOP`;
-`I18N_NOOP2` takes the context argument but discards it,
-which means that the context must be repeated verbatim in
-the corresponding `i18nc` call.
-
-In general, `I18N*_NOOP` macros make it harder to follow
-i18n in the code, and should be avoided when possible.
+Variants for singular/plural and with or without markup exist as well.
+Unlike the `I18N_NOOP` macros they replace, mixing different variants
+in the same message table is possible, e.g. to add a context to a few
+messages when necessary.
 
 
 <a name="link_cat">
@@ -1128,7 +1123,7 @@ after the last `i18n` call in the public header:
 
 This will undefine all expansions of `*i18n*` into `*i18nd*`,
 leaving the client's environment clean.
-If instead the public header contains only `I18N_NOOP*` macros,
+If instead the public header contains only `kli18n*` function calls,
 defining `TRANSLATION_DOMAIN` is unnecessary in the first place,
 since actual `i18n` calls happen somewhere else.
 
@@ -1306,6 +1301,7 @@ should look like this:
 -c i18n \
 -ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki18ncp:1c,2,3 \
 -kki18n:1 -kki18nc:1c,2 -kki18np:1,2 -kki18ncp:1c,2,3 \
+-kkli18n:1 -kkli18nc:1c,2 -kkli18np:1,2 -kkli18ncp:1c,2,3 \
 -kI18N_NOOP:1 -kI18NC_NOOP:1c,2 \
 --copyright-holder=<author-of-original-text> \
 --msgid-bugs-address=<where-to-report-errors-in-original-text>
@@ -1327,6 +1323,7 @@ the following `-k` options should be added as well:
 ~~~
 -kxi18n:1 -kxi18nc:1c,2 -kxi18np:1,2 -kxi18ncp:1c,2,3 \
 -kkxi18n:1 -kkxi18nc:1c,2 -kkxi18np:1,2 -kkxi18ncp:1c,2,3 \
+-kklxi18n:1 -kklxi18nc:1c,2 -kklxi18np:1,2 -kklxi18ncp:1c,2,3 \
 ~~~
 
 

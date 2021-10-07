@@ -36,6 +36,8 @@ private Q_SLOTS:
     void untranslatedText();
     void brokenTags();
 
+    void testLazy();
+
 private:
     bool m_hasFrench;
     bool m_hasCatalan;

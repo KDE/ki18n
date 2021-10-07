@@ -21,6 +21,7 @@
 
 #include <libintl.h>
 
+#include <klazylocalizedstring.h>
 #include <klocalizedstring.h>
 
 #include <QRegularExpression>
@@ -523,6 +524,16 @@ void KLocalizedStringTest::testThreads()
     sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateToFrench));
     sync.waitForFinished();
     QThreadPool::globalInstance()->setMaxThreadCount(1); // delete those threads
+}
+
+void KLocalizedStringTest::testLazy()
+{
+    if (!m_hasFrench) {
+        QSKIP("French test files not usable.");
+    }
+    KLocalizedString s = kli18n("Job");
+    KLocalizedString::setLanguages({"fr"});
+    QCOMPARE(s.toString(), QString::fromUtf8("Tâche"));
 }
 
 QTEST_MAIN(KLocalizedStringTest)

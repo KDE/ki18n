@@ -23,6 +23,7 @@
 #include <klocalizedcontext.h>
 
 class KLocalizedStringPrivate;
+class KLazyLocalizedString;
 
 /**
  * \file klocalizedstring.h
@@ -87,6 +88,7 @@ class KLocalizedStringPrivate;
 class KI18N_EXPORT KLocalizedString
 {
     friend class KLocalizedStringPrivate;
+    friend class KLazyLocalizedString;
 
     friend KLocalizedString KI18N_EXPORT ki18n(const char *text);
     friend KLocalizedString KI18N_EXPORT ki18nc(const char *context, const char *text);

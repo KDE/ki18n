@@ -4,6 +4,7 @@ add_library(KF5I18n)
 add_library(KF5::I18n ALIAS KF5I18n)
 
 target_sources(KF5I18n PRIVATE
+    klazylocalizedstring.cpp
     klocalizedstring.cpp
     klocalizedtranslator.cpp
     kcatalog.cpp
@@ -57,6 +58,7 @@ install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS
 
 ecm_generate_headers(KI18n_HEADERS
   HEADER_NAMES
+    KLazyLocalizedString
     KLocalizedContext
     KLocalizedString
     KLocalizedTranslator

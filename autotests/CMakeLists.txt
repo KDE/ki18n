@@ -18,6 +18,11 @@ ecm_add_test(klocalizedstringtest.cpp
 # klocalizedstringtest needs the libintl include path
 target_include_directories(ki18n-klocalizedstringtest PRIVATE ${LibIntl_INCLUDE_DIRS})
 
+ecm_add_test(klazylocalizedstringtest.cpp
+    TEST_NAME "ki18n-klazylocalizedstringtest"
+    LINK_LIBRARIES Qt5::Test KF5::I18n
+)
+
 if (TARGET ktranscript)
 ecm_add_test(ktranscripttest.cpp testhelpers.cpp
     TEST_NAME "ki18n-ktranscripttest"
