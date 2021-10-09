@@ -16,7 +16,7 @@ class KCountry;
 class KCountrySubdivision;
 namespace KTimeZone
 {
-KCountry country(const char *);
+KI18NLOCALEDATA_EXPORT KCountry country(const char *);
 }
 
 /** Information about an ISO 3166-1 country.
