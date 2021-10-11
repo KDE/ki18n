@@ -12,15 +12,16 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include <memory>
+
 static bool loadCatalog(const QString &catalog, const QLocale &locale)
 {
-    QTranslator *translator = new QTranslator(QCoreApplication::instance());
+    auto translator = std::make_unique<QTranslator>(QCoreApplication::instance());
     if (!translator->load(locale, catalog, QString(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
         qCDebug(KI18N) << "Loading the" << catalog << "catalog failed for locale" << locale;
-        delete translator;
         return false;
     }
-    QCoreApplication::instance()->installTranslator(translator);
+    QCoreApplication::instance()->installTranslator(translator.release());
     return true;
 }
 
