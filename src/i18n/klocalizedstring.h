@@ -29,24 +29,33 @@ class KLazyLocalizedString;
  * \file klocalizedstring.h
  */
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 89)
 #ifndef I18N_NOOP
 /**
  * Wrap string for extraction.
  *
  * See \ref i18n_noop for use cases.
+ *
+ * \deprecated since 5.89, use @c kli18n() instead.
  */
 #define I18N_NOOP(text) text
 #endif
+#endif
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 89)
 #ifndef I18NC_NOOP
 /**
  * Wrap string with context for extraction.
  *
  * See \ref i18n_noop for use cases.
+ *
+ * \deprecated since 5.89, use @c kli18nc() instead.
  */
 #define I18NC_NOOP(context, text) context, text
 #endif
+#endif
 
+#if KI18N_ENABLE_DEPRECATED_SINCE(5, 89)
 #ifndef I18N_NOOP2
 /**
  * Wrap string with context for extraction, discarding context.
@@ -55,9 +64,10 @@ class KLazyLocalizedString;
  * The preferred solution is to use I18NC_NOOP and store both @p context and @p text.
  * I18NC_NOOP2 exists for cases where storing the context is not possible.
  *
- * \deprecated between 5.0 and 5.64, re-enabled in 5.65
+ * \deprecated between 5.0 and 5.64, re-enabled in 5.65, re-deprecated in 5.89, use @p kli18nc() instead.
  */
 #define I18N_NOOP2(context, text) text
+#endif
 #endif
 
 #if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
