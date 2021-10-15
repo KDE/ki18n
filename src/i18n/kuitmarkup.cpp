@@ -11,6 +11,7 @@
 #include <QStack>
 #include <QXmlStreamReader>
 
+#include <klazylocalizedstring.h>
 #include <klocalizedstring.h>
 #include <kuitmarkup.h>
 #include <kuitmarkup_p.h>
@@ -185,6 +186,7 @@ public:
 
     void setUiMarkerData();
 
+    void setKeyName(const KLazyLocalizedString &keyName);
     void setTextTransformData();
     QString toKeyCombo(const QStringList &languages, const QString &shstr, Kuit::VisualFormat format);
     QString toInterfacePath(const QStringList &languages, const QString &inpstr, Kuit::VisualFormat format);
@@ -302,6 +304,12 @@ void KuitStaticData::setUiMarkerData()
     SET_FORMAT(TermText, QStringLiteral("term"));
 }
 
+void KuitStaticData::setKeyName(const KLazyLocalizedString &keyName)
+{
+    QString normname = QString::fromUtf8(keyName.untranslatedText()).trimmed().toLower();
+    keyNames[normname] = keyName;
+}
+
 void KuitStaticData::setTextTransformData()
 {
     // i18n: Decide which string is used to delimit keys in a keyboard
@@ -322,65 +330,56 @@ void KuitStaticData::setTextTransformData()
     // NOTE: The '→' glyph seems to be available in all widespread fonts.
 
     // Collect keyboard key names.
-#undef SET_KEYNAME
-#define SET_KEYNAME(rawname) do { \
-        /* Normalize key, trim and all lower-case. */ \
-        QString normname = QStringLiteral(rawname).trimmed().toLower(); \
-        keyNames[normname] = ki18nc("keyboard-key-name", rawname); \
-    } while (0)
-    // Now we need I18NC_NOOP that does remove context.
-#undef I18NC_NOOP
-#define I18NC_NOOP(ctxt, msg) msg
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Alt"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "AltGr"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Backspace"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "CapsLock"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Control"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Ctrl"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Del"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Delete"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Down"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "End"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Enter"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Esc"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Escape"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Home"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Hyper"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Ins"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Insert"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Left"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Menu"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Meta"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "NumLock"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PageDown"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PageUp"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PgDown"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PgUp"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PauseBreak"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PrintScreen"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "PrtScr"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Return"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Right"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "ScrollLock"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Shift"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Space"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Super"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "SysReq"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Tab"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Up"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "Win"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F1"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F2"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F3"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F4"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F5"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F6"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F7"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F8"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F9"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F10"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F11"));
-    SET_KEYNAME(I18NC_NOOP("keyboard-key-name", "F12"));
+    setKeyName(kli18nc("keyboard-key-name", "Alt"));
+    setKeyName(kli18nc("keyboard-key-name", "AltGr"));
+    setKeyName(kli18nc("keyboard-key-name", "Backspace"));
+    setKeyName(kli18nc("keyboard-key-name", "CapsLock"));
+    setKeyName(kli18nc("keyboard-key-name", "Control"));
+    setKeyName(kli18nc("keyboard-key-name", "Ctrl"));
+    setKeyName(kli18nc("keyboard-key-name", "Del"));
+    setKeyName(kli18nc("keyboard-key-name", "Delete"));
+    setKeyName(kli18nc("keyboard-key-name", "Down"));
+    setKeyName(kli18nc("keyboard-key-name", "End"));
+    setKeyName(kli18nc("keyboard-key-name", "Enter"));
+    setKeyName(kli18nc("keyboard-key-name", "Esc"));
+    setKeyName(kli18nc("keyboard-key-name", "Escape"));
+    setKeyName(kli18nc("keyboard-key-name", "Home"));
+    setKeyName(kli18nc("keyboard-key-name", "Hyper"));
+    setKeyName(kli18nc("keyboard-key-name", "Ins"));
+    setKeyName(kli18nc("keyboard-key-name", "Insert"));
+    setKeyName(kli18nc("keyboard-key-name", "Left"));
+    setKeyName(kli18nc("keyboard-key-name", "Menu"));
+    setKeyName(kli18nc("keyboard-key-name", "Meta"));
+    setKeyName(kli18nc("keyboard-key-name", "NumLock"));
+    setKeyName(kli18nc("keyboard-key-name", "PageDown"));
+    setKeyName(kli18nc("keyboard-key-name", "PageUp"));
+    setKeyName(kli18nc("keyboard-key-name", "PgDown"));
+    setKeyName(kli18nc("keyboard-key-name", "PgUp"));
+    setKeyName(kli18nc("keyboard-key-name", "PauseBreak"));
+    setKeyName(kli18nc("keyboard-key-name", "PrintScreen"));
+    setKeyName(kli18nc("keyboard-key-name", "PrtScr"));
+    setKeyName(kli18nc("keyboard-key-name", "Return"));
+    setKeyName(kli18nc("keyboard-key-name", "Right"));
+    setKeyName(kli18nc("keyboard-key-name", "ScrollLock"));
+    setKeyName(kli18nc("keyboard-key-name", "Shift"));
+    setKeyName(kli18nc("keyboard-key-name", "Space"));
+    setKeyName(kli18nc("keyboard-key-name", "Super"));
+    setKeyName(kli18nc("keyboard-key-name", "SysReq"));
+    setKeyName(kli18nc("keyboard-key-name", "Tab"));
+    setKeyName(kli18nc("keyboard-key-name", "Up"));
+    setKeyName(kli18nc("keyboard-key-name", "Win"));
+    setKeyName(kli18nc("keyboard-key-name", "F1"));
+    setKeyName(kli18nc("keyboard-key-name", "F2"));
+    setKeyName(kli18nc("keyboard-key-name", "F3"));
+    setKeyName(kli18nc("keyboard-key-name", "F4"));
+    setKeyName(kli18nc("keyboard-key-name", "F5"));
+    setKeyName(kli18nc("keyboard-key-name", "F6"));
+    setKeyName(kli18nc("keyboard-key-name", "F7"));
+    setKeyName(kli18nc("keyboard-key-name", "F8"));
+    setKeyName(kli18nc("keyboard-key-name", "F9"));
+    setKeyName(kli18nc("keyboard-key-name", "F10"));
+    setKeyName(kli18nc("keyboard-key-name", "F11"));
+    setKeyName(kli18nc("keyboard-key-name", "F12"));
     // TODO: Add rest of the key names?
 }
 // clang-format on
