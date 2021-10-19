@@ -40,6 +40,7 @@ public:
     KCountrySubdivision &operator=(const KCountrySubdivision &);
 
     bool operator==(const KCountrySubdivision &other) const;
+    bool operator!=(const KCountrySubdivision &other) const;
 
     /** Returns @c false if this is an empty/invalid/default constructed instance, @c true otherwise. */
     bool isValid() const;

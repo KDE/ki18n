@@ -31,6 +31,11 @@ bool KCountrySubdivision::operator==(const KCountrySubdivision &other) const
     return d == other.d;
 }
 
+bool KCountrySubdivision::operator!=(const KCountrySubdivision &other) const
+{
+    return d != other.d;
+}
+
 bool KCountrySubdivision::isValid() const
 {
     return d != 0;

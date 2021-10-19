@@ -35,6 +35,11 @@ bool KCountry::operator==(const KCountry &other) const
     return d == other.d;
 }
 
+bool KCountry::operator!=(const KCountry &other) const
+{
+    return d != other.d;
+}
+
 bool KCountry::isValid() const
 {
     return d != 0;
