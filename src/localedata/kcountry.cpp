@@ -317,7 +317,7 @@ static QString normalizeCountryName(QStringView name)
 
 static void checkSubstringMatch(QStringView lhs, QStringView rhs, uint16_t code, uint16_t &result)
 {
-    if (result == std::numeric_limits<uint16_t>::max() || rhs.isEmpty()) {
+    if (result == std::numeric_limits<uint16_t>::max() || result == code || rhs.isEmpty()) {
         return;
     }
     const auto matches = lhs.startsWith(rhs) || rhs.startsWith(lhs) || lhs.endsWith(rhs) || rhs.endsWith(lhs);
