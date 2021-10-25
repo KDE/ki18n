@@ -4,6 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
+#include "config-localedata.h"
+
 #include "isocodes_p.h"
 #include "isocodescache_p.h"
 #include "logging.h"
@@ -25,7 +27,21 @@ enum : uint32_t {
 static QString isoCodesPath(QStringView file)
 {
 #ifndef Q_OS_ANDROID
-    return QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("iso-codes/json/") + file, QStandardPaths::LocateFile);
+    auto path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("iso-codes/json/") + file, QStandardPaths::LocateFile);
+    if (!path.isEmpty()) {
+        return path;
+    }
+
+    // search manually in the compile-time determined prefix
+    // needed for example for non-installed Windows binaries to work, such as unit tests
+    for (const char *installLocation : {"/share", "/bin/data"}) {
+        path = QLatin1String(ISO_CODES_PREFIX) + QLatin1String(installLocation) + QLatin1String("/iso-codes/json/") + file;
+        if (QFileInfo::exists(path)) {
+            return path;
+        }
+    }
+
+    return {};
 #else
     return QLatin1String("assets:/share/iso-codes/json/") + file;
 #endif

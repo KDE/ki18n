@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2021 Volker Krause <vkrause@kde.org>
 # SPDX-License-Identifier: BSD-3-Clause
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config-localedata.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config-localedata.h")
+
 add_library(KF5I18nLocaleData)
 add_library(KF5::I18nLocaleData ALIAS KF5I18nLocaleData)
 
