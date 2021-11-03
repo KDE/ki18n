@@ -97,6 +97,7 @@ KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
         if (!langenv) {
             // Call putenv only here, to initialize LANGUAGE variable.
             // Later only change langenv to what is currently needed.
+            // This doesn't work on Windows though, so there we need putenv calls on every change
             langenv = new char[langenvMaxlen];
             QByteArray baselang = qgetenv("LANGUAGE");
             qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", baselang.constData());
@@ -203,6 +204,9 @@ void KCatalogPrivate::setupGettextEnv()
         // putenv has been called in the constructor,
         // it is enough to change the string set there.
         qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", language.constData());
+#ifdef Q_OS_WINDOWS
+        putenv(langenv);
+#endif
     }
 
     // Rebind text domain if language actually changed from the last time,
@@ -231,6 +235,9 @@ void KCatalogPrivate::resetSystemLanguage()
 {
     if (language != systemLanguage) {
         qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", systemLanguage.constData());
+#ifdef Q_OS_WINDOWS
+        putenv(langenv);
+#endif
     }
 }
 
