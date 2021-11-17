@@ -51,6 +51,23 @@ public:
     /** Convert to a KLocalizedString to actually perform the translation and obtain a concrete string to show. */
     KI18N_EXPORT operator KLocalizedString() const;
 
+    /**
+     * Check whether the message is empty.
+     *
+     * The message is considered empty if the object was constructed
+     * via the default constructor.
+     *
+     * Empty messages are not valid for finalization.
+     * The behavior of calling toString() on them is undefined.
+     * In debug mode, an error mark may appear in the returned string.
+     *
+     * \return \c true if the message is empty, \c false otherwise
+     */
+    constexpr inline bool isEmpty() const
+    {
+        return (m_text == nullptr) || (m_text[0] == '\0');
+    }
+
     /** Returns the raw untranslated text as passed to @p kli18n*. */
     constexpr inline const char *untranslatedText() const
     {

@@ -33,7 +33,10 @@ private Q_SLOTS:
 
     void testEmpty()
     {
-        KLocalizedString s = KLazyLocalizedString();
+        KLazyLocalizedString ls;
+        QVERIFY(ls.isEmpty());
+
+        KLocalizedString s = ls;
         QVERIFY(s.isEmpty());
     }
 
