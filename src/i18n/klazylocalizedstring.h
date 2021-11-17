@@ -12,7 +12,11 @@
 
 class KLocalizedString;
 
-/** Lazy-initialized variant of KLocalizedString.
+/**
+ *  @class KLazyLocalizedString klazylocalizedstring.h <KLazyLocalizedString>
+ *
+ *  Lazy-initialized variant of KLocalizedString.
+ *
  *  This is a safer replacement for the I18N_NOOP set of macros and allows
  *  marking strings for extraction without runtime-initializing KLocalizedString instances,
  *  for example for storing in static data tables.
