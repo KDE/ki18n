@@ -109,7 +109,7 @@ private:
     QStringList timeZoneIdsStringList() const;
 
     friend class KCountrySubdivision;
-    friend KCountry KTimeZone::country(const char *);
+    friend KI18NLOCALEDATA_EXPORT KCountry KTimeZone::country(const char *);
     uint16_t d;
 };
 
