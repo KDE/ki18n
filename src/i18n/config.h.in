@@ -9,4 +9,6 @@
 
 #cmakedefine01 HAVE_NL_MSG_CAT_CNTR
 
+#define INSTALLED_LOCALE_PREFIX "@IsoCodes_PREFIX@"
+
 #endif
