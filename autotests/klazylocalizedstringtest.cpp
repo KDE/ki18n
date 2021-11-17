@@ -58,7 +58,7 @@ private Q_SLOTS:
 
         // direct access
         for (const auto &entry : msg_table) {
-            QVERIFY(!KLocalizedString(entry.msg).toString().isEmpty());
+            QVERIFY(!entry.msg.toString().isEmpty());
         }
 
         // storing in a local variable
@@ -70,7 +70,7 @@ private Q_SLOTS:
                 ls = entry.msg;
             }
         }
-        QVERIFY(!KLocalizedString(ls).toString().isEmpty());
+        QVERIFY(!ls.toString().isEmpty());
         QCOMPARE(std::strcmp(ls.untranslatedText(), "singular"), 0);
     }
 };

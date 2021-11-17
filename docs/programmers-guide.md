@@ -989,7 +989,7 @@ void populatePatternMenu (QMenu *menu)
     for (uint i = 0; i < sizeof(items) / sizeof(items[0]); i++) {
         menu->addAction(new RegExpAction(menu,
                                          // ...actual i18n call here.
-                                         KLocalizedString(items[i].description).toString(),
+                                         items[i].description.toString(),
                                          items[i].regExp));
     }
 }
@@ -1009,7 +1009,7 @@ static const unitDef units[] = {
     ...
 }
 ...
-    QString unitAbbrev = KLocalizedString(units[i].abbrev).toString();
+    QString unitAbbrev = units[i].abbrev.toString();
 ~~~
 
 Variants for singular/plural and with or without markup exist as well.
