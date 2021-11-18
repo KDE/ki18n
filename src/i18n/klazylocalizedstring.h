@@ -21,8 +21,9 @@ class KLocalizedString;
  *  marking strings for extraction without runtime-initializing KLocalizedString instances,
  *  for example for storing in static data tables.
  *
- *  Instances of KLazyLocalizedString cannot be created directly, but have to be obtained
- *  via the kli18n* functions (similar to KLocalizedString and the ki18n* functions).
+ *  Instances of KLazyLocalizedString are not created directly, unless they should be empty.
+ *  Instead they have to be obtained via the kli18n* functions (similar to KLocalizedString
+ *  and the ki18n* functions).
  *
  *  Example usage in a static message table:
  *  @code
@@ -46,7 +47,17 @@ class KLocalizedString;
 class KLazyLocalizedString
 {
 public:
-    explicit constexpr inline KLazyLocalizedString() = default;
+    /**
+     * Construct an empty message.
+     *
+     * Direct construction is used when e.g. a KLazyLocalizedString field in
+     * a data table needs to be set, but there is not message to be used.
+     * Directly constructed instances are not valid for
+     * finalization by \c toString methods.
+     *
+     * \see isEmpty
+     */
+    constexpr inline KLazyLocalizedString() = default;
 
     /** Convert to a KLocalizedString to actually perform the translation and obtain a concrete string to show. */
     KI18N_EXPORT operator KLocalizedString() const;
