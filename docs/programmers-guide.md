@@ -1001,7 +1001,7 @@ The `kli18nc` macro is the counterpart to `*i18nc` calls:
 ~~~
 typedef struct
 {
-    const KLocalizedString abbrev;
+    const KLazyLocalizedString abbrev;
 } unitDef;
 static const unitDef units[] = {
     {kli18nc("unit for 2^10 bytes", "KiB")},
