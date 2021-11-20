@@ -72,13 +72,13 @@ public:
      *
      * \return \c true if the message is empty, \c false otherwise
      */
-    constexpr inline bool isEmpty() const
+    Q_REQUIRED_RESULT constexpr inline bool isEmpty() const
     {
         return (m_text == nullptr) || (m_text[0] == '\0');
     }
 
     /** Returns the raw untranslated text as passed to @p kli18n*. */
-    constexpr inline const char *untranslatedText() const
+    Q_REQUIRED_RESULT constexpr inline const char *untranslatedText() const
     {
         return m_text;
     }
