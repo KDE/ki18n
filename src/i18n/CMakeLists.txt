@@ -4,7 +4,6 @@ add_library(KF5I18n)
 add_library(KF5::I18n ALIAS KF5I18n)
 
 target_sources(KF5I18n PRIVATE
-    klazylocalizedstring.cpp
     klocalizedstring.cpp
     klocalizedtranslator.cpp
     kcatalog.cpp

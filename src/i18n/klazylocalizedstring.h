@@ -58,7 +58,13 @@ public:
     constexpr inline KLazyLocalizedString() = default;
 
     /** Convert to a KLocalizedString to actually perform the translation and obtain a concrete string to show. */
-    KI18N_EXPORT operator KLocalizedString() const;
+    Q_REQUIRED_RESULT inline operator KLocalizedString() const
+    {
+        if (!m_text) {
+            return KLocalizedString();
+        }
+        return KLocalizedString(nullptr, m_context, m_text, m_plural, m_markupAware);
+    }
 
     /**
      * Check whether the message is empty.
