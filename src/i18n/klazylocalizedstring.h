@@ -63,7 +63,11 @@ public:
         if (!m_text) {
             return KLocalizedString();
         }
+#ifdef TRANSLATION_DOMAIN
+        return KLocalizedString(TRANSLATION_DOMAIN, m_context, m_text, m_plural, m_markupAware);
+#else
         return KLocalizedString(nullptr, m_context, m_text, m_plural, m_markupAware);
+#endif
     }
 
     /**
