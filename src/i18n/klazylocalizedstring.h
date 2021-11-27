@@ -17,7 +17,7 @@
  *
  *  This is a safer replacement for the I18N_NOOP set of macros and allows
  *  marking strings for extraction without runtime-initializing KLocalizedString instances,
- *  for example for storing in static data tables.
+ *  for storing in static data tables.
  *
  *  Instances of KLazyLocalizedString are not created directly, unless they should be empty.
  *  Instead they have to be obtained via the kli18n* functions (similar to KLocalizedString
@@ -40,6 +40,11 @@
  *  QString translatedMessage = (*it).msg.subs(vehicleCount).toString();
  *  @endcode
  *
+ *  @note KLazyLocalizedString is primarily meant for storage in e.g. message tables,
+ *  not for use in API, especially not across translation domains. This is due to
+ *  it not carrying the translation domain in which it was created, but using the
+ *  active translation domain at the point of converting to a KLocalizedString.
+ *
  *  @since 5.89
  */
 class KLazyLocalizedString
@@ -57,7 +62,12 @@ public:
      */
     constexpr inline KLazyLocalizedString() = default;
 
-    /** Convert to a KLocalizedString to actually perform the translation and obtain a concrete string to show. */
+    /** Convert to a KLocalizedString to actually perform the translation and obtain a concrete
+     *  localized string.
+     *
+     *  The translation domain active at this point will be used. This means this has to be
+     *  called in the same translation domain the corresponding @c kli18n call is in.
+     */
     Q_REQUIRED_RESULT inline operator KLocalizedString() const
     {
         if (!m_text) {
