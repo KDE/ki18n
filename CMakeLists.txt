@@ -34,13 +34,13 @@ ecm_setup_version(
 # Dependencies
 set(REQUIRED_QT_VERSION 5.15.2)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
 
 option(BUILD_WITH_QML "Build with support for scripted translations (recommended)" ON)
 if (BUILD_WITH_QML)
-   find_package(Qt5Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+   find_package(Qt${QT_MAJOR_VERSION}Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
 
 find_package(LibIntl)
@@ -112,7 +112,7 @@ install(FILES  "${CMAKE_BINARY_DIR}/cmake/KF5I18nConfig.cmake"
 install(EXPORT KF5I18nTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5I18nTargets.cmake NAMESPACE KF5::)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ki18n_version.h
-        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5} COMPONENT Devel)
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF} COMPONENT Devel)
 
 install( FILES
     ${KI18n_BINARY_DIR}/cmake/KF5I18nMacros.cmake

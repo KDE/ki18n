@@ -3,7 +3,7 @@
 
 add_library(ki18nlocaledataqmlplugin ki18nlocaledataqmlplugin.cpp)
 target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
-    Qt5::Qml
+    Qt${QT_MAJOR_VERSION}::Qml
     KF5::I18nLocaleData
 )
 
@@ -11,5 +11,5 @@ target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
 set_property(TARGET ki18nlocaledataqmlplugin PROPERTY LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/org/kde/i18n/localeData)
 file(COPY qmldir DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/org/kde/i18n/localeData)
 
-install(TARGETS ki18nlocaledataqmlplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/i18n/localeData)
-install(FILES qmldir ${qml_SRC} DESTINATION ${QML_INSTALL_DIR}/org/kde/i18n/localeData)
+install(TARGETS ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/i18n/localeData)
+install(FILES qmldir ${qml_SRC} DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/i18n/localeData)

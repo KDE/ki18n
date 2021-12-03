@@ -813,7 +813,7 @@ QJSValue Scriptface::fallback()
 
 QJSValue Scriptface::nsubs()
 {
-    return QJSValue(subList->size());
+    return QJSValue(static_cast<int>(subList->size()));
 }
 
 QJSValue Scriptface::subs(const QJSValue &index)

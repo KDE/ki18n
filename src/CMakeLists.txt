@@ -3,7 +3,7 @@
 
 add_subdirectory(i18n)
 add_subdirectory(localedata)
-if (TARGET Qt5::Qml)
+if (TARGET Qt${QT_MAJOR_VERSION}::Qml)
     add_subdirectory(localedata-qml)
 endif()
 

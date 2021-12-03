@@ -34,10 +34,10 @@ ecm_qt_declare_logging_category(KF5I18nLocaleData
     EXPORT KI18N
 )
 
-target_include_directories(KF5I18nLocaleData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KI18nLocaleData>")
+target_include_directories(KF5I18nLocaleData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>")
 
-target_link_libraries(KF5I18nLocaleData PUBLIC Qt5::Core)
-target_link_libraries(KF5I18nLocaleData PRIVATE Qt5::CorePrivate KF5I18n)
+target_link_libraries(KF5I18nLocaleData PUBLIC Qt${QT_MAJOR_VERSION}::Core)
+target_link_libraries(KF5I18nLocaleData PRIVATE Qt${QT_MAJOR_VERSION}::CorePrivate KF5I18n)
 target_compile_options(KF5I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
 
 set_target_properties(KF5I18nLocaleData PROPERTIES
@@ -59,5 +59,5 @@ ecm_generate_headers(KI18nLocaleData_HEADERS
 install(FILES
     ${KI18nLocaleData_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18nlocaledata_export.h
-    DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF5}/KI18nLocaleData" COMPONENT Devel
+    DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData" COMPONENT Devel
 )

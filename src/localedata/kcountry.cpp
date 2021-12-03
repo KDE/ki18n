@@ -112,7 +112,11 @@ QLocale::Country KCountry::country() const
         return QLocale::AnyCountry;
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
+    return QLocale::codeToTerritory(alpha2());
+#else
     return QLocalePrivate::codeToCountry(alpha2());
+#endif
 }
 
 QList<const char *> KCountry::timeZoneIds() const
@@ -272,7 +276,11 @@ KCountry KCountry::fromLocation(float latitude, float longitude)
 
 KCountry KCountry::fromQLocale(QLocale::Country country)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
+    return fromAlpha2(QLocalePrivate::territoryToCode(country).data());
+#else
     return fromAlpha2(QLocalePrivate::countryToCode(country).data());
+#endif
 }
 
 static QString normalizeCountryName(QStringView name)

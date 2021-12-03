@@ -12,8 +12,9 @@
 #include <QLocale>
 #include <QMetaType>
 
+#include <KCountrySubdivision>
 class KCountry;
-class KCountrySubdivision;
+
 namespace KTimeZone
 {
 KI18NLOCALEDATA_EXPORT KCountry country(const char *);
