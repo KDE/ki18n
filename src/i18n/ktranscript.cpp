@@ -852,8 +852,9 @@ QJSValue Scriptface::msgctxt()
 
 QJSValue Scriptface::dynctxt(const QString &qkey)
 {
-    if (dyncontext->contains(qkey)) {
-        return QJSValue(dyncontext->value(qkey));
+    auto valIt = dyncontext->constFind(qkey);
+    if (valIt != dyncontext->constEnd()) {
+        return QJSValue(*valIt);
     }
     return QJSValue::UndefinedValue;
 }
@@ -1101,8 +1102,9 @@ QJSValue Scriptface::getConfString(const QJSValue &key, const QJSValue &dval)
     }
 
     QString qkey = key.toString();
-    if (config.contains(qkey)) {
-        return QJSValue(config.value(qkey));
+    auto valIt = config.constFind(qkey);
+    if (valIt != config.constEnd()) {
+        return QJSValue(*valIt);
     }
 
     return dval.isNull() ? QJSValue::UndefinedValue : dval;
@@ -1125,8 +1127,9 @@ QJSValue Scriptface::getConfBool(const QJSValue &key, const QJSValue &dval)
     }
 
     QString qkey = key.toString();
-    if (config.contains(qkey)) {
-        QString qval = config.value(qkey).toLower();
+    auto valIt = config.constFind(qkey);
+    if (valIt != config.constEnd()) {
+        QString qval = valIt->toLower();
         return QJSValue(!falsities.contains(qval));
     }
 
@@ -1147,8 +1150,9 @@ QJSValue Scriptface::getConfNumber(const QJSValue &key, const QJSValue &dval)
     }
 
     QString qkey = key.toString();
-    if (config.contains(qkey)) {
-        QString qval = config.value(qkey);
+    auto valIt = config.constFind(qkey);
+    if (valIt != config.constEnd()) {
+        const QString &qval = *valIt;
         bool convOk;
         double qnum = qval.toDouble(&convOk);
         if (convOk) {

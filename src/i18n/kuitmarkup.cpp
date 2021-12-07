@@ -399,10 +399,13 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages, const QString &
         keys.append(shstr);
     }
 
-    for (int i = 0; i < keys.size(); ++i) {
-        // Normalize key, trim and all lower-case.
-        const QString nkey = keys.at(i).trimmed().toLower();
-        keys[i] = keyNames.contains(nkey) ? keyNames[nkey].toString(languages) : keys.at(i).trimmed();
+    for (QString &key : keys) {
+        // Normalize key
+        key = key.trimmed();
+        auto nameIt = keyNames.constFind(key.toLower());
+        if (nameIt != keyNames.constEnd()) {
+            key = nameIt->toString(languages);
+        }
     }
     const QString delim = comboKeyDelim.value(format).toString(languages);
     return keys.join(delim);
@@ -462,7 +465,8 @@ QString KuitTag::format(const QStringList &languages,
     QString formattedText = text;
     QString attribKey = attributeSetKey(attributes.keys());
     const QHash<Kuit::VisualFormat, KLocalizedString> pattern = patterns.value(attribKey);
-    if (pattern.contains(format)) {
+    auto patternIt = pattern.constFind(format);
+    if (patternIt != pattern.constEnd()) {
         QString modText;
         Kuit::TagFormatter formatter = formatters.value(attribKey).value(format);
         if (formatter != nullptr) {
@@ -470,7 +474,7 @@ QString KuitTag::format(const QStringList &languages,
         } else {
             modText = text;
         }
-        KLocalizedString aggText = pattern.value(format);
+        KLocalizedString aggText = *patternIt;
         // line below is first-aid fix.for e.g. <emphasis strong='true'>.
         // TODO: proper handling of boolean attributes still needed
         aggText = aggText.relaxSubs();
@@ -576,8 +580,9 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker, Kuit::VisualFor
     parseUiMarker(marker, roleName, cueName, formatName);
 
     Kuit::Role role;
-    if (s->rolesByName.contains(roleName)) {
-        role = s->rolesByName.value(roleName);
+    auto roleIt = s->rolesByName.constFind(roleName);
+    if (roleIt != s->rolesByName.constEnd()) {
+        role = *roleIt;
     } else if (!roleName.isEmpty()) {
         qCWarning(KI18N_KUIT) << QStringLiteral("Unknown role '@%1' in UI marker {%2}, visual format not set.").arg(roleName, marker);
         return;
@@ -587,8 +592,9 @@ void KuitSetupPrivate::setFormatForMarker(const QString &marker, Kuit::VisualFor
     }
 
     Kuit::Cue cue;
-    if (s->cuesByName.contains(cueName)) {
-        cue = s->cuesByName.value(cueName);
+    auto cueIt = s->cuesByName.constFind(cueName);
+    if (cueIt != s->cuesByName.constEnd()) {
+        cue = *cueIt;
         if (!s->knownRoleCues.value(role).contains(cue)) {
             qCWarning(KI18N_KUIT)
                 << QStringLiteral("Subcue ':%1' does not belong to role '@%2' in UI marker {%3}, visual format not set.").arg(cueName, roleName, marker);
@@ -1235,11 +1241,14 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     if (format == Kuit::UndefinedFormat) { // unknown or not given format
         // Check first if there is a format defined for role/subcue
         // combination, then for role only, otherwise default to undefined.
-        if (setup.d->formatsByRoleCue.contains(role)) {
-            if (setup.d->formatsByRoleCue.value(role).contains(cue)) {
-                format = setup.d->formatsByRoleCue.value(role).value(cue);
+        auto formatsByCueIt = setup.d->formatsByRoleCue.constFind(role);
+        if (formatsByCueIt != setup.d->formatsByRoleCue.constEnd()) {
+            const auto &formatsByCue = *formatsByCueIt;
+            auto formatIt = formatsByCue.constFind(cue);
+            if (formatIt != formatsByCue.constEnd()) {
+                format = *formatIt;
             } else {
-                format = setup.d->formatsByRoleCue.value(role).value(Kuit::UndefinedCue);
+                format = formatsByCue.value(Kuit::UndefinedCue);
             }
         }
         if (!formatName.isEmpty()) {
@@ -1262,8 +1271,9 @@ bool KuitFormatterPrivate::determineIsStructured(const QString &text, const Kuit
     const QRegularExpressionMatch match = opensWithTagRx.match(text);
     if (match.hasMatch()) {
         const QString tagName = match.captured(1).toLower();
-        if (setup.d->knownTags.contains(tagName)) {
-            const KuitTag &tag = setup.d->knownTags.value(tagName);
+        auto tagIt = setup.d->knownTags.constFind(tagName);
+        if (tagIt != setup.d->knownTags.constEnd()) {
+            const KuitTag &tag = *tagIt;
             isStructured = (tag.type == Kuit::StructTag);
         }
     }
@@ -1349,8 +1359,9 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_, Kuit::VisualFor
             const QString ctext = xml.text().toString();
             QString nctext;
             for (const QChar c : ctext) {
-                if (s->xmlEntitiesInverse.contains(c)) {
-                    const QString entName = s->xmlEntitiesInverse[c];
+                auto nameIt = s->xmlEntitiesInverse.constFind(c);
+                if (nameIt != s->xmlEntitiesInverse.constEnd()) {
+                    const QString &entName = *nameIt;
                     nctext += QL1C('&') + entName + QL1C(';');
                 } else {
                     nctext += c;
@@ -1389,8 +1400,9 @@ KuitFormatterPrivate::parseOpenEl(const QXmlStreamReader &xml, const OpenEl &enc
         oel.attribStr += QL1C(' ') + attribNames.last() + QL1C('=') + qc + attribValues.last() + qc;
     }
 
-    if (setup.d->knownTags.contains(oel.name)) { // known KUIT element
-        const KuitTag &tag = setup.d->knownTags.value(oel.name);
+    auto tagIt = setup.d->knownTags.constFind(oel.name);
+    if (tagIt != setup.d->knownTags.constEnd()) { // known KUIT element
+        const KuitTag &tag = *tagIt;
         const KuitTag &etag = setup.d->knownTags.value(enclosingOel.name);
 
         // If this element can be contained within enclosing element,
@@ -1542,8 +1554,9 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFo
         ntext += QStringView(text).mid(pos, match.capturedStart(0) - pos);
         const QString tagname = match.captured(2).toLower();
         const QString content = salvageMarkup(match.captured(4), format, setup);
-        if (setup.d->knownTags.contains(tagname)) {
-            const KuitTag &tag = setup.d->knownTags.value(tagname);
+        auto tagIt = setup.d->knownTags.constFind(tagname);
+        if (tagIt != setup.d->knownTags.constEnd()) {
+            const KuitTag &tag = *tagIt;
             QHash<QString, QString> attributes;
             // TODO: Do not ignore attributes (in match.captured(3)).
             ntext += tag.format(languageAsList, attributes, content, QStringList(), format);
@@ -1565,8 +1578,9 @@ QString KuitFormatterPrivate::salvageMarkup(const QString &text_, Kuit::VisualFo
         match = iter.next();
         ntext += QStringView(text).mid(pos, match.capturedStart(0) - pos);
         const QString tagname = match.captured(1).toLower();
-        if (setup.d->knownTags.contains(tagname)) {
-            const KuitTag &tag = setup.d->knownTags.value(tagname);
+        auto tagIt = setup.d->knownTags.constFind(tagname);
+        if (tagIt != setup.d->knownTags.constEnd()) {
+            const KuitTag &tag = *tagIt;
             ntext += tag.format(languageAsList, QHash<QString, QString>(), QString(), QStringList(), format);
         } else {
             ntext += match.captured(0);

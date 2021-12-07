@@ -543,8 +543,9 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     QStringList resolvedArguments;
     QList<QVariant> resolvedValues;
     for (int i = 0; i < arguments.size(); i++) {
-        if (klsArguments.contains(i)) {
-            const KLocalizedString &kls = klsArguments.value(i);
+        auto lsIt = klsArguments.constFind(i);
+        if (lsIt != klsArguments.constEnd()) {
+            const KLocalizedString &kls = *lsIt;
             int fieldWidth = klsArgumentFieldWidths.value(i);
             QChar fillChar = klsArgumentFillChars.value(i);
             // Override argument's languages and format, but not domain.
