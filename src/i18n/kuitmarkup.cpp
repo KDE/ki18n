@@ -1142,7 +1142,6 @@ public:
     public:
         enum Handling { Proper, Ignored, Dropout };
 
-        KuitTag tag;
         QString name;
         QHash<QString, QString> attributes;
         QString attribStr;
