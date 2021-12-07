@@ -35,6 +35,7 @@ private Q_SLOTS:
     void multipleLanguages();
     void untranslatedText();
     void brokenTags();
+    void brokenStructTagUsages();
 
     void testLazy();
 

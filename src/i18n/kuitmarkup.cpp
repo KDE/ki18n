@@ -448,6 +448,14 @@ public:
     QHash<QString, QHash<Kuit::VisualFormat, KLocalizedString>> patterns;
     QHash<QString, QHash<Kuit::VisualFormat, Kuit::TagFormatter>> formatters;
     int leadingNewlines;
+
+    KuitTag(const QString &_name, Kuit::TagClass _type)
+        : name(_name)
+        , type(_type)
+    {
+    }
+    KuitTag() = default;
+
     QString format(const QStringList &languages,
                    const QHash<QString, QString> &attributes,
                    const QString &text,
@@ -542,12 +550,13 @@ void KuitSetupPrivate::setTagPattern(const QString &tagName,
                                      Kuit::TagFormatter formatter,
                                      int leadingNewlines_)
 {
-    bool isNewTag = knownTags.contains(tagName);
-    KuitTag &tag = knownTags[tagName];
-    if (isNewTag) {
-        tag.name = tagName;
-        tag.type = Kuit::PhraseTag;
+    auto tagIt = knownTags.find(tagName);
+    if (tagIt == knownTags.end()) {
+        tagIt = knownTags.insert(tagName, KuitTag(tagName, Kuit::PhraseTag));
     }
+
+    KuitTag &tag = *tagIt;
+
     QStringList attribNames = attribNames_;
     attribNames.removeAll(QString());
     for (const QString &attribName : std::as_const(attribNames)) {
@@ -562,12 +571,12 @@ void KuitSetupPrivate::setTagPattern(const QString &tagName,
 
 void KuitSetupPrivate::setTagClass(const QString &tagName, Kuit::TagClass aClass)
 {
-    bool isNewTag = knownTags.contains(tagName);
-    KuitTag &tag = knownTags[tagName];
-    if (isNewTag) {
-        tag.name = tagName;
+    auto tagIt = knownTags.find(tagName);
+    if (tagIt == knownTags.end()) {
+        knownTags.insert(tagName, KuitTag(tagName, aClass));
+    } else {
+        tagIt->type = aClass;
     }
-    tag.type = aClass;
 }
 
 void KuitSetupPrivate::setFormatForMarker(const QString &marker, Kuit::VisualFormat format)
@@ -695,7 +704,6 @@ void KuitSetupPrivate::setDefaultMarkup()
     // xgettext extracts them properly.
 
     // -------> Internal top tag
-    setTagClass(INTERNAL_TOP_TAG_NAME, StructTag);
     setTagClass(INTERNAL_TOP_TAG_NAME, StructTag);
     SET_PATTERN(INTERNAL_TOP_TAG_NAME, QString(), PlainText,
                 HI18NC("tag-format-pattern <> plain",
@@ -1324,17 +1332,24 @@ QString KuitFormatterPrivate::toVisualText(const QString &text_, Kuit::VisualFor
         if (xml.isStartElement()) {
             lastElementName = xml.name();
 
-            // Find first proper enclosing element.
-            OpenEl enclosingOel;
-            for (int i = openEls.size() - 1; i >= 0; --i) {
-                if (openEls[i].handling == OpenEl::Proper) {
-                    enclosingOel = openEls[i];
-                    break;
-                }
-            }
+            OpenEl oel;
 
-            // Collect data about this element.
-            OpenEl oel = parseOpenEl(xml, enclosingOel, text, setup);
+            if (openEls.isEmpty()) {
+                // Must be the root element.
+                oel.name = INTERNAL_TOP_TAG_NAME;
+                oel.handling = OpenEl::Proper;
+            } else {
+                // Find first proper enclosing element.
+                OpenEl enclosingOel;
+                for (int i = openEls.size() - 1; i >= 0; --i) {
+                    if (openEls[i].handling == OpenEl::Proper) {
+                        enclosingOel = openEls[i];
+                        break;
+                    }
+                }
+                // Collect data about this element.
+                oel = parseOpenEl(xml, enclosingOel, text, setup);
+            }
 
             // Record the new element on the parse stack.
             openEls.push(oel);

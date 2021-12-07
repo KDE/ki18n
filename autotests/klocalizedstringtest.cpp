@@ -497,6 +497,12 @@ void KLocalizedStringTest::untranslatedText()
     QCOMPARE(s.untranslatedText(), "Job");
 }
 
+void KLocalizedStringTest::brokenStructTagUsages()
+{
+    QTest::ignoreMessage(QtWarningMsg, QRegularExpression("Structuring tag \\('title'\\) cannot be subtag of phrase tag \\('emphasis'\\) in message {.*}."));
+    QCOMPARE(xi18nc("@info", "<emphasis><title>History</title></emphasis>"), QString("<html><i>History</i></html>"));
+}
+
 void KLocalizedStringTest::brokenTags()
 {
     QTest::ignoreMessage(
