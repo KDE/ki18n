@@ -1898,13 +1898,13 @@ For example:
 i18nc("@info",
       "You can configure the history sidebar here.");
 // BAD:
-i18nc("@info",
-      "<title>History Sidebar</title>"
-      "You can configure the history sidebar here.");
+xi18nc("@info",
+       "<title>History Sidebar</title>"
+       "You can configure the history sidebar here.");
 // Good:
-i18nc("@info",
-      "<title>History Sidebar</title>"
-      "<para>You can configure the history sidebar here.</para>");
+xi18nc("@info",
+       "<title>History Sidebar</title>"
+       "<para>You can configure the history sidebar here.</para>");
 ~~~
 
 
@@ -1924,8 +1924,8 @@ Phrase Tags
 Name of an application.
 
 ~~~
-i18nc("@action:inmenu",
-      "Open with <application>%1</application>", appName);
+xi18nc("@action:inmenu",
+       "Open with <application>%1</application>", appName);
 ~~~
 
 </td></tr>
@@ -1934,12 +1934,12 @@ i18nc("@action:inmenu",
 Line-breaking body of code, for short code or output listings.
 
 ~~~
-i18nc("@info:whatsthis",
-      "You can try the following snippet:<bcode>"
-      "\\begin{equation}\n"
-      "  C_{x_i} = \\frac{C_z^2}{e \\pi \\lambda}\n"
-      "\\end{equation}\n"
-      "</bcode>");
+xi18nc("@info:whatsthis",
+       "You can try the following snippet:<bcode>"
+       "\\begin{equation}\n"
+       "  C_{x_i} = \\frac{C_z^2}{e \\pi \\lambda}\n"
+       "\\end{equation}\n"
+       "</bcode>");
 ~~~
 
 </td></tr>
@@ -1950,11 +1950,11 @@ Name of a shell command, system call, signal, etc.
 Its man section can be given with the `section=` attribute.
 
 ~~~
-i18nc("@info",
-      "This will call <command>%1</command> internally.", cmdName);
-i18nc("@info",
-      "Consult the man entry of "
-      "<command section='1'>%1</command>", cmdName);
+xi18nc("@info",
+       "This will call <command>%1</command> internally.", cmdName);
+xi18nc("@info",
+       "Consult the man entry of "
+       "<command section='1'>%1</command>", cmdName);
 ~~~
 
 </td></tr>
@@ -1968,10 +1968,10 @@ the tag text is the name or description attached to the address.
 In rich text, the phrase will be hyperlinked.
 
 ~~~
-i18nc("@info",
-      "Send bug reports to <email>%1</email>.", emailNull);
-i18nc("@info",
-      "Send praises to <email address='%1'>the author</email>.", emailMy);
+xi18nc("@info",
+       "Send bug reports to <email>%1</email>.", emailNull);
+xi18nc("@info",
+       "Send praises to <email address='%1'>the author</email>.", emailMy);
 ~~~
 
 </td></tr>
@@ -1988,8 +1988,8 @@ Environment variable.
 A `$`-sign will be prepended automatically in formatted text.
 
 ~~~
-i18nc("@info",
-      "Assure that <envar>PATH</envar> is properly set.");
+xi18nc("@info",
+       "Assure that <envar>PATH</envar> is properly set.");
 ~~~
 
 </td></tr>
@@ -2001,10 +2001,10 @@ Slash (/) should be used as path separator, and it will be converted
 into native separator for the underlying platform.
 
 ~~~
-i18nc("@info", "Cannot read <filename>%1</filename>.", filePath);
-i18nc("@info",
-      "<filename><envar>HOME</envar>/.foorc</filename> "
-      "does not exist.");
+xi18nc("@info", "Cannot read <filename>%1</filename>.", filePath);
+xi18nc("@info",
+       "<filename><envar>HOME</envar>/.foorc</filename> "
+       "does not exist.");
 ~~~
 </td></tr>
 <tr><td>
@@ -2013,8 +2013,8 @@ i18nc("@info",
 Inline code, like a shell command line.
 
 ~~~
-i18nc("@info:tooltip",
-      "Execute <icode>svn merge</icode> on selected revisions.");
+xi18nc("@info:tooltip",
+       "Execute <icode>svn merge</icode> on selected revisions.");
 ~~~
 
 </td></tr>
@@ -2026,12 +2026,12 @@ elements should be separated with `|` or `->`,
 which will be converted into the canonical separator.
 
 ~~~
-i18nc("@info:whatsthis",
-      "If you make a mistake, click "
-      "<interface>Reset</interface> to start again.");
-i18nc("@info:whatsthis",
-      "The line colors can be changed under "
-      "<interface>Settings->Visuals</interface>.");
+xi18nc("@info:whatsthis",
+       "If you make a mistake, click "
+       "<interface>Reset</interface> to start again.");
+xi18nc("@info:whatsthis",
+       "The line colors can be changed under "
+       "<interface>Settings->Visuals</interface>.");
 ~~~
 
 </td></tr>
@@ -2046,10 +2046,10 @@ Separate URL and description are preferred if applicable.
 The phrase will be hyperlinked in rich text.
 
 ~~~
-i18nc("@info:tooltip",
-      "Go to <link>%1</link> website.", urlKDE);
-i18nc("@info:tooltip",
-      "Go to the <link url='%1'>KDE website</link>.", urlKDE);
+xi18nc("@info:tooltip",
+       "Go to <link>%1</link> website.", urlKDE);
+xi18nc("@info:tooltip",
+       "Go to the <link url='%1'>KDE website</link>.", urlKDE);
 ~~~
 
 </td></tr>
@@ -2059,8 +2059,8 @@ i18nc("@info:tooltip",
 An external message inserted into the text.
 
 ~~~
-i18nc("@info",
-      "The fortune cookie says: <message>%1</message>", cookieText);
+xi18nc("@info",
+       "The fortune cookie says: <message>%1</message>", cookieText);
 ~~~
 
 </td></tr>
@@ -2069,9 +2069,9 @@ i18nc("@info",
 Line break.
 
 ~~~
-i18nc("@info",
-      "The server replied:<nl/>"
-      "<message>%1</message>", serverReply);
+xi18nc("@info",
+       "The server replied:<nl/>"
+       "<message>%1</message>", serverReply);
 ~~~
 
 </td></tr>
@@ -2084,10 +2084,10 @@ Prefix "Note:" will be added automatically;
 another prefix can be set with attribute `label=`.
 
 ~~~
-i18nc("@info",
-      "Probably the best known of all duck species is the Mallard. "
-      "It breeds throughout the temperate areas around the world. "
-      "<note>Most domestic ducks are derived from Mallard.</note>");
+xi18nc("@info",
+       "Probably the best known of all duck species is the Mallard. "
+       "It breeds throughout the temperate areas around the world. "
+       "<note>Most domestic ducks are derived from Mallard.</note>");
 ~~~
 
 </tr></td>
@@ -2098,10 +2098,10 @@ It could be something which the user should replace with actual text,
 or a generic item in a list.
 
 ~~~
-i18nc("@info",
-      "Replace <placeholder>name</placeholder> with your name.");
-i18nc("@item:inlistbox",
-      "<placeholder>All images</placeholder>");
+xi18nc("@info",
+       "Replace <placeholder>name</placeholder> with your name.");
+xi18nc("@item:inlistbox",
+       "<placeholder>All images</placeholder>");
 ~~~
 
 </td></tr>
@@ -2112,8 +2112,8 @@ Key names should be separated by "+" or "-",
 and the shortcut will be converted into canonical form.
 
 ~~~
-i18nc("@info:whatsthis",
-      "Cycle through layouts using <shortcut>Alt+Space</shortcut>.");
+xi18nc("@info:whatsthis",
+       "Cycle through layouts using <shortcut>Alt+Space</shortcut>.");
 ~~~
 
 </td></tr>
@@ -2126,9 +2126,9 @@ Prefix "Warning:" will be added automatically;
 another prefix can be set with attribute `label=`.
 
 ~~~
-i18nc("@info",
-      "Really delete this key? "
-      "<warning>This cannot be undone.</warning>");
+xi18nc("@info",
+       "Really delete this key? "
+       "<warning>This cannot be undone.</warning>");
 ~~~
 
 </tr></td>
