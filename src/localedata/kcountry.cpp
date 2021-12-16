@@ -14,7 +14,9 @@
 #include "spatial_index_p.h"
 #include "timezonedata_p.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
 #include <private/qlocale_p.h>
+#endif
 
 #include <cstring>
 
@@ -277,7 +279,7 @@ KCountry KCountry::fromLocation(float latitude, float longitude)
 KCountry KCountry::fromQLocale(QLocale::Country country)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
-    return fromAlpha2(QLocalePrivate::territoryToCode(country).data());
+    return fromAlpha2(QLocale::territoryToCode(country).data());
 #else
     return fromAlpha2(QLocalePrivate::countryToCode(country).data());
 #endif
