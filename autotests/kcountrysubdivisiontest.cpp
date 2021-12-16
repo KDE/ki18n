@@ -58,17 +58,17 @@ private Q_SLOTS:
         QCOMPARE(s.code(), QLatin1String("FR-ARA"));
         QCOMPARE(KCountrySubdivision::fromCode(u"FR-aRa"), s);
 
-        s = KCountrySubdivision::fromCode(u"CZ-101");
+        s = KCountrySubdivision::fromCode(u"CZ-20A");
         QVERIFY(s.isValid());
         QCOMPARE(s.country().alpha2(), QLatin1String("CZ"));
-        QCOMPARE(s.code(), QLatin1String("CZ-101"));
+        QCOMPARE(s.code(), QLatin1String("CZ-20A"));
 
         s = s.parent();
         QVERIFY(s.isValid());
         QCOMPARE(s.country().alpha2(), QLatin1String("CZ"));
         QVERIFY(!s.parent().isValid());
-        QCOMPARE(s.code(), QLatin1String("CZ-10"));
-        QCOMPARE(KCountrySubdivision::fromCode("cz-10"), s);
+        QCOMPARE(s.code(), QLatin1String("CZ-20"));
+        QCOMPARE(KCountrySubdivision::fromCode("cz-20"), s);
 
         s = KCountrySubdivision::fromCode("us-or");
         QVERIFY(s.isValid());
@@ -86,7 +86,7 @@ private Q_SLOTS:
 
     void testSubList()
     {
-        auto s = KCountrySubdivision::fromCode(u"CZ-10");
+        auto s = KCountrySubdivision::fromCode(u"CZ-20");
         QVERIFY(s.isValid());
         const auto l = s.subdivisions();
         QVERIFY(l.size() > 10);
@@ -133,9 +133,9 @@ private Q_SLOTS:
         tzs = KCountrySubdivision::fromCode("FR-IDF").timeZoneIds();
         QCOMPARE(tzs.size(), 1);
         QCOMPARE(tzs.at(0), "Europe/Paris");
-        tzs = KCountrySubdivision::fromCode("FR-LRE").timeZoneIds();
+        tzs = KCountrySubdivision::fromCode("NL-SX").timeZoneIds();
         QCOMPARE(tzs.size(), 1);
-        QCOMPARE(tzs.at(0), "Indian/Reunion");
+        QCOMPARE(tzs.at(0), "America/Lower_Princes");
 
         tzs = KCountrySubdivision::fromCode("ES-CN").timeZoneIds();
         QCOMPARE(tzs.size(), 1);
