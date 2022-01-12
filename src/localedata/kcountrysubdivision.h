@@ -13,7 +13,11 @@
 
 class KCountry;
 
-/** Information about an ISO 3166-2 country subdivision.
+/**
+ *  @class KCountrySubdivision kcountrysubdivision.h <KCountrySubdivision>
+ *
+ *  Information about an ISO 3166-2 country subdivision.
+ *
  *  @note This requires the [iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes/)
  *  data files and translation catalogs to be available at runtime.
  *  @see KCountry for the data sources.

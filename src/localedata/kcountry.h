@@ -20,7 +20,11 @@ namespace KTimeZone
 KI18NLOCALEDATA_EXPORT KCountry country(const char *);
 }
 
-/** Information about an ISO 3166-1 country.
+/**
+ *  @class KCountry kcountry.h <KCountry>
+ *
+ *  Information about an ISO 3166-1 country.
+ *
  *  The information provided here are aggregated from the following sources:
  *  - [iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes/)
  *  - [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder/)
