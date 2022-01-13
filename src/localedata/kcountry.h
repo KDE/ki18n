@@ -12,7 +12,8 @@
 #include <QLocale>
 #include <QMetaType>
 
-#include <KCountrySubdivision>
+#include "kcountrysubdivision.h"
+
 class KCountry;
 
 namespace KTimeZone
