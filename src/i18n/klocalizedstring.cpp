@@ -1310,7 +1310,7 @@ void KLocalizedStringPrivate::loadTranscript()
     s->ktrs = nullptr; // null indicates that Transcript is not available
 
     // QPluginLoader is just used to find the plugin
-    QPluginLoader loader(QStringLiteral("kf5/ktranscript"));
+    QPluginLoader loader(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR) "/ktranscript"));
     if (loader.fileName().isEmpty()) {
         qCWarning(KI18N) << "Cannot find Transcript plugin.";
         return;

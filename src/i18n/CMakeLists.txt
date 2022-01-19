@@ -104,7 +104,7 @@ target_sources(ktranscript PRIVATE
 generate_export_header(ktranscript BASE_NAME KTranscript)
 target_link_libraries(ktranscript PRIVATE Qt${QT_MAJOR_VERSION}::Qml Qt${QT_MAJOR_VERSION}::Core)
 
-install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5)
+install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION})
 
 endif()
 
