@@ -77,7 +77,7 @@ static void resolveMessage(KLocalizedString &trMessage,
                            const QVariant &param7,
                            const QVariant &param8,
                            const QVariant &param9,
-                           const QVariant &param10 = QString())
+                           const QVariant &param10 = QVariant())
 {
     if (!param1.isNull()) {
         subsVariant(trMessage, param1);
