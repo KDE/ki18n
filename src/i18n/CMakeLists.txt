@@ -66,25 +66,6 @@ ecm_generate_headers(KI18n_HEADERS
     REQUIRED_HEADERS KI18n_HEADERS
 )
 
-find_package(PythonModuleGeneration)
-
-if (PythonModuleGeneration_FOUND)
-  ecm_generate_python_binding(
-    TARGET KF5::I18n
-    PYTHONNAMESPACE PyKF5
-    MODULENAME KI18n
-    RULES_FILE "${CMAKE_SOURCE_DIR}/cmake/rules_PyKF5.py"
-    SIP_DEPENDS
-      QtCore/QtCoremod.sip
-    HEADERS
-      klocalizedcontext.h
-      klocalizedstring.h
-      klocalizedtranslator.h
-      kuitmarkup.h
-      kuitsetup.h
-  )
-endif()
-
 install(FILES
     ${KI18n_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
