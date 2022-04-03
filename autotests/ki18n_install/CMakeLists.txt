@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+
 project(ki18n_install)
 
 find_package(KF5I18n)
