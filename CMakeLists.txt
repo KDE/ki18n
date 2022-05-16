@@ -22,6 +22,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
+include(ECMQmlModule)
 
 
 ecm_setup_version(

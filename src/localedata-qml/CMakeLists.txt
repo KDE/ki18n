@@ -1,15 +1,15 @@
 # SPDX-FileCopyrightText: 2021 Volker Krause <vkrause@kde.org>
+# SPDX-FileCopyrightText: 2022 Julius Künzel <jk.kdedev@smartlab.uber.space>
 # SPDX-License-Identifier: BSD-3-Clause
 
-add_library(ki18nlocaledataqmlplugin ki18nlocaledataqmlplugin.cpp)
+ecm_add_qml_module(ki18nlocaledataqmlplugin URI "org.kde.i18n.localeData" VERSION 1.0)
+
+target_sources(ki18nlocaledataqmlplugin PRIVATE
+    ki18nlocaledataqmlplugin.cpp
+)
 target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
     Qt${QT_MAJOR_VERSION}::Qml
     KF5::I18nLocaleData
 )
 
-# make examples work without installation
-set_property(TARGET ki18nlocaledataqmlplugin PROPERTY LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/org/kde/i18n/localeData)
-file(COPY qmldir DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/org/kde/i18n/localeData)
-
-install(TARGETS ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/i18n/localeData)
-install(FILES qmldir ${qml_SRC} DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/i18n/localeData)
+ecm_finalize_qml_module(ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR})
