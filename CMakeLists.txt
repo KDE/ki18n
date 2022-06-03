@@ -43,6 +43,9 @@ option(BUILD_WITH_QML "Build with support for scripted translations (recommended
 if (BUILD_WITH_QML)
    find_package(Qt${QT_MAJOR_VERSION}Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
+if (ANDROID AND QT_MAJOR_VERSION EQUAL "5")
+   find_package(Qt5AndroidExtras ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+endif()
 
 find_package(LibIntl)
 set_package_properties(LibIntl PROPERTIES TYPE REQUIRED

@@ -46,6 +46,12 @@ target_include_directories(KF5I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
 target_link_libraries(KF5I18n PUBLIC Qt${QT_MAJOR_VERSION}::Core)
 # This is only required for platforms which don't use glibc (with glibc LibIntl_LIBRARIES will be empty)
 target_link_libraries(KF5I18n PRIVATE ${LibIntl_LIBRARIES})
+if (ANDROID)
+    if (QT_MAJOR_VERSION EQUAL "5")
+        target_link_libraries(KF5I18n PRIVATE Qt5::AndroidExtras)
+    endif()
+    target_link_libraries(KF5I18n PRIVATE android)
+endif()
 target_compile_options(KF5I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
 
 set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION}
