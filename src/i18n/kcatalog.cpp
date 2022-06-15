@@ -58,9 +58,9 @@ using QAndroidJniObject = QJniObject;
 extern "C" int Q_DECL_IMPORT _nl_msg_cat_cntr;
 #endif
 
-static char *langenv = nullptr;
-static const int langenvMaxlen = 42;
-// = "LANGUAGE=" + 32 chars for language code + terminating zero
+static char *s_langenv = nullptr;
+static const int s_langenvMaxlen = 42;
+// = "LANGUAGE=" + 32 chars for language code + terminating null \0 character
 
 class KCatalogStaticData
 {
@@ -139,14 +139,14 @@ KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
         // Invalidate current language, to trigger binding at next translate call.
         KCatalogPrivate::currentLanguage.clear();
 
-        if (!langenv) {
+        if (!s_langenv) {
             // Call putenv only here, to initialize LANGUAGE variable.
-            // Later only change langenv to what is currently needed.
+            // Later only change s_langenv to what is currently needed.
             // This doesn't work on Windows though, so there we need putenv calls on every change
-            langenv = new char[langenvMaxlen];
-            QByteArray baselang = qgetenv("LANGUAGE");
-            qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", baselang.constData());
-            putenv(langenv);
+            s_langenv = new char[s_langenvMaxlen];
+            const QByteArray baselang = qgetenv("LANGUAGE");
+            qsnprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", baselang.constData());
+            putenv(s_langenv);
         }
     }
 }
@@ -295,9 +295,9 @@ void KCatalogPrivate::setupGettextEnv()
     if (systemLanguage != language) {
         // putenv has been called in the constructor,
         // it is enough to change the string set there.
-        qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", language.constData());
+        qsnprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", language.constData());
 #ifdef Q_OS_WINDOWS
-        putenv(langenv);
+        putenv(s_langenv);
 #endif
     }
 
@@ -334,9 +334,9 @@ void KCatalogPrivate::setupGettextEnv()
 void KCatalogPrivate::resetSystemLanguage()
 {
     if (language != systemLanguage) {
-        qsnprintf(langenv, langenvMaxlen, "LANGUAGE=%s", systemLanguage.constData());
+        qsnprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", systemLanguage.constData());
 #ifdef Q_OS_WINDOWS
-        putenv(langenv);
+        putenv(s_langenv);
 #endif
     }
 }
