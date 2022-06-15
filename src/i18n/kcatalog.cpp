@@ -42,6 +42,7 @@ using QAndroidJniObject = QJniObject;
 #endif
 #endif
 
+#include <cstring>
 #include <locale.h>
 #include <stdlib.h>
 
@@ -59,8 +60,19 @@ extern "C" int Q_DECL_IMPORT _nl_msg_cat_cntr;
 #endif
 
 static char *s_langenv = nullptr;
-static const int s_langenvMaxlen = 42;
-// = "LANGUAGE=" + 32 chars for language code + terminating null \0 character
+static const int s_langenvMaxlen = 64;
+// = "LANGUAGE=" + 54 chars for language code + terminating null \0 character
+
+static void copyToLangArr(const QByteArray &lang)
+{
+    const int bytes = std::snprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", lang.constData());
+    if (bytes < 0) {
+        qCWarning(KI18N) << "There was an error while writing LANGUAGE environment variable:" << std::strerror(errno);
+    } else if (bytes > (s_langenvMaxlen - 1)) { // -1 for the \0 character
+        qCWarning(KI18N) << "The value of the LANGUAGE environment variable:" << lang << "( size:" << lang.size() << "),\n"
+                         << "was longer than (and consequently truncated to) the max. length of:" << (s_langenvMaxlen - strlen("LANGUAGE=") - 1);
+    }
+}
 
 class KCatalogStaticData
 {
@@ -144,8 +156,7 @@ KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
             // Later only change s_langenv to what is currently needed.
             // This doesn't work on Windows though, so there we need putenv calls on every change
             s_langenv = new char[s_langenvMaxlen];
-            const QByteArray baselang = qgetenv("LANGUAGE");
-            qsnprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", baselang.constData());
+            copyToLangArr(qgetenv("LANGUAGE"));
             putenv(s_langenv);
         }
     }
@@ -295,7 +306,7 @@ void KCatalogPrivate::setupGettextEnv()
     if (systemLanguage != language) {
         // putenv has been called in the constructor,
         // it is enough to change the string set there.
-        qsnprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", language.constData());
+        copyToLangArr(language);
 #ifdef Q_OS_WINDOWS
         putenv(s_langenv);
 #endif
@@ -334,7 +345,7 @@ void KCatalogPrivate::setupGettextEnv()
 void KCatalogPrivate::resetSystemLanguage()
 {
     if (language != systemLanguage) {
-        qsnprintf(s_langenv, s_langenvMaxlen, "LANGUAGE=%s", systemLanguage.constData());
+        copyToLangArr(systemLanguage);
 #ifdef Q_OS_WINDOWS
         putenv(s_langenv);
 #endif

@@ -55,6 +55,10 @@ add_test(ki18n_install ${CMAKE_CTEST_COMMAND}
         "-DKF5I18n_DIR=${CMAKE_BINARY_DIR}/cmake"
     --test-command ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_SOURCE_DIR}/ki18n_install/test.cmake")
 
-ecm_add_test(kcountrytest.cpp LINK_LIBRARIES KF5::I18nLocaleData Qt${QT_MAJOR_VERSION}::Test)
-ecm_add_test(kcountrysubdivisiontest.cpp LINK_LIBRARIES KF5::I18nLocaleData Qt${QT_MAJOR_VERSION}::Test)
-ecm_add_test(ktimezonetest.cpp LINK_LIBRARIES KF5::I18nLocaleData Qt${QT_MAJOR_VERSION}::Test)
+ecm_add_tests(
+    kcatalogtest.cpp
+    kcountrytest.cpp
+    kcountrysubdivisiontest.cpp
+    ktimezonetest.cpp
+    LINK_LIBRARIES KF5::I18nLocaleData Qt${QT_MAJOR_VERSION}::Test
+)
