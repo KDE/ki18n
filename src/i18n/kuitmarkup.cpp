@@ -5,7 +5,6 @@
 */
 
 #include <QDir>
-#include <QPair>
 #include <QRegularExpression>
 #include <QSet>
 #include <QStack>

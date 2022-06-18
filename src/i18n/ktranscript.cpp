@@ -21,7 +21,6 @@
 #include <QIODevice>
 #include <QJSValueIterator>
 #include <QList>
-#include <QPair>
 #include <QSet>
 #include <QStandardPaths>
 #include <QStringList>
@@ -144,7 +143,11 @@ public:
     QHash<QByteArray, QHash<QByteArray, QByteArray>> phraseProps;
     // Unresolved property values per phrase,
     // containing the pointer to compiled pmap file handle and offset in it.
-    QHash<QByteArray, QPair<QFile *, quint64>> phraseUnparsedProps;
+    struct UnparsedPropInfo {
+        QFile *pmapFile = nullptr;
+        quint64 offset = -1;
+    };
+    QHash<QByteArray, UnparsedPropInfo> phraseUnparsedProps;
     QHash<QByteArray, QByteArray> resolveUnparsedProps(const QByteArray &phrase);
     // Set of loaded pmap files by paths and file handle pointers.
     QSet<QString> loadedPmapPaths;
@@ -1531,7 +1534,7 @@ QString Scriptface::loadProps_bin_01(const QString &fpath)
     for (quint32 i = 0; i < numekeys; ++i) {
         QByteArray ekey = bin_read_string(fstr, lenekeys, pos);
         quint64 offset = bin_read_int64(fstr, lenekeys, pos);
-        phraseUnparsedProps[ekey] = QPair<QFile *, quint64>(file, offset);
+        phraseUnparsedProps[ekey] = {file, offset};
     }
 
     // // Read property keys.
@@ -1543,9 +1546,7 @@ QString Scriptface::loadProps_bin_01(const QString &fpath)
 
 QHash<QByteArray, QByteArray> Scriptface::resolveUnparsedProps(const QByteArray &phrase)
 {
-    QPair<QFile *, quint64> ref = phraseUnparsedProps.value(phrase);
-    QFile *file = ref.first;
-    quint64 offset = ref.second;
+    auto [file, offset] = phraseUnparsedProps.value(phrase);
     QHash<QByteArray, QByteArray> props;
     if (file && file->seek(offset)) {
         QByteArray fstr = file->read(4 + 4);
