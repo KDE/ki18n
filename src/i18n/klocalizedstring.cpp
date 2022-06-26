@@ -486,7 +486,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
 
     // Check whether plural argument has been supplied, if message has plural.
     if (!plural.isEmpty() && !numberSet) {
-        qCWarning(KI18N) << QStringLiteral("Plural argument to message {%1} not supplied before conversion.").arg(shortenMessage(QString::fromUtf8(text)));
+        qCWarning(KI18N) << "Plural argument to message" << shortenMessage(QString::fromUtf8(text)) << "not supplied before conversion.";
     }
 
     // Resolve inputs.
@@ -535,7 +535,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     } else { // fencePos == 0
         // The msgstr starts with the script fence, no ordinary translation.
         // This is not allowed, consider message not translated.
-        qCWarning(KI18N) << QStringLiteral("Scripted message {%1} without ordinary translation, discarded.").arg(shortenMessage(translation));
+        qCWarning(KI18N) << "Scripted message" << shortenMessage(translation) << "without ordinary translation, discarded.";
         translation = plural.isEmpty() || number == 1 ? QString::fromUtf8(text) : QString::fromUtf8(plural);
     }
 
@@ -699,18 +699,14 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation, co
         for (int i = 0; i < ords.size(); i++) {
             if (!ords.at(i)) {
                 gaps = true;
-                qCWarning(KI18N) << QStringLiteral("Placeholder %%1 skipped in message {%2}.").arg(QString::number(i + 1), shortenMessage(translation));
+                qCWarning(KI18N).nospace() << "Placeholder %" << QString::number(i + 1) << " skipped in message " << shortenMessage(translation);
             }
         }
         // If no gaps, check for mismatch between the number of
         // unique placeholders and actually supplied arguments.
         if (!gaps && ords.size() != arguments.size()) {
-            qCWarning(KI18N) << QString::fromLatin1(
-                                    "%1 instead of %2 arguments to message {%3} "
-                                    "supplied before conversion.")
-                                    .arg(arguments.size())
-                                    .arg(ords.size())
-                                    .arg(shortenMessage(translation));
+            qCWarning(KI18N) << arguments.size() << "instead of" << ords.size() << "arguments to message" << shortenMessage(translation)
+                             << "supplied before conversion";
         }
 
         // Some spoofs.
@@ -834,8 +830,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
             ++tpos;
         }
         if (tpos == slen) {
-            qCWarning(KI18N) << QStringLiteral("Unclosed interpolation {%1} in message {%2}.")
-                                    .arg(scriptedTranslation.mid(pos, tpos - pos), shortenMessage(scriptedTranslation));
+            qCWarning(KI18N) << "Unclosed interpolation" << scriptedTranslation.mid(pos, tpos - pos) << "in message" << shortenMessage(scriptedTranslation);
             return -1;
         }
         if (QStringView(scriptedTranslation).mid(tpos, ielen) == s->endInterp) {
@@ -864,8 +859,8 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                     ++tpos;
                 }
                 if (tpos == slen) {
-                    qCWarning(KI18N) << QStringLiteral("Unclosed quote in interpolation {%1} in message {%2}.")
-                                            .arg(scriptedTranslation.mid(pos, tpos - pos), shortenMessage(scriptedTranslation));
+                    qCWarning(KI18N) << "Unclosed quote in interpolation" << scriptedTranslation.mid(pos, tpos - pos) << "in message"
+                                     << shortenMessage(scriptedTranslation);
                     return -1;
                 }
 
@@ -899,8 +894,8 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                     ++tpos;
                 }
                 if (tpos == slen) {
-                    qCWarning(KI18N) << QStringLiteral("Non-terminated interpolation {%1} in message {%2}.")
-                                            .arg(scriptedTranslation.mid(pos, tpos - pos), shortenMessage(scriptedTranslation));
+                    qCWarning(KI18N) << "Non-terminated interpolation" << scriptedTranslation.mid(pos, tpos - pos) << "in message"
+                                     << shortenMessage(scriptedTranslation);
                     return -1;
                 }
 
@@ -959,8 +954,8 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
     if (!scriptError.isEmpty()) { // problem with evaluation
         fallback = true; // also signal fallback
         if (!scriptError.isEmpty()) {
-            qCWarning(KI18N) << QStringLiteral("Interpolation {%1} in {%2} failed: %3")
-                                    .arg(scriptedTranslation.mid(pos, tpos - pos), shortenMessage(scriptedTranslation), scriptError);
+            qCWarning(KI18N) << "Interpolation" << scriptedTranslation.mid(pos, tpos - pos) << "in" << shortenMessage(scriptedTranslation)
+                             << "failed:" << scriptError;
         }
     }
 
@@ -1040,7 +1035,7 @@ QString KLocalizedStringPrivate::postTranscript(const QString &pcall,
 
     // If the evaluation went wrong.
     if (!scriptError.isEmpty()) {
-        qCWarning(KI18N) << QStringLiteral("Post call {%1} for message {%2} failed: %3").arg(pcall, shortenMessage(msgid), scriptError);
+        qCWarning(KI18N) << "Post call" << pcall << "for message" << shortenMessage(msgid) << "failed:" << scriptError;
         return QString();
     }
 
