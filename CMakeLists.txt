@@ -22,6 +22,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
+include(ECMDeprecationSettings)
 include(ECMQmlModule)
 
 
@@ -82,7 +83,10 @@ endif()
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
+
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+)
 
 ki18n_install(po)
 add_subdirectory(src)
