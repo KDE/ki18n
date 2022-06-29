@@ -79,34 +79,34 @@ static void resolveMessage(KLocalizedString &trMessage,
                            const QVariant &param9,
                            const QVariant &param10 = QVariant())
 {
-    if (!param1.isNull()) {
+    if (param1.isValid()) {
         subsVariant(trMessage, param1);
     }
-    if (!param2.isNull()) {
+    if (param2.isValid()) {
         subsVariant(trMessage, param2);
     }
-    if (!param3.isNull()) {
+    if (param3.isValid()) {
         subsVariant(trMessage, param3);
     }
-    if (!param4.isNull()) {
+    if (param4.isValid()) {
         subsVariant(trMessage, param4);
     }
-    if (!param5.isNull()) {
+    if (param5.isValid()) {
         subsVariant(trMessage, param5);
     }
-    if (!param6.isNull()) {
+    if (param6.isValid()) {
         subsVariant(trMessage, param6);
     }
-    if (!param7.isNull()) {
+    if (param7.isValid()) {
         subsVariant(trMessage, param7);
     }
-    if (!param8.isNull()) {
+    if (param8.isValid()) {
         subsVariant(trMessage, param8);
     }
-    if (!param9.isNull()) {
+    if (param9.isValid()) {
         subsVariant(trMessage, param9);
     }
-    if (!param10.isNull()) {
+    if (param10.isValid()) {
         subsVariant(trMessage, param10);
     }
 }

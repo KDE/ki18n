@@ -25,6 +25,8 @@ private Q_SLOTS:
         QTest::newRow("singular translation") << "testStringSingular" << QStringLiteral("and 1 other window");
         QTest::newRow("plural translation") << "testStringPlural" << QStringLiteral("and 3 other windows");
         QTest::newRow("plural translation with domain") << "testStringPluralWithDomain" << QStringLiteral("in 3 seconds");
+        QTest::newRow("null string arg") << "testNullStringArg" << QStringLiteral("Awesome ");
+        QTest::newRow("zero") << "testZero" << QStringLiteral("I'm 0 years old");
     }
 
     void testLocalizedContext()
