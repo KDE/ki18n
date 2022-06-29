@@ -8,7 +8,6 @@
 #include "isocodes_p.h"
 #include "isocodescache_p.h"
 #include "kcatalog_p.h"
-#include "kcountrysubdivision.h"
 #include "klocalizedstring.h"
 #include "logging.h"
 #include "spatial_index_p.h"
