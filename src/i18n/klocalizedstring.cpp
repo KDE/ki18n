@@ -1017,18 +1017,7 @@ QString KLocalizedStringPrivate::postTranscript(const QString &pcall,
     QString msgid = QString::fromUtf8(text);
     QString scriptError;
     bool fallback;
-    QString dummy = s->ktrs->eval(iargs,
-                                  language,
-                                  country,
-                                  msgctxt,
-                                  dynamicContext,
-                                  msgid,
-                                  arguments,
-                                  values,
-                                  finalTranslation,
-                                  s->scriptModulesToLoad,
-                                  scriptError,
-                                  fallback);
+    s->ktrs->eval(iargs, language, country, msgctxt, dynamicContext, msgid, arguments, values, finalTranslation, s->scriptModulesToLoad, scriptError, fallback);
     // s->scriptModulesToLoad will be cleared during the call.
 
     // If the evaluation went wrong.
