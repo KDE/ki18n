@@ -49,7 +49,7 @@ set_target_properties(KF5I18nLocaleData PROPERTIES
     EXPORT_NAME I18nLocaleData
 )
 
-install(TARGETS KF5I18nLocaleData EXPORT KF5I18nTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5I18nLocaleData EXPORT KF5I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_generate_headers(KI18nLocaleData_HEADERS
   HEADER_NAMES

@@ -59,7 +59,7 @@ set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION}
                                          EXPORT_NAME I18n
 )
 
-install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_generate_headers(KI18n_HEADERS
   HEADER_NAMES
