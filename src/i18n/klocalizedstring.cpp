@@ -419,6 +419,7 @@ void KLocalizedStringPrivate::translateRaw(const QByteArray &domain,
     language = s->codeLanguage;
 
     if (domain.isEmpty()) {
+        qCWarning(KI18N) << "KLocalizedString: Using an empty domain, fix the code.";
         return;
     }
 
