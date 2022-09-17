@@ -253,7 +253,7 @@ public:
 
     QByteArray ourDomain;
     QByteArray applicationDomain;
-    QString codeLanguage;
+    const QString codeLanguage;
     QStringList localeLanguages;
 
     const QString theFence;
