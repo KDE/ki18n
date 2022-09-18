@@ -150,7 +150,8 @@ enum Cue { // UI marker subcues
     PlaceholderCue,
     StatusCue,
     ProgressCue,
-    TipofthedayCue,
+    TipofthedayCue, // deprecated in favor of UsagetipCue
+    UsagetipCue,
     CreditCue,
     ShellCue,
 };
@@ -254,7 +255,7 @@ void KuitStaticData::setUiMarkerData()
              << IntextCue << ValuesuffixCue);
     SET_ROLE(InfoRole,   QStringLiteral("info"),
              TooltipCue << WhatsthisCue << PlaceholderCue << StatusCue << ProgressCue
-             << TipofthedayCue << CreditCue << ShellCue);
+             << TipofthedayCue << UsagetipCue << CreditCue << ShellCue);
 
     // Cue names.
 #undef SET_CUE
@@ -288,6 +289,7 @@ void KuitStaticData::setUiMarkerData()
     SET_CUE(StatusCue, QStringLiteral("status"));
     SET_CUE(ProgressCue, QStringLiteral("progress"));
     SET_CUE(TipofthedayCue, QStringLiteral("tipoftheday"));
+    SET_CUE(UsagetipCue, QStringLiteral("usagetip"));
     SET_CUE(CreditCue, QStringLiteral("credit"));
     SET_CUE(ShellCue, QStringLiteral("shell"));
 
