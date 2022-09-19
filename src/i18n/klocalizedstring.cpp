@@ -419,7 +419,8 @@ void KLocalizedStringPrivate::translateRaw(const QByteArray &domain,
     language = s->codeLanguage;
 
     if (domain.isEmpty()) {
-        qCWarning(KI18N) << "KLocalizedString: Using an empty domain, fix the code.";
+        qCWarning(KI18N) << "KLocalizedString: Using an empty domain, fix the code. msgid:" << msgid << "msgid_plural:" << msgid_plural
+                         << "msgctxt:" << msgctxt;
         return;
     }
 
