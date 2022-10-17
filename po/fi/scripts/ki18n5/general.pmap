@@ -2,9 +2,8 @@
 =:Aasia:Asia:elat=Aasiasta:gen=Aasian:illat=Aasiaan:iness=Aasiassa:part=Aasiaa::
 =/Acronym Database/Lyhennetietokanta/hakumuoto=Lyhennetietokannasta//
 =:Activity Bar:Aktiviteettipalkki:elat=Aktiviteettipalkista:gen=Aktiviteettipalkin:yleisnimi=kyllä::
-=:Activity Pager:Aktiviteettisivutin:elat=Aktiviteettisivuttimesta:gen=Aktiviteettisivuttimen:yleisnimi=kyllä::
 =:Africa:Afrikka:elat=Afrikasta:gen=Afrikan:illat=Afrikkaan:iness=Afrikassa:part=Afrikkaa::
-=:Ajastin:Timer:elat=Ajastimesta:gen=Ajastimen:yleisnimi=kyllä::
+=:Ajastin:Timer:gen=Ajastimen:yleisnimi=kyllä::
 =/Akregator/elat=Akregatorista/gen=Akregatorin//
 =:Alaska:elat=Alaskasta:gen=Alaskan:illat=Alaskaan:iness=Alaskassa:part=Alaskaa::
 =:Alberta:elat=Albertasta:gen=Albertan:illat=Albertaan:iness=Albertassa:part=Albertaa::
@@ -14,19 +13,22 @@
 =/Amazon/hakumuoto=Amazonista//
 =/Amazon MP3/hakumuoto=Amazonin MP3-haulla//
 =:Analog Clock:Analoginen kello:elat=Analogisesta kellosta:gen=Analogisen kellon:yleisnimi=kyllä::
-=:Application Dashboard:Sovelluskojelauta:elat=Sovelluskojelaudasta:gen=Sovelluskojelaudan:yleisnimi=kyllä::
+=:Application Dashboard:Sovelluskojelauta:gen=Sovelluskojelaudan:yleisnimi=kyllä::
 =:Application Menu:Sovelluskäynnistin:elat=Sovelluskäynnistimestä:gen=Sovelluskäynnistimen:yleisnimi=kyllä::
+=:Application Style:Sovellustyyli:gen=Sovelluksen valikon:yleisnimi=kyllä::
 =:Arabia:elat=Arabiasta:gen=Arabian:illat=Arabiaan:iness=Arabiassa:part=Arabiaa::
 =/Arch Linux Package Search/Arch Linuxin pakettihaku/hakumuoto=Arch Linuxin pakettihaulla//
+=/ArchWiki/hakumuoto=ArchWikistä//
 =/Ark/elat=Arkista/gen=Arkin//
 =:Artikulate Pronunciation Trainer:Artikulate ääntämisen harjoitteluohjelma:elat=Artikulate ääntämisen harjoitteluohjelmasta:gen=Artikulate ääntämisen harjoitteluohjelman::
 =/Ask Jeeves/hakumuoto=Ask Jeeves -haulla//
 =:Audio Volume:Äänenvoimakkuus:gen=Äänenvoimakkuuden:yleisnimi=kyllä::
 =/Baidu/hakumuoto=Baidulla//
+=:Baker's Dozen:Leipurin tusina:gen=Leipurin tusinan::
 =:Belgia:Belgium:elat=Belgiasta:gen=Belgian:illat=Belgiaan:iness=Belgiassa:part=Belgiaa::
 =:Benelux:elat=Beneluxista:gen=Beneluxin:illat=Beneluxiin:iness=Beneluxissa:part=Beneluxia::
 =/Beolingus Online Dictionary/Beolingus-verkkosanakirja/hakumuoto=Beolingus-verkkosanakirjasta//
-=:Binaarikello:Binary Clock:elat=Binaarikellosta:gen=Binaarikellon:yleisnimi=kyllä::
+=:Binaarikello:Binary Clock:gen=Binaarikellon:yleisnimi=kyllä::
 =/Bing/hakumuoto=Bingillä//
 =/Blinken/elat=Blinkenistä/gen=Blinkenin//
 =/Bomber/elat=Bomberista/gen=Bomberin//
@@ -38,9 +40,10 @@
 =/CIA World Fact Book/CIA World Factbook/hakumuoto=CIA World Factbookista//
 =|CNRTL/TILF French dictionary|CNRTL/TILF ranskankielinen sanakirja|hakumuoto=CNRTL/TILF:sta, ranskankielisestä sanakirjasta||
 =/CPAN - Comprehensive Perl Archive Network/CPAN – Comprehensive Perl Archive Network/hakumuoto=CPANista (Comprehensive Perl Archive Network)//
+=/CPP Reference/hakumuoto=CPP Referencesta//
 =/CTAN - Comprehensive TeX Archive Network/CTAN – Comprehensive TeX Archive Network/hakumuoto=CTANista (Comprehensive TeX Archive Network)//
 =/CTAN Catalog/CTAN-katalogi/hakumuoto=CTAN-katalogista//
-=:Calculator:Laskin:elat=Laskimesta:gen=Laskimen:yleisnimi=kyllä::
+=:Calculator:Laskin:gen=Laskimen:yleisnimi=kyllä::
 =:Calendar:Kalenteri:elat=Kalenterista:gen=Kalenterin:yleisnimi=kyllä::
 =:Calligra Sheets:elat=Calligra Sheetsistä:gen=Calligra Sheetsin::
 =:Calligra Words:elat=Calligra Wordsistä:gen=Calligra Wordsin::
@@ -52,8 +55,8 @@
 =/CiteSeer: Scientific Literature Digital Library/CiteSeer: tieteellisten tekstien digitaalinen kirjasto/hakumuoto=CiteSeeristä, tieteellisten tekstien digitaalisesta kirjastosta//
 =:Clipboard:Leikepöytä:elat=Leikepöydästä:gen=Leikepöydän:yleisnimi=kyllä::
 =:Colombia:Kolumbia:elat=Kolumbiasta:gen=Kolumbian:illat=Kolumbiaan:iness=Kolumbiassa:part=Kolumbiaa::
-=:Color Picker:Värivalitsin:elat=Värivalitsimesta:gen=Värivalitsimen:yleisnimi=kyllä::
-=:Comic Strip:Sarjakuvastrippi:elat=Sarjakuvastripistä:gen=Sarjakuvastripin:yleisnimi=kyllä::
+=:Color Picker:Värivalinta:gen=Värivalinnan:yleisnimi=kyllä::
+=:Comic Strip:Sarjakuvastrippi:gen=Sarjakuvastripin:yleisnimi=kyllä::
 =:Contact Theme Editor:Yhteystietoteemamuokkain:elat=Yhteystietoteemamuokkaimesta:gen=Yhteystietoteemamuokkaimen::
 =:Copying:Kopioidaan:teonnimi=Kopiointi::
 =:Creating directory:Luodaan kansiota:teonnimi=Kansion luonti::
@@ -63,7 +66,7 @@
 =:Deleting:Poistetaan:teonnimi=Poisto::
 =:Desktop:Työpöytä:elat=Työpöydästä:gen=Työpöydän:yleisnimi=kyllä::
 =:Device Notifier:Laiteilmoitin:elat=Laiteilmoittimesta:gen=Laiteilmoittimen:yleisnimi=kyllä::
-=:Dictionary:Sanakirja:elat=Sanakirjasta:gen=Sanakirjan:yleisnimi=kyllä::
+=:Dictionary:Sanakirja:gen=Sanakirjan:yleisnimi=kyllä::
 =/Dictionary of the Galician Academy (RAG)/Galician Akatemian sanakirja (RAG)/hakumuoto=Galician Akatemian sanakirjasta (RAG)//
 =/Dictionary of the Spanish Academy (RAE)/Espanjan Akatemian sanakirja (RAE)/hakumuoto=Espanjan Akatemian sanakirjasta (RAE)//
 =:Digitaalinen kello:Digital Clock:elat=Digitaalisesta kellosta:gen=Digitaalisen kellon:yleisnimi=kyllä::
@@ -78,7 +81,6 @@
 =/Ecosia search engine/Ecosia-hakukone/hakumuoto=Ecosia-hakukoneella//
 =:Egypt:Egypti:elat=Egyptistä:gen=Egyptin:illat=Egyptiin:iness=Egyptissä:part=Egyptiä::
 =:England:Englanti:elat=Englannista:gen=Englannin:illat=Englantiin:part=Englantia::
-=:Epätarkka kello:Fuzzy Clock:elat=Epätarkasta kellosta:gen=Epätarkan kellon:yleisnimi=kyllä::
 =:Etelä-Afrikka:South Africa:elat=Etelä-Afrikasta:gen=Etelä-Afrikan:illat=Etelä-Afrikkaan:iness=Etelä-Afrikassa:part=Etelä-Afrikkaa::
 =:Etelä-Amerikka:South America:elat=Etelä-Amerikasta:gen=Etelä-Amerikan:illat=Etelä-Amerikkaan:iness=Etelä-Amerikassa:part=Etelä-Amerikkaa::
 =:Eurooppa:Europe:elat=Euroopasta:gen=Euroopan:illat=Eurooppaan:iness=Euroopassa:part=Eurooppaa::
@@ -86,8 +88,9 @@
 =|FSF/UNESCO Free Software Directory|FSF/UNESCO:n vapaiden ohjelmien hakemisto|hakumuoto=FSF/UNESCO:n vapaiden ohjelmien hakemistosta||
 =/Facebook/hakumuoto=Facebookista//
 =/Feedster/hakumuoto=Feedsterillä//
-=/Fifteen Puzzle/Puzzle 15/elat=Puzzle 15:stä/gen=Puzzle 15:n//
+=:Fifteen Puzzle:Viisitoista-peli:gen=Viisitoista-pelin:yleisnimi=kyllä::
 =/Filelight/elat=Filelightista/gen=Filelightin//
+=/Flatpak Documentation/Flatpak-dokumentaatio/hakumuoto=Flatpak-dokumentaatiosta//
 =/Flickr/hakumuoto=Flickristä//
 =/Flickr Creative Commons/hakumuoto=Flickr Creative Commons -haulla//
 =:Folder:Kansio:gen=Kansion:yleisnimi=kyllä::
@@ -98,6 +101,7 @@
 =/FreeDB/hakumuoto=FreeDB:stä//
 =:Freecell:Vapaakenttä:gen=Vapaakentän::
 =/Freecode/hakumuoto=Freecodesta//
+=:Fuzzy Clock:Sumea kello:gen=Sumean kellon:yleisnimi=kyllä::
 =:Gabon:elat=Gabonista:gen=Gabonin:illat=Gaboniin:iness=Gabonissa:part=Gabonia::
 =/GitHub/hakumuoto=GitHubista//
 =:Global Menu:Yleisvalikko:gen=Yleisvalikon:yleisnimi=kyllä::
@@ -117,10 +121,10 @@
 =:Grandfather's Clock:Isoisän kello:gen=Isoisän kellon::
 =/Great Dictionary of the Catalan Language (GRan Enciclopèdia Catalana)/Katalaanin suuri sanakirja (GRan Enciclopèdia Catalana)/hakumuoto=Katalaanin suuresta sanakirjasta (GRan Enciclopèdia Catalana)//
 =:Groenland:Grönlanti:elat=Grönlannista:gen=Grönlannin:illat=Grönlantiin:iness=Grönlannissa:part=Grönlantia::
-=/Grouping Plasmoid/Ryhmitelty plasmoidi/gen=Ryhmitellyn plasmoidin//
+=:Grouping Plasmoid:Ryhmittelysovelma:gen=Ryhmittelysovelman:yleisnimi=kyllä::
 =/Gwenview/elat=Gwenview’stä/gen=Gwenview’n//
 =:Gypsy:Mustalainen:gen=Mustalaisen::
-=:Hard Disk I/O Monitor:Kiintolevyjen käyttöilmaisin:gen=Kiintolevyjen käyttöilmaisimen:yleisnimi=kyllä::
+=:Hard Disk Activity:Kiintolevyn toiminta:gen=Kiintolevyn toiminnan:yleisnimi=kyllä::
 =:Help Center:Ohjekeskus:elat=Ohjekeskuksesta:gen=Ohjekeskuksen:yleisnimi=kyllä::
 =/HyperDictionary.com/hakumuoto=HyperDictionary.com:ista//
 =/HyperDictionary.com Thesaurus/HyperDictionary.com-synonyymisanakirja/hakumuoto=HyperDictionary.com-synonyymisanakirjasta//
@@ -128,12 +132,12 @@
 =/IETF Requests for Comments/IETF-kommenttipyynnöt (RFC)/hakumuoto=IETF-kommenttipyynnöistä (RFC)//
 =:Icon:Kuvake:elat=Kuvakkeesta:gen=Kuvakkeen:yleisnimi=kyllä::
 =:Icon View:Kuvakenäkymä:elat=Kuvakenäkymästä:yleisnimi=kyllä::
+=:Icons:Kuvakkeet:elat=Kuvakkeesta:gen=Kuvakkeen:yleisnimi=kyllä::
 =:Icons-only Task Manager:Kuvake­tehtävienhallinta:elat=Kuvaketehtävienhallinnasta:gen=Kuvaketehtävienhallinnan:yleisnimi=kyllä::
 =/Identi.ca Groups/Identi.ca-ryhmähaku/hakumuoto=Identi.ca-ryhmähaulla//
 =/Identi.ca Notices/Identi.ca-tekstihaku/hakumuoto=Identi.ca-tekstihaulla//
 =/Identi.ca People/Identi.ca-ihmishaku/hakumuoto=Identi.ca-ihmishaulla//
 =:Ikkunaluettelo:Window list:elat=Ikkunaluettelosta:gen=Ikkunaluettelon:yleisnimi=kyllä::
-=/Ikkunasääntöjen asetusosio/Window-Specific Settings Configuration Module/elat=Ikkunasääntöjen asetusosiosta//
 =:Ilmoitukset:Notifications:yleisnimi=kyllä::
 =:Ilmoitusalue:System Tray:elat=Ilmoitusalueesta:gen=Ilmoitusalueen:yleisnimi=kyllä::
 =:India:Intia:elat=Intiasta:gen=Intian:illat=Intiaan:iness=Intiassa:part=Intiaa::
@@ -149,7 +153,7 @@
 =/JuK/elat=JuKista/gen=JuKin//
 =:Järjestelmäasetukset:System Settings:elat=Järjestelmäasetuksista:gen=Järjestelmäasetusten:yleisnimi=kyllä::
 =/Järjestelmänvalvonta/System Monitor/elat=Järjestelmän valvonnasta/gen=Järjestelmän valvonnan//
-=:Järjestelmä­kuorman valvonta:System Load Viewer:elat=Järjestelmäkuorman valvonnasta:gen=Järjestelmäkuorman valvonnan:yleisnimi=kyllä::
+=:Järjestelmävalvonnan anturi:System monitor Sensor:gen=Järjestelmävalvonnan anturin:yleisnimi=kyllä::
 =/K3b/elat=K3b:stä/gen=K3b:n//
 =/KAddressBook/elat=KAddressBookista/gen=KAddressBookin//
 =/KAlarm/elat=KAlarmista/gen=KAlarmin//
@@ -165,15 +169,11 @@
 =/KCalc/elat=KCalcista/gen=KCalcin//
 =/KCharSelect/elat=KCharSelectistä/gen=KCharSelectin//
 =/KDE API Documentation/KDE:n API-dokumentaatio/hakumuoto=KDE:n API-dokumentaatiosta//
-=/KDE Accessibility Tool/KDE:n esteettömyystyökalu/elat=KDE:n esteettömyystyökalusta/gen=KDE:n esteettömyystyökalun//
 =/KDE App -haku/KDE App Search/hakumuoto=KDE App -haulla//
-=/KDE Bug Database Bug Number Search/KDE-vikailmoitustietokannan numerohaku/hakumuoto=KDE-vikailmoitustietokannan numerohaulla//
-=/KDE Bug Database Fulltext Search/KDE-vikailmoitustietokannan tekstihaku/hakumuoto=KDE-vikailmoitustietokannan tekstihaulla//
 =/KDE Clock Control Module/KDE:n kelloasetukset/elat=KDE:n kelloasetuksista//
 =/KDE Forums/KDE:n foorumit/hakumuoto=KDE:n foorumeilta//
-=/KDE Hotkeys Configuration Module/KDE Hotkeys-asetusosio/elat=KDE Hotkeys-asetusosiosta//
+=/KDE Hotkeys Configuration Module/KDE:n Hotkeys-asetusosio/elat=KDE:n Hotkeys-asetusosiosta//
 =/KDE Joystick Control Module/Peliohjainten hallinta/elat=Peliohjainten hallinnasta//
-=/KDE Look/hakumuoto=KDE Lookista//
 =/KDE Menu Editor/KDE:n valikkomuokkain/elat=KDE:n valikkomuokkaimesta/gen=KDE:n valikkomuokkaimen//
 =/KDE Partition Manager/KDE:n osionhallinta/elat=KDE:n osionhallinnasta/gen=KDE:n osionhallinnan//
 =/KDE Screen Ruler/KDE-viivain/elat=KDE-viivaimesta/gen=KDE-viivaimen//
@@ -190,13 +190,9 @@
 =/KFourInLine/Neljän suora/elat=Neljän suorasta/gen=Neljän suoran//
 =/KGeography/elat=KGeographystä/gen=KGeographyn//
 =/KGet/elat=KGetistä/gen=KGetin//
-=/KGet Barchart Applet/KGetin pylväskaaviosovelma/elat=KGetin pylväskaaviosovelmasta/gen=KGetin pylväskaaviosovelman//
-=/KGet Panelbar Applet/KGetin paneelisovelma/elat=KGetin paneelisovelmasta/gen=KGetin paneelisovelman//
-=/KGet Piechart Applet/KGetin piirakkakaaviosovelma/elat=KGetin piirakkakaaviosovelmasta/gen=KGetin piirakkakaaviosovelman//
 =/KGoldrunner/elat=KGoldrunnerista/gen=KGoldrunnerin//
 =/KGpg/Kgpg/elat=KGpg:stä/gen=KGpg:n//
 =/KHangMan/elat=KHangManista/gen=KHangManin//
-=:KIMToy:elat=KIMToysta:gen=KIMToyn::
 =/KImageMapEditor/elat=KImageMapEditorista/gen=KImageMapEditorin//
 =/KJots/elat=KJotsista/gen=KJotsin//
 =/KJumpingCube/elat=KJumpingCubesta/gen=KJumpingCuben//
@@ -231,13 +227,12 @@
 =/KUIViewer/elat=KUIVieweristä/gen=KUIViewerin//
 =/KWatchGnuPG/gen=KWatchGnuPG:stä//
 =/KWordQuiz/elat=KWordQuizistä/gen=KWordQuizin//
-=/KWrite/elat=KWritesta/gen=KWriten//
+=:KWrite:elat=KWritesta:gen=KWriten::
 =:Kaffeine:elat=Kaffeinesta:gen=Kaffeinen::
 =/Kajongg/elat=Kajonggista/gen=Kajonggin//
 =/Kalzium/elat=Kalziumista/gen=Kalziumin//
-=/Kalzium concentration Calculator/Kalziumin konsentraatiolaskin/gen=Kalziumin konsentraatiolaskimen//
-=/Kalzium gas Calculator/Kalziumin kaasulaskin/gen=Kalziumin kaasulaskimen//
 =/Kanagram/elat=Kanagramista/gen=Kanagramin//
+=:Kanji Browser:Kanjiselain:elat=Kanjiselaimesta:gen=Kanjiselaimen:yleisnimi=kyllä::
 =/Kapman/elat=Kapmanista/gen=Kapmanin//
 =/Karbon/elat=Karbonista/gen=Karbonin//
 =/Kate/elat=Katesta/gen=Katen//
@@ -245,15 +240,12 @@
 =:Kazakstan:elat=Kazakstanista:gen=Kazakstanin:illat=Kazakstaniin:iness=Kazakstanissa:part=Kazakstania::
 =:Kdenlive:elat=Kdenlivestä:gen=Kdenliven::
 =:Kexi:elat=Kexistä:gen=Kexin::
-=:Keyboard Indicator:Näppäimistöosoitin:elat=Näppäimistösovelmasta:gen=Näppäimistösovelman:yleisnimi=kyllä::
 =/Kig/elat=Kigistä/gen=Kigin//
 =/Kigo/elat=Kigosta/gen=Kigon//
 =/Kile/elat=Kilestä/gen=Kilen//
 =/Killbots/elat=Killbotsista/gen=Killbotsin//
 =/Kiriki/elat=Kirikistä/gen=Kirikin//
 =/Kiten/elat=Kitenistä/gen=Kitenin//
-=:Kitenin kanjiselain:kitenkanjibrowser:elat=Kitenin kanjiselaimesta:gen=Kitenin kanjiselaimen::
-=/Kitenin radikaalivalitsin/kitenradselect/elat=Kitenin radikaalivalitsimesta/gen=Kitenin radikaalivalitsimen//
 =/Kleopatra/elat=Kleopatrasta/gen=Kleopatran//
 =/Klickety/elat=Klicketystä/gen=Klicketyn//
 =/Klipper/elat=Klipperistä/gen=Klipperin//
@@ -269,7 +261,6 @@
 =/Konqueror/elat=Konquerorista/gen=Konquerorin//
 =/Konquest/elat=Konquestista/gen=Konquestin//
 =/Konsole/elat=Konsolesta/gen=Konsolen//
-=:Konsole Profiles:Konsole-profiilit:elat=Konsole-profiilisovelmasta:gen=Konsole-profiilisovelman::
 =/Kontact/elat=Kontactista/gen=Kontactin//
 =/Konversation/elat=Konversationista/gen=Konversationin//
 =/Kopete/elat=Kopetesta/gen=Kopeten/illat=Kopeteen//
@@ -278,12 +269,11 @@
 =:Krusader:elat=Krusaderista:gen=Krusaderin::
 =:KsirK:elat=KsirKistä:gen=KsirKin::
 =/Kubrick/elat=Kubrickista/gen=Kubrickin//
-=:Käyttäjävaihdin:User Switcher:gen=Käyttäjävaihtimen:yleisnimi=kyllä::
+=:Käyttäjävaihto:User Switcher:gen=Käyttäjävaihdon:yleisnimi=kyllä::
 =/LEO - Translate Between French and German/LEO – käännös ranskasta saksaan/hakumuoto=LEO:sta käännöstä ranskasta saksaan//
 =/LEO - Translate Between German and French/LEO – käännös saksasta ranskaan/hakumuoto=LEO:sta käännöstä saksasta ranskaan//
 =/LEO-Translate/LEO-käännös/hakumuoto=LEO-käännöshaulla//
 =/LSkat/elat=LSkatista/gen=LSkatin//
-=/Latest Qt Online Documentation/Uusin Qt-dokumentaatio/hakumuoto=uusimmasta Qt-dokumentaatiosta//
 =:Liitetään:Mounting:teonnimi=Liittäminen::
 =/Lokalize/elat=Lokalizesta/gen=Lokalizen//
 =/Lompakonhallinta/Wallet Manager/elat=KDE:n lompakonhallinnasta/gen=KDE:n lompakonhallinnan//
@@ -302,9 +292,10 @@
 =/Merriam-Webster Thesaurus/Merriam–Webster-synonyymit/hakumuoto=Merriam–Webster-synonyymihaulla//
 =:Messageviewer Header Theme Editor:Viestikatselimen otsaketeemamuokkain:elat=Viestikatselimen otsaketeemamuokkaimesta:gen=Viestikatselimen otsaketeemamuokkaimen::
 =/MetaCrawler/hakumuoto=MetaCrawlerilla//
+=/Microsoft C++ -ohjeistus/Microsoft C++ Documentation/hakumuoto=Microsoft C++ -ohjeistuksesta//
 =/Microsoft Developer Network -haku/Microsoft Developer Network Search/hakumuoto=Microsoft Developer Network -haulla//
+=/Minuet/adess=Minuetilla/elat=Minuetista/gen=Minuetin/illat=Minuetiin/part=Minuetia//
 =/Mod3/gen=Mod3:n//
-=/Molar mass calculator/Moolimassalaskin/gen=Moolimassalaskimen//
 =:Mongolia:elat=Mongoliasta:gen=Mongolian:illat=Mongoliaan:iness=Mongoliassa:part=Mongoliaa::
 =:Moving:Siirretään:teonnimi=Siirto::
 =/Multitran - Translate Between Dutch and Russian/Multitran – käännä hollannista venäjään/hakumuoto=Multitranista käännöstä hollannista venäjään//
@@ -313,8 +304,8 @@
 =/Multitran - Translate Between German and Russian/Multitran – käännä saksasta venäjään/hakumuoto=Multitranista käännöstä saksasta venäjään//
 =/Multitran - Translate Between Italian and Russian/Multitran – käännä italiasta venäjään/hakumuoto=Multitranista käännöstä italiasta venäjään//
 =/Multitran - Translate Between Spanish and Russian/Multitran – käännä espanjasta venäjään/hakumuoto=Multitranista käännöstä espanjasta venäjään//
-=/Muon Package Manager/Muon-paketinhallinta/elat=Muon-paketinhallinnasta/gen=Muon-paketinhallinnan//
 =/Netcraft/hakumuoto=Netcraftistä//
+=:Network Management:Verkonhallinta:gen=Verkonhallinnan:yleisnimi=kyllä::
 =:New South Wales:Uusi Etelä-Wales:elat=Uudesta Etelä-Walesista:gen=Uuden Etelä-Walesin:illat=Uuteen Etelä-Walesiin:iness=Uudessa Etelä-Walesissa:part=Uutta Etelä-Walesia::
 =:New Zealand:Uusi-Seelanti:elat=Uudesta-Seelannista:gen=Uuden-Seelannin:illat=Uuteen-Seelantiin:iness=Uudessa-Seelannissa:part=Uutta-Seelantia::
 =:Niger:elat=Nigeristä:gen=Nigerin:illat=Nigeriin:iness=Nigerissä:part=Nigeriä::
@@ -337,12 +328,12 @@
 =:Pikakäynnistin:Quicklaunch:gen=Pikakäynnistimen:yleisnimi=kyllä::
 =:Plan:elat=Planista:gen=Planin::
 =:Plan WorkPackage Handler:Plan-työpakettien käsittelijä:elat=Plan-työpakettien käsittelijästä:gen=Plan-työpakettien käsittelijän::
-=/Plasma-taustakuvakatselin/Viewer for Plasma wallpapers/elat=Plasma-taustakuvakatselimesta/gen=Plasma-taustakuvakatselimen//
 =:Preussi:Prussia:elat=Preussista:gen=Preussin:illat=Preussiin:iness=Preussissa:part=Preussia::
 =/Puhelinluettelohaku/Telephonebook Search Provider/hakumuoto=puhelinluettelohaulla//
 =/Python Reference Manual/hakumuoto=Python Reference Manualista//
 =/QRZ.com Callsign Database/QRZ.com-kutsumerkkitietokanta/hakumuoto=QRZ.com-kutsumerkkitietokannasta//
-=/Qt4 Documentation/Qt4-dokumentaatio/hakumuoto=Qt4-dokumentaatiosta//
+=/Qt5 Online Documentation/Qt5-verkko-ohjeistus/hakumuoto=Qt5-verkko-ohjeistuksesta//
+=/Qt6 Online Documentation/Qt6-verkko-ohjeistus/hakumuoto=Qt6-verkko-ohjeistuksesta//
 =:Quebec:elat=Quebecistä:gen=Quebecin:illat=Quebeciin:iness=Quebecissä:part=Quebeciä::
 =/Qwant/hakumuoto=Qwantilla//
 =/Qwant Images/Qwant-kuvahaku/hakumuoto=Qwant-kuvahaulla//
@@ -351,10 +342,12 @@
 =/Qwant Social/hakumuoto=Qwant Socialista//
 =/Qwant Videos/Qwant-videohaku/hakumuoto=Qwant-videohaulla//
 =/RPM-Find/RPM-haku/hakumuoto=RPM-haulla//
+=:Radical Selector:Radikaalivalitsin:elat=Radikaalivalitsimesta:gen=Radikaalivalitsimen:yleisnimi=kyllä::
 =/Rocs/elat=Rocsista/gen=Rocsin//
 =:Roskakori:Trashcan:elat=Roskakorista:gen=Roskakorin:yleisnimi=kyllä::
 =/Ruby Application Archive/Ruby-sovellusarkisto/hakumuoto=Ruby-sovellusarkistosta//
 =:Russia:Venäjä:elat=Venäjältä:gen=Venäjän:illat=Venäjälle:iness=Venäjällä:part=Venäjää::
+=/Rust STD -ohjeistus/Rust STD Documentation/hakumuoto=Rust STD -ohjeistuksesta//
 =:Scandinavia:Skandinavia:elat=Skandinaviasta:gen=Skandinavian:illat=Skandinaviaan:iness=Skandinaviassa:part=Skandinaviaa::
 =/Shisen-Sho/elat=Shisen-Shosta/gen=Shisen-Shon//
 =:Siberia:Siperia:elat=Siperasta:gen=Siperian:illat=Siperiaan:iness=Siperiassa:part=Siperiaa::
@@ -370,17 +363,17 @@
 =/Technorati Tags/Technorati-tunnisteet/hakumuoto=Technorati-tunnistehaulla//
 =/Teletekst Search Provider/Teletekst-palveluntarjoaja/hakumuoto=Teletekst-palveluntarjoajalta//
 =/U.S. Patent Database/Yhdysvaltojen patenttitietokanta/hakumuoto=Yhdysvaltojen patenttitietokannasta//
+=/Ubuntu Package Search/Ubuntun pakettihaku/hakumuoto=Ubuntun pakettihaulla//
 =/Umbrello UML Modeller/Umbrello UML-mallinnus/elat=Umbrello UML-mallinnuksesta/gen=Umbrello UML-mallinnuksen//
-=:Unit Converter:Yksikkömuunnin:elat=Yksikkömuuntimesta:gen=Yksikkömuuntimen:yleisnimi=kyllä::
 =:United States:Yhdysvallat:elat=Yhdysvalloista:gen=Yhdysvaltojen:illat=Yhdysvaltoihin:iness=Yhdysvalloissa:part=Yhdysvaltoja::
 =/Urban Dictionary/hakumuoto=Urban Dictionarysta//
-=:Verkkoselain:Web browser:gen=Verkkoselaimen::
 =:Vietnam:elat=Vietnamista:gen=Vietnamin:illat=Vietnamiin:iness=Vietnamissa:part=Vietnamia::
 =/Vimeo/hakumuoto=Vimeosta//
 =/Voila/hakumuoto=Voilalla//
 =/Wikia/hakumuoto=Wikiasta//
 =/Wikipedia - The Free Encyclopedia/Wikipedia, vapaa tietosanakirja/hakumuoto=Wikipediasta//
 =/Wikisanakirja, vapaa sanakirja/Wiktionary - The Free Dictionary/hakumuoto=Wikisanakirjasta//
+=/WineHQ Database/WineHQ-tietokanta/hakumuoto=WineHQ-tietokannasta//
 =/Wolfram Alpha/hakumuoto=Wolfram Alphasta//
 =/WordReference.com English Dictionary/WordReference.comin englannin kielen sanasto/hakumuoto=WordReference.comin englannin kielen sanastosta//
 =/WordReference.com Translation: English to French/WordReference.com-käännös englannista ranskaksi/hakumuoto=WordReference.com-käännöstä englannista ranskaksi//
