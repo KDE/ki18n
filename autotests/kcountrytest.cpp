@@ -13,7 +13,7 @@
 
 void initEnvironment()
 {
-    qputenv("LANG", "fr_CH");
+    qputenv("LANG", "fr_CH.UTF-8");
     QStandardPaths::setTestModeEnabled(true);
 }
 
