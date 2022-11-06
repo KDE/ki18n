@@ -28,6 +28,16 @@
 #include <QSet>
 #include <QString>
 
+void initEnvironment()
+{
+    // We need the default locale to be English otherwise the brokenTags test fails
+    // since the "Opening and ending tag mismatch" text comes from Qt
+    qputenv("LANG", "en_US.utf8");
+    QStandardPaths::setTestModeEnabled(true);
+}
+
+Q_CONSTRUCTOR_FUNCTION(initEnvironment)
+
 void KLocalizedStringTest::initTestCase()
 {
     KLocalizedString::setApplicationDomain("ki18n-test");
