@@ -43,6 +43,7 @@ using QAndroidJniObject = QJniObject;
 #endif
 
 #include <cerrno>
+#include <cstdio>
 #include <cstring>
 #include <locale.h>
 #include <stdlib.h>
