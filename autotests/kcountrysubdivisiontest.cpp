@@ -90,7 +90,7 @@ private Q_SLOTS:
         QVERIFY(s.isValid());
         const auto l = s.subdivisions();
         QVERIFY(l.size() > 10);
-        for (auto sub : l) {
+        for (const auto &sub : l) {
             QVERIFY(sub.isValid());
             QCOMPARE(sub.parent(), s);
             QCOMPARE(sub.country().alpha2(), QLatin1String("CZ"));
@@ -106,7 +106,7 @@ private Q_SLOTS:
         QVERIFY(c.isValid());
         auto l = c.subdivisions();
         QVERIFY(l.size() > 10);
-        for (auto s : l) {
+        for (const auto &s : l) {
             QVERIFY(s.isValid());
             QVERIFY(!s.parent().isValid());
             QCOMPARE(s.country(), c);
@@ -116,7 +116,7 @@ private Q_SLOTS:
         QVERIFY(c.isValid());
         l = c.subdivisions();
         QCOMPARE(l.size(), 16);
-        for (auto s : l) {
+        for (const auto &s : l) {
             QVERIFY(s.isValid());
             QVERIFY(!s.parent().isValid());
             QCOMPARE(s.subdivisions().size(), 0);

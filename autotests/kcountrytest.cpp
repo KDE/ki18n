@@ -101,7 +101,7 @@ private Q_SLOTS:
     {
         const auto l = KCountry::allCountries();
         QVERIFY(l.size() > 200);
-        for (auto c : l) {
+        for (const auto &c : l) {
             QVERIFY(c.isValid());
             QVERIFY(!c.alpha2().isEmpty());
             QVERIFY(!c.alpha3().isEmpty());
