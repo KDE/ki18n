@@ -74,7 +74,8 @@ void KLocalizedStringTest::initTestCase()
         m_hasCatalan = compileCatalogs({QFINDTESTDATA("po/ca/ki18n-test.po")}, dataDir, "ca");
     }
     if (m_hasFrench) {
-        qputenv("XDG_DATA_DIRS", qgetenv("XDG_DATA_DIRS") + ":" + QFile::encodeName(dataDir.path()));
+        const QByteArray dataDirs = qgetenv("XDG_DATA_DIRS") + ":" + QFile::encodeName(dataDir.path());
+        qputenv("XDG_DATA_DIRS", dataDirs);
         // bind... dataDir.path()
         QStringList languages;
         languages.append("fr");
