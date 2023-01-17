@@ -56,11 +56,12 @@ public:
     }
     const char *subdivisionStringTableLookup(uint16_t offset) const;
 
+    static void createIso3166_1Cache(const QString &isoCodesPath, const QString &cacheFilePath);
+    static void createIso3166_2Cache(const QString &isoCodesPath, const QString &cacheFilePath);
+
 private:
     bool loadIso3166_1Cache();
     bool loadIso3166_2Cache();
-    void createIso3166_1Cache();
-    void createIso3166_2Cache();
 
     std::unique_ptr<QFile> m_iso3166_1CacheFile;
     const uint8_t *m_iso3166_1CacheData = nullptr;

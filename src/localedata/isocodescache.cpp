@@ -68,7 +68,8 @@ IsoCodesCache *IsoCodesCache::instance()
 void IsoCodesCache::loadIso3166_1()
 {
     if (!m_iso3166_1CacheData && !loadIso3166_1Cache()) {
-        createIso3166_1Cache();
+        QDir().mkpath(cachePath());
+        createIso3166_1Cache(isoCodesPath(u"iso_3166-1.json"), cacheFilePath(u"iso_3166-1"));
         loadIso3166_1Cache();
     }
 }
@@ -127,14 +128,13 @@ const char *IsoCodesCache::countryStringTableLookup(uint16_t offset) const
     return nullptr;
 }
 
-void IsoCodesCache::createIso3166_1Cache()
+void IsoCodesCache::createIso3166_1Cache(const QString &isoCodesPath, const QString &cacheFilePath)
 {
     qCDebug(KI18NLD) << "Rebuilding ISO 3166-1 cache";
-    const auto path = isoCodesPath(u"iso_3166-1.json");
 
-    QFile file(path);
+    QFile file(isoCodesPath);
     if (!file.open(QFile::ReadOnly)) {
-        qCWarning(KI18NLD) << "Unable to open iso_3166-1.json" << path << file.errorString();
+        qCWarning(KI18NLD) << "Unable to open iso_3166-1.json" << isoCodesPath << file.errorString();
         return;
     }
 
@@ -165,8 +165,7 @@ void IsoCodesCache::createIso3166_1Cache()
     std::sort(alpha3alpha2Map.begin(), alpha3alpha2Map.end());
 
     // write out binary cache file
-    QDir().mkpath(cachePath());
-    QFile cache(cacheFilePath(u"iso_3166-1"));
+    QFile cache(cacheFilePath);
     if (!cache.open(QFile::WriteOnly)) {
         qCWarning(KI18NLD) << "Failed to write ISO 3166-1 cache:" << cache.errorString() << cache.fileName();
         return;
@@ -188,7 +187,8 @@ void IsoCodesCache::createIso3166_1Cache()
 void IsoCodesCache::loadIso3166_2()
 {
     if (!m_iso3166_2CacheData && !loadIso3166_2Cache()) {
-        createIso3166_2Cache();
+        QDir().mkpath(cachePath());
+        createIso3166_2Cache(isoCodesPath(u"iso_3166-2.json"), cacheFilePath(u"iso_3166-2"));
         loadIso3166_2Cache();
     }
 }
@@ -263,14 +263,12 @@ const char *IsoCodesCache::subdivisionStringTableLookup(uint16_t offset) const
     return nullptr;
 }
 
-void IsoCodesCache::createIso3166_2Cache()
+void IsoCodesCache::createIso3166_2Cache(const QString &isoCodesPath, const QString &cacheFilePath)
 {
     qCDebug(KI18NLD) << "Rebuilding ISO 3166-2 cache";
-    const auto path = isoCodesPath(u"iso_3166-2.json");
-
-    QFile file(path);
+    QFile file(isoCodesPath);
     if (!file.open(QFile::ReadOnly)) {
-        qCWarning(KI18NLD) << "Unable to open iso_3166-2.json" << path << file.errorString();
+        qCWarning(KI18NLD) << "Unable to open iso_3166-2.json" << isoCodesPath << file.errorString();
         return;
     }
 
@@ -299,8 +297,7 @@ void IsoCodesCache::createIso3166_2Cache()
     std::sort(subdivParentMap.begin(), subdivParentMap.end());
 
     // write out binary cache file
-    QDir().mkpath(cachePath());
-    QFile cache(cacheFilePath(u"iso_3166-2"));
+    QFile cache(cacheFilePath);
     if (!cache.open(QFile::WriteOnly)) {
         qCWarning(KI18NLD) << "Failed to write ISO 3166-2 cache:" << cache.errorString() << cache.fileName();
         return;

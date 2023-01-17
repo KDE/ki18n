@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config-localedata.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config-localedata.h")
+add_subdirectory(cachegen)
 
 add_library(KF6I18nLocaleData)
 add_library(KF6::I18nLocaleData ALIAS KF6I18nLocaleData)
