@@ -9,7 +9,7 @@ target_sources(ki18nlocaledataqmlplugin PRIVATE
 )
 target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
     Qt${QT_MAJOR_VERSION}::Qml
-    KF5::I18nLocaleData
+    KF6::I18nLocaleData
 )
 
 ecm_finalize_qml_module(ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR})

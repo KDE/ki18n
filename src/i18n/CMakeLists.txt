@@ -1,9 +1,9 @@
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h")
 
-add_library(KF5I18n)
-add_library(KF5::I18n ALIAS KF5I18n)
+add_library(KF6I18n)
+add_library(KF6::I18n ALIAS KF6I18n)
 
-target_sources(KF5I18n PRIVATE
+target_sources(KF6I18n PRIVATE
     klocalizedstring.cpp
     klocalizedtranslator.cpp
     kcatalog.cpp
@@ -13,7 +13,7 @@ target_sources(KF5I18n PRIVATE
     main.cpp
 )
 
-ecm_qt_declare_logging_category(KF5I18n
+ecm_qt_declare_logging_category(KF6I18n
     HEADER ki18n_logging.h
     IDENTIFIER KI18N
     CATEGORY_NAME kf.i18n
@@ -22,7 +22,7 @@ ecm_qt_declare_logging_category(KF5I18n
     EXPORT KI18N
 )
 
-ecm_qt_declare_logging_category(KF5I18n
+ecm_qt_declare_logging_category(KF6I18n
     HEADER ki18n_logging_kuit.h
     IDENTIFIER KI18N_KUIT
     CATEGORY_NAME kf.i18n.kuit
@@ -31,7 +31,7 @@ ecm_qt_declare_logging_category(KF5I18n
     EXPORT KI18N
 )
 
-ecm_generate_export_header(KF5I18n
+ecm_generate_export_header(KF6I18n
     BASE_NAME KI18n
     GROUP_BASE_NAME KF
     VERSION ${KF_VERSION}
@@ -40,26 +40,26 @@ ecm_generate_export_header(KF5I18n
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
 
-target_include_directories(KF5I18n INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>")
-target_include_directories(KF5I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
+target_include_directories(KF6I18n INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>")
+target_include_directories(KF6I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
 
-target_link_libraries(KF5I18n PUBLIC Qt${QT_MAJOR_VERSION}::Core)
+target_link_libraries(KF6I18n PUBLIC Qt${QT_MAJOR_VERSION}::Core)
 # This is only required for platforms which don't use glibc (with glibc LibIntl_LIBRARIES will be empty)
-target_link_libraries(KF5I18n PRIVATE ${LibIntl_LIBRARIES})
+target_link_libraries(KF6I18n PRIVATE ${LibIntl_LIBRARIES})
 if (ANDROID)
     if (QT_MAJOR_VERSION EQUAL "5")
-        target_link_libraries(KF5I18n PRIVATE Qt5::AndroidExtras)
+        target_link_libraries(KF6I18n PRIVATE Qt5::AndroidExtras)
     endif()
-    target_link_libraries(KF5I18n PRIVATE android)
+    target_link_libraries(KF6I18n PRIVATE android)
 endif()
-target_compile_options(KF5I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
+target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
 
-set_target_properties(KF5I18n PROPERTIES VERSION   ${KI18N_VERSION}
+set_target_properties(KF6I18n PROPERTIES VERSION   ${KI18N_VERSION}
                                          SOVERSION ${KI18N_SOVERSION}
                                          EXPORT_NAME I18n
 )
 
-install(TARGETS KF5I18n EXPORT KF5I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF6I18n EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_generate_headers(KI18n_HEADERS
   HEADER_NAMES
@@ -97,9 +97,9 @@ endif()
 
 if (BUILD_QCH)
     ecm_add_qch(
-        KF5I18n_QCH
+        KF6I18n_QCH
         NAME KI18n
-        BASE_NAME KF5I18n
+        BASE_NAME KF6I18n
         VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
@@ -123,5 +123,5 @@ if (BUILD_QCH)
 endif()
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME KI18n LIB_NAME KF5I18n DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KI18n)
+ecm_generate_pri_file(BASE_NAME KI18n LIB_NAME KF6I18n DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KI18n)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})

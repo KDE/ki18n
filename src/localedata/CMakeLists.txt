@@ -3,10 +3,10 @@
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config-localedata.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config-localedata.h")
 
-add_library(KF5I18nLocaleData)
-add_library(KF5::I18nLocaleData ALIAS KF5I18nLocaleData)
+add_library(KF6I18nLocaleData)
+add_library(KF6::I18nLocaleData ALIAS KF6I18nLocaleData)
 
-target_sources(KF5I18nLocaleData PRIVATE
+target_sources(KF6I18nLocaleData PRIVATE
     isocodes.cpp
     isocodescache.cpp
     kcountry.cpp
@@ -18,7 +18,7 @@ target_sources(KF5I18nLocaleData PRIVATE
     timezonedata.cpp
 )
 
-ecm_generate_export_header(KF5I18nLocaleData
+ecm_generate_export_header(KF6I18nLocaleData
     BASE_NAME KI18nLocaleData
     GROUP_BASE_NAME KF
     VERSION ${KF_VERSION}
@@ -26,7 +26,7 @@ ecm_generate_export_header(KF5I18nLocaleData
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
 
-ecm_qt_declare_logging_category(KF5I18nLocaleData
+ecm_qt_declare_logging_category(KF6I18nLocaleData
     HEADER logging.h
     IDENTIFIER KI18NLD
     CATEGORY_NAME kf.i18n.localeData
@@ -34,22 +34,22 @@ ecm_qt_declare_logging_category(KF5I18nLocaleData
     EXPORT KI18N
 )
 
-target_include_directories(KF5I18nLocaleData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>")
+target_include_directories(KF6I18nLocaleData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>")
 
-target_link_libraries(KF5I18nLocaleData PUBLIC Qt${QT_MAJOR_VERSION}::Core)
-target_link_libraries(KF5I18nLocaleData PRIVATE KF5I18n)
+target_link_libraries(KF6I18nLocaleData PUBLIC Qt${QT_MAJOR_VERSION}::Core)
+target_link_libraries(KF6I18nLocaleData PRIVATE KF6I18n)
 if (TARGET Qt5::CorePrivate)
-    target_link_libraries(KF5I18nLocaleData PRIVATE Qt5::CorePrivate) # private API no longer needed with Qt6
+    target_link_libraries(KF6I18nLocaleData PRIVATE Qt5::CorePrivate) # private API no longer needed with Qt6
 endif()
-target_compile_options(KF5I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
+target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
 
-set_target_properties(KF5I18nLocaleData PROPERTIES
+set_target_properties(KF6I18nLocaleData PROPERTIES
     VERSION ${KI18N_VERSION}
     SOVERSION ${KI18N_SOVERSION}
     EXPORT_NAME I18nLocaleData
 )
 
-install(TARGETS KF5I18nLocaleData EXPORT KF5I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF6I18nLocaleData EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_generate_headers(KI18nLocaleData_HEADERS
   HEADER_NAMES
