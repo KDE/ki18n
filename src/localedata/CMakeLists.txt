@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2021 Volker Krause <vkrause@kde.org>
 # SPDX-License-Identifier: BSD-3-Clause
 
+option(KI18N_EMBEDDED_ISO_CODES_CACHE "Use compiled-in iso-codes data." OFF)
+
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config-localedata.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config-localedata.h")
 add_subdirectory(cachegen)
 
@@ -34,6 +36,23 @@ ecm_qt_declare_logging_category(KF6I18nLocaleData
     DESCRIPTION "KI18n Locale Data"
     EXPORT KI18N
 )
+
+if (KI18N_EMBEDDED_ISO_CODES_CACHE)
+    add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/iso_3166-1
+        COMMAND ki18n-iso-codes-cachegen --input ${IsoCodes_PREFIX}/share/iso-codes/json/iso_3166-1.json --output ${CMAKE_CURRENT_BINARY_DIR}/iso_3166-1 --code 3166-1
+        DEPENDS ${IsoCodes_PREFIX}/share/iso-codes/json/iso_3166-1.json
+        COMMENT "Generating ISO 3166-1 cache"
+    )
+    add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/iso_3166-2
+        COMMAND ki18n-iso-codes-cachegen --input ${IsoCodes_PREFIX}/share/iso-codes/json/iso_3166-2.json --output ${CMAKE_CURRENT_BINARY_DIR}/iso_3166-2 --code 3166-2
+        DEPENDS ${IsoCodes_PREFIX}/share/iso-codes/json/iso_3166-2.json
+        COMMENT "Generating ISO 3166-2 cache"
+    )
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/isocodescache.qrc ${CMAKE_CURRENT_BINARY_DIR}/isocodescache.qrc)
+    target_sources(KF5I18nLocaleData PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/isocodescache.qrc)
+endif()
 
 target_include_directories(KF6I18nLocaleData
     INTERFACE
