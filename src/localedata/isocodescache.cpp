@@ -74,11 +74,27 @@ void IsoCodesCache::loadIso3166_1()
     }
 }
 
+static std::unique_ptr<QFile> openCacheFile(QStringView cacheFileName, QStringView isoCodesFileName)
+{
+    QFileInfo jsonFi(isoCodesPath(isoCodesFileName));
+    if (!jsonFi.exists()) { // no source file means we can only use an embedded cache
+        auto f = std::make_unique<QFile>(QLatin1String(":/org.kde.ki18n/iso-codes/cache/") + cacheFileName);
+        if (!f->open(QFile::ReadOnly) || f->size() < 8) {
+            return {};
+        }
+        return f;
+    }
+    auto f = std::make_unique<QFile>(cacheFilePath(cacheFileName));
+    if (!f->open(QFile::ReadOnly) || f->fileTime(QFile::FileModificationTime) < jsonFi.lastModified() || f->size() < 8) {
+        return {};
+    }
+    return f;
+}
+
 bool IsoCodesCache::loadIso3166_1Cache()
 {
-    QFileInfo jsonFi(isoCodesPath(u"iso_3166-1.json"));
-    auto f = std::make_unique<QFile>(cacheFilePath(u"iso_3166-1"));
-    if (!f->open(QFile::ReadOnly) || f->fileTime(QFile::FileModificationTime) < jsonFi.lastModified() || f->size() < 8) {
+    auto f = openCacheFile(u"iso_3166-1", u"iso_3166-1.json");
+    if (!f) {
         return false;
     }
     m_iso3166_1CacheSize = f->size();
@@ -195,9 +211,8 @@ void IsoCodesCache::loadIso3166_2()
 
 bool IsoCodesCache::loadIso3166_2Cache()
 {
-    QFileInfo jsonFi(isoCodesPath(u"iso_3166-2.json"));
-    auto f = std::make_unique<QFile>(cacheFilePath(u"iso_3166-2"));
-    if (!f->open(QFile::ReadOnly) || f->fileTime(QFile::FileModificationTime) < jsonFi.lastModified() || f->size() < 8) {
+    auto f = openCacheFile(u"iso_3166-2", u"iso_3166-2.json");
+    if (!f) {
         return false;
     }
     m_iso3166_2CacheSize = f->size();
