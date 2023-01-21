@@ -29,58 +29,6 @@ class KLazyLocalizedString;
  * \file klocalizedstring.h
  */
 
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 89)
-#ifndef I18N_NOOP
-/**
- * Wrap string for extraction.
- *
- * See \ref i18n_noop for use cases.
- *
- * \deprecated since 5.89, use @c kli18n() instead.
- */
-#define I18N_NOOP(text) text
-#endif
-#endif
-
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 89)
-#ifndef I18NC_NOOP
-/**
- * Wrap string with context for extraction.
- *
- * See \ref i18n_noop for use cases.
- *
- * \deprecated since 5.89, use @c kli18nc() instead.
- */
-#define I18NC_NOOP(context, text) context, text
-#endif
-#endif
-
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 89)
-#ifndef I18N_NOOP2
-/**
- * Wrap string with context for extraction, discarding context.
- * WARNING: this means you'll need to pass the exact same context when calling i18nc() later on.
- * Do not make typos...
- * The preferred solution is to use I18NC_NOOP and store both @p context and @p text.
- * I18NC_NOOP2 exists for cases where storing the context is not possible.
- *
- * \deprecated between 5.0 and 5.64, re-enabled in 5.65, re-deprecated in 5.89, use @p kli18nc() instead.
- */
-#define I18N_NOOP2(context, text) text
-#endif
-#endif
-
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-#ifndef I18N_NOOP2_NOSTRIP
-/**
- * Wrap string with context for extraction.
- *
- * \deprecated Since 5.0, use \c I18NC_NOOP.
- */
-#define I18N_NOOP2_NOSTRIP(context, text) context, text
-#endif
-#endif // KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-
 /**
  * @class KLocalizedString klocalizedstring.h <KLocalizedString>
  *
@@ -611,62 +559,6 @@ public:
      * \return label without the accelerator marker
      */
     Q_REQUIRED_RESULT static QString removeAcceleratorMarker(const QString &label);
-
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-    /**
-     * Translate a message with Qt semantics.
-     *
-     * This functions provides a capability to derive a Qt translator from
-     * \c QTranslator and draw translations from PO catalogs of given domain.
-     * All domains added with \c insertQtDomain are checked for translation,
-     * in undefined order.
-     * No Ki18n-specific processing is performed (formatting, scripting, etc).
-     *
-     * \see QTranslator
-     *
-     * \deprecated Use Qt's native i18n system, Qt Linguist,
-     *             with roundtrip TS->PO->TS through
-     *             Qt's \c lupdate and \c lconvert commands.
-     */
-    KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
-    Q_REQUIRED_RESULT static QString translateQt(const char *context, const char *text, const char *comment, int n);
-#endif
-
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-    /**
-     * Add another domain to search for Qt translations.
-     *
-     * \param domain the translation domain to add
-     *
-     * \see translateQt
-     * \see removeQtDomain
-     *
-     * \deprecated Since 5.0
-     */
-    KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
-    static void insertQtDomain(const char *domain);
-#endif
-
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-    /**
-     * Remove a domain from Qt translation lookup.
-     *
-     * To really remove the domain, this function must be invoked
-     * at least as many times as \c insertQtDomain was invoked to add
-     * this domain. This makes it safe to always use paired
-     * insertion/removal calls, without pulling out a domain
-     * underneath an unrelated piece of code that uses it as well.
-     *
-     * \param domain the translation domain to remove
-     *
-     * \see translateQt
-     * \see insertQtDomain
-     *
-     * \deprecated Since 5.0
-     */
-    KI18N_DEPRECATED_VERSION(5, 0, "See API docs")
-    static void removeQtDomain(const char *domain);
-#endif
 
 private:
     KLocalizedString(const char *domain, const char *context, const char *text, const char *plural, bool markupAware);
