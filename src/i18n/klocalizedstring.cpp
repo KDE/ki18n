@@ -979,11 +979,7 @@ QVariant KLocalizedStringPrivate::segmentToValue(const QString &segment) const
     // Reference number must start with 1-9.
     // (If numstr is empty, toInt() will return 0.)
     QString numstr = segment.mid(1);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     int numstrAsInt = QStringView(numstr).left(1).toInt();
-#else
-    int numstrAsInt = numstr.leftRef(1).toInt();
-#endif
     if (numstrAsInt < 1) {
         return QVariant();
     }

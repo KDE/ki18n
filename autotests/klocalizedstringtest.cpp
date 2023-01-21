@@ -531,21 +531,10 @@ void KLocalizedStringTest::testThreads()
 {
     QThreadPool::globalInstance()->setMaxThreadCount(10);
     QFutureSynchronizer<void> sync;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     sync.addFuture(QtConcurrent::run(&KLocalizedStringTest::correctSubs, this));
     sync.addFuture(QtConcurrent::run(&KLocalizedStringTest::correctSubs, this));
     sync.addFuture(QtConcurrent::run(&KLocalizedStringTest::correctSubs, this));
     sync.addFuture(QtConcurrent::run(&KLocalizedStringTest::translateToFrench, this));
-#else
-    sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::correctSubs));
-    sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::correctSubs));
-    sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::correctSubs));
-    sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateToFrench));
-#endif
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-    sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateQt));
-    sync.addFuture(QtConcurrent::run(this, &KLocalizedStringTest::translateQt));
-#endif
     sync.waitForFinished();
     QThreadPool::globalInstance()->setMaxThreadCount(1); // delete those threads
 }

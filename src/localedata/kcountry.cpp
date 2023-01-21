@@ -13,10 +13,6 @@
 #include "spatial_index_p.h"
 #include "timezonedata_p.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
-#include <private/qlocale_p.h>
-#endif
-
 #include <cstring>
 
 static_assert(sizeof(KCountry) == 2);
@@ -113,11 +109,7 @@ QLocale::Country KCountry::country() const
         return QLocale::AnyCountry;
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
     return QLocale::codeToTerritory(alpha2());
-#else
-    return QLocalePrivate::codeToCountry(alpha2());
-#endif
 }
 
 QList<const char *> KCountry::timeZoneIds() const
@@ -277,11 +269,7 @@ KCountry KCountry::fromLocation(float latitude, float longitude)
 
 KCountry KCountry::fromQLocale(QLocale::Country country)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
     return fromAlpha2(QLocale::territoryToCode(country).data());
-#else
-    return fromAlpha2(QLocalePrivate::countryToCode(country).data());
-#endif
 }
 
 static QString normalizeCountryName(QStringView name)

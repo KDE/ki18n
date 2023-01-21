@@ -1523,12 +1523,8 @@ QString KuitFormatterPrivate::finalizeVisualText(const QString &text_, Kuit::Vis
             const QString ent = match.captured(2);
             if (ent.startsWith(QL1C('#'))) { // numeric character entity
                 bool ok;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
                 QStringView entView(ent);
                 const QChar c = ent.at(1) == QL1C('x') ? QChar(entView.mid(2).toInt(&ok, 16)) : QChar(entView.mid(1).toInt(&ok, 10));
-#else
-                const QChar c = ent.at(1) == QL1C('x') ? QChar(ent.midRef(2).toInt(&ok, 16)) : QChar(ent.midRef(1).toInt(&ok, 10));
-#endif
                 if (ok) {
                     plain.append(c);
                 } else { // unknown Unicode point, leave as is

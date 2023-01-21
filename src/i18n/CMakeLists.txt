@@ -43,13 +43,10 @@ ecm_generate_export_header(KF6I18n
 target_include_directories(KF6I18n INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>")
 target_include_directories(KF6I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
 
-target_link_libraries(KF6I18n PUBLIC Qt${QT_MAJOR_VERSION}::Core)
+target_link_libraries(KF6I18n PUBLIC Qt6::Core)
 # This is only required for platforms which don't use glibc (with glibc LibIntl_LIBRARIES will be empty)
 target_link_libraries(KF6I18n PRIVATE ${LibIntl_LIBRARIES})
 if (ANDROID)
-    if (QT_MAJOR_VERSION EQUAL "5")
-        target_link_libraries(KF6I18n PRIVATE Qt5::AndroidExtras)
-    endif()
     target_link_libraries(KF6I18n PRIVATE android)
 endif()
 target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
@@ -89,9 +86,9 @@ target_sources(ktranscript PRIVATE
     common_helpers.cpp
 )
 generate_export_header(ktranscript BASE_NAME KTranscript)
-target_link_libraries(ktranscript PRIVATE Qt${QT_MAJOR_VERSION}::Qml Qt${QT_MAJOR_VERSION}::Core)
+target_link_libraries(ktranscript PRIVATE Qt6::Qml Qt6::Core)
 
-install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION})
+install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6)
 
 endif()
 

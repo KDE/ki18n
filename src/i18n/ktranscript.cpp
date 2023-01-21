@@ -345,9 +345,6 @@ TsConfig readConfig(const QString &fname)
         return config;
     }
     QTextStream stream(&file);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    stream.setCodec("UTF-8");
-#endif
     while (!stream.atEnd()) {
         QString line = stream.readLine();
         int p1;
@@ -1191,9 +1188,6 @@ QJSValue Scriptface::load(const QJSValueList &fnames)
         }
 
         QTextStream stream(&file);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        stream.setCodec("UTF-8");
-#endif
         QString source = stream.readAll();
         file.close();
 
@@ -1224,9 +1218,6 @@ QString Scriptface::loadProps_text(const QString &fpath)
         return SPREF("loadProps_text: cannot read file '%1'").arg(fpath);
     }
     QTextStream stream(&file);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    stream.setCodec("UTF-8");
-#endif
     QString s = stream.readAll();
     file.close();
 

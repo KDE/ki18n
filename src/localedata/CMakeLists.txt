@@ -36,11 +36,8 @@ ecm_qt_declare_logging_category(KF6I18nLocaleData
 
 target_include_directories(KF6I18nLocaleData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>")
 
-target_link_libraries(KF6I18nLocaleData PUBLIC Qt${QT_MAJOR_VERSION}::Core)
+target_link_libraries(KF6I18nLocaleData PUBLIC Qt6::Core)
 target_link_libraries(KF6I18nLocaleData PRIVATE KF6I18n)
-if (TARGET Qt5::CorePrivate)
-    target_link_libraries(KF6I18nLocaleData PRIVATE Qt5::CorePrivate) # private API no longer needed with Qt6
-endif()
 target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
 
 set_target_properties(KF6I18nLocaleData PROPERTIES

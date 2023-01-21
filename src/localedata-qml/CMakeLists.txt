@@ -8,7 +8,7 @@ target_sources(ki18nlocaledataqmlplugin PRIVATE
     ki18nlocaledataqmlplugin.cpp
 )
 target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
-    Qt${QT_MAJOR_VERSION}::Qml
+    Qt6::Qml
     KF6::I18nLocaleData
 )
 

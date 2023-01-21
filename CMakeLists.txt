@@ -36,16 +36,13 @@ ecm_setup_version(
 # Dependencies
 set(REQUIRED_QT_VERSION 6.4.0)
 
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
 
 option(BUILD_WITH_QML "Build with support for scripted translations (recommended)" ON)
 if (BUILD_WITH_QML)
-   find_package(Qt${QT_MAJOR_VERSION}Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
-endif()
-if (ANDROID AND QT_MAJOR_VERSION EQUAL "5")
-   find_package(Qt5AndroidExtras ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+   find_package(Qt6Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
 
 find_package(LibIntl)

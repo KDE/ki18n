@@ -23,16 +23,9 @@
 #include <QStringList>
 
 #ifdef Q_OS_ANDROID
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <QAndroidJniEnvironment>
-#include <QAndroidJniObject>
-#include <QtAndroid>
-#else
 #include <QCoreApplication>
 #include <QJniEnvironment>
 #include <QJniObject>
-using QAndroidJniObject = QJniObject;
-#endif
 
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
@@ -82,17 +75,10 @@ public:
     KCatalogStaticData()
     {
 #ifdef Q_OS_ANDROID
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        QAndroidJniEnvironment env;
-        QAndroidJniObject context = QtAndroid::androidContext();
-        m_assets = context.callObjectMethod("getAssets", "()Landroid/content/res/AssetManager;");
-        m_assetMgr = AAssetManager_fromJava(env, m_assets.object());
-#else
         QJniEnvironment env;
         QJniObject context = QNativeInterface::QAndroidApplication::context();
         m_assets = context.callObjectMethod("getAssets", "()Landroid/content/res/AssetManager;");
         m_assetMgr = AAssetManager_fromJava(env.jniEnv(), m_assets.object());
-#endif
 
 #if __ANDROID_API__ < 23
         fmemopenFunc = reinterpret_cast<decltype(fmemopenFunc)>(dlsym(RTLD_DEFAULT, "fmemopen"));
@@ -104,7 +90,7 @@ public:
     QMutex mutex;
 
 #ifdef Q_OS_ANDROID
-    QAndroidJniObject m_assets;
+    QJniObject m_assets;
     AAssetManager *m_assetMgr = nullptr;
 #if __ANDROID_API__ < 23
     FILE *(*fmemopenFunc)(void *, size_t, const char *);
