@@ -17,7 +17,7 @@
 static bool loadCatalog(const QString &catalog, const QLocale &locale)
 {
     auto translator = std::make_unique<QTranslator>(QCoreApplication::instance());
-    if (!translator->load(locale, catalog, QString(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+    if (!translator->load(locale, catalog, QString(), QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
         qCDebug(KI18N) << "Loading the" << catalog << "catalog failed for locale" << locale;
         return false;
     }

@@ -313,16 +313,16 @@ QString trimSmart(const QString &raw)
 
 QJSValue variantToJsValue(const QVariant &val)
 {
-    QVariant::Type vtype = val.type();
-    if (vtype == QVariant::String) {
+    const auto vtype = val.userType();
+    if (vtype == QMetaType::QString) {
         return QJSValue(val.toString());
-    } else if (vtype == QVariant::Bool) {
+    } else if (vtype == QMetaType::Bool) {
         return QJSValue(val.toBool());
-    } else if (vtype == QVariant::Double //
-               || vtype == QVariant::Int //
-               || vtype == QVariant::UInt //
-               || vtype == QVariant::LongLong //
-               || vtype == QVariant::ULongLong) {
+    } else if (vtype == QMetaType::Double //
+               || vtype == QMetaType::Int //
+               || vtype == QMetaType::UInt //
+               || vtype == QMetaType::LongLong //
+               || vtype == QMetaType::ULongLong) {
         return QJSValue(val.toDouble());
     } else {
         return QJSValue::UndefinedValue;

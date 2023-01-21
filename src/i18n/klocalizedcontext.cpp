@@ -44,21 +44,21 @@ void KLocalizedContext::setTranslationDomain(const QString &domain)
 
 static void subsVariant(KLocalizedString &trMessage, const QVariant &value)
 {
-    switch (value.type()) {
-    case QVariant::String:
+    switch (value.userType()) {
+    case QMetaType::QString:
         trMessage = trMessage.subs(value.toString());
         break;
-    case QVariant::Int:
+    case QMetaType::Int:
         trMessage = trMessage.subs(value.toInt());
         break;
-    case QVariant::Double:
+    case QMetaType::Double:
         trMessage = trMessage.subs(value.toDouble());
         break;
-    case QVariant::Char:
+    case QMetaType::Char:
         trMessage = trMessage.subs(value.toChar());
         break;
     default:
-        if (value.canConvert(QVariant::String)) {
+        if (value.canConvert<QString>()) {
             trMessage = trMessage.subs(value.toString());
         } else {
             trMessage = trMessage.subs(QStringLiteral("???"));
