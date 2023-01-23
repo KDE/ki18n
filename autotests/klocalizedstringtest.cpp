@@ -412,31 +412,6 @@ void KLocalizedStringTest::translateToFrench()
     QCOMPARE(i18n("Job"), QString::fromUtf8("Tâche"));
 }
 
-#if KI18N_ENABLE_DEPRECATED_SINCE(5, 0)
-void KLocalizedStringTest::translateQt()
-{
-    KLocalizedString::insertQtDomain("ki18n-test-qt");
-    QString result = KLocalizedString::translateQt("QPrintPreviewDialog", "Landscape", nullptr, 0);
-    // When we use the default language, translateQt returns an empty string.
-    QString expected = m_hasFrench ? QString("Paysage") : QString();
-    QCOMPARE(result, expected);
-#if 0 // KLocalizedString no longer does anything with QTranslator, this needed?
-    result = QCoreApplication::translate("QPrintPreviewDialog", "Landscape");
-    QString expected2 = m_hasFrench ? QString("Paysage") : QString("Landscape");
-    QCOMPARE(result, expected2);
-#endif
-
-#if 0 // translateRaw no longer public, this needed?
-    // So let's use translateRaw instead for the threaded test
-    QString lang;
-    KLocale::global()->translateRaw("Landscape", &lang, &result);
-    QCOMPARE(lang, m_hasFrench ? QString("fr") : QString("en_US"));
-    QCOMPARE(result, m_hasFrench ? QString("Paysage") : QString("Landscape"));
-#endif
-    KLocalizedString::removeQtDomain("ki18n-test-qt");
-}
-#endif
-
 void KLocalizedStringTest::testLocalizedTranslator()
 {
     if (!m_hasFrench) {
