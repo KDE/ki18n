@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries
     SPDX-FileCopyrightText: 2015 Lukáš Tinkl <ltinkl@redhat.com>
-    SPDX-FileCopyrightText: 2021 Ingo Klöcker <kloecker@kde.org>
+    SPDX-FileCopyrightText: 2021,2023 Ingo Klöcker <kloecker@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -60,6 +60,24 @@ static void loadTranslation(const QString &localeName, const QString &fallbackLo
     }
 }
 
+static QLocale getSystemLocale()
+{
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+    // On Windows and Apple OSs, we cannot use QLocale::system() if an application-specific
+    // language was set by kxmlgui because Qt ignores LANGUAGE on Windows and Apple OSs.
+    // The following code is a simplified variant of QSystemLocale::fallbackUiLocale()
+    // (in qlocale_unix.cpp) ignoring LC_ALL, LC_MESSAGES, and LANG.
+    QString language = qEnvironmentVariable("LANGUAGE");
+    if (!language.isEmpty()) {
+        language = language.split(QLatin1Char{':'}).constFirst();
+        if (!language.isEmpty()) {
+            return QLocale{language};
+        }
+    }
+#endif
+    return QLocale::system();
+}
+
 static void load()
 {
     // The way Qt translation system handles plural forms makes it necessary to
@@ -68,7 +86,7 @@ static void load()
     // translation for the current locale to overload it.
     loadCatalog(QStringLiteral("qt_"), QLocale{QStringLiteral("en")});
 
-    const QLocale locale = QLocale::system();
+    const QLocale locale = getSystemLocale();
     if (locale.name() != QStringLiteral("en")) {
         loadTranslation(locale.name(), locale.bcp47Name());
     }
