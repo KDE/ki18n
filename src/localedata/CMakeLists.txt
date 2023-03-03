@@ -34,7 +34,11 @@ ecm_qt_declare_logging_category(KF5I18nLocaleData
     EXPORT KI18N
 )
 
-target_include_directories(KF5I18nLocaleData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>")
+target_include_directories(KF5I18nLocaleData
+    INTERFACE
+        "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>"
+        "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>" # for version header
+)
 
 target_link_libraries(KF5I18nLocaleData PUBLIC Qt${QT_MAJOR_VERSION}::Core)
 target_link_libraries(KF5I18nLocaleData PRIVATE KF5I18n)
