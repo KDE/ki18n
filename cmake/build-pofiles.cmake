@@ -35,6 +35,10 @@ foreach(pofile IN LISTS pofiles)
     set(dest ${COPY_TO}/${langdir}/LC_MESSAGES)
     file(MAKE_DIRECTORY ${dest})
 
+    if (EXISTS ${dest}/${name}.mo AND ${dest}/${name}.mo IS_NEWER_THAN ${PO_DIR}/${pofile})
+        continue()
+    endif()
+
     list(APPEND commands COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${dest}/${name}.mo ${PO_DIR}/${pofile})
     math(EXPR i "${i}+1")
     if(i EQUAL ${numberOfProcesses})

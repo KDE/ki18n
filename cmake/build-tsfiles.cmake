@@ -43,6 +43,10 @@ foreach(pmap_file ${pmap_files})
     string(REPLACE "scripts" "LC_SCRIPTS" subpath ${subpath})
     set(pmapc_file "${COPY_TO}/${subpath}/${pmap_basename}c")
 
+    if (EXISTS ${pmapc_file} AND ${pmapc_file} IS_NEWER_THAN ${pmap_file})
+        continue()
+    endif()
+
     message(STATUS "building... ${pmap_file} to ${pmapc_file}" )
     list(APPEND commands
         COMMAND ${PYTHON_EXECUTABLE}
