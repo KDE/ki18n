@@ -286,7 +286,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
     : catalogs()
     , languages()
 
-    , ourDomain(QByteArrayLiteral("ki18n5"))
+    , ourDomain(QByteArrayLiteral("ki18n6"))
     , applicationDomain()
     , codeLanguage(QStringLiteral("en_US"))
     , localeLanguages()

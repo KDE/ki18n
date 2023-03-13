@@ -62,7 +62,7 @@ target_include_directories(KF6I18nLocaleData
 
 target_link_libraries(KF6I18nLocaleData PUBLIC Qt6::Core)
 target_link_libraries(KF6I18nLocaleData PRIVATE KF6I18n)
-target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
+target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n6\")
 
 set_target_properties(KF6I18nLocaleData PROPERTIES
     VERSION ${KI18N_VERSION}

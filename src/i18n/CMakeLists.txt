@@ -49,7 +49,7 @@ target_link_libraries(KF6I18n PRIVATE ${LibIntl_LIBRARIES})
 if (ANDROID)
     target_link_libraries(KF6I18n PRIVATE android)
 endif()
-target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n5\")
+target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n6\")
 
 set_target_properties(KF6I18n PROPERTIES VERSION   ${KI18N_VERSION}
                                          SOVERSION ${KI18N_SOVERSION}
