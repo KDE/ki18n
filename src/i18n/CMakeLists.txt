@@ -67,17 +67,24 @@ ecm_generate_headers(KI18n_HEADERS
     KLocalizedContext
     KLocalizedString
     KLocalizedTranslator
-    KuitMarkup
     KuitSetup
     REQUIRED_HEADERS KI18n_HEADERS
 )
+
+# provide compat headers for old includes
+if(NOT EXCLUDE_DEPRECATED_BEFORE_AND_AT STREQUAL "CURRENT" AND
+   EXCLUDE_DEPRECATED_BEFORE_AND_AT VERSION_LESS 5.105.0)
+    list(APPEND KI18n_HEADERS
+        compatheaders/KuitMarkup
+        compatheaders/kuitmarkup.h
+    )
+endif()
 
 install(FILES
     ${KI18n_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18n_export.h
     DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/KI18n" COMPONENT Devel
 )
-
 
 ### ktranscript plugin
 if (BUILD_WITH_QML)
