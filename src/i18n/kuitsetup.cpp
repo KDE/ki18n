@@ -12,8 +12,8 @@
 
 #include <klazylocalizedstring.h>
 #include <klocalizedstring.h>
-#include <kuitmarkup.h>
-#include <kuitmarkup_p.h>
+#include <kuitsetup.h>
+#include <kuitsetup_p.h>
 
 #include "ki18n_logging_kuit.h"
 

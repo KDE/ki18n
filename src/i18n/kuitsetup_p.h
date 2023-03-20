@@ -4,8 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KUITMARKUP_P_H
-#define KUITMARKUP_P_H
+#ifndef KUITSETUP_P_H
+#define KUITSETUP_P_H
 
 #include <QString>
 

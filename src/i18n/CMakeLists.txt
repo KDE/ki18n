@@ -7,7 +7,7 @@ target_sources(KF6I18n PRIVATE
     klocalizedstring.cpp
     klocalizedtranslator.cpp
     kcatalog.cpp
-    kuitmarkup.cpp
+    kuitsetup.cpp
     common_helpers.cpp
     klocalizedcontext.cpp
     main.cpp
@@ -64,7 +64,6 @@ ecm_generate_headers(KI18n_HEADERS
     KLocalizedContext
     KLocalizedString
     KLocalizedTranslator
-    KuitMarkup
     KuitSetup
     REQUIRED_HEADERS KI18n_HEADERS
 )

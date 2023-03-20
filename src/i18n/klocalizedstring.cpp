@@ -28,7 +28,7 @@
 #include <kcatalog_p.h>
 #include <klocalizedstring.h>
 #include <ktranscript_p.h>
-#include <kuitmarkup_p.h>
+#include <kuitsetup_p.h>
 
 #include "ki18n_logging.h"
 
