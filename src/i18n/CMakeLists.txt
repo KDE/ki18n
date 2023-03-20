@@ -7,7 +7,7 @@ target_sources(KF5I18n PRIVATE
     klocalizedstring.cpp
     klocalizedtranslator.cpp
     kcatalog.cpp
-    kuitmarkup.cpp
+    kuitsetup.cpp
     common_helpers.cpp
     klocalizedcontext.cpp
     main.cpp

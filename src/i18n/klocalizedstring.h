@@ -16,7 +16,7 @@
 
 #include <memory>
 
-#include <kuitmarkup.h>
+#include <kuitsetup.h>
 
 // enforce header to be parsed before redefining i18n* with preprocessor macros
 // depending on TRANSLATION_DOMAIN (see bottom of file)
