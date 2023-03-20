@@ -561,6 +561,7 @@ public:
     Q_REQUIRED_RESULT static QString removeAcceleratorMarker(const QString &label);
 
 private:
+    // exported because called from inline KLazyLocalizedString::operator KLocalizedString()
     KLocalizedString(const char *domain, const char *context, const char *text, const char *plural, bool markupAware);
 
 private:
