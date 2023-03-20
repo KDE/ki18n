@@ -84,7 +84,7 @@ public:
     static KCountrySubdivision fromLocation(float latitude, float longitude);
 
 private:
-    QStringList timeZoneIdsStringList() const;
+    KI18NLOCALEDATA_NO_EXPORT QStringList timeZoneIdsStringList() const;
 
     friend class KCountry;
     uint32_t d;

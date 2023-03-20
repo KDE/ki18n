@@ -112,7 +112,7 @@ public:
     static QList<KCountry> allCountries();
 
 private:
-    QStringList timeZoneIdsStringList() const;
+    KI18NLOCALEDATA_NO_EXPORT QStringList timeZoneIdsStringList() const;
 
     friend class KCountrySubdivision;
     friend KI18NLOCALEDATA_EXPORT KCountry KTimeZone::country(const char *);
