@@ -669,6 +669,7 @@ public:
 #endif
 
 private:
+    // exported because called from inline KLazyLocalizedString::operator KLocalizedString()
     KLocalizedString(const char *domain, const char *context, const char *text, const char *plural, bool markupAware);
 
 private:

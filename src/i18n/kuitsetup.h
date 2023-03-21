@@ -178,7 +178,7 @@ public:
     void setFormatForMarker(const QString &marker, Kuit::VisualFormat format);
 
 private:
-    KuitSetup(const QByteArray &domain);
+    KI18N_NO_EXPORT explicit KuitSetup(const QByteArray &domain);
     Q_DISABLE_COPY(KuitSetup)
 
     std::unique_ptr<KuitSetupPrivate> const d;
