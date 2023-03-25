@@ -17,13 +17,13 @@
 # Serdar SOYTETİR <tulliana@gmail.com>, 2010, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 02:29+0000\n"
-"PO-Revision-Date: 2022-11-10 21:15+0300\n"
+"PO-Revision-Date: 2023-03-24 16:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: Decide which string is used to delimit keys in a keyboard
 #. shortcut (e.g. + in Ctrl+Alt+Tab) in plain text.
@@ -68,12 +68,12 @@ msgstr "→"
 #: kuitsetup.cpp:334
 msgctxt "keyboard-key-name"
 msgid "Alt"
-msgstr "Alt"
+msgstr "Seçenek"
 
 #: kuitsetup.cpp:335
 msgctxt "keyboard-key-name"
 msgid "AltGr"
-msgstr "AltGr"
+msgstr "ÜstSçnk"
 
 #: kuitsetup.cpp:336
 msgctxt "keyboard-key-name"
@@ -83,7 +83,7 @@ msgstr "Geri Sil"
 #: kuitsetup.cpp:337
 msgctxt "keyboard-key-name"
 msgid "CapsLock"
-msgstr "Caps Lock"
+msgstr "Büyük Harf"
 
 #: kuitsetup.cpp:338
 msgctxt "keyboard-key-name"
@@ -93,12 +93,12 @@ msgstr "Kontrol"
 #: kuitsetup.cpp:339
 msgctxt "keyboard-key-name"
 msgid "Ctrl"
-msgstr "Ctrl"
+msgstr "Kontrol"
 
 #: kuitsetup.cpp:340
 msgctxt "keyboard-key-name"
 msgid "Del"
-msgstr "Del"
+msgstr "Sil"
 
 #: kuitsetup.cpp:341
 msgctxt "keyboard-key-name"
@@ -113,27 +113,27 @@ msgstr "Aşağı"
 #: kuitsetup.cpp:343
 msgctxt "keyboard-key-name"
 msgid "End"
-msgstr "End"
+msgstr "Son"
 
 #: kuitsetup.cpp:344
 msgctxt "keyboard-key-name"
 msgid "Enter"
-msgstr "Enter"
+msgstr "Giriş"
 
 #: kuitsetup.cpp:345
 msgctxt "keyboard-key-name"
 msgid "Esc"
-msgstr "Esc"
+msgstr "Vazgeç"
 
 #: kuitsetup.cpp:346
 msgctxt "keyboard-key-name"
 msgid "Escape"
-msgstr "Escape"
+msgstr "Vazgeç"
 
 #: kuitsetup.cpp:347
 msgctxt "keyboard-key-name"
 msgid "Home"
-msgstr "Home"
+msgstr "Baş"
 
 #: kuitsetup.cpp:348
 msgctxt "keyboard-key-name"
@@ -143,7 +143,7 @@ msgstr "Yukarı"
 #: kuitsetup.cpp:349
 msgctxt "keyboard-key-name"
 msgid "Ins"
-msgstr "Ekl"
+msgstr "Ekle"
 
 #: kuitsetup.cpp:350
 msgctxt "keyboard-key-name"
@@ -168,47 +168,47 @@ msgstr "Meta"
 #: kuitsetup.cpp:354
 msgctxt "keyboard-key-name"
 msgid "NumLock"
-msgstr "NumLock"
+msgstr "Sayı Kilidi"
 
 #: kuitsetup.cpp:355
 msgctxt "keyboard-key-name"
 msgid "PageDown"
-msgstr "PageDown"
+msgstr "Sayfa Aşağı"
 
 #: kuitsetup.cpp:356
 msgctxt "keyboard-key-name"
 msgid "PageUp"
-msgstr "PageUp"
+msgstr "Sayfa Yukarı"
 
 #: kuitsetup.cpp:357
 msgctxt "keyboard-key-name"
 msgid "PgDown"
-msgstr "PgDown"
+msgstr "SyfAşağı"
 
 #: kuitsetup.cpp:358
 msgctxt "keyboard-key-name"
 msgid "PgUp"
-msgstr "PgUp"
+msgstr "SyfYukarı"
 
 #: kuitsetup.cpp:359
 msgctxt "keyboard-key-name"
 msgid "PauseBreak"
-msgstr "PauseBreak"
+msgstr "Duraklat"
 
 #: kuitsetup.cpp:360
 msgctxt "keyboard-key-name"
 msgid "PrintScreen"
-msgstr "PrintScreen"
+msgstr "Ekranı Yazdır"
 
 #: kuitsetup.cpp:361
 msgctxt "keyboard-key-name"
 msgid "PrtScr"
-msgstr "PrtScr"
+msgstr "EkrYzd"
 
 #: kuitsetup.cpp:362
 msgctxt "keyboard-key-name"
 msgid "Return"
-msgstr "Return"
+msgstr "Dönüş"
 
 #: kuitsetup.cpp:363
 msgctxt "keyboard-key-name"
@@ -218,12 +218,12 @@ msgstr "Sağ"
 #: kuitsetup.cpp:364
 msgctxt "keyboard-key-name"
 msgid "ScrollLock"
-msgstr "ScrollLock"
+msgstr "Sarma Kilidi"
 
 #: kuitsetup.cpp:365
 msgctxt "keyboard-key-name"
 msgid "Shift"
-msgstr "Shift"
+msgstr "Üst Karakter"
 
 #: kuitsetup.cpp:366
 msgctxt "keyboard-key-name"
@@ -238,7 +238,7 @@ msgstr "Süper"
 #: kuitsetup.cpp:368
 msgctxt "keyboard-key-name"
 msgid "SysReq"
-msgstr "SysReq"
+msgstr "Sisİstğ"
 
 #: kuitsetup.cpp:369
 msgctxt "keyboard-key-name"
