@@ -3,6 +3,12 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY
 add_library(KF6I18n)
 add_library(KF6::I18n ALIAS KF6I18n)
 
+set_target_properties(KF6I18n PROPERTIES
+    VERSION     ${KI18N_VERSION}
+    SOVERSION   ${KI18N_SOVERSION}
+    EXPORT_NAME I18n
+)
+
 target_sources(KF6I18n PRIVATE
     klocalizedstring.cpp
     klocalizedtranslator.cpp
@@ -50,11 +56,6 @@ if (ANDROID)
     target_link_libraries(KF6I18n PRIVATE android)
 endif()
 target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n6\")
-
-set_target_properties(KF6I18n PROPERTIES VERSION   ${KI18N_VERSION}
-                                         SOVERSION ${KI18N_SOVERSION}
-                                         EXPORT_NAME I18n
-)
 
 install(TARGETS KF6I18n EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 

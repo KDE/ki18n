@@ -9,6 +9,12 @@ add_subdirectory(cachegen)
 add_library(KF6I18nLocaleData)
 add_library(KF6::I18nLocaleData ALIAS KF6I18nLocaleData)
 
+set_target_properties(KF6I18nLocaleData PROPERTIES
+    VERSION     ${KI18N_VERSION}
+    SOVERSION   ${KI18N_SOVERSION}
+    EXPORT_NAME I18nLocaleData
+)
+
 target_sources(KF6I18nLocaleData PRIVATE
     isocodes.cpp
     isocodescache.cpp
@@ -63,12 +69,6 @@ target_include_directories(KF6I18nLocaleData
 target_link_libraries(KF6I18nLocaleData PUBLIC Qt6::Core)
 target_link_libraries(KF6I18nLocaleData PRIVATE KF6I18n)
 target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n6\")
-
-set_target_properties(KF6I18nLocaleData PROPERTIES
-    VERSION ${KI18N_VERSION}
-    SOVERSION ${KI18N_SOVERSION}
-    EXPORT_NAME I18nLocaleData
-)
 
 install(TARGETS KF6I18nLocaleData EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
