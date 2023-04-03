@@ -41,13 +41,17 @@ ecm_generate_export_header(KF6I18n
     BASE_NAME KI18n
     GROUP_BASE_NAME KF
     VERSION ${KF_VERSION}
+    USE_VERSION_HEADER
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
 
-target_include_directories(KF6I18n INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>")
-target_include_directories(KF6I18n PRIVATE ${LibIntl_INCLUDE_DIRS})
+target_include_directories(KF6I18n
+    INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>"
+    PUBLIC "$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>" # for version header
+    PRIVATE ${LibIntl_INCLUDE_DIRS}
+)
 
 target_link_libraries(KF6I18n PUBLIC Qt6::Core)
 # This is only required for platforms which don't use glibc (with glibc LibIntl_LIBRARIES will be empty)

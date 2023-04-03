@@ -31,6 +31,8 @@ ecm_generate_export_header(KF6I18nLocaleData
     BASE_NAME KI18nLocaleData
     GROUP_BASE_NAME KF
     VERSION ${KF_VERSION}
+    USE_VERSION_HEADER
+    VERSION_BASE_NAME KI18n
     DEPRECATED_BASE_VERSION 0
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
@@ -64,6 +66,8 @@ target_include_directories(KF6I18nLocaleData
     INTERFACE
         "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData>"
         "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>" # for version header
+    PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>" # for version header
 )
 
 target_link_libraries(KF6I18nLocaleData PUBLIC Qt6::Core)
