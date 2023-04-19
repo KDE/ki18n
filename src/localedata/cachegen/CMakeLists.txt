@@ -18,5 +18,5 @@ ecm_qt_declare_logging_category(ki18n-iso-codes-cachegen
     DESCRIPTION "KI18n Locale Data"
 )
 target_link_libraries(ki18n-iso-codes-cachegen PRIVATE
-    Qt${QT_MAJOR_VERSION}::Core
+    Qt6::Core
 )
