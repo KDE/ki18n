@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ki18n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 02:29+0000\n"
-"PO-Revision-Date: 2023-05-03 23:39+0200\n"
+"PO-Revision-Date: 2023-05-15 22:36+0200\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
 "Language: ast\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #. i18n: Decide which string is used to delimit keys in a keyboard
 #. shortcut (e.g. + in Ctrl+Alt+Tab) in plain text.
@@ -242,62 +242,62 @@ msgstr ""
 #: kuitsetup.cpp:372
 msgctxt "keyboard-key-name"
 msgid "F1"
-msgstr ""
+msgstr "F1"
 
 #: kuitsetup.cpp:373
 msgctxt "keyboard-key-name"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: kuitsetup.cpp:374
 msgctxt "keyboard-key-name"
 msgid "F3"
-msgstr ""
+msgstr "F3"
 
 #: kuitsetup.cpp:375
 msgctxt "keyboard-key-name"
 msgid "F4"
-msgstr ""
+msgstr "F4"
 
 #: kuitsetup.cpp:376
 msgctxt "keyboard-key-name"
 msgid "F5"
-msgstr ""
+msgstr "F5"
 
 #: kuitsetup.cpp:377
 msgctxt "keyboard-key-name"
 msgid "F6"
-msgstr ""
+msgstr "F6"
 
 #: kuitsetup.cpp:378
 msgctxt "keyboard-key-name"
 msgid "F7"
-msgstr ""
+msgstr "F7"
 
 #: kuitsetup.cpp:379
 msgctxt "keyboard-key-name"
 msgid "F8"
-msgstr ""
+msgstr "F8"
 
 #: kuitsetup.cpp:380
 msgctxt "keyboard-key-name"
 msgid "F9"
-msgstr ""
+msgstr "F9"
 
 #: kuitsetup.cpp:381
 msgctxt "keyboard-key-name"
 msgid "F10"
-msgstr ""
+msgstr "F10"
 
 #: kuitsetup.cpp:382
 msgctxt "keyboard-key-name"
 msgid "F11"
-msgstr ""
+msgstr "F11"
 
 #: kuitsetup.cpp:383
 msgctxt "keyboard-key-name"
 msgid "F12"
-msgstr ""
+msgstr "F12"
 
 #. i18n: The messages with context "tag-format-pattern <tag ...> format"
 #. are KUIT patterns for formatting the text found inside KUIT tags.
