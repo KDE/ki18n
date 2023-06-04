@@ -17,13 +17,13 @@
 # Serdar SOYTETİR <tulliana@gmail.com>, 2010, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 00:44+0000\n"
-"PO-Revision-Date: 2022-11-10 21:15+0300\n"
+"PO-Revision-Date: 2023-06-04 02:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #. i18n: Decide which string is used to delimit keys in a keyboard
 #. shortcut (e.g. + in Ctrl+Alt+Tab) in plain text.
@@ -93,7 +93,7 @@ msgstr "Kontrol"
 #: kuitsetup.cpp:339
 msgctxt "keyboard-key-name"
 msgid "Ctrl"
-msgstr "Ctrl"
+msgstr "Kontrol"
 
 #: kuitsetup.cpp:340
 msgctxt "keyboard-key-name"
@@ -118,7 +118,7 @@ msgstr "End"
 #: kuitsetup.cpp:344
 msgctxt "keyboard-key-name"
 msgid "Enter"
-msgstr "Enter"
+msgstr "Giriş"
 
 #: kuitsetup.cpp:345
 msgctxt "keyboard-key-name"
@@ -223,7 +223,7 @@ msgstr "ScrollLock"
 #: kuitsetup.cpp:365
 msgctxt "keyboard-key-name"
 msgid "Shift"
-msgstr "Shift"
+msgstr "Üst Karakter"
 
 #: kuitsetup.cpp:366
 msgctxt "keyboard-key-name"
