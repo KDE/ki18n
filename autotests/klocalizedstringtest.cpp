@@ -525,3 +525,5 @@ void KLocalizedStringTest::testLazy()
 }
 
 QTEST_MAIN(KLocalizedStringTest)
+
+#include "moc_klocalizedstringtest.cpp"

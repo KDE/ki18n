@@ -122,3 +122,5 @@ void KTranscriptTest::test()
         QVERIFY(fallback);
     }
 }
+
+#include "moc_ktranscripttest.cpp"

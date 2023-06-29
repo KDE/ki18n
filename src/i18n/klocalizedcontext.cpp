@@ -585,3 +585,5 @@ QString KLocalizedContext::xi18ndcp(const QString &domain,
 
     return trMessage.toString();
 }
+
+#include "moc_klocalizedcontext.cpp"

@@ -53,3 +53,5 @@ QString KLocalizedTranslator::translate(const char *context, const char *sourceT
         return ki18ndc(d->translationDomain.toUtf8().constData(), disambiguation, sourceText).toString();
     }
 }
+
+#include "moc_klocalizedtranslator.cpp"
