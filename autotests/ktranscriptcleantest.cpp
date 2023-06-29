@@ -77,3 +77,5 @@ void KTranscriptCleanTest::test()
         QVERIFY(fallback);
     }
 }
+
+#include "moc_ktranscriptcleantest.cpp"

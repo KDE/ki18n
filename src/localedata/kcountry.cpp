@@ -416,3 +416,5 @@ QStringList KCountry::timeZoneIdsStringList() const
     });
     return l;
 }
+
+#include "moc_kcountry.cpp"

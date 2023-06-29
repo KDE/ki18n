@@ -206,3 +206,5 @@ QStringList KCountrySubdivision::timeZoneIdsStringList() const
     });
     return l;
 }
+
+#include "moc_kcountrysubdivision.cpp"
