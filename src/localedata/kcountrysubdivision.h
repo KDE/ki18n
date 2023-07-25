@@ -90,7 +90,6 @@ private:
     uint32_t d;
 };
 
-Q_DECLARE_METATYPE(KCountrySubdivision)
 Q_DECLARE_TYPEINFO(KCountrySubdivision, Q_RELOCATABLE_TYPE);
 
 #endif // KCOUNTRYSUBDIVISION_H

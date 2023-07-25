@@ -119,7 +119,6 @@ private:
     uint16_t d;
 };
 
-Q_DECLARE_METATYPE(KCountry)
 Q_DECLARE_TYPEINFO(KCountry, Q_RELOCATABLE_TYPE);
 
 #endif // KCOUNTRY_H
