@@ -49,7 +49,7 @@ foreach(pmap_file ${pmap_files})
 
     message(STATUS "building... ${pmap_file} to ${pmapc_file}" )
     list(APPEND commands
-        COMMAND ${PYTHON_EXECUTABLE}
+        COMMAND ${Python3_EXECUTABLE}
             -B
             ${_ki18n_pmap_compile_script}
             ${PO_DIR}/${pmap_file}

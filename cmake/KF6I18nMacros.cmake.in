@@ -6,7 +6,7 @@ find_package(Gettext REQUIRED)
 
 # The Python executable used for building ki18n will be used as a fallback
 # solution if it cannot be found in $PATH when building applications.
-set(_KI18N_PYTHON_EXECUTABLE "@PYTHON_EXECUTABLE@")
+set(_KI18N_PYTHON_EXECUTABLE "@Python3_EXECUTABLE@")
 
 find_program(KI18N_PYTHON_EXECUTABLE NAMES python3 python2 python)
 if(NOT KI18N_PYTHON_EXECUTABLE)
@@ -145,7 +145,7 @@ function(KI18N_INSTALL podir)
     add_custom_target(tsfiles-${pathmd5} ALL
         COMMENT "Generating ts..."
         COMMAND ${CMAKE_COMMAND}
-                -DPYTHON_EXECUTABLE=${KI18N_PYTHON_EXECUTABLE}
+                -DPython3_EXECUTABLE=${KI18N_PYTHON_EXECUTABLE}
                 -D_ki18n_pmap_compile_script=${_ki18n_pmap_compile_script}
                 -DCOPY_TO=${CMAKE_CURRENT_BINARY_DIR}/${dirname}
                 -DPO_DIR=${absolute_podir}
