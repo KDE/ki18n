@@ -12,8 +12,7 @@ portingAid: false
 deprecated: false
 release: true
 libraries:
- - qmake: KI18n
-   cmake: "KF6::I18n"
+ - cmake: "KF6::I18n"
 cmakename: KF6I18n
 
 public_lib: true
