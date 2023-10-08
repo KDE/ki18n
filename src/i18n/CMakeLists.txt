@@ -83,16 +83,16 @@ install(FILES
 ### ktranscript plugin
 if (BUILD_WITH_QML)
 
-add_library(ktranscript MODULE)
+    add_library(ktranscript MODULE)
 
-target_sources(ktranscript PRIVATE
-    ktranscript.cpp
-    common_helpers.cpp
-)
-generate_export_header(ktranscript BASE_NAME KTranscript)
-target_link_libraries(ktranscript PRIVATE Qt6::Qml Qt6::Core)
+    target_sources(ktranscript PRIVATE
+        ktranscript.cpp
+        common_helpers.cpp
+    )
+    generate_export_header(ktranscript BASE_NAME KTranscript)
+    target_link_libraries(ktranscript PRIVATE Qt6::Qml Qt6::Core)
 
-install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6)
+    install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6)
 
 endif()
 
