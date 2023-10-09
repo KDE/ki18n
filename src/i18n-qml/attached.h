@@ -50,4 +50,15 @@ struct KLocalizedContextForeign {
     QML_NAMED_ELEMENT(KLocalizedContext)
 };
 
+class KI18nTestHelper : public QObject
+{
+    Q_OBJECT
+    QML_ELEMENT
+
+public:
+    explicit KI18nTestHelper(QObject *parent = nullptr);
+
+    Q_INVOKABLE static void setLanguages(const QStringList &languages);
+};
+
 #endif // KI18NQMLATTACHED

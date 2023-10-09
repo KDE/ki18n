@@ -11,6 +11,8 @@
 #include <QQmlContext>
 #include <qapplicationstatic.h>
 
+#include <KLocalizedString>
+
 #include "ki18nqml_logging.h"
 
 using namespace Qt::Literals::StringLiterals;
@@ -136,6 +138,20 @@ void KI18nAttached::retranslate(I18nQMLType *ki18n)
     const auto property = mo->property(index);
     const auto notify = property.notifySignal();
     notify.invoke(ki18n);
+}
+
+KI18nTestHelper::KI18nTestHelper(QObject *parent)
+    : QObject(parent)
+{
+}
+
+void KI18nTestHelper::setLanguages(const QStringList &languages)
+{
+    qDebug() << "Set Languages:" << KLocalizedString::languages() << "->" << languages;
+    KLocalizedString::setLanguages(languages);
+
+    QEvent le(QEvent::LanguageChange);
+    QCoreApplication::sendEvent(QCoreApplication::instance(), &le);
 }
 
 #include "moc_attached.cpp"
