@@ -35,6 +35,7 @@
  * to make sure it's taken into account for the plural.
  *
  * @since 5.17
+ * @deprecated Import QML module org.kde.i18n and use K.i18n* functions instead.
  */
 
 class KI18N_EXPORT KLocalizedContext : public QObject
