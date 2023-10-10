@@ -25,9 +25,35 @@ constexpr const char *retranslatePropertyName = "__retranslate";
 constexpr const char *translationDomainPropertyName = "_k_translationDomain";
 }
 
-QHash<QQmlEngine *, I18nQMLType *> KI18nAttached::s_map = QHash<QQmlEngine *, I18nQMLType *>();
+KI18nAttachedBase::KI18nAttachedBase(QObject *parent)
+    : QObject(parent)
+{
+}
+
+KI18nAttachedBase::~KI18nAttachedBase() = default;
+
+KLocalizedContext *KI18nAttachedBase::context() const
+{
+    return &m_context;
+}
+
+QVariant KI18nAttachedBase::retranslate() const
+{
+    return {};
+}
+
+QHash<QQmlEngine *, KI18nAttachedBase *> KI18nAttached::s_map = QHash<QQmlEngine *, KI18nAttachedBase *>();
 
 Q_APPLICATION_STATIC(KI18nAttached, s_globalLanguageChangeEventFilter);
+
+namespace
+{
+void ensureGlobalLanguageChangeEventFilterExists()
+{
+    // dereference to create if needed.
+    *s_globalLanguageChangeEventFilter;
+}
+}
 
 KI18nAttached::KI18nAttached(QObject *parent)
     : QObject(parent)
@@ -38,17 +64,18 @@ KI18nAttached::KI18nAttached(QObject *parent)
 
 KI18nAttached::~KI18nAttached() = default;
 
-I18nQMLType *KI18nAttached::qmlAttachedProperties(QObject *attachee)
+KI18nAttachedBase *KI18nAttached::qmlAttachedProperties(QObject *attachee)
 {
     Q_ASSERT(attachee);
     auto engine = qmlEngine(attachee);
     Q_ASSERT(engine);
-    I18nQMLType *ki18n = s_map.value(engine, nullptr);
+    KI18nAttachedBase *ki18n = s_map.value(engine, nullptr);
     if (!ki18n) {
-        ki18n = createAttachedObject(attachee, engine);
+        ki18n = createAttachedObject(engine);
         if (ki18n) {
             connect(engine, &QObject::destroyed, &KI18nAttached::objectDestroyed);
             s_map[engine] = ki18n;
+            ensureGlobalLanguageChangeEventFilterExists();
         }
     }
     return ki18n;
@@ -62,35 +89,28 @@ bool KI18nAttached::eventFilter(QObject *object, QEvent *event)
     return QObject::eventFilter(object, event);
 }
 
-I18nQMLType *KI18nAttached::createAttachedObject(QObject *attachee, QQmlEngine *engine)
+KI18nAttachedBase *KI18nAttached::createAttachedObject(QQmlEngine *engine)
 {
     QQmlComponent component(engine, uri, "KI18nImpl");
     Q_ASSERT(component.status() == QQmlComponent::Ready);
 
-    I18nQMLType *ki18n = component.beginCreate(qmlContext(attachee));
-    auto context = createLocalizedContext(attachee, engine);
-    component.setInitialProperties(ki18n, {{contextPropertyName, QVariant::fromValue(context)}});
-    component.completeCreate();
-
-    if (!ki18n) {
-        qCWarning(KI18N_QML).noquote() << "Failed to create I18n object:" << component.errorString().trimmed();
+    // Attached object is shared across all attachees within an engine, so the
+    // context should be nullptr (which means the global one). Ownership is
+    // transferred to the caller.
+    QObject *created = component.create();
+    KI18nAttachedBase *ki18n = qobject_cast<KI18nAttachedBase *>(created);
+    if (!ki18n || component.isError()) {
+        qCCritical(KI18N_QML).noquote() << "Failed to create I18n object:" << component.errorString().trimmed();
+        delete created;
         return nullptr;
     }
 
-    // dereference to create if needed.
-    *s_globalLanguageChangeEventFilter;
-
-    return ki18n;
-}
-
-KLocalizedContext *KI18nAttached::createLocalizedContext(QObject *attachee, QQmlEngine *engine)
-{
-    KLocalizedContext *context = new KLocalizedContext(attachee);
     QString domain = translationDomainForEngine(engine);
     if (!domain.isEmpty()) {
-        context->setTranslationDomain(domain);
+        ki18n->context()->setTranslationDomain(domain);
     }
-    return context;
+
+    return ki18n;
 }
 
 QString KI18nAttached::translationDomainForEngine(QQmlEngine *engine)
@@ -104,7 +124,7 @@ void KI18nAttached::objectDestroyed(QObject *object)
     if (!engine) {
         return;
     }
-    I18nQMLType *ki18n = s_map.take(engine);
+    KI18nAttachedBase *ki18n = s_map.take(engine);
     if (ki18n) {
         delete ki18n;
     }
@@ -116,28 +136,18 @@ void KI18nAttached::retranslate()
     // Assume that change of strings might mutate this map (i.e. create new
     // engines or destroy existing ones). It's unlikely but not impossible.
 
-    QList<std::pair<QPointer<QQmlEngine>, I18nQMLType *>> copy;
+    QList<std::pair<QPointer<QQmlEngine>, KI18nAttachedBase *>> copy;
+
     for (auto it = s_map.constBegin(); it != s_map.constEnd(); it++) {
         copy.append(std::make_pair(QPointer(it.key()), it.value()));
     }
+
     for (const auto &[engine, ki18n] : std::as_const(copy)) {
         if (engine) {
             qCDebug(KI18N_QML) << "Retranslating engine" << engine;
-            retranslate(ki18n);
+            Q_EMIT ki18n->retranslateChanged();
         }
     }
-}
-
-void KI18nAttached::retranslate(I18nQMLType *ki18n)
-{
-    Q_ASSERT(ki18n);
-    // This is not a hot path, it doesn't need the complexity of static
-    // caching of meta-property indices per engine etc.
-    const auto mo = ki18n->metaObject();
-    const auto index = mo->indexOfProperty(retranslatePropertyName);
-    const auto property = mo->property(index);
-    const auto notify = property.notifySignal();
-    notify.invoke(ki18n);
 }
 
 KI18nTestHelper::KI18nTestHelper(QObject *parent)

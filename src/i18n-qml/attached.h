@@ -14,40 +14,68 @@
 #include <KLocalizedContext>
 
 #include <memory>
+#include <qqmlintegration.h>
 
-// type alias for documentary purposes
-using I18nQMLType = QObject;
+class KI18nAttached;
+
+class KI18nAttachedBase : public QObject
+{
+    Q_OBJECT
+    QML_NAMED_ELEMENT(KI18nAttachedBase)
+
+    Q_PROPERTY(KLocalizedContext *__context READ context CONSTANT FINAL)
+
+    /*
+     * Every function subscribes to this property's change signal. The actual
+     * value does not matter. Change signal is emitted from C++ when needed.
+     */
+    Q_PROPERTY(QVariant __retranslate READ retranslate NOTIFY retranslateChanged FINAL)
+
+public:
+    explicit KI18nAttachedBase(QObject *parent = nullptr);
+    ~KI18nAttachedBase();
+
+    KLocalizedContext *context() const;
+
+    // dummy getter
+    QVariant retranslate() const;
+
+Q_SIGNALS:
+    void retranslateChanged();
+
+private:
+    mutable KLocalizedContext m_context;
+};
 
 class KI18nAttached : public QObject
 {
     Q_OBJECT
     QML_NAMED_ELEMENT(K)
     QML_UNCREATABLE("Use it as an attached property")
-    QML_ATTACHED(I18nQMLType)
+    QML_ATTACHED(KI18nAttachedBase)
 public:
     explicit KI18nAttached(QObject *parent = nullptr);
     ~KI18nAttached();
 
-    static I18nQMLType *qmlAttachedProperties(QObject *attachee);
+    static KI18nAttachedBase *qmlAttachedProperties(QObject *attachee);
 
 protected:
     bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
-    static QHash<QQmlEngine *, I18nQMLType *> s_map;
+    static QHash<QQmlEngine *, KI18nAttachedBase *> s_map;
 
-    static I18nQMLType *createAttachedObject(QObject *attachee, QQmlEngine *engine);
-    static KLocalizedContext *createLocalizedContext(QObject *attachee, QQmlEngine *engine);
+    static KI18nAttachedBase *createAttachedObject(QQmlEngine *engine);
+    static KLocalizedContext *createLocalizedContext(QQmlEngine *engine);
     static QString translationDomainForEngine(QQmlEngine *engine);
     static void objectDestroyed(QObject *object);
     static void retranslate();
-    static void retranslate(I18nQMLType *);
 };
 
 struct KLocalizedContextForeign {
     Q_GADGET
+    QML_ANONYMOUS
     QML_FOREIGN(KLocalizedContext)
-    QML_NAMED_ELEMENT(KLocalizedContext)
 };
 
 class KI18nTestHelper : public QObject

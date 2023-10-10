@@ -10,12 +10,7 @@ import org.kde.i18n
 // This wrapper exists to provide runtime bindings on current locale. It works
 // because engine binds on anything accessed during binding evaluation in JS,
 // including inside methods defined in QML (but not in C++).
-QtObject {
-    required property KLocalizedContext __context
-
-    // Every function subscribes to this property's change signal. The actual
-    // value does not matter. Change signal is emitted from C++ when needed.
-    property var __retranslate
+KI18nAttachedBase {
 
     function i18n(
         message,
