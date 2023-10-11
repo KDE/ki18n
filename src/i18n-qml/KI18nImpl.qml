@@ -10,7 +10,7 @@ import org.kde.i18n
 // This wrapper exists to provide runtime bindings on current locale. It works
 // because engine binds on anything accessed during binding evaluation in JS,
 // including inside methods defined in QML (but not in C++).
-KI18nAttachedBase {
+KI18nBase {
 
     function i18n(
         message: string,

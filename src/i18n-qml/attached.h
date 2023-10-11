@@ -14,14 +14,24 @@
 #include <KLocalizedContext>
 
 #include <memory>
+#include <qobject.h>
 #include <qqmlintegration.h>
 
-class KI18nAttached;
+/*
+              Base     <-------- Foreign singleton wrapper
+        class with native        creates KI18nImpl instead
+       property definitions
+               /\
+               ||
+        Pure QML KI18nImpl
+   implementation with methods
+ that bind to retranslation signal
+*/
 
-class KI18nAttachedBase : public QObject
+class KI18nBase : public QObject
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(KI18nAttachedBase)
+    QML_ELEMENT
 
     Q_PROPERTY(KLocalizedContext *__context READ context CONSTANT FINAL)
 
@@ -32,43 +42,52 @@ class KI18nAttachedBase : public QObject
     Q_PROPERTY(QVariant __retranslate READ retranslate NOTIFY retranslateChanged FINAL)
 
 public:
-    explicit KI18nAttachedBase(QObject *parent = nullptr);
-    ~KI18nAttachedBase();
+    explicit KI18nBase(QObject *parent = nullptr);
+    ~KI18nBase();
 
     KLocalizedContext *context() const;
 
     // dummy getter
     QVariant retranslate() const;
 
+    static void doRetranslate();
+
 Q_SIGNALS:
     void retranslateChanged();
 
 private:
+    static QList<KI18nBase *> s_instances;
+
     mutable KLocalizedContext m_context;
 };
 
-class KI18nAttached : public QObject
+struct KI18nSingleton {
+    Q_GADGET
+    QML_FOREIGN(KI18nBase)
+    QML_SINGLETON
+    QML_NAMED_ELEMENT(K)
+
+public:
+    static KI18nBase *create(QQmlEngine *engine, QJSEngine *);
+
+private:
+    static QString translationDomainForEngine(QQmlEngine *engine);
+};
+
+class KI18nLanguageChangeEventFilter : public QObject
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(K)
-    QML_UNCREATABLE("Use it as an attached property")
-    QML_ATTACHED(KI18nAttachedBase)
-public:
-    explicit KI18nAttached(QObject *parent = nullptr);
-    ~KI18nAttached();
 
-    static KI18nAttachedBase *qmlAttachedProperties(QObject *attachee);
+public:
+    explicit KI18nLanguageChangeEventFilter(QObject *parent = nullptr);
+    ~KI18nLanguageChangeEventFilter();
+
+    static KI18nLanguageChangeEventFilter *instance();
 
 protected:
     bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
-    static QHash<QQmlEngine *, KI18nAttachedBase *> s_map;
-
-    static KI18nAttachedBase *createAttachedObject(QQmlEngine *engine);
-    static KLocalizedContext *createLocalizedContext(QQmlEngine *engine);
-    static QString translationDomainForEngine(QQmlEngine *engine);
-    static void objectDestroyed(QObject *object);
     static void retranslate();
 };
 
