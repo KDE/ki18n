@@ -4,6 +4,7 @@
 
 find_package(Gettext REQUIRED)
 
+option(BUILD_TRANSLATIONS "Allows disabling calls to KI18N_INSTALL(), will keep translations form generating and then installing. Do not disable on production builds." ON)
 # The Python executable used for building ki18n will be used as a fallback
 # solution if it cannot be found in $PATH when building applications.
 set(_KI18N_PYTHON_EXECUTABLE "@Python3_EXECUTABLE@")
@@ -111,6 +112,10 @@ endmacro (KI18N_WRAP_UI)
 # - Installs kfoo.js in ${KDE_INSTALL_LOCALEDIR}/fr/LC_SCRIPTS/kfoo
 #
 function(KI18N_INSTALL podir)
+    if(NOT BUILD_TRANSLATIONS)
+         return()
+    endif()
+
     if (NOT KDE_INSTALL_LOCALEDIR)
         set(KDE_INSTALL_LOCALEDIR share/locale)
     endif()
