@@ -22,7 +22,6 @@
 #include <QRecursiveMutex>
 #include <QStandardPaths>
 #include <QStringList>
-#include <QVector>
 
 #include <common_helpers_p.h>
 #include <kcatalog_p.h>
@@ -613,7 +612,7 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation, co
     QStringList tsegs; // text segments per placeholder occurrence
     QList<int> plords; // ordinal numbers per placeholder occurrence
 #ifndef NDEBUG
-    QVector<int> ords; // indicates which placeholders are present
+    QList<int> ords; // indicates which placeholders are present
 #endif
     int slen = translation.length();
     int spos = 0;
@@ -638,7 +637,7 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation, co
 
 #ifndef NDEBUG
             // Perhaps enlarge storage for indicators.
-            // Note that QVector<int> will initialize new elements to 0,
+            // Note that QList<int> will initialize new elements to 0,
             // as they are supposed to be.
             if (plord >= ords.size()) {
                 ords.resize(plord + 1);
