@@ -410,7 +410,7 @@ public:
      *
      * \param domain the translation domain of the application
      */
-    static void setApplicationDomain(const char *domain);
+    static void setApplicationDomain(const QByteArray &domain);
 
     /**
      * Get the application's main translation domain.

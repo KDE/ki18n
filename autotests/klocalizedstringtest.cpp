@@ -40,7 +40,7 @@ Q_CONSTRUCTOR_FUNCTION(initEnvironment)
 
 void KLocalizedStringTest::initTestCase()
 {
-    KLocalizedString::setApplicationDomain("ki18n-test");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("ki18n-test"));
 
     m_hasFrench = true;
     m_hasCatalan = true;

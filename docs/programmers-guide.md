@@ -1049,7 +1049,7 @@ the domain as the argument:
 int main (int argc, char *argv[])
 {
     ...
-    KLocalizedString::setApplicationDomain("fooapp");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("fooapp"));
     ...
 }
 ~~~

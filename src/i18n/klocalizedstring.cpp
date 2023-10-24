@@ -1171,7 +1171,7 @@ QByteArray KLocalizedString::untranslatedText() const
     return d->text;
 }
 
-void KLocalizedString::setApplicationDomain(const char *domain)
+void KLocalizedString::setApplicationDomain(const QByteArray &domain)
 {
     KLocalizedStringPrivateStatics *s = staticsKLSP();
 
