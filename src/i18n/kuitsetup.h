@@ -85,8 +85,6 @@ typedef QString (*TagFormatter)(const QStringList &languages,
  * \param domain the translation domain
  * \return pointer to KUIT setup object
  */
-KI18N_EXPORT KuitSetup &setupForDomain(const char *domain); // KF6 TODO: remove, the QByteArray overload is enough
-
 KI18N_EXPORT KuitSetup &setupForDomain(const QByteArray &domain);
 }
 

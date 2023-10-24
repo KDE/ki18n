@@ -517,11 +517,6 @@ KuitSetup &Kuit::setupForDomain(const QByteArray &domain)
     return *setup;
 }
 
-KuitSetup &Kuit::setupForDomain(const char *domain)
-{
-    return setupForDomain(QByteArray(domain));
-}
-
 class KuitSetupPrivate
 {
 public:
