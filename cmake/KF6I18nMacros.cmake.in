@@ -77,9 +77,11 @@ macro (KI18N_WRAP_UI _sources )
    endforeach (_current_FILE)
 endmacro (KI18N_WRAP_UI)
 
+option(KF_SKIP_PO_PROCESSING "Skip processing of po files" OFF)
+
 # KI18N_INSTALL(podir)
 # Search for .po files and scripting modules and install them to the standard
-# location.
+# location. The instalation can be skipped using the KF_SKIP_PO_PROCESSING option.
 #
 # This is a convenience function which relies on the following directory
 # structure:
@@ -111,6 +113,9 @@ endmacro (KI18N_WRAP_UI)
 # - Installs kfoo.js in ${KDE_INSTALL_LOCALEDIR}/fr/LC_SCRIPTS/kfoo
 #
 function(KI18N_INSTALL podir)
+    if (KF_SKIP_PO_PROCESSING)
+        return()
+    endif()
     if (NOT KDE_INSTALL_LOCALEDIR)
         set(KDE_INSTALL_LOCALEDIR share/locale)
     endif()
