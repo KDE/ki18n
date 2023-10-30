@@ -19,8 +19,6 @@ class MainTask(QgsTask):
         self.addSubTask(self.tzStringTableTask, [self.loadLayersTask], QgsTask.ParentDependsOnSubTask)
         self.regionToTzMapTask = RegionToTimezoneMapTask(context)
         self.addSubTask(self.regionToTzMapTask, [self.loadLayersTask], QgsTask.ParentDependsOnSubTask)
-        self.tzToCountryMapTask = TimezoneToCountryMapTask(context)
-        self.addSubTask(self.tzToCountryMapTask, [self.loadLayersTask], QgsTask.ParentDependsOnSubTask)
 
         self.spatialIndexTask = SpatialIndexerTask(context, self.loadLayersTask)
         self.addSubTask(self.spatialIndexTask, [self.loadLayersTask, self.regionToTzMapTask], QgsTask.ParentDependsOnSubTask)

@@ -5,10 +5,11 @@
 */
 
 #include "ktimezone.h"
-#include "data/timezone_country_map.cpp"
 #include "data/timezone_name_table.cpp"
 #include "kcountry.h"
 #include "spatial_index_p.h"
+
+#include <QTimeZone>
 
 #include <cstring>
 
@@ -20,17 +21,11 @@ const char *KTimeZone::fromLocation(float latitude, float longitude)
 
 KCountry KTimeZone::country(const char *ianaId)
 {
-    if (!ianaId) {
+    // Asia/Bangkok is special as it's the only "regular" IANA tz that covers more than one country
+    // (northern Vietnam and Thailand in this case), QTimeZone however reports it as Thailand.
+    if (!ianaId || std::strcmp(ianaId, "") == 0 || std::strcmp(ianaId, "Asia/Bangkok") == 0) {
         return {};
     }
 
-    const auto it = std::lower_bound(std::begin(timezone_country_map), std::end(timezone_country_map), ianaId, [](auto lhs, auto rhs) {
-        return std::strcmp(timezone_name_table + lhs.key, rhs) < 0;
-    });
-    if (it != std::end(timezone_country_map) && std::strcmp(timezone_name_table + (*it).key, ianaId) == 0) {
-        KCountry c;
-        c.d = (*it).value;
-        return c;
-    }
-    return {};
+    return KCountry::fromQLocale(QTimeZone(ianaId).territory());
 }
