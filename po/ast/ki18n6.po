@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ki18n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:48+0000\n"
-"PO-Revision-Date: 2023-10-24 14:31+0200\n"
+"PO-Revision-Date: 2023-11-05 01:55+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
 "Language: ast\n"
@@ -97,12 +97,12 @@ msgstr ""
 #: kuitsetup.cpp:343
 msgctxt "keyboard-key-name"
 msgid "End"
-msgstr ""
+msgstr "Fin"
 
 #: kuitsetup.cpp:344
 msgctxt "keyboard-key-name"
 msgid "Enter"
-msgstr ""
+msgstr "Intro"
 
 #: kuitsetup.cpp:345
 msgctxt "keyboard-key-name"
@@ -122,7 +122,7 @@ msgstr ""
 #: kuitsetup.cpp:348
 msgctxt "keyboard-key-name"
 msgid "Hyper"
-msgstr ""
+msgstr "Aniciu"
 
 #: kuitsetup.cpp:349
 msgctxt "keyboard-key-name"
@@ -132,12 +132,12 @@ msgstr ""
 #: kuitsetup.cpp:350
 msgctxt "keyboard-key-name"
 msgid "Insert"
-msgstr ""
+msgstr "Inxertar"
 
 #: kuitsetup.cpp:351
 msgctxt "keyboard-key-name"
 msgid "Left"
-msgstr ""
+msgstr "Esquierda"
 
 #: kuitsetup.cpp:352
 msgctxt "keyboard-key-name"
@@ -152,7 +152,7 @@ msgstr ""
 #: kuitsetup.cpp:354
 msgctxt "keyboard-key-name"
 msgid "NumLock"
-msgstr ""
+msgstr "BloqNum"
 
 #: kuitsetup.cpp:355
 msgctxt "keyboard-key-name"
@@ -197,7 +197,7 @@ msgstr ""
 #: kuitsetup.cpp:363
 msgctxt "keyboard-key-name"
 msgid "Right"
-msgstr ""
+msgstr "Derecha"
 
 #: kuitsetup.cpp:364
 msgctxt "keyboard-key-name"
@@ -207,12 +207,12 @@ msgstr ""
 #: kuitsetup.cpp:365
 msgctxt "keyboard-key-name"
 msgid "Shift"
-msgstr ""
+msgstr "Mayús"
 
 #: kuitsetup.cpp:366
 msgctxt "keyboard-key-name"
 msgid "Space"
-msgstr ""
+msgstr "Espaciu"
 
 #: kuitsetup.cpp:367
 msgctxt "keyboard-key-name"
@@ -232,7 +232,7 @@ msgstr ""
 #: kuitsetup.cpp:370
 msgctxt "keyboard-key-name"
 msgid "Up"
-msgstr ""
+msgstr "Arriba"
 
 #: kuitsetup.cpp:371
 msgctxt "keyboard-key-name"
