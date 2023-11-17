@@ -59,7 +59,7 @@ if (KI18N_EMBEDDED_ISO_CODES_CACHE)
         COMMENT "Generating ISO 3166-2 cache"
     )
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/isocodescache.qrc ${CMAKE_CURRENT_BINARY_DIR}/isocodescache.qrc)
-    target_sources(KF5I18nLocaleData PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/isocodescache.qrc)
+    target_sources(KF6I18nLocaleData PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/isocodescache.qrc)
 endif()
 
 target_include_directories(KF6I18nLocaleData
