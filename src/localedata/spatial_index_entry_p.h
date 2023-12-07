@@ -42,7 +42,7 @@ public:
 
 private:
     uint32_t m_z : 22;
-    uint32_t m_unused : 6;
+    [[maybe_unused]] uint32_t m_unused : 6;
     uint32_t m_propHigh : 4;
     uint8_t m_propLow;
 };
