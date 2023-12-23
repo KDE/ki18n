@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ki18n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:48+0000\n"
-"PO-Revision-Date: 2023-11-07 23:49+0100\n"
+"PO-Revision-Date: 2023-12-14 22:06+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
-"Language-Team: \n"
+"Language-Team: Assamese <alministradores@softastur.org>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #. i18n: Decide which string is used to delimit keys in a keyboard
 #. shortcut (e.g. + in Ctrl+Alt+Tab) in plain text.
@@ -122,7 +122,7 @@ msgstr "Aniciu"
 #: kuitsetup.cpp:348
 msgctxt "keyboard-key-name"
 msgid "Hyper"
-msgstr "Aniciu"
+msgstr ""
 
 #: kuitsetup.cpp:349
 msgctxt "keyboard-key-name"
