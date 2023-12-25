@@ -8,7 +8,13 @@ find_package(Gettext REQUIRED)
 # solution if it cannot be found in $PATH when building applications.
 set(_KI18N_PYTHON_EXECUTABLE "@PYTHON_EXECUTABLE@")
 
-find_program(KI18N_PYTHON_EXECUTABLE NAMES python3 python2 python)
+if(NOT WIN32)
+    find_program(KI18N_PYTHON_EXECUTABLE NAMES python3 python2 python)
+else()
+    # Windows Python executables are not versioned.
+    # Ensure python3 or python2 cannot be found in msys64 or cygwin by mistake.
+    set(KI18N_PYTHON_EXECUTABLE)
+endif()
 if(NOT KI18N_PYTHON_EXECUTABLE)
     set(KI18N_PYTHON_EXECUTABLE "${_KI18N_PYTHON_EXECUTABLE}")
 endif()
