@@ -41,7 +41,7 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
 
 option(BUILD_WITH_QML "Build with support for scripted translations (recommended)" ON)
-if (BUILD_WITH_QML)
+if(BUILD_WITH_QML)
    find_package(Qt6Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
 
@@ -87,14 +87,14 @@ ecm_set_disabled_deprecation_versions(
 
 ki18n_install(po)
 add_subdirectory(src)
-if (BUILD_TESTING)
+if(BUILD_TESTING)
     add_subdirectory(autotests)
 endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6I18n")
 
-if (BUILD_QCH)
+if(BUILD_QCH)
     ecm_install_qch_export(
         TARGETS KF6I18n_QCH
         FILE "${CMAKE_BINARY_DIR}/cmake/KF6I18nQchTargets.cmake"
