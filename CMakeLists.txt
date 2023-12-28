@@ -42,13 +42,13 @@ set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprec
 
 option(BUILD_WITH_QML "Build with support for scripted translations (recommended)" ON)
 if(BUILD_WITH_QML)
-   find_package(Qt6Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+    find_package(Qt6Qml ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
 endif()
 
 find_package(LibIntl)
 set_package_properties(LibIntl PROPERTIES TYPE REQUIRED
-	URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
-	PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
+    URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
+    PURPOSE "Needed for building KI18n unless glibc is the system libc implementation"
 )
 
 find_package(IsoCodes)
@@ -110,9 +110,9 @@ configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/KF6I18nConfig.cmake.in"
 )
 
 install(FILES  "${CMAKE_BINARY_DIR}/cmake/KF6I18nConfig.cmake"
-               "${CMAKE_BINARY_DIR}/cmake/KF6I18nConfigVersion.cmake"
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel)
+    "${CMAKE_BINARY_DIR}/cmake/KF6I18nConfigVersion.cmake"
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    COMPONENT Devel)
 
 install(EXPORT KF6I18nTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF6I18nTargets.cmake NAMESPACE KF6::)
 
