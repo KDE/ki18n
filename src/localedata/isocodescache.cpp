@@ -289,7 +289,7 @@ void IsoCodesCache::createIso3166_2Cache()
         iso3166_2stringTable.append(entry.value(QLatin1String("name")).toString().toUtf8());
         iso3166_2stringTable.append('\0');
 
-        const auto parentKey = IsoCodes::alphaNum3CodeToKey(entry.value(QLatin1String("parent")).toString());
+        const auto parentKey = IsoCodes::parentCodeToKey(entry.value(QLatin1String("parent")).toString());
         if (parentKey) {
             subdivParentMap.push_back({key, parentKey});
         }

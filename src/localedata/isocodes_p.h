@@ -177,6 +177,24 @@ constexpr inline uint32_t subdivisionCodeToKey(const char (&code)[N])
 {
     return subdivisionCodeToKey(code, N - 1);
 }
+
+/// Before v4.16 iso-codes used for parent code just the subdivision code, without the country
+/// (only by error sometimes). Since that version the full code now is always used.
+/// Handle both cases gracefully.
+/// Does not check the country part for sanity, but just discards the info.
+constexpr inline uint16_t parentCodeToKey(QStringView code)
+{
+    if (code.size() < 4) {
+        return alphaNum3CodeToKey(code);
+    }
+    if (code[2] != QLatin1Char('-')) {
+        return 0;
+    }
+
+    const auto countryKey = alpha2CodeToKey(code.left(2));
+    const auto subdivKey = alphaNum3CodeToKey(code.mid(3), code.size() - 3);
+    return countryKey > 0 ? subdivKey : 0;
+}
 }
 
 #endif // ISOCODES_P_H
