@@ -32,13 +32,14 @@
 #include "ki18n_logging.h"
 
 // Truncate string, for output of long messages.
-static QString shortenMessage(const QString &str)
+static QString shortenMessage(QStringView str)
 {
-    const int maxlen = 20;
+    constexpr int maxlen = 20;
     if (str.length() <= maxlen) {
-        return str;
+        // Use fromRawData to avoid deep copy
+        return QString::fromRawData(str.constData(), str.size());
     } else {
-        return QStringView(str).left(maxlen) + QLatin1String("...");
+        return str.left(maxlen) + QLatin1String("...");
     }
 }
 
@@ -210,7 +211,7 @@ class KLocalizedStringPrivate
                                  const QStringList &arguments,
                                  const QList<QVariant> &values,
                                  bool &fallback) const;
-    int resolveInterpolation(const QString &scriptedTranslation,
+    int resolveInterpolation(QStringView scriptedTranslation,
                              int pos,
                              const QString &language,
                              const QString &country,
@@ -798,7 +799,7 @@ QString KLocalizedStringPrivate::substituteTranscript(const QString &scriptedTra
     return fallback ? QString() : finalTranslation;
 }
 
-int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTranslation,
+int KLocalizedStringPrivate::resolveInterpolation(QStringView scriptedTranslation,
                                                   int pos,
                                                   const QString &language,
                                                   const QString &country,
@@ -834,7 +835,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
             qCWarning(KI18N) << "Unclosed interpolation" << scriptedTranslation.mid(pos, tpos - pos) << "in message" << shortenMessage(scriptedTranslation);
             return -1;
         }
-        if (QStringView(scriptedTranslation).mid(tpos, ielen) == s->endInterp) {
+        if (scriptedTranslation.sliced(tpos, ielen) == s->endInterp) {
             break; // no more arguments
         }
 
@@ -847,7 +848,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
         // Mind backslash escapes throughout.
         QStringList segs;
         QVariant vref;
-        while (!scriptedTranslation[tpos].isSpace() && scriptedTranslation.mid(tpos, ielen) != s->endInterp) {
+        while (!scriptedTranslation[tpos].isSpace() && scriptedTranslation.sliced(tpos, ielen) != s->endInterp) {
             if (scriptedTranslation[tpos] == QLatin1Char('\'')) { // quoted segment
                 QString seg;
                 ++tpos; // skip opening quote
@@ -869,7 +870,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                 segs.append(substituteSimple(seg, arguments, s->scriptPlchar, true));
 
                 ++tpos; // skip closing quote
-            } else if (scriptedTranslation.mid(tpos, islen) == s->startInterp) { // sub-interpolation
+            } else if (scriptedTranslation.sliced(tpos, islen) == s->startInterp) { // sub-interpolation
                 QString resultLocal;
                 bool fallbackLocal;
                 tpos = resolveInterpolation(scriptedTranslation, tpos, language, country, ordinaryTranslation, arguments, values, resultLocal, fallbackLocal);
@@ -886,8 +887,8 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                 // Find whitespace, quote, opening or closing sequence.
                 while (tpos < slen && !scriptedTranslation[tpos].isSpace() //
                        && scriptedTranslation[tpos] != QLatin1Char('\'') //
-                       && scriptedTranslation.mid(tpos, islen) != s->startInterp //
-                       && scriptedTranslation.mid(tpos, ielen) != s->endInterp) {
+                       && scriptedTranslation.sliced(tpos, islen) != s->startInterp //
+                       && scriptedTranslation.sliced(tpos, ielen) != s->endInterp) {
                     if (scriptedTranslation[tpos] == QLatin1Char('\\')) {
                         ++tpos; // escape next character
                     }
@@ -895,7 +896,7 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
                     ++tpos;
                 }
                 if (tpos == slen) {
-                    qCWarning(KI18N) << "Non-terminated interpolation" << scriptedTranslation.mid(pos, tpos - pos) << "in message"
+                    qCWarning(KI18N) << "Non-terminated interpolation" << scriptedTranslation.sliced(pos, tpos - pos) << "in message"
                                      << shortenMessage(scriptedTranslation);
                     return -1;
                 }
