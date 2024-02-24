@@ -10,12 +10,14 @@
 #include <QCoreApplication>
 #include <QLibraryInfo>
 #include <QLocale>
+#include <QThread>
 #include <QTranslator>
 
 #include <memory>
 
 static bool loadCatalog(const QString &catalog, const QLocale &locale)
 {
+    Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
     auto translator = std::make_unique<QTranslator>(QCoreApplication::instance());
     if (!translator->load(locale, catalog, QString(), QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
         qCDebug(KI18N) << "Loading the" << catalog << "catalog failed for locale" << locale;
@@ -84,12 +86,14 @@ static void load()
     // have a translation file which contains only plural forms for `en`. That's
     // why we load the `en` translation unconditionally, then load the
     // translation for the current locale to overload it.
-    loadCatalog(QStringLiteral("qt_"), QLocale{QStringLiteral("en")});
+    QMetaObject::invokeMethod(QCoreApplication::instance(), [] {
+        loadCatalog(QStringLiteral("qt_"), QLocale{QStringLiteral("en")});
 
-    const QLocale locale = getSystemLocale();
-    if (locale.name() != QStringLiteral("en")) {
-        loadTranslation(locale.name(), locale.bcp47Name());
-    }
+        const QLocale locale = getSystemLocale();
+        if (locale.name() != QStringLiteral("en")) {
+            loadTranslation(locale.name(), locale.bcp47Name());
+        }
+    });
 }
 
 Q_COREAPP_STARTUP_FUNCTION(load)
