@@ -41,7 +41,7 @@ constexpr inline bool operator<(KeyType lhs, MapEntry<KeyType> rhs)
 template<typename MapEntry, std::size_t N>
 inline constexpr bool isSortedLookupTable(const MapEntry (&map)[N])
 {
-#if __cplusplus > 201703L && defined(__GNUC__) && !defined(__clang__)
+#if __cplusplus > 201703L && defined(__GNUC__) && __GNUC__ > 9 && !defined(__clang__)
     return std::is_sorted(std::begin(map), std::end(map));
 #else
     (void)map;
