@@ -36,7 +36,7 @@ ecm_setup_version(
 # Dependencies
 set(REQUIRED_QT_VERSION 6.5.0)
 
-find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core)
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core OPTIONAL_COMPONENTS Widgets)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
 
@@ -89,6 +89,7 @@ ki18n_install(po)
 add_subdirectory(src)
 if(BUILD_TESTING)
     add_subdirectory(autotests)
+    add_subdirectory(tests)
 endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
