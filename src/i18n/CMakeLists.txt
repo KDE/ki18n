@@ -17,6 +17,7 @@ target_sources(KF6I18n PRIVATE
     common_helpers.cpp
     klocalizedcontext.cpp
     main.cpp
+    klocalization.cpp
 )
 
 ecm_qt_declare_logging_category(KF6I18n
@@ -69,6 +70,7 @@ ecm_generate_headers(KI18n_HEADERS
     KLocalizedContext
     KLocalizedString
     KLocalizedTranslator
+    KLocalization
     KuitSetup
     REQUIRED_HEADERS KI18n_HEADERS
 )
