@@ -50,8 +50,8 @@ class QSpinBox;
 template<typename T>
 void setSpinboxPrefixSuffix(T *spinbox, const QString &format)
 {
-    constexpr auto isDoubleSpin = std::is_base_of<QSpinBox, T>::value;
-    constexpr auto isIntSpin = std::is_base_of<QDoubleSpinBox, T>::value;
+    constexpr auto isIntSpin = std::is_base_of<QSpinBox, T>::value;
+    constexpr auto isDoubleSpin = std::is_base_of<QDoubleSpinBox, T>::value;
     static_assert(isDoubleSpin || isIntSpin, //
                   "This template only supports QSpinBox and QDoubleSpinBox.");
 
