@@ -92,17 +92,19 @@ template<typename T>
 inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
 {
     if constexpr (std::is_base_of_v<QSpinBox, T>) {
-        // Using relaxSubs() to avoid error marks if the library user did pass
-        // a singular-only KLocalizedString.
         const bool hasSetup = !spinBox->property(Private::SpinBoxFormatStringProperty).isNull();
         if (!hasSetup) {
             QObject::connect(spinBox, &T::valueChanged, spinBox, [spinBox]() {
                 Private::updateSpinboxPrefixSuffix(spinBox);
             });
         }
+        // Using relaxSubs() to avoid error marks if the library user did pass
+        // a singular-only KLocalizedString.
         spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
         Private::updateSpinboxPrefixSuffix(spinBox);
     } else if constexpr (std::is_base_of_v<QDoubleSpinBox, T>) {
+        // Using relaxSubs() to avoid error marks if the library user did pass
+        // a singular-only KLocalizedString.
         spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
         Private::updateSpinboxPrefixSuffix(spinBox);
     } else {
@@ -137,7 +139,7 @@ template<typename T>
 inline void retranslateFormatString(T *spinBox)
 {
     if constexpr (std::is_base_of_v<QSpinBox, T> || std::is_base_of_v<QDoubleSpinBox, T>) {
-        updateSpinboxPrefixSuffix(spinBox);
+        Private::updateSpinboxPrefixSuffix(spinBox);
     } else {
 #ifndef Q_OS_ANDROID
         static_assert(false, "First argument must be a QSpinBox or QDoubleSpinBox.");
