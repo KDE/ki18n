@@ -16,10 +16,12 @@ int main(int argc, char **argv)
     QSpinBox spinBox;
     KLocalization::setupFormatString(&spinBox, ki18np("Baking %v pizza", "Baking %v pizzas"));
     KLocalization::setupFormatString(&spinBox, ki18np("Baking %v cake", "Baking %v cakes"));
+    KLocalization::retranslateFormatString(&spinBox);
     spinBox.show();
 
     QSpinBox doubleSpinBox;
     KLocalization::setupFormatString(&doubleSpinBox, ki18n("%v%"));
+    KLocalization::retranslateFormatString(&doubleSpinBox);
     doubleSpinBox.show();
 
     return app.exec();
