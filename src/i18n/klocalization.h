@@ -91,7 +91,11 @@ inline void updateSpinboxPrefixSuffix(T *spinBox)
 template<typename T>
 inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
 {
-    if constexpr (std::is_base_of_v<QSpinBox, T>) {
+    constexpr bool isSpinBox = std::is_base_of_v<QSpinBox, T>;
+    constexpr bool isDoubleSpinBox = std::is_base_of_v<QDoubleSpinBox, T>;
+    static_assert(isSpinBox || isDoubleSpinBox, "First argument must be a QSpinBox or QDoubleSpinBox.");
+
+    if constexpr (isSpinBox) {
         const bool hasSetup = !spinBox->property(Private::SpinBoxFormatStringProperty).isNull();
         if (!hasSetup) {
             QObject::connect(spinBox, &T::valueChanged, spinBox, [spinBox]() {
@@ -102,16 +106,11 @@ inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
         // a singular-only KLocalizedString.
         spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
         Private::updateSpinboxPrefixSuffix(spinBox);
-    } else if constexpr (std::is_base_of_v<QDoubleSpinBox, T>) {
+    } else if constexpr (isDoubleSpinBox) {
         // Using relaxSubs() to avoid error marks if the library user did pass
         // a singular-only KLocalizedString.
         spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
         Private::updateSpinboxPrefixSuffix(spinBox);
-    } else {
-        // Android's Clang triggers the else branch unconditionally, even when just including this file...
-#ifndef Q_OS_ANDROID
-        static_assert(false, "First argument must be a QSpinBox or QDoubleSpinBox.");
-#endif
     }
 }
 
@@ -138,12 +137,11 @@ inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
 template<typename T>
 inline void retranslateFormatString(T *spinBox)
 {
-    if constexpr (std::is_base_of_v<QSpinBox, T> || std::is_base_of_v<QDoubleSpinBox, T>) {
+    constexpr bool isSpinBox = std::is_base_of_v<QSpinBox, T> || std::is_base_of_v<QDoubleSpinBox, T>;
+    static_assert(isSpinBox, "First argument must be a QSpinBox or QDoubleSpinBox.");
+
+    if constexpr (isSpinBox) {
         Private::updateSpinboxPrefixSuffix(spinBox);
-    } else {
-#ifndef Q_OS_ANDROID
-        static_assert(false, "First argument must be a QSpinBox or QDoubleSpinBox.");
-#endif
     }
 }
 
