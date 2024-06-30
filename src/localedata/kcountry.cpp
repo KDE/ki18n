@@ -314,7 +314,12 @@ static QString normalizeCountryName(QStringView name)
 
 static void checkSubstringMatch(QStringView lhs, QStringView rhs, uint16_t code, uint16_t &result)
 {
-    if (result == std::numeric_limits<uint16_t>::max() || result == code || rhs.isEmpty()) {
+    // rhs needs to have a certain minimum size, otherwise this becomes too trigger-happy
+    // while that seems unlikely, the vi translation of IT is "Ý" for example
+    // that would match e.g. "Turkey" (which has no full match anymore, but is still a likely input)
+    // For scripts with a much higher information density per character this is wrong, but then
+    // the whole conecept of substring matching doesn't really apply there anywhere
+    if (result == std::numeric_limits<uint16_t>::max() || result == code || rhs.size() < 3) {
         return;
     }
     const auto matches = lhs.startsWith(rhs) || rhs.startsWith(lhs) || lhs.endsWith(rhs) || rhs.endsWith(lhs);

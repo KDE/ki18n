@@ -199,6 +199,9 @@ private Q_SLOTS:
 
         // code fallbacks
         QCOMPARE(KCountry::fromName(u"USA").alpha2(), QLatin1String("US"));
+
+        // Turkey is no longer recognized as Türkiye, but should not result in a mis-detection of anything else either
+        QCOMPARE(KCountry::fromName(u"Turkey").alpha2(), QString());
     }
 
     void benchmarkFromName()
