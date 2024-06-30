@@ -11,6 +11,8 @@
 #include <QStandardPaths>
 #include <QTest>
 
+using namespace Qt::Literals;
+
 void initEnvironment()
 {
     qputenv("LANG", "fr_CH.UTF-8");
@@ -197,8 +199,24 @@ private Q_SLOTS:
         QCOMPARE(KCountry::fromName(u"United").alpha2(), QString());
         QCOMPARE(KCountry::fromName(u"Bundesrepuplik Deutschland").alpha2(), QLatin1String("DE"));
 
+        // extremely short Vietnamese country names (those are special as they are affected by diacritic stripping, unlike other Asian scripts)
+        QCOMPARE(KCountry::fromName(u"Ý").alpha2(), "IT"_L1);
+        QCOMPARE(KCountry::fromName(u"Áo").alpha2(), "AT"_L1);
+        QCOMPARE(KCountry::fromName(u"Nước Ý").alpha2(), "IT"_L1);
+
         // code fallbacks
         QCOMPARE(KCountry::fromName(u"USA").alpha2(), QLatin1String("US"));
+
+        // Turkey is no longer recognized as Türkiye, but should not result in a mis-detection of anything else either
+        QCOMPARE(KCountry::fromName(u"Turkey").alpha2(), QString());
+
+        // Ambigous substrings of multiple countries
+        QCOMPARE(KCountry::fromName(u"Korea").alpha2(), QString());
+
+        // input that shouldn't match anything
+        QCOMPARE(KCountry::fromName(u"A").alpha2(), QString());
+        // Philippine region previously mis-detected as Palau (PW)
+        QCOMPARE(KCountry::fromName(u"Palawan").alpha2(), QString());
     }
 
     void benchmarkFromName()
