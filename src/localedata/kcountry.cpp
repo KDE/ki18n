@@ -15,6 +15,8 @@
 
 #include <cstring>
 
+using namespace Qt::Literals;
+
 static_assert(sizeof(KCountry) == 2);
 
 KCountry::KCountry()
@@ -297,6 +299,9 @@ static QString normalizeCountryName(QStringView name)
         }
 
         if (c.isSpace()) {
+            if (!res.isEmpty() && !res.back().isSpace()) {
+                res.push_back(' '_L1);
+            }
             continue;
         }
 
@@ -309,20 +314,30 @@ static QString normalizeCountryName(QStringView name)
         }
     }
 
-    return res;
+    return res.trimmed();
+}
+
+// check is @p needle is a space-separated substring of haystack
+static bool isSeparatedSubstring(QStringView haystack, QStringView needle)
+{
+    auto idx = haystack.indexOf(needle);
+    if (idx < 0) {
+        return false;
+    }
+    if (idx > 0 && !haystack[idx - 1].isSpace()) {
+        return false;
+    }
+    idx += needle.size();
+    return idx >= haystack.size() || haystack[idx].isSpace();
 }
 
 static void checkSubstringMatch(QStringView lhs, QStringView rhs, uint16_t code, uint16_t &result)
 {
-    // rhs needs to have a certain minimum size, otherwise this becomes too trigger-happy
-    // while that seems unlikely, the vi translation of IT is "Ý" for example
-    // that would match e.g. "Turkey" (which has no full match anymore, but is still a likely input)
-    // For scripts with a much higher information density per character this is wrong, but then
-    // the whole conecept of substring matching doesn't really apply there anywhere
-    if (result == std::numeric_limits<uint16_t>::max() || result == code || rhs.size() < 3) {
+    if (result == std::numeric_limits<uint16_t>::max() || result == code || rhs.isEmpty()) {
         return;
     }
-    const auto matches = lhs.startsWith(rhs) || rhs.startsWith(lhs) || lhs.endsWith(rhs) || rhs.endsWith(lhs);
+    const auto matches = isSeparatedSubstring(lhs, rhs) || isSeparatedSubstring(rhs, lhs);
+
     if (!matches) {
         return;
     }
