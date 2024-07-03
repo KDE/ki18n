@@ -118,6 +118,7 @@ inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
  * @brief Retranslates a previously set up format string to the current
  * language and updates the spin box.
  *
+ * The format string is initially set up by setupFormatString().
  * This function updates the prefix and suffix of a spin box to reflect the
  * current language settings. It is useful for responding to language changes,
  * such as those triggered by QEvent::LanguageChange.
