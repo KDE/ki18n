@@ -30,10 +30,37 @@ namespace Private
 
 constexpr inline const char SpinBoxFormatStringProperty[] = "__KLocalizationFormatStringPrivate";
 
+}
+///@endcond
+
+/**
+ * @brief Retranslates a previously set up format string to the current
+ * language and updates the spin box.
+ *
+ * The format string is initially set up by setupFormatString().
+ * This function updates the prefix and suffix of a spin box to reflect the
+ * current language settings. It is useful for responding to language changes,
+ * such as those triggered by QEvent::LanguageChange.
+ *
+ * @tparam T The type of the spin box, which must be either QSpinBox or
+ * QDoubleSpinBox.
+ * @param spinBox Pointer to the spin box.
+ *
+ * @post The prefix and suffix of the spin box are updated to reflect the
+ * current language.
+ *
+ * @sa @ref setupFormatString
+ *
+ * @since 6.5
+ */
+
 template<typename T>
-inline void updateSpinboxPrefixSuffix(T *spinBox)
+inline void retranslateFormatString(T *spinBox)
 {
-    const auto lString = spinBox->property(SpinBoxFormatStringProperty).template value<KLocalizedString>();
+    constexpr bool isSpinBox = std::is_base_of_v<QSpinBox, T> || std::is_base_of_v<QDoubleSpinBox, T>;
+    static_assert(isSpinBox, "First argument must be a QSpinBox or QDoubleSpinBox.");
+
+    const auto lString = spinBox->property(Private::SpinBoxFormatStringProperty).template value<KLocalizedString>();
     const auto translation = lString.subs(spinBox->value()).toString();
     const auto parts = translation.split(QLatin1StringView("%v"));
     if (parts.count() == 2) {
@@ -44,9 +71,6 @@ inline void updateSpinboxPrefixSuffix(T *spinBox)
         spinBox->setSuffix(QString());
     }
 }
-
-}
-///@endcond
 
 /**
  * @brief Sets up a format string for internationalizing spin boxes.
@@ -99,51 +123,14 @@ inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
         const bool hasSetup = !spinBox->property(Private::SpinBoxFormatStringProperty).isNull();
         if (!hasSetup) {
             QObject::connect(spinBox, &T::valueChanged, spinBox, [spinBox]() {
-                Private::updateSpinboxPrefixSuffix(spinBox);
+                retranslateFormatString(spinBox);
             });
         }
-        // Using relaxSubs() to avoid error marks if the library user did pass
-        // a singular-only KLocalizedString.
-        spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
-        Private::updateSpinboxPrefixSuffix(spinBox);
-    } else if constexpr (isDoubleSpinBox) {
-        // Using relaxSubs() to avoid error marks if the library user did pass
-        // a singular-only KLocalizedString.
-        spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
-        Private::updateSpinboxPrefixSuffix(spinBox);
     }
-}
-
-/**
- * @brief Retranslates a previously set up format string to the current
- * language and updates the spin box.
- *
- * The format string is initially set up by setupFormatString().
- * This function updates the prefix and suffix of a spin box to reflect the
- * current language settings. It is useful for responding to language changes,
- * such as those triggered by QEvent::LanguageChange.
- *
- * @tparam T The type of the spin box, which must be either QSpinBox or
- * QDoubleSpinBox.
- * @param spinBox Pointer to the spin box.
- *
- * @post The prefix and suffix of the spin box are updated to reflect the
- * current language.
- *
- * @sa @ref setupFormatString
- *
- * @since 6.5
- */
-
-template<typename T>
-inline void retranslateFormatString(T *spinBox)
-{
-    constexpr bool isSpinBox = std::is_base_of_v<QSpinBox, T> || std::is_base_of_v<QDoubleSpinBox, T>;
-    static_assert(isSpinBox, "First argument must be a QSpinBox or QDoubleSpinBox.");
-
-    if constexpr (isSpinBox) {
-        Private::updateSpinboxPrefixSuffix(spinBox);
-    }
+    // Using relaxSubs() to avoid error marks if the library user did pass
+    // a singular-only KLocalizedString.
+    spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
+    retranslateFormatString(spinBox);
 }
 
 }
