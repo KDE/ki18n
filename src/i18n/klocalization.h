@@ -37,7 +37,7 @@ constexpr inline const char SpinBoxFormatStringProperty[] = "__KLocalizationForm
  * @brief Retranslates a previously set up format string to the current
  * language and updates the spin box.
  *
- * The format string is initially set up by setupFormatString().
+ * The format string is initially set up by setupSpinBoxFormatString().
  * This function updates the prefix and suffix of a spin box to reflect the
  * current language settings. It is useful for responding to language changes,
  * such as those triggered by QEvent::LanguageChange.
@@ -49,13 +49,13 @@ constexpr inline const char SpinBoxFormatStringProperty[] = "__KLocalizationForm
  * @post The prefix and suffix of the spin box are updated to reflect the
  * current language.
  *
- * @sa @ref setupFormatString
+ * @sa @ref setupSpinBoxFormatString
  *
  * @since 6.5
  */
 
 template<typename T>
-inline void retranslateFormatString(T *spinBox)
+inline void retranslateSpinBoxFormatString(T *spinBox)
 {
     constexpr bool isSpinBox = std::is_base_of_v<QSpinBox, T> || std::is_base_of_v<QDoubleSpinBox, T>;
     static_assert(isSpinBox, "First argument must be a QSpinBox or QDoubleSpinBox.");
@@ -92,13 +92,13 @@ inline void retranslateFormatString(T *spinBox)
  * Example usage:
  * @code
  * QDoubleSpinBox doubleBox;
- * KLocalization::setupFormatString(
+ * KLocalization::setupSpinBoxFormatString(
  *     &doubleBox,
  *     ki18nc("@item %v is a number and the second % is the percent sign", "%v%"));
  * // Turkish translation: "%%v"
  *
  * QSpinBox intBox;
- * KLocalization::setupFormatString(
+ * KLocalization::setupSpinBoxFormatString(
  *     &intBox,
  *     ki18ncp("@item %v is a number", "Baking %v cake", "Baking %v cakes"));
  * @endcode
@@ -111,13 +111,13 @@ inline void retranslateFormatString(T *spinBox)
  *
  * @note It is safe to call this function multiple times on the same spin box.
  *
- * @sa @ref retranslateFormatString
+ * @sa @ref retranslateSpinBoxFormatString
  *
  * @since 6.5
  */
 
 template<typename T>
-inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
+inline void setupSpinBoxFormatString(T *spinBox, const KLocalizedString &formatString)
 {
     constexpr bool isSpinBox = std::is_base_of_v<QSpinBox, T>;
     constexpr bool isDoubleSpinBox = std::is_base_of_v<QDoubleSpinBox, T>;
@@ -127,14 +127,14 @@ inline void setupFormatString(T *spinBox, const KLocalizedString &formatString)
         const bool hasSetup = !spinBox->property(Private::SpinBoxFormatStringProperty).isNull();
         if (!hasSetup) {
             QObject::connect(spinBox, &T::valueChanged, spinBox, [spinBox]() {
-                retranslateFormatString(spinBox);
+                retranslateSpinBoxFormatString(spinBox);
             });
         }
     }
     // Using relaxSubs() to avoid error marks if the library user did pass
     // a singular-only KLocalizedString.
     spinBox->setProperty(Private::SpinBoxFormatStringProperty, QVariant::fromValue(formatString.relaxSubs()));
-    retranslateFormatString(spinBox);
+    retranslateSpinBoxFormatString(spinBox);
 }
 
 }

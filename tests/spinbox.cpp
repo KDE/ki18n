@@ -14,14 +14,14 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
 
     QSpinBox spinBox;
-    KLocalization::setupFormatString(&spinBox, ki18np("Baking %v pizza", "Baking %v pizzas"));
-    KLocalization::setupFormatString(&spinBox, ki18np("Baking %v cake", "Baking %v cakes"));
-    KLocalization::retranslateFormatString(&spinBox);
+    KLocalization::setupSpinBoxFormatString(&spinBox, ki18np("Baking %v pizza", "Baking %v pizzas"));
+    KLocalization::setupSpinBoxFormatString(&spinBox, ki18np("Baking %v cake", "Baking %v cakes"));
+    KLocalization::retranslateSpinBoxFormatString(&spinBox);
     spinBox.show();
 
     QSpinBox doubleSpinBox;
-    KLocalization::setupFormatString(&doubleSpinBox, ki18n("%v%"));
-    KLocalization::retranslateFormatString(&doubleSpinBox);
+    KLocalization::setupSpinBoxFormatString(&doubleSpinBox, ki18n("%v%"));
+    KLocalization::retranslateSpinBoxFormatString(&doubleSpinBox);
     doubleSpinBox.show();
 
     return app.exec();
