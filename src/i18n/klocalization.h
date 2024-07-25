@@ -92,11 +92,15 @@ inline void retranslateFormatString(T *spinBox)
  * Example usage:
  * @code
  * QDoubleSpinBox doubleBox;
- * KLocalization::setupFormatString(&doubleBox, ki18nc("@item", "%v%"));
+ * KLocalization::setupFormatString(
+ *     &doubleBox,
+ *     ki18nc("@item %v is a number and the second % is the percent sign", "%v%"));
  * // Turkish translation: "%%v"
  *
  * QSpinBox intBox;
- * KLocalization::setupFormatString(&intBox, ki18ncp("@item", "Baking %v cake", "Baking %v cakes"));
+ * KLocalization::setupFormatString(
+ *     &intBox,
+ *     ki18ncp("@item %v is a number", "Baking %v cake", "Baking %v cakes"));
  * @endcode
  *
  * @tparam T The type of the spin box, which must be either QSpinBox or QDoubleSpinBox.
