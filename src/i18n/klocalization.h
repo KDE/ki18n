@@ -61,6 +61,19 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
     static_assert(isSpinBox, "First argument must be a QSpinBox or QDoubleSpinBox.");
 
     const auto lString = spinBox->property(Private::SpinBoxFormatStringProperty).template value<KLocalizedString>();
+    // The KLocalizedString::subs() method performs two tasks:
+    // 1. It replaces placeholders (%1, %2, ...) in the string with actual
+    //    content.
+    // 2. If the argument is an integer, it selects the appropriate plural form
+    //    based on the value.
+    // In this context, the string is expected not to contain any standard
+    // placeholders (%1, %2, ...). Instead, it should contain a custom
+    // placeholder (%v) which is ignored by KLocalizedString::subs().
+    // The only purpose of calling KLocalizedString::subs() here is to ensure
+    // the correct plural form is used when spinBox->value() is an integer.
+    // If spinBox->value() is a double, KLocalizedString::subs() does not
+    // perform any operations on the string since plural handling applies only
+    // to integer values.
     const auto translation = lString.subs(spinBox->value()).toString();
     const auto parts = translation.split(QLatin1StringView("%v"));
     if (parts.count() == 2) {
@@ -106,8 +119,13 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
  * @tparam T The type of the spin box, which must be either QSpinBox or QDoubleSpinBox.
  * @param spinBox Pointer to the spin box.
  * @param formatString A localized string in the format "PREFIX%vSUFFIX".
- * For QDoubleSpinBox, it does not handle plural forms. For QSpinBox, it is
- * recommended to handle plural forms.
+ *        - For QDoubleSpinBox, plural forms in @p formatString are ignored
+ *          and should be avoided. Use @ref KLocalizedString::ki18nc "ki18nc()"
+ *          to generate the format string.
+ *        - For QSpinBox, if @p formatString includes plural forms, they are
+ *          utilized. While optional, their use is highly recommended for
+ *          accurate pluralization. Use @ref KLocalizedString::ki18ncp "ki18ncp()"
+ *          to generate the format string.
  *
  * @note It is safe to call this function multiple times on the same spin box.
  *
