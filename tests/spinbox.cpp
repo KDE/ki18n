@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     KLocalization::retranslateSpinBoxFormatString(&spinBox);
     spinBox.show();
 
-    QSpinBox doubleSpinBox;
+    QDoubleSpinBox doubleSpinBox;
     KLocalization::setupSpinBoxFormatString(&doubleSpinBox, ki18n("%v%"));
     KLocalization::retranslateSpinBoxFormatString(&doubleSpinBox);
     doubleSpinBox.show();
