@@ -5,18 +5,26 @@ Programmer's Guide   {#prg_guide}
 -   [Writing Messages](#write_i18n)
     -   [General Messages](#gen_usage)
     -   [Specialized Messages](#spec_usage)
+        -   [Dynamic Contexts](#dyn_ctxt)
+        -   [Messages before creation of Q*Application instance](#before_qapp)
     -   [Placeholder Substitution](#subs_notes)
     -   [Writing Good Texts](#good_text)
     -   [Writing Good Contexts](#good_ctxt)
+        -   [User Interface Markers](#uimark_ctxt)
+        -   [Adding Contexts in Non-C++ files](#nocpp_ctxt)
+        -   [Disambiguation Context vs. Extracted Comment](#ctxt_extc)
     -   [Extraction-Only Macros](#i18n_noop)
-    -   [Messages before creation of Q*Application instance](#before_qapp)
 -   [Connecting Calls to Catalogs](#link_cat)
     -   [Connecting to Catalogs in Application Code](#link_prog)
     -   [Connecting to Catalogs in Library Code](#link_lib)
     -   [Connecting to Catalogs in Non-Code Files](#link_noncode)
+        -   [Qt Designer (.ui) files](#link_ui)
+        -   [KXmlGui (.rc) files](#link_rc)
+        -   [KConfigXT (.kcfg) files](#link_kcfg)
 -   [Handling Catalog Files](#handle_cat)
     -   [Extracting Templates](#handle_extract)
     -   [Placing and Installing Catalogs](#handle_install)
+        -   [Placing and Installing Scripting Modules](#handle_transcript)
     -   [Updating Catalogs](#handle_update)
 -   [Semantic Markup](#kuit_markup)
     -   [Defining Tags](#kuit_def_tags)
@@ -27,7 +35,7 @@ Programmer's Guide   {#prg_guide}
 -   [Localizing Non-Text Resources](#non_text)
 -   [Further References](#refs)
 
-<a name="intro">
+<a name="intro"></a>
 
 ## Introduction
 
@@ -96,19 +104,19 @@ the actual-text approach. In the following it is described
 how to use Ki18n, from the viewpoint of programmers and maintainers.
 Basic instructions are split into three parts:
 
-\li The first part deals with how to write i18n messages in the code.
+  * The first part deals with how to write i18n messages in the code.
     This is the largest and the most important part, since there are
     many nuances to preparing quality messages for translation.
-    Section: \ref write_i18n.
+    Section: [Writing Messages](#write_i18n).
 
-\li The second part describes how to connect particular translation calls
+  * The second part describes how to connect particular translation calls
     with particular translation catalogs, so that the system can know
     in which catalogs to search for translations.
     In particular, there are some differences here depending on whether
     the piece of code is an application or a library.
-    Section: \ref link_cat.
+    Section: [Connecting Calls to Catalogs](#link_cat).
 
-\li The third part explains how to *extract* messages from the code,
+  * The third part explains how to *extract* messages from the code,
     in order to create the translation *template*.
     The template is simply a clean translation catalog (having only English
     part of each message), which the translator copies over and fills in
@@ -120,36 +128,39 @@ Basic instructions are split into three parts:
     Unlike in the GNU Gettext manual, here there are no dependencies or
     references to a particular software build system;
     this is left to the maintainer to choose.
-    Section: \ref handle_cat.
+    Section: [Handling Catalog Files](#handle_cat).
 
 There are also two special topics:
 
-\li Some programmers like to have more structure and consistency
+  * Some programmers like to have more structure and consistency
     in message texts, and for them Ki18n provides
     a customizable semantic markup.
-    Section: \ref kuit_markup.
+    Section: [Semantic Markup](#kuit_markup).
 
-\li Sometimes there are program resources other than text
+  * Sometimes there are program resources other than text
     that require localization.
     Ki18n provides a generic, though rudimentary solution for such cases.
-    Section: \ref non_text.
+    Section: [Localizing Non-Text Resources](#non_text).
 
 
-<a name="write_i18n">
+<a name="write_i18n"></a>
 
 ## Writing Messages
 
 Most messages can be internationalized with simple `i18n*` calls,
-which are described in the section \ref gen_usage.
+which are described in the section [General Messages](#gen_usage).
 A few messages may require treatment with `ki18n*` calls,
-and when this is needed is described in the section \ref spec_usage.
+and when this is needed is described in the section
+[Specialized Messages](#spec_usage).
 Argument substitution in messages is performed using the familiar
 Qt syntax `%<number>`, but there may be some differences;
-the section \ref subs_notes gives some notes about placeholders.
+the section [Placeholder Substitution](#subs_notes)
+gives some notes about placeholders.
 Finally, guidelines for writing good messages are given
-in sections \ref good_text and \ref good_ctxt.
+in sections [Writing Good Texts](#good_text) and
+[Writing Good Contexts](#good_ctxt).
 
-<a name="gen_usage">
+<a name="gen_usage"></a>
 
 ### General Messages
 
@@ -195,8 +206,8 @@ which the user will see:
 QString msg = i18nc("player name - score", "%1 - %2", playerName, score);
 ~~~
 
-Section \ref good_ctxt gives a few pointers on when contexts are needed,
-and what they should contain.
+Section [Writing Good Contexts](#good_ctxt) gives a few pointers on when
+contexts are needed, and what they should contain.
 
 In messages stating how many of some kind of objects there are,
 where the number of objects is inserted at run time, it is necessary
@@ -266,9 +277,10 @@ and there will be some warnings in debug mode.
 There is also a complement of `i18nd*` calls
 (`i18nd`, `i18ndc`, `i18ndp`, `i18ndcp`),
 which are not supposed to be used directly,
-but as will be explained in the section \ref link_cat.
+but as will be explained in the
+section [Connecting Calls to Catalogs](#link_cat).
 
-<a name="spec_usage">
+<a name="spec_usage"></a>
 
 ### Specialized Messages
 
@@ -340,7 +352,7 @@ QStringList myLanguages;
 QString msg = ki18n("Welcome").toString(myLanguages);
 ~~~
 
-The section \ref link_cat describes how to specify
+The section [Connecting Calls to Catalogs](#link_cat) describes how to specify
 the translation *domain*, a canonical name for the catalog file
 from which `*i18n*` calls will draw translations.
 But `toString` can always be used to override the domain for a given call,
@@ -354,9 +366,10 @@ Relevant here is the set of `ki18nd*` calls
 (`ki18nd`, `ki18ndc`, `ki18ndp`, `ki18ndcp`),
 which can be used for the same purpose,
 but which are not intended to be used directly.
-This will also be covered in the section \ref link_cat.
+This will also be covered in the
+section [Connecting Calls to Catalogs](#link_cat).
 
-<a name="dyn_ctxt">
+<a name="dyn_ctxt"></a>
 
 #### Dynamic Contexts
 
@@ -387,9 +400,9 @@ of the available dynamic context keys and possible values.
 Like `subs` methods, `inContext` does not modify the parent instance,
 but returns a copy of it.
 
-<a name="before_qapp">
+<a name="before_qapp"></a>
 
-### Messages before creation of Q*Application instance
+#### Messages before creation of Q*Application instance
 
 Fetching the translated messages only works after the Q*Application
 instance has been created. So any code which will be executed before
@@ -398,11 +411,11 @@ the actual lookup in the catalog (like other locale-dependent actions),
 in one of two ways:
 either by using statically initialized character arrays wrapped in
 `kli18n*` functions for extraction, and later making the
-actual `i18n*` calls (see section \ref i18n_noop);
+actual `i18n*` calls (see section [Extraction-Only Macros](#i18n_noop));
 or by using `ki18n*` calls to create `KLocalizedString` instances,
 which do not perform immediate catalog lookup, and later fetching
 the actual translation through their toString() methods (see
-section \ref spec_usage);
+section [Specialized Messages](#spec_usage));
 
 One reason for this is that Gettext follows the standard C/POSIX locale
 settings. By standard on the start of a program all locale categories are
@@ -425,7 +438,7 @@ QCoreApplication instance (or of its subclasses) will use a message catalog
 based on the locale specific environment variables, as one usually expects,
 But any calls _before_ will use a message catalog for the "C" locale.
 
-<a name="subs_notes">
+<a name="subs_notes"></a>
 
 ### Placeholder Substitution
 
@@ -463,7 +476,7 @@ i18n("Listening on port %1.", QString::number(port));
 ~~~
 
 
-<a name="good_text">
+<a name="good_text"></a>
 
 ### Writing Good Texts
 
@@ -623,7 +636,7 @@ The previous example of non-well-formedness was perhaps trivial;
 in practice, non-trivial examples usually break some other rules too
 (e.g. no word puzzles).
 
-<a name="good_ctxt">
+<a name="good_ctxt"></a>
 
 ### Writing Good Contexts
 
@@ -680,14 +693,15 @@ It is frequently suggested to state in the context the grammar category
 of the message text, such as "this is a verb" or "this is a noun".
 Since the grammar category of the translation does not have to be
 the same as that of the original, this kind of context provides
-circumstantial information at best (see the section \ref uimark_ctxt
+circumstantial information at best (see the
+section [User Interface Markers](#uimark_ctxt)
 for what translators may use it to draw some real information about),
 and is worthless at worst.
 Also, due to relative absence of declension in English grammar,
 different programmers may have different opinion on the grammar category:
 the menu title "View", is it a verb or a noun?
 
-<a name="uimark_ctxt">
+<a name="uimark_ctxt"></a>
 
 #### User Interface Markers
 
@@ -736,7 +750,7 @@ when the component was introduced.
     <td>Tab name.</td></tr>
 <tr><td></td><td>:group<sup>5.0</sup></td>
     <td>Title to a group of widgets, like a group of checkboxes or
-        radio buttons.</td>
+        radio buttons.</td></tr>
 <tr><td></td><td>:column<sup>5.0</sup></td>
     <td>Column name in a table header,
         e.g. in a table view widget.</td></tr>
@@ -815,7 +829,7 @@ If none of the minor components apply to a given message,
 a major component can be used standalone.
 For example, this would happen with a library-provided list of items
 without any immediate UI context (e.g. language or country names),
-where the appropriate UI marker would be just `@item`.
+where the appropriate UI marker would be just \@item.
 
 One way to extend the context after the UI marker,
 which is simple for the programmer yet can be very helpful for translators,
@@ -834,26 +848,27 @@ i18nc("@item:inlistbox Vertical alignment", "Left")
 ~~~
 
 
-<a name="nocpp_ctxt">
+<a name="nocpp_ctxt"></a>
 
 #### Adding Contexts in Non-C++ files
 
 When Qt Designer is used to build the user interface,
-the \em -tr option of `uic` should be used to pass UI strings
-through Ki18n's `tr2i18n` function (see also \ref link_ui).
+the *-tr* option of `uic` should be used to pass UI strings
+through Ki18n's `tr2i18n` function (see also
+[Defining Tags](#kuit_def_tags)).
 This function is the equivalent of `i18n` or `i18nc`,
 based on whether the second argument is null or not.
 If a string in the `.ui` file has the attribute `comment=`,
 its value will be automatically used as the context argument.
 (In Qt Designer, this is the "disambiguation" property of a string.)
 Alternatively, strings can be passed to Ki18n's `tr2xi18n` function
-(see \ref kuit_markup).
+(see [Semantic Markup](#kuit_markup)).
 
 In KXmlGui (`.rc`) and KConfigXT (`.kcfg`) files,
 contexts can be added through `context=` attributes to
 `text`, `label`, and `whatsthis` tags.
 
-<a name="ctxt_extc">
+<a name="ctxt_extc"></a>
 
 #### Disambiguation Context vs. Extracted Comment
 
@@ -920,7 +935,8 @@ msgstr ""
 The second difference is that a change in extracted comment
 *does not invalidate the existing translation*, i.e.
 it will not force translators to revisit the message and revise
-the translation (see the section \ref handle_update for details
+the translation (see the section
+[Updating Catalogs](#handle_update) for details
 on how this invalidation happens with disambiguation contexts).
 Thus, for example, if there is a "message freeze"
 before the next release of a piece of software, during which
@@ -953,12 +969,13 @@ influence some aspect of text formatting), which may expand in
 the future, as new possibilities are introduced at request of
 translators into new languages.
 
-<a name="i18n_noop">
+<a name="i18n_noop"></a>
 
 ### Extraction-Only Functions
 
 Sometimes it is convenient only to mark a message for extraction
-(into the catalog template, as described in \ref handle_extract),
+(into the catalog template, as described
+in [Extracting Templates](#handle_extract)),
 and to place the actual `i18n` call somewhere else.
 A typical case of this are global static initializers,
 where only POD types can be safely used.
@@ -1018,7 +1035,7 @@ in the same message table is possible, e.g. to add a context to a few
 messages when necessary.
 
 
-<a name="link_cat">
+<a name="link_cat"></a>
 
 ## Connecting Calls to Catalogs
 
@@ -1032,7 +1049,7 @@ This connection is established differently for applications
 and libraries, though the difference is only for convenience: if desired,
 the more verbose library method can be used for application code as well.
 
-<a name="link_prog">
+<a name="link_prog"></a>
 
 ### Connecting to Catalogs in Application Code
 
@@ -1062,9 +1079,10 @@ respective `KLocalizedString::toString()` has to be delayed to after that.
 This is all there is to connecting calls and catalogs application's
 C++ source files. However, there may also be some non-code files
 that need connecting, and how to do this is some typical non-code
-files is described in the section \ref link_noncode.
+files is described in the
+section [Connecting to Catalogs in Non-Code Files](#link_noncode).
 
-<a name="link_lib">
+<a name="link_lib"></a>
 
 ### Connecting to Catalogs in Library Code
 
@@ -1127,7 +1145,7 @@ If instead the public header contains only `kli18n*` function calls,
 defining `TRANSLATION_DOMAIN` is unnecessary in the first place,
 since actual `i18n` calls happen somewhere else.
 
-<a name="link_noncode">
+<a name="link_noncode"></a>
 
 ### Connecting to Catalogs in Non-Code Files
 
@@ -1143,7 +1161,7 @@ It is assumed in the following that all messages in the non-code file
 are connected to the single domain. In other words, the connection
 is specified on the file level rather than on the message level.
 
-<a name="link_ui">
+<a name="link_ui"></a>
 
 #### Qt Designer (.ui) files
 
@@ -1171,10 +1189,10 @@ sed -i "1i\#define TRANSLATION_DOMAIN \"$domain\"\n#include <klocalizedstring.h>
 ~~~
 
 
-If strings contain KUIT markup (section \ref kuit_markup),
+If strings contain KUIT markup (section [Semantic Markup](#kuit_markup)),
 `tr2i18n` in the lines above should be replaced with `tr2xi18n`.
 
-<a name="link_rc">
+<a name="link_rc"></a>
 
 #### KXmlGui (.rc) files
 
@@ -1193,10 +1211,10 @@ it is not necessary to set `translationDomain`. If not set,
 translations will be looked up in the domain set with
 `KLocalizedString::setApplicationDomain` call in the code.
 
-If strings contain KUIT markup (section \ref kuit_markup),
+If strings contain KUIT markup (section [Semantic Markup](#kuit_markup)),
 additionally the attribute `translationMarkup="true"` should be set.
 
-<a name="link_kcfg">
+<a name="link_kcfg"></a>
 
 #### KConfigXT (.kcfg) files
 
@@ -1220,10 +1238,10 @@ the `TranslationDomain` field can be omitted in order
 to have messages looked up in the domain set by
 `KLocalizedString::setApplicationDomain` call in the code.
 
-If strings contain KUIT markup (section \ref kuit_markup),
+If strings contain KUIT markup (section [Semantic Markup](#kuit_markup)),
 additionally the field `TranslationMarkup=true` should be set.
 
-<a name="handle_cat">
+<a name="handle_cat"></a>
 
 ## Handling Catalog Files
 
@@ -1232,7 +1250,8 @@ should be prepared, based on the `i18n` calls in the source code.
 The procedure to do this is called *extraction* of messages.
 Extraction produces empty catalog files, called *templates*.
 These files are in the PO format, and have `.pot` extension.
-Section \ref handle_extract explains how to perform extraction.
+Section [Extracting Templates](#handle_extract) explains how
+to perform extraction.
 
 Once templates are ready, a translators make copies of them,
 with `.po` extension, and start filling them out with translations
@@ -1240,7 +1259,8 @@ into respective languages.
 When translation is done, the translated catalog is committed
 into the source code repository.
 The build system is set up to install translated catalogs.
-Section \ref handle_install provides necessary steps for this.
+Section [Placing and Installing Catalogs](#handle_install) provides
+necessary steps for this.
 
 After some development has passed, the source repository will
 contain many translated catalogs which are out of date with
@@ -1249,7 +1269,7 @@ Of course, translators do not have to start translating from scratch,
 but there are specialized tools to carry over as much of existing
 translation as possible, so that only new and modified texts
 need to be considered.
-Section \ref handle_update shows how this is done.
+Section [Updating Catalogs](#handle_update) shows how this is done.
 
 A usual application or a library has one translation catalog,
 but there can be more if there is higher modularity of the source.
@@ -1257,7 +1277,7 @@ The following subsections refer to a single catalog wherever
 the extension to case with multiple catalogs is obvious,
 and mention multiple catalogs only where necessary.
 
-<a name="handle_extract">
+<a name="handle_extract"></a>
 
 ### Extracting Templates
 
@@ -1275,7 +1295,7 @@ For the moment masking the complete list of options as `$EXTOPTS`,
 source to create the catalog template `fooapp.pot`:
 
 ~~~
-find -name \*.cpp -o -name \*.h -o -name \*.qml | sort \
+find -name *.cpp -o -name *.h -o -name *.qml | sort \
 | xargs xgettext $EXTOPTS -o fooapp.pot
 ~~~
 
@@ -1317,7 +1337,8 @@ translation call names and which of their arguments to extract.
 Finally, options `--copyright-holder` and
 `--msgid-bugs-address` automatically write
 the corresponding information into the catalog at proper place.
-If there are semantic markup calls in the code (section \ref kuit_markup),
+If there are semantic markup calls in the
+code (section [Semantic Markup](#kuit_markup)),
 the following `-k` options should be added as well:
 
 ~~~
@@ -1336,7 +1357,7 @@ This file can then be included into the list of files for `xgettext` run.
 The usual invocation of `extractrc` is:
 
 ~~~
-find -name \*.ui -o -name \*.rc -o -name \*.kcfg | sort \
+find -name *.ui -o -name *.rc -o -name *.kcfg | sort \
 | extractrc > rc.cpp
 # ...run xgettext with rc.cpp included in source files...
 rm rc.cpp
@@ -1368,7 +1389,7 @@ into dedicated translation section of KDE repositories.
 Details can be found at
 <a href="http://techbase.kde.org/Development/Tutorials/Localization/i18n_Build_Systems">KDE Techbase</a>.
 
-<a name="handle_install">
+<a name="handle_install"></a>
 
 ### Placing and Installing Catalogs
 
@@ -1487,7 +1508,7 @@ Compilation and installation of catalogs should naturally be integrated
 into the build system. In case <a href="http://www.cmake.org/">CMake</a>
 is used, KDE provides CMake macros for this purpose.
 
-<a name="handle_transcript">
+<a name="handle_transcript"></a>
 
 #### Placing and Installing Scripting Modules
 
@@ -1552,7 +1573,7 @@ applicable. If that is the case, they should rather become part of
 Ki18n's own scripting module, because then they will be accessible
 to all Ki18n-based translations in the given language.
 
-<a name="handle_update">
+<a name="handle_update"></a>
 
 ### Updating Catalogs
 
@@ -1603,7 +1624,7 @@ also performs merging. So the maintainer is left only to pick up
 whatever are the latest catalogs when making a tarball.
 
 
-<a name="kuit_markup">
+<a name="kuit_markup"></a>
 
 ## Semantic Markup
 
@@ -1650,7 +1671,7 @@ Ordinary and KUIT-aware calls can be freely mixed within
 a given body of code.
 
 KUIT defines a number of semantic tags that are frequently of use,
-as listed in the section \ref kuit_tags.
+as listed in the section [Predefined Tags](#kuit_tags).
 But, KUIT also allows the programmer to define custom tags,
 as well as to change visual formatting patterns for predefined tags.
 This capability should lessen one important issue of semantic markups:
@@ -1658,7 +1679,7 @@ when the author is forced to choose between several tags
 none of which exactly fits the desired meaning;
 with KUIT, the author can simply define a custom tag in that case.
 
-<a name="kuit_def_tags">
+<a name="kuit_def_tags"></a>
 
 ### Defining Tags
 
@@ -1719,7 +1740,7 @@ so that the resolution can depend on the markup tree context if needed.
 Anything in the function that may need translator input
 should be appropriately exposed through `i18nc*` or `ki18nc*` calls.
 
-In the section \ref kuit_tags it is stated that every KUIT tag
+In the section [Predefined Tags](#kuit_tags) it is stated that every KUIT tag
 is classified either as a phrase tag or as a structuring tag,
 and explained what that means for processing.
 A newly defined tag is by default a phrase tag;
@@ -1749,7 +1770,7 @@ void updateKuitSetup (const char *domain)
 
 The client code should then call this function in its initialization.
 
-<a name="kuit_sel_fmt">
+<a name="kuit_sel_fmt"></a>
 
 ### Selecting Visual Format
 
@@ -1757,7 +1778,7 @@ The target visual format for any given `xi18n` call can be selected
 in two ways.
 
 The primary way is by UI markers in the message context,
-which were described in the section \ref uimark_ctxt.
+which were described in the section [User Interface Markers](#uimark_ctxt).
 Every `@<major>:<minor>` marker combination has
 a default target visual format assigned, as follows:
 <table>
@@ -1781,7 +1802,6 @@ a default target visual format assigned, as follows:
     <td>plain</td></tr>
 <tr><td>\@info:shell</td>
     <td>term</td></tr>
-</tr>
 </table>
 Target visual formats associated with UI markers can be changed using
 the `KUITSetup::setFormatForMarker` method:
@@ -1808,9 +1828,10 @@ This will override any format implied by the UI marker if present.
 
 If a library is making modifications in visual format association
 with UI markers, and these changes should be available to clients,
-the same approach as in the section \ref kuit_def_tags should be used.
+the same approach as in the section [Defining Tags](#kuit_def_tags)
+should be used.
 
-<a name="kuit_escape">
+<a name="kuit_escape"></a>
 
 ### Escaping
 
@@ -1825,9 +1846,9 @@ xi18n("Installed Fooapp too old, need release &gt;= 2.1.8.");
 xi18n("Set &lt;themeId&gt; as theme on startup");
 ~~~
 
-The exception is the ampersand (&) character, which in XML denotes
+The exception is the ampersand (&amp;) character, which in XML denotes
 the start of an entity, but in Qt denotes the accelerator marker.
-Therefore it is necessary to escape ampersand as `&amp;`
+Therefore it is necessary to escape ampersand as \c &amp;amp;
 only when it is in position which would result in valid entity syntax:
 
 ~~~
@@ -1877,7 +1898,7 @@ QString msg = xi18nc("@info",
 If the argument and the text have different visual formats implied by
 their UI markers, the outermost format overrides inner formats.
 
-<a name="kuit_tags">
+<a name="kuit_tags"></a>
 
 ### Predefined Tags
 
@@ -2131,7 +2152,7 @@ xi18nc("@info",
        "<warning>This cannot be undone.</warning>");
 ~~~
 
-</tr></td>
+</td></tr>
 <tr><th>
 Structuring Tags
 </th></tr>
@@ -2139,30 +2160,30 @@ Structuring Tags
 <b>\<item\></b><sup>5.0</sup><br/>
 <i>Subtags:</i> all phrase tags<br/>
 A list item.
-</tr></td>
+</td></tr>
 <tr><td>
 <b>\<list\></b><sup>5.0</sup><br/>
 <i>Subtags:</i> \<item\><br/>
 List of items.
 List is considered an element of the paragraph,
 so `<list>` tags must be inside `<para>` tags.
-</tr></td>
+</td></tr>
 <tr><td>
 <b>\<para\></b><sup>5.0</sup><br/>
 <i>Subtags:</i> all phrase tags, \<list\><br/>
 One paragraph of text.
-</tr></td>
+</td></tr>
 <tr><td>
 <b>\<subtitle\></b><sup>5.0</sup><br/>
 <i>Subtags:</i> all phrase tags<br/>
 The subtitle of the text. Must come after `<title>`.
-</tr></td>
+</td></tr>
 <tr><td>
 <b>\<title\></b><sup>5.0</sup><br/>
 <i>Subtags:</i> all phrase tags<br/>
 The title of the text.
 Must be the first tag in the text if present.
-</tr></td>
+</td></tr>
 </table>
 
 The criteria for adding new tags to the predefined set,
@@ -2174,7 +2195,7 @@ Adding synonymous tag names is also fine, where one finds that
 the original name is not sufficiently discoverable,
 or that it is too verbose for the given frequency of use.
 
-<a name="kuit_ents">
+<a name="kuit_ents"></a>
 
 ### Predefined Entities
 
@@ -2183,13 +2204,13 @@ entities cannot be added to, nor their character expansions changed.
 The standard XML entities are:
 <table>
 <tr><th>Entity</th><th>Expansion</th></tr>
-<tr><td><b>\&lt;</b></td><td>less-than (`<`)</td></tr>
-<tr><td><b>\&gt;</b></td><td>greater-than (`>`)</td></tr>
-<tr><td><b>\&amp;</b></td><td>ampersand (`&`)</td></tr>
-<tr><td><b>\&apos;</b></td><td>single quote (`'`)</td></tr>
-<tr><td><b>\&quot;</b></td><td>double quote (`"`)</td></tr>
+<tr><td><b>&amp;lt;</b></td><td>less-than (\c &lt;)</td></tr>
+<tr><td><b>&amp;gt;</b></td><td>greater-than (\c &gt;)</td></tr>
+<tr><td><b>&amp;amp;</b></td><td>ampersand (\c &amp;)</td></tr>
+<tr><td><b>&amp;apos;</b></td><td>single quote (\c &apos;)</td></tr>
+<tr><td><b>&amp;quot;</b></td><td>double quote (\c &quot;)</td></tr>
 </table>
-The `&amp;apos;` and `&amp;quot;` are really needed only
+The \c &apos; and \c &quot; are really needed only
 within attribute values (and even there they can be avoided
 by choosing the opposite quote sign for quoting the attribute value).
 
@@ -2198,15 +2219,15 @@ given in superscript):
 <table>
 <tr><th>Entity</th><th>Expansion</th></tr>
 <tr>
-<td><b>\&nbsp;</b><sup>5.0</sup></td>
-<td></td>non-breaking space (`&nbsp;`)
+<td><b>&amp;nbsp;</b><sup>5.0</sup></td>
+<td></td>non-breaking space (\c &nbsp;)
 </tr>
 </table>
 
 The reason for not allowing custom entities
 can be demonstrated by the following example.
 An application programmer may think of defining the entity
-`&amp;appname;`, which would be used everywhere in text in place of
+\c &amp;appname; which would be used everywhere in text in place of
 the actual application name. In that way, seemingly, it would be easy
 to play with various names or spellings without disrupting translations.
 The problem, however, is that in many languages the structure of
@@ -2219,7 +2240,7 @@ If something *really* needs to be inserted verbatim into text,
 argument substitution is always at hand.
 
 
-<a name="non_text">
+<a name="non_text"></a>
 
 ## Localizing Non-Text Resources
 
@@ -2262,7 +2283,7 @@ An example here are icons handled through `KIcon` class,
 which are referred to in the code only by the icon name.
 
 
-<a name="refs">
+<a name="refs"></a>
 
 ## Further References
 
