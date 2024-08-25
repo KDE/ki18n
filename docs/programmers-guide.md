@@ -9,6 +9,9 @@ Programmer's Guide   {#prg_guide}
         -   [Messages before creation of Q*Application instance](#before_qapp)
     -   [Placeholder Substitution](#subs_notes)
     -   [Writing Good Texts](#good_text)
+        -   [No word puzzles](#good_text_no_word_puzzles)
+        -   [Expose every user-visible text for translation](#good_text_expose_everything)
+        -   [Text markup](#good_text_text_markup)
     -   [Writing Good Contexts](#good_ctxt)
         -   [User Interface Markers](#uimark_ctxt)
         -   [Adding Contexts in Non-C++ files](#nocpp_ctxt)
@@ -258,6 +261,18 @@ If a message needs both context and plural forms, this is provided by
 QString msg = i18ncp("file on a person", "1 file", "%1 files", numFiles);
 ~~~
 
+For handling plural-aware prefixes and suffixes in QSpinBox and
+QDoubleSpinBox, where the values can change dynamically and thus
+require adjustments in plural forms, use
+KLocalization::setupSpinBoxFormatString(). This method provides
+a ready-to-use solution for managing such cases efficiently:
+
+~~~
+QSpinBox intBox;
+KLocalization::setupSpinBoxFormatString(
+    &intBox,
+    ki18ncp("@item %v is a number", "Baking %v cake", "Baking %v cakes"));
+~~~
 
 In the basic `i18n` call (no context, no plural) it is not allowed
 to put a literal string as the first argument for substitution.
@@ -484,6 +499,12 @@ When writing message texts, sometimes it is tempting to assemble text
 from pieces such as to have less repetition.
 However, such shortcuts frequently cannot work for other languages,
 and are almost always confusing to translators.
+
+
+<a name="good_text_no_word_puzzles"/>
+
+#### No word puzzles
+
 The first rule of writing good message texts is therefore to
 *keep sentences together and clearly structured*
 (or "no word puzzles"), even at the cost of some repetition.
@@ -542,6 +563,23 @@ In general, insertions of one message into another should *always*
 be accompanied by contexts, and composition-significant
 leading and trailing whitespace should be avoided.
 
+Sometimes even an API might be based on a word puzzle. For the
+common case of prefixes and suffixes in QSpinBox and QDoubleSpinbox,
+KLocalization::setupSpinBoxFormatString() provides a ready-to-use
+solution based on placeholders to avoid word puzzles.
+
+~~~
+QDoubleSpinBox doubleBox;
+KLocalization::setupSpinBoxFormatString(
+    &doubleBox,
+    ki18nc("@item %v is a number and the second % is the percent sign", "%v%"));
+// Turkish translation: "%%v"
+~~~
+
+<a name="good_text_expose_everything"/>
+
+#### Expose every user-visible text for translation
+
 The second basic rule of writing good texts is to
 *expose every user-visible text for translation*.
 One should *never* make assumptions of the type
@@ -577,6 +615,11 @@ label2->setText(i18n("Roofus McBane"));
 Proper names too may need localization, for example, transliteration
 when the target language uses a different writing system.
 This holds for proper names of people, and of anything else.
+
+
+<a name="good_text_text_markup"/>
+
+#### Text markup
 
 When it comes to text markup, like the HTML subset supported by
 Qt rich text processing, opinions are divided on how much of it
@@ -2296,4 +2339,3 @@ Gettext manual</a>.
 <a href="http://techbase.kde.org/Development/Tutorials/Localization">
 series of tutorials</a> on preparing the KDE code for localization,
 and on the internationalization process in general.
-
