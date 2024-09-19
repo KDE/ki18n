@@ -5,10 +5,12 @@ include(ECMAddTests)
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test Concurrent)
 
 if (BUILD_WITH_QML)
-ecm_add_test(ki18ndeclarativetest.cpp
-    TEST_NAME "ki18n-declarativetest"
-    LINK_LIBRARIES Qt6::Test Qt6::Qml KF6::I18n
-)
+    ecm_add_test(ki18ndeclarativetest.cpp)
+    target_link_libraries(ki18ndeclarativetest PRIVATE Qt6::Test Qt6::Qml KF6::I18n)
+    qt6_add_qml_module(ki18ndeclarativetest URI "org.kde.i18n.declarativetest" QML_FILES Test.qml)
+    if (NOT QT6_IS_SHARED_LIBS_BUILD)
+        qt6_import_qml_plugins(ki18ndeclarativetest)
+    endif()
 endif()
 
 ecm_add_test(klocalizedstringtest.cpp

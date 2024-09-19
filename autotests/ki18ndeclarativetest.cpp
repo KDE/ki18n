@@ -4,9 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include <QQmlComponent>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QQmlEngine>
 #include <QTest>
 
 #include <KLocalizedContext>
@@ -37,17 +36,13 @@ private Q_SLOTS:
         KLocalizedContext ctx;
         QUrl input = QUrl::fromLocalFile(QFINDTESTDATA("test.qml"));
 
-        QQmlEngine engine;
+        QQmlApplicationEngine engine;
         engine.rootContext()->setContextObject(&ctx);
-        QQmlComponent component(&engine, input, QQmlComponent::PreferSynchronous);
-        QObject *object = component.create();
-
-        if (!object) {
-            qDebug() << "errors:" << component.errors();
-        }
-
+        engine.loadFromModule("org.kde.i18n.declarativetest", "Test");
+        QVERIFY(!engine.hasError());
+        QCOMPARE(engine.rootObjects().size(), 1);
+        QObject *object = engine.rootObjects().at(0);
         QVERIFY(object);
-        QVERIFY(!component.isLoading());
         QCOMPARE(object->property(propertyName.toUtf8().constData()).toString(), value);
     }
 };
