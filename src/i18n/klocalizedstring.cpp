@@ -7,6 +7,8 @@
 // We don't want i18n to be expanded to i18nd here
 #undef TRANSLATION_DOMAIN
 
+#include "config.h"
+
 #include <cstdlib>
 
 #include <QByteArray>
@@ -1278,7 +1280,11 @@ void KLocalizedStringPrivate::locateScriptingModule(const QByteArray &domain, co
 }
 
 extern "C" {
+#if HAVE_STATIC_KTRANSCRIPT
+extern KTranscript *load_transcript();
+#else
 typedef KTranscript *(*InitFunc)();
+#endif
 }
 
 void KLocalizedStringPrivate::loadTranscript()
@@ -1290,6 +1296,9 @@ void KLocalizedStringPrivate::loadTranscript()
     s->loadTranscriptCalled = true;
     s->ktrs = nullptr; // null indicates that Transcript is not available
 
+#if HAVE_STATIC_KTRANSCRIPT
+    s->ktrs = load_transcript();
+#else
     // QPluginLoader is just used to find the plugin
     QPluginLoader loader(QStringLiteral("kf6/ktranscript"));
     if (loader.fileName().isEmpty()) {
@@ -1311,6 +1320,7 @@ void KLocalizedStringPrivate::loadTranscript()
     }
 
     s->ktrs = initf();
+#endif
 }
 
 QString KLocalizedString::localizedFilePath(const QString &filePath)

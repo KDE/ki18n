@@ -5,6 +5,9 @@
 
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
+
+#include "config.h"
+
 #include "ktranscripttest.h"
 
 #include "testhelpers.h"
@@ -18,7 +21,11 @@
 QTEST_MAIN(KTranscriptTest)
 
 extern "C" {
+#if HAVE_STATIC_KTRANSCRIPT
+extern KTranscript *load_transcript();
+#else
 typedef KTranscript *(*InitFunc)();
+#endif
 }
 
 KTranscriptTest::KTranscriptTest()
@@ -30,6 +37,9 @@ void KTranscriptTest::initTestCase()
 {
     QVERIFY2(deployTestConfig(), "Could not deploy test ktranscript.ini");
 
+#if HAVE_STATIC_KTRANSCRIPT
+    m_transcript = load_transcript();
+#else
     QString pluginPath = QStringLiteral(KTRANSCRIPT_PATH);
     QVERIFY2(QFile::exists(pluginPath), "Could not find ktranscript plugin");
 
@@ -39,6 +49,7 @@ void KTranscriptTest::initTestCase()
     InitFunc initf = (InitFunc)m_library.resolve("load_transcript");
     QVERIFY(initf);
     m_transcript = initf();
+#endif
     QVERIFY(m_transcript);
 }
 

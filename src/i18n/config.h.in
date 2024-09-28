@@ -11,4 +11,6 @@
 
 #define INSTALLED_LOCALE_PREFIX "@IsoCodes_PREFIX@"
 
+#cmakedefine01 HAVE_STATIC_KTRANSCRIPT
+
 #endif

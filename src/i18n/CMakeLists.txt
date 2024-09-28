@@ -1,3 +1,8 @@
+if (NOT BUILD_SHARED_LIBS AND BUILD_WITH_QML)
+    set(HAVE_STATIC_KTRANSCRIPT ON)
+else()
+    set(HAVE_STATIC_KTRANSCRIPT OFF)
+endif()
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h")
 
 add_library(KF6I18n)
@@ -85,7 +90,11 @@ install(FILES
 ### ktranscript plugin
 if (BUILD_WITH_QML)
 
-add_library(ktranscript MODULE)
+if (BUILD_SHARED_LIBS)
+    add_library(ktranscript MODULE)
+else()
+    add_library(ktranscript)
+endif()
 
 target_sources(ktranscript PRIVATE
     ktranscript.cpp
@@ -94,7 +103,12 @@ target_sources(ktranscript PRIVATE
 generate_export_header(ktranscript BASE_NAME KTranscript)
 target_link_libraries(ktranscript PRIVATE Qt6::Qml Qt6::Core)
 
-install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6)
+if (BUILD_SHARED_LIBS)
+    install(TARGETS ktranscript DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6)
+else()
+    target_link_libraries(KF6I18n PRIVATE ktranscript)
+    install(TARGETS ktranscript EXPORT KF6I18nTargets DESTINATION ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+endif()
 
 endif()
 
