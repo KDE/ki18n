@@ -44,14 +44,9 @@ static QString shortenMessage(const QString &str)
     }
 }
 
-static void splitLocale(const QString &aLocale, QString &language, QString &country, QString &modifier, QString &charset)
+static void splitLocale(const QString &aLocale, QStringView &language, QStringView &country, QStringView &modifier, QStringView &charset)
 {
-    QString locale = aLocale;
-
-    language.clear();
-    country.clear();
-    modifier.clear();
-    charset.clear();
+    QStringView locale(aLocale);
 
     // In case there are several concatenated locale specifications,
     // truncate all but first.
@@ -85,10 +80,10 @@ static void splitLocale(const QString &aLocale, QString &language, QString &coun
 static void appendLocaleString(QStringList &languages, const QString &value)
 {
     // Process the value to create possible combinations.
-    QString language;
-    QString country;
-    QString modifier;
-    QString charset;
+    QStringView language;
+    QStringView country;
+    QStringView modifier;
+    QStringView charset;
     splitLocale(value, language, country, modifier, charset);
 
     if (language.isEmpty()) {
@@ -108,7 +103,7 @@ static void appendLocaleString(QStringList &languages, const QString &value)
     if (!country.isEmpty()) {
         languages += language + QLatin1Char('_') + country;
     }
-    languages += language;
+    languages += language.toString();
 }
 
 static void appendLanguagesFromVariable(QStringList &languages, const char *envar, bool isList = false)
