@@ -33,6 +33,8 @@
 
 #include "ki18n_logging.h"
 
+using namespace Qt::Literals;
+
 // Truncate string, for output of long messages.
 static QString shortenMessage(const QString &str)
 {
@@ -336,6 +338,17 @@ void KLocalizedStringPrivateStatics::initializeLocaleLanguages()
     // suffice so we add system locale UI languages, too.
     appendLanguagesFromQLocale(localeLanguages, QLocale::system());
 #endif
+
+    localeLanguages.removeDuplicates();
+
+    // make sure "en" falls back to "en_US" rather than trying other languages first
+    // this needs special-casing as the implicit fallback (lang_COUNTRY -> lang) doesn't
+    // work here as we don't have an "en" translation, but an (implicit) "en_US" one
+    const auto codeBaseLanguage = QStringView(codeLanguage).left(codeLanguage.indexOf('_'_L1));
+    auto it = std::find(localeLanguages.begin(), localeLanguages.end(), codeBaseLanguage);
+    if (it != localeLanguages.end()) {
+        *it = codeLanguage;
+    }
 }
 
 KLocalizedString::KLocalizedString()
