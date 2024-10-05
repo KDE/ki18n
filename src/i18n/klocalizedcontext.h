@@ -275,8 +275,7 @@ Q_SIGNALS:
     void translationDomainChanged(const QString &translationDomain);
 
 private:
-    std::unique_ptr<class KLocalizedContextPrivate> const d_ptr;
-    Q_DECLARE_PRIVATE(KLocalizedContext)
+    std::unique_ptr<class KLocalizedContextPrivate> const d;
 };
 
 #endif

@@ -21,7 +21,7 @@ public:
 
 KLocalizedContext::KLocalizedContext(QObject *parent)
     : QObject(parent)
-    , d_ptr(new KLocalizedContextPrivate)
+    , d(new KLocalizedContextPrivate)
 {
 }
 
@@ -29,13 +29,11 @@ KLocalizedContext::~KLocalizedContext() = default;
 
 QString KLocalizedContext::translationDomain() const
 {
-    Q_D(const KLocalizedContext);
     return d->m_translationDomain;
 }
 
 void KLocalizedContext::setTranslationDomain(const QString &domain)
 {
-    Q_D(KLocalizedContext);
     if (domain != d->m_translationDomain) {
         d->m_translationDomain = domain;
         Q_EMIT translationDomainChanged(domain);
@@ -133,7 +131,6 @@ QString KLocalizedContext::i18n(const QString &message,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage = ki18nd(d->m_translationDomain.toUtf8().constData(), message.toUtf8().constData());
@@ -164,7 +161,6 @@ QString KLocalizedContext::i18nc(const QString &context,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage = ki18ndc(d->m_translationDomain.toUtf8().constData(), context.toUtf8().constData(), message.toUtf8().constData());
@@ -195,7 +191,6 @@ QString KLocalizedContext::i18np(const QString &singular,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage = ki18ndp(d->m_translationDomain.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
@@ -228,7 +223,6 @@ QString KLocalizedContext::i18ncp(const QString &context,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage =
@@ -369,7 +363,6 @@ QString KLocalizedContext::xi18n(const QString &message,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage = kxi18nd(d->m_translationDomain.toUtf8().constData(), message.toUtf8().constData());
@@ -400,7 +393,6 @@ QString KLocalizedContext::xi18nc(const QString &context,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage = kxi18ndc(d->m_translationDomain.toUtf8().constData(), context.toUtf8().constData(), message.toUtf8().constData());
@@ -431,7 +423,6 @@ QString KLocalizedContext::xi18np(const QString &singular,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage = kxi18ndp(d->m_translationDomain.toUtf8().constData(), singular.toUtf8().constData(), plural.toUtf8().constData());
@@ -464,7 +455,6 @@ QString KLocalizedContext::xi18ncp(const QString &context,
         return QString();
     }
 
-    Q_D(const KLocalizedContext);
     KLocalizedString trMessage;
     if (!d->m_translationDomain.isEmpty()) {
         trMessage =
