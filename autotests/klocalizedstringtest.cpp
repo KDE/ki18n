@@ -28,6 +28,8 @@
 #include <QSet>
 #include <QString>
 
+using namespace Qt::Literals;
+
 void initEnvironment()
 {
     // We need the default locale to be English otherwise the brokenTags test fails
@@ -522,6 +524,24 @@ void KLocalizedStringTest::testLazy()
     KLocalizedString s = kli18n("Job");
     KLocalizedString::setLanguages({"fr"});
     QCOMPARE(s.toString(), QString::fromUtf8("Tâche"));
+    KLocalizedString::clearLanguages();
+}
+
+void KLocalizedStringTest::testLanguageChange()
+{
+    if (!m_hasFrench) {
+        QSKIP("French test files not usable.");
+    }
+
+    QCOMPARE(i18n("Job"), "Job"_L1);
+    const auto prevLangs = qgetenv("LANGUAGE");
+    qputenv("LANGUAGE", "fr_FR");
+    QCOMPARE(i18n("Job"), "Job"_L1);
+    QCoreApplication::sendEvent(QCoreApplication::instance(), new QEvent(QEvent::LanguageChange));
+    QCOMPARE(i18n("Job"), u"Tâche");
+    qputenv("LANGUAGE", prevLangs);
+    QCoreApplication::sendEvent(QCoreApplication::instance(), new QEvent(QEvent::LanguageChange));
+    QCOMPARE(i18n("Job"), "Job"_L1);
 }
 
 QTEST_MAIN(KLocalizedStringTest)

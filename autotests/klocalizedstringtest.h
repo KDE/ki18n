@@ -35,6 +35,7 @@ private Q_SLOTS:
     void brokenStructTagUsages();
 
     void testLazy();
+    void testLanguageChange();
 
 private:
     bool m_hasFrench;

@@ -243,6 +243,14 @@ class KLocalizedStringPrivate
 
 typedef QHash<QString, KCatalog *> KCatalogPtrHash;
 
+class LanguageChangeEventHandler : public QObject
+{
+    Q_OBJECT
+public:
+    using QObject::QObject;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
+};
+
 class KLocalizedStringPrivateStatics
 {
 public:
@@ -253,6 +261,7 @@ public:
     QByteArray applicationDomain;
     const QString codeLanguage;
     QStringList localeLanguages;
+    LanguageChangeEventHandler *languageChangeEventHandler = nullptr;
 
     const QString theFence;
     const QString startInterp;
@@ -278,6 +287,7 @@ public:
     ~KLocalizedStringPrivateStatics();
 
     void initializeLocaleLanguages();
+    void initializeLanguageChangeHandler();
 };
 
 KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
@@ -309,6 +319,7 @@ KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
 {
     initializeLocaleLanguages();
     languages = localeLanguages;
+    initializeLanguageChangeHandler();
 }
 
 KLocalizedStringPrivateStatics::~KLocalizedStringPrivateStatics()
@@ -322,6 +333,20 @@ KLocalizedStringPrivateStatics::~KLocalizedStringPrivateStatics()
 }
 
 Q_GLOBAL_STATIC(KLocalizedStringPrivateStatics, staticsKLSP)
+
+bool LanguageChangeEventHandler::eventFilter(QObject *obj, QEvent *ev)
+{
+    if (ev->type() == QEvent::LanguageChange && obj == QCoreApplication::instance()) {
+        const auto langOverride = staticsKLSP->languages != staticsKLSP->localeLanguages;
+        staticsKLSP->localeLanguages.clear();
+        staticsKLSP->initializeLocaleLanguages();
+        qCDebug(KI18N) << "languages changes from" << staticsKLSP->languages << "to" << staticsKLSP->localeLanguages;
+        if (!langOverride) {
+            staticsKLSP->languages = staticsKLSP->localeLanguages;
+        }
+    }
+    return QObject::eventFilter(obj, ev);
+}
 
 void KLocalizedStringPrivateStatics::initializeLocaleLanguages()
 {
@@ -350,6 +375,26 @@ void KLocalizedStringPrivateStatics::initializeLocaleLanguages()
         *it = codeLanguage;
     }
 }
+
+void KLocalizedStringPrivateStatics::initializeLanguageChangeHandler()
+{
+    if (languageChangeEventHandler || !QCoreApplication::instance()) {
+        return;
+    }
+
+    languageChangeEventHandler = new LanguageChangeEventHandler(QCoreApplication::instance());
+    QCoreApplication::instance()->installEventFilter(languageChangeEventHandler);
+}
+
+// in case we were already called prior to QCoreApplication existing
+static void initializeLanguageChangeHandlerStartupHook()
+{
+    if (staticsKLSP.exists()) {
+        staticsKLSP->initializeLanguageChangeHandler();
+    }
+}
+
+Q_COREAPP_STARTUP_FUNCTION(initializeLanguageChangeHandlerStartupHook)
 
 KLocalizedString::KLocalizedString()
     : d(new KLocalizedStringPrivate)
@@ -1446,3 +1491,5 @@ KLocalizedString kxi18ndcp(const char *domain, const char *context, const char *
 {
     return KLocalizedString(domain, context, singular, plural, true);
 }
+
+#include "klocalizedstring.moc"
