@@ -197,7 +197,7 @@ class KLocalizedStringPrivate
                              const QByteArray &msgid_plural,
                              qulonglong n,
                              QString &language,
-                             QString &translation);
+                             QString &msgstr);
 
     QString toString(const QByteArray &domain, const QStringList &languages, Kuit::VisualFormat format, bool isArgument = false) const;
     QString substituteSimple(const QString &translation, const QStringList &arguments, QChar plchar = QLatin1Char('%'), bool isPartial = false) const;
