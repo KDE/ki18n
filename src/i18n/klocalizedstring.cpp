@@ -166,7 +166,7 @@ class KLocalizedStringPrivate
 
     QByteArray domain;
     QStringList languages;
-    Kuit::VisualFormat format;
+    Kuit::VisualFormat format = {};
     QByteArray context;
     QByteArray text;
     QByteArray plural;
@@ -175,20 +175,14 @@ class KLocalizedStringPrivate
     QHash<int, KLocalizedString> klsArguments;
     QHash<int, int> klsArgumentFieldWidths;
     QHash<int, QChar> klsArgumentFillChars;
-    bool numberSet;
+    bool numberSet = false;
     pluraln number;
-    int numberOrdinal;
+    qsizetype numberOrdinal;
     QHash<QString, QString> dynamicContext;
-    bool markupAware;
-    bool relaxedSubs;
+    bool markupAware = false;
+    bool relaxedSubs = false;
 
-    KLocalizedStringPrivate()
-        : format()
-        , numberSet(false)
-        , markupAware(false)
-        , relaxedSubs(false)
-    {
-    }
+    KLocalizedStringPrivate() = default;
 
     static void translateRaw(const QByteArray &domain,
                              const QStringList &languages,
@@ -257,24 +251,24 @@ public:
     QHash<QByteArray, KCatalogPtrHash> catalogs;
     QStringList languages;
 
-    QByteArray ourDomain;
+    QByteArray ourDomain = QByteArrayLiteral("ki18n6");
     QByteArray applicationDomain;
-    const QString codeLanguage;
+    const QString codeLanguage = u"en_US"_s;
     QStringList localeLanguages;
     LanguageChangeEventHandler *languageChangeEventHandler = nullptr;
 
-    const QString theFence;
-    const QString startInterp;
-    const QString endInterp;
-    const QChar scriptPlchar;
-    const QChar scriptVachar;
+    static constexpr inline auto theFence = "|/|"_L1;
+    static constexpr inline auto startInterp = "$["_L1;
+    static constexpr inline auto endInterp = "]"_L1;
+    static constexpr inline auto scriptPlchar = '%'_L1;
+    static constexpr inline auto scriptVachar = '^'_L1;
 
-    const QString scriptDir;
+    static constexpr inline auto scriptDir = "LC_SCRIPTS"_L1;
     QHash<QString, QList<QByteArray>> scriptModules;
     QList<QStringList> scriptModulesToLoad;
 
-    bool loadTranscriptCalled;
-    KTranscript *ktrs;
+    bool loadTranscriptCalled = false;
+    KTranscript *ktrs = nullptr;
 
     QHash<QString, KuitFormatter *> formatters;
 
@@ -291,31 +285,6 @@ public:
 };
 
 KLocalizedStringPrivateStatics::KLocalizedStringPrivateStatics()
-    : catalogs()
-    , languages()
-
-    , ourDomain(QByteArrayLiteral("ki18n6"))
-    , applicationDomain()
-    , codeLanguage(QStringLiteral("en_US"))
-    , localeLanguages()
-
-    , theFence(QStringLiteral("|/|"))
-    , startInterp(QStringLiteral("$["))
-    , endInterp(QStringLiteral("]"))
-    , scriptPlchar(QLatin1Char('%'))
-    , scriptVachar(QLatin1Char('^'))
-
-    , scriptDir(QStringLiteral("LC_SCRIPTS"))
-    , scriptModules()
-    , scriptModulesToLoad()
-
-    , loadTranscriptCalled(false)
-    , ktrs(nullptr)
-
-    , formatters()
-
-    , qtDomains()
-    , qtDomainInsertCount()
 {
     initializeLocaleLanguages();
     languages = localeLanguages;
