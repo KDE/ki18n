@@ -136,19 +136,6 @@ public:
      */
     Q_REQUIRED_RESULT QString toString(const QStringList &languages) const;
 
-#if 0 // until locale system is ready
-    /**
-     * Like \c toString, but look for translation based on given locale.
-     *
-     * Given locale overrides any set earlier using \c withLocale.
-     * If \p locale is \c NULL, original message is returned.
-     *
-     * \param locale the locale for which translations are made
-     * \return finalized translation
-     */
-    QString toString(const KLocale *locale) const;
-#endif
-
     /**
      * Like \c toString, but look for translation in the given domain.
      *
@@ -179,16 +166,6 @@ public:
      * \return updated \c KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString withLanguages(const QStringList &languages) const;
-
-#if 0 // until locale system is ready
-    /**
-     * Indicate to look for translation based on given locale.
-     *
-     * \param locale the locale for which translations are made
-     * \return updated \c KLocalizedString
-     */
-    KLocalizedString withLocale(const KLocale *locale) const;
-#endif
 
     /**
      * Indicate to look for translation in the given domain.
@@ -418,19 +395,6 @@ public:
      * Returns the domain set by \c setApplicationDomain.
      */
     static QByteArray applicationDomain();
-
-#if 0 // until locale system is ready
-    /**
-     * Set the locale for which translations will be made.
-     *
-     * Locale determines from which languages (and in which order)
-     * to draw translations, formatting of number arguments, etc.
-     *
-     * \param locale the locale
-     * \see setLanguages
-     */
-    static void setLocale(const KLocale &locale);
-#endif
 
     /**
      * Get the languages for which translations will be made.
