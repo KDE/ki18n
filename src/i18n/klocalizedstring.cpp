@@ -52,7 +52,7 @@ static void splitLocale(const QString &aLocale, QStringView &language, QStringVi
 
     // In case there are several concatenated locale specifications,
     // truncate all but first.
-    int f = locale.indexOf(QLatin1Char(':'));
+    auto f = locale.indexOf(QLatin1Char(':'));
     if (f >= 0) {
         locale.truncate(f);
     }
@@ -140,10 +140,10 @@ static QString extractCountry(const QStringList &languages)
 {
     QString country;
     for (const QString &language : languages) {
-        int pos1 = language.indexOf(QLatin1Char('_'));
+        auto pos1 = language.indexOf(QLatin1Char('_'));
         if (pos1 >= 0) {
             ++pos1;
-            int pos2 = pos1;
+            auto pos2 = pos1;
             while (pos2 < language.length() && language[pos2].isLetter()) {
                 ++pos2;
             }
@@ -209,15 +209,15 @@ class KLocalizedStringPrivate
                                  const QStringList &arguments,
                                  const QList<QVariant> &values,
                                  bool &fallback) const;
-    int resolveInterpolation(const QString &scriptedTranslation,
-                             int pos,
-                             const QString &language,
-                             const QString &country,
-                             const QString &ordinaryTranslation,
-                             const QStringList &arguments,
-                             const QList<QVariant> &values,
-                             QString &result,
-                             bool &fallback) const;
+    qsizetype resolveInterpolation(const QString &scriptedTranslation,
+                                   qsizetype pos,
+                                   const QString &language,
+                                   const QString &country,
+                                   const QString &ordinaryTranslation,
+                                   const QStringList &arguments,
+                                   const QList<QVariant> &values,
+                                   QString &result,
+                                   bool &fallback) const;
     QVariant segmentToValue(const QString &segment) const;
     QString postTranscript(const QString &pcall,
                            const QString &language,
@@ -565,7 +565,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     // Set ordinary translation and possibly scripted translation.
     QString translation;
     QString scriptedTranslation;
-    int fencePos = rawTranslation.indexOf(s->theFence);
+    auto fencePos = rawTranslation.indexOf(s->theFence);
     if (fencePos > 0) {
         // Script fence has been found, strip the scripted from the
         // ordinary translation.
@@ -669,11 +669,11 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation, co
 #ifndef NDEBUG
     QList<int> ords; // indicates which placeholders are present
 #endif
-    int slen = translation.length();
-    int spos = 0;
-    int tpos = translation.indexOf(plchar);
+    auto slen = translation.length();
+    qsizetype spos = 0;
+    auto tpos = translation.indexOf(plchar);
     while (tpos >= 0) {
-        int ctpos = tpos;
+        auto ctpos = tpos;
 
         ++tpos;
         if (tpos == slen) {
@@ -816,8 +816,8 @@ QString KLocalizedStringPrivate::substituteTranscript(const QString &scriptedTra
     // Iterate by interpolations.
     QString finalTranslation;
     fallback = false;
-    int ppos = 0;
-    int tpos = scriptedTranslation.indexOf(s->startInterp);
+    qsizetype ppos = 0;
+    auto tpos = scriptedTranslation.indexOf(s->startInterp);
     while (tpos >= 0) {
         // Resolve substitutions in preceding text.
         QString ptext = substituteSimple(scriptedTranslation.mid(ppos, tpos - ppos), arguments, s->scriptPlchar, true);
@@ -853,15 +853,15 @@ QString KLocalizedStringPrivate::substituteTranscript(const QString &scriptedTra
     return fallback ? QString() : finalTranslation;
 }
 
-int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTranslation,
-                                                  int pos,
-                                                  const QString &language,
-                                                  const QString &country,
-                                                  const QString &ordinaryTranslation,
-                                                  const QStringList &arguments,
-                                                  const QList<QVariant> &values,
-                                                  QString &result,
-                                                  bool &fallback) const
+qsizetype KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTranslation,
+                                                        qsizetype pos,
+                                                        const QString &language,
+                                                        const QString &country,
+                                                        const QString &ordinaryTranslation,
+                                                        const QStringList &arguments,
+                                                        const QList<QVariant> &values,
+                                                        QString &result,
+                                                        bool &fallback) const
 {
     // pos is the position of opening character sequence.
     // Returns the position of first character after closing sequence,
@@ -876,10 +876,10 @@ int KLocalizedStringPrivate::resolveInterpolation(const QString &scriptedTransla
 
     // Split interpolation into arguments.
     QList<QVariant> iargs;
-    const int slen = scriptedTranslation.length();
-    const int islen = s->startInterp.length();
-    const int ielen = s->endInterp.length();
-    int tpos = pos + s->startInterp.length();
+    const qsizetype slen = scriptedTranslation.length();
+    const qsizetype islen = s->startInterp.length();
+    const qsizetype ielen = s->endInterp.length();
+    qsizetype tpos = pos + s->startInterp.length();
     while (1) {
         // Skip whitespace.
         while (tpos < slen && scriptedTranslation[tpos].isSpace()) {
