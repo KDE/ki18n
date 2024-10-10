@@ -9,6 +9,7 @@
 
 #include "klocalizedcontext.h"
 
+#if KI18N_BUILD_DEPRECATED_SINCE(6, 8)
 #include <klocalizedstring.h>
 
 #include "ki18n_logging.h"
@@ -577,3 +578,4 @@ QString KLocalizedContext::xi18ndcp(const QString &domain,
 }
 
 #include "moc_klocalizedcontext.cpp"
+#endif

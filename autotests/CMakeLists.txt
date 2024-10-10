@@ -6,7 +6,7 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test Concurrent)
 
 if (BUILD_WITH_QML)
     ecm_add_test(ki18ndeclarativetest.cpp)
-    target_link_libraries(ki18ndeclarativetest PRIVATE Qt6::Test Qt6::Qml KF6::I18n)
+    target_link_libraries(ki18ndeclarativetest PRIVATE Qt6::Test Qt6::Qml KF6::I18n KF6::I18nQml)
     qt6_add_qml_module(ki18ndeclarativetest URI "org.kde.i18n.declarativetest" QML_FILES Test.qml)
     if (NOT QT6_IS_SHARED_LIBS_BUILD)
         qt6_import_qml_plugins(ki18ndeclarativetest)

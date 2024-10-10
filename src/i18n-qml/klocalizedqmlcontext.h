@@ -5,18 +5,21 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KLOCALIZEDCONTEXT_H
-#define KLOCALIZEDCONTEXT_H
+#ifndef KLOCALIZEDQMLCONTEXT_H
+#define KLOCALIZEDQMLCONTEXT_H
 
-#include <ki18n_export.h>
+#include <ki18nqml_export.h>
 
-#if KI18N_ENABLE_DEPRECATED_SINCE(6, 8)
 #include <QObject>
 #include <QVariant>
 #include <memory>
 
+class QQmlEngine;
+
+class KLocalizedQmlContextPrivate;
+
 /**
- * @class KLocalizedContext klocalizedcontext.h <KLocalizedContext>
+ * @class KLocalizedQmlContext klocalizedcontext.h <KLocalizedQmlContext>
  *
  * This class is meant to be used to simplify integration of the KI18n framework
  * in QML.
@@ -25,23 +28,33 @@
  * object:
  *
  * @code
- * QQuickView* view = new QQuickView;
- * view.engine()->rootContext()->setContextObject(new KLocalizedContext(view));
+ * QQmlApplicationEngine engine;
+ * auto ctx = new KLocalizedQmlContext(&engine);
+ * engine->rootContext()->setContextObject(ctx);
+ * QQmlEngine::setContextForObject(ctx, engine.rootContext());
+ * ctx->setTranslationDomain(...);
+ * @endcode
+ *
+ * In many cases this can be simplified using KLocalization::setupLocalizedContext():
+ * @code
+ * QQmlApplicationEngine engine;
+ * KLocalization::setupLocalizedContext(&engine);
  * @endcode
  *
  * Then i18n*() and xi18n*() functions should be available for use from the code
  * loaded in the engine, for the view.
  *
+ * Unlike its predecessor KLocalizedContext this does automatically trigger
+ * a binding re-evaluation when the application language is changed at runtime
+ * (with Qt 6.6 or higher).
+ *
  * @note Plural functions differ from the C/C++ version. On QML/JS we can get a
  * real value easily. To solve warnings on those cases we'll cast the first argument
  * to make sure it's taken into account for the plural.
  *
- * @since 5.17
- * @deprecated since 6.8 Use KLocalizedQmlContext or KLocalization::setupLocalizedContext
- * instead.
+ * @since 6.8
  */
-KI18N_DEPRECATED_VERSION(6, 8, "use KLocalizedQmlContext or KLocalization::setupLocalizedContext() from KF6::I18nQml instead")
-class KI18N_EXPORT KLocalizedContext : public QObject
+class KI18NQML_EXPORT KLocalizedQmlContext : public QObject
 {
     Q_OBJECT
 
@@ -53,8 +66,8 @@ class KI18N_EXPORT KLocalizedContext : public QObject
     Q_PROPERTY(QString translationDomain READ translationDomain WRITE setTranslationDomain NOTIFY translationDomainChanged)
 
 public:
-    explicit KLocalizedContext(QObject *parent = nullptr);
-    ~KLocalizedContext() override;
+    explicit KLocalizedQmlContext(QObject *parent = nullptr);
+    ~KLocalizedQmlContext() override;
 
     QString translationDomain() const;
     void setTranslationDomain(const QString &domain);
@@ -279,8 +292,35 @@ Q_SIGNALS:
     void translationDomainChanged(const QString &translationDomain);
 
 private:
-    std::unique_ptr<class KLocalizedContextPrivate> const d;
+    bool eventFilter(QObject *watched, QEvent *event) override;
+    std::unique_ptr<KLocalizedQmlContextPrivate> const d;
 };
 
+namespace KLocalization
+{
+///@cond internal
+namespace Internal
+{
+[[nodiscard]] KI18NQML_EXPORT KLocalizedQmlContext *createLocalizedContext(QQmlEngine *engine);
+}
+///@endcond
+
+/** Creates a KLocalizedQmlContext engine and sets it up in the
+ *  root context of @p engine.
+ *
+ *  If @p TRANSLATION_DOMAIN is defined, that is also set on
+ *  the created context.
+ *
+ *  @since 6.8
+ */
+inline KLocalizedQmlContext *setupLocalizedContext(QQmlEngine *engine)
+{
+    auto ctx = Internal::createLocalizedContext(engine);
+#ifdef TRANSLATION_DOMAIN
+    ctx->setTranslationDomain(QStringLiteral(TRANSLATION_DOMAIN));
 #endif
+    return ctx;
+}
+}
+
 #endif
