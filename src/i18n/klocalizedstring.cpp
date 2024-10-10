@@ -529,7 +529,7 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     QString language;
     QString rawTranslation;
     translateRaw(resolvedDomain, resolvedLanguages, context, text, plural, number, language, rawTranslation);
-    QString country = extractCountry(resolvedLanguages);
+    std::optional<QString> country; // initialized when needed
 
     // Set ordinary translation and possibly scripted translation.
     QString translation;
@@ -603,7 +603,8 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     if (!scriptedTranslation.isEmpty()) {
         // Evaluate scripted translation.
         bool fallback = false;
-        scriptedTranslation = substituteTranscript(scriptedTranslation, language, country, finalTranslation, resolvedArguments, resolvedValues, fallback);
+        country = extractCountry(resolvedLanguages);
+        scriptedTranslation = substituteTranscript(scriptedTranslation, language, *country, finalTranslation, resolvedArguments, resolvedValues, fallback);
 
         // If any translation produced and no fallback requested.
         if (!scriptedTranslation.isEmpty() && !fallback) {
@@ -618,23 +619,27 @@ QString KLocalizedStringPrivate::toString(const QByteArray &domain, const QStrin
     // Execute any scripted post calls; they cannot modify the final result,
     // but are used to set states.
     if (s->ktrs != nullptr) {
+        if (!country.has_value()) {
+            country = extractCountry(resolvedLanguages);
+        }
         const QStringList pcalls = s->ktrs->postCalls(language);
         for (const QString &pcall : pcalls) {
-            postTranscript(pcall, language, country, finalTranslation, resolvedArguments, resolvedValues);
+            postTranscript(pcall, language, *country, finalTranslation, resolvedArguments, resolvedValues);
         }
     }
 
     return finalTranslation;
 }
 
-QString KLocalizedStringPrivate::substituteSimple(const QString &translation, const QStringList &arguments, QChar plchar, bool isPartial) const
+QString KLocalizedStringPrivate::substituteSimple(const QString &translationString, const QStringList &arguments, QChar plchar, bool isPartial) const
 {
 #ifdef NDEBUG
     Q_UNUSED(isPartial);
 #endif
 
-    QStringList tsegs; // text segments per placeholder occurrence
-    QList<int> plords; // ordinal numbers per placeholder occurrence
+    QStringView translation = translationString;
+    QVarLengthArray<QStringView, 8> tsegs; // text segments per placeholder occurrence
+    QVarLengthArray<int, 8> plords; // ordinal numbers per placeholder occurrence
 #ifndef NDEBUG
     QList<int> ords; // indicates which placeholders are present
 #endif
@@ -724,13 +729,13 @@ QString KLocalizedStringPrivate::substituteSimple(const QString &translation, co
         for (int i = 0; i < ords.size(); i++) {
             if (!ords.at(i)) {
                 gaps = true;
-                qCWarning(KI18N).nospace() << "Placeholder %" << QString::number(i + 1) << " skipped in message " << shortenMessage(translation);
+                qCWarning(KI18N).nospace() << "Placeholder %" << QString::number(i + 1) << " skipped in message " << shortenMessage(translation.toString());
             }
         }
         // If no gaps, check for mismatch between the number of
         // unique placeholders and actually supplied arguments.
         if (!gaps && ords.size() != arguments.size()) {
-            qCWarning(KI18N) << arguments.size() << "instead of" << ords.size() << "arguments to message" << shortenMessage(translation)
+            qCWarning(KI18N) << arguments.size() << "instead of" << ords.size() << "arguments to message" << shortenMessage(translation.toString())
                              << "supplied before conversion";
         }
 
