@@ -2,6 +2,9 @@
 
 include(CMakeFindDependencyMacro)
 find_dependency(Qt6Core @REQUIRED_QT_VERSION@)
+if (@BUILD_WITH_QML@ AND NOT @BUILD_SHARED_LIBS@)
+    find_dependency(Qt6Qml @REQUIRED_QT_VERSION@)
+endif()
 
 # This is no longer used by the macros, but we should keep it in case
 # something else is using it.
