@@ -10,6 +10,7 @@
 #include "klocalizedstring.h"
 
 #include <QObject>
+#include <QVariant>
 
 #include <type_traits>
 
