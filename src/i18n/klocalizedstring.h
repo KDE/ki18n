@@ -14,8 +14,6 @@
 #include <QString>
 #include <QStringList>
 
-#include <memory>
-
 #include <kuitsetup.h>
 
 // enforce header to be parsed before redefining i18n* with preprocessor macros
@@ -529,7 +527,9 @@ private:
     KLocalizedString(const char *domain, const char *context, const char *text, const char *plural, bool markupAware);
 
 private:
-    std::unique_ptr<KLocalizedStringPrivate> const d;
+    // intentionally not a unique_ptr as this file gets included a lot and using a unique_ptr
+    // results in too many template instantiations
+    KLocalizedStringPrivate *const d;
 };
 
 // Do not document every multi-argument i18n* call separately,

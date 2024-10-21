@@ -13,7 +13,6 @@
 #if KI18N_ENABLE_DEPRECATED_SINCE(6, 8)
 #include <QObject>
 #include <QVariant>
-#include <memory>
 
 /**
  * @class KLocalizedContext klocalizedcontext.h <KLocalizedContext>
@@ -279,7 +278,9 @@ Q_SIGNALS:
     void translationDomainChanged(const QString &translationDomain);
 
 private:
-    std::unique_ptr<class KLocalizedContextPrivate> const d;
+    // intentionally not a unique_ptr as this file gets included a lot and using a unique_ptr
+    // results in too many template instantiations
+    class KLocalizedContextPrivate *const d;
 };
 
 #endif

@@ -399,7 +399,10 @@ KLocalizedString &KLocalizedString::operator=(const KLocalizedString &rhs)
     return *this;
 }
 
-KLocalizedString::~KLocalizedString() = default;
+KLocalizedString::~KLocalizedString()
+{
+    delete d;
+}
 
 bool KLocalizedString::isEmpty() const
 {

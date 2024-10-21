@@ -12,7 +12,6 @@
 #include <QHash>
 #include <QString>
 #include <QStringList>
-#include <memory>
 
 class KuitSetup;
 
@@ -179,7 +178,9 @@ private:
     KI18N_NO_EXPORT explicit KuitSetup(const QByteArray &domain);
     Q_DISABLE_COPY(KuitSetup)
 
-    std::unique_ptr<KuitSetupPrivate> const d;
+    // intentionally not a unique_ptr as this file gets included a lot and using a unique_ptr
+    // results in too many template instantiations
+    KuitSetupPrivate *const d;
 };
 
 #endif // KUITSETUP_H
