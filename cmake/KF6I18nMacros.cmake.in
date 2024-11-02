@@ -6,11 +6,9 @@ find_package(Gettext REQUIRED)
 
 # The Python executable used for building ki18n will be used as a fallback
 # solution if it cannot be found in $PATH when building applications.
-set(_KI18N_PYTHON_EXECUTABLE "@Python3_EXECUTABLE@")
-
 find_program(KI18N_PYTHON_EXECUTABLE NAMES python3 python2 python)
 if(NOT KI18N_PYTHON_EXECUTABLE)
-    set(KI18N_PYTHON_EXECUTABLE "${_KI18N_PYTHON_EXECUTABLE}")
+    set(KI18N_PYTHON_EXECUTABLE "@FALLBACK_KI18N_PYTHON_EXECUTABLE@")
 endif()
 
 set(_ki18n_pmap_compile_script ${CMAKE_CURRENT_LIST_DIR}/ts-pmap-compile.py)

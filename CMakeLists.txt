@@ -61,6 +61,10 @@ set_package_properties(IsoCodes PROPERTIES TYPE RUNTIME
 # we have to hardcode the PYTHON_EXECUTABLE path or anything depending on KF6I18n
 # would be unable to find another Python version.
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
+# allow settings this path explicitly for cross-building setups
+if (NOT FALLBACK_KI18N_PYTHON_EXECUTABLE)
+    set(FALLBACK_KI18N_PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
+endif()
 configure_file(cmake/KF6I18nMacros.cmake.in ${KI18n_BINARY_DIR}/cmake/KF6I18nMacros.cmake @ONLY)
 # Needed to build the ki18n translations and run the autotests
 file(COPY ${KI18n_SOURCE_DIR}/cmake/build-pofiles.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
