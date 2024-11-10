@@ -3,20 +3,20 @@
 #
 # Zlatko Popov <zlatkopopov@fsa-bg.org>, 2006, 2007, 2008, 2009.
 # Yasen Pramatarov <yasen@lindeas.com>, 2009, 2010, 2011, 2012, 2013.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+# SPDX-FileCopyrightText: 2022, 2024 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:48+0000\n"
-"PO-Revision-Date: 2022-06-28 09:53+0200\n"
+"PO-Revision-Date: 2024-11-09 20:09+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: Decide which string is used to delimit keys in a keyboard
@@ -454,7 +454,7 @@ msgstr "%1"
 #, kde-format
 msgctxt "tag-format-pattern <link> rich"
 msgid "<a href=\"%1\">%1</a>"
-msgstr "<a href=\"%1\">%1</a>"
+msgstr "<a href=„%1“>%1</a>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:850
@@ -472,7 +472,7 @@ msgctxt ""
 "tag-format-pattern <link url=> rich\n"
 "%1 is the descriptive text, %2 is the URL"
 msgid "<a href=\"%2\">%1</a>"
-msgstr "<a href=\"%2\">%1</a>"
+msgstr "<a href=„%2“>%1</a>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:863
