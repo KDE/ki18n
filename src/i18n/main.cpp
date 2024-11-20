@@ -15,11 +15,22 @@
 
 #include <memory>
 
+using namespace Qt::Literals;
+
+[[nodiscard]] static QString translationsPath()
+{
+#ifndef Q_OS_ANDROID
+    return QLibraryInfo::path(QLibraryInfo::TranslationsPath);
+#else
+    return u"assets://translations/"_s;
+#endif
+}
+
 static bool loadCatalog(const QString &catalog, const QLocale &locale)
 {
     Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
     auto translator = std::make_unique<QTranslator>(QCoreApplication::instance());
-    if (!translator->load(locale, catalog, QString(), QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+    if (!translator->load(locale, catalog, QString(), translationsPath())) {
         qCDebug(KI18N) << "Loading the" << catalog << "catalog failed for locale" << locale;
         return false;
     }
