@@ -60,13 +60,11 @@ static void loadTranslation(const QString &localeName, const QString &fallbackLo
     if (loadCatalog(QStringLiteral("qt_"), locale, fallbackLocale)) {
         return;
     }
-    // if loading the meta catalog failed, then try loading the four catalogs
-    // it depends on, i.e. qtbase, qtscript, qtmultimedia, qtxmlpatterns, separately
+    // if loading the meta catalog failed, then try loading the catalogs
+    // it depends on, i.e. qtbase, qtmultimedia separately
     const auto catalogs = {
         QStringLiteral("qtbase_"),
-        QStringLiteral("qtscript_"),
         QStringLiteral("qtmultimedia_"),
-        QStringLiteral("qtxmlpatterns_"),
     };
     for (const auto &catalog : catalogs) {
         loadCatalog(catalog, locale, fallbackLocale);
