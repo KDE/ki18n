@@ -38,26 +38,11 @@ static bool loadCatalog(const QString &catalog, const QLocale &locale)
     return true;
 }
 
-static bool loadCatalog(const QString &catalog, const QLocale &locale, const QLocale &fallbackLocale)
-{
-    // try to load the catalog for locale
-    if (loadCatalog(catalog, locale)) {
-        return true;
-    }
-    // if this fails, then try the fallback locale (if it's different from locale)
-    if (fallbackLocale != locale) {
-        return loadCatalog(catalog, fallbackLocale);
-    }
-    return false;
-}
-
 // load global Qt translation, needed in KDE e.g. by lots of builtin dialogs (QColorDialog, QFontDialog) that we use
-static void loadTranslation(const QString &localeName, const QString &fallbackLocaleName)
+static void loadTranslation(const QLocale &locale)
 {
-    const QLocale locale{localeName};
-    const QLocale fallbackLocale{fallbackLocaleName};
     // first, try to load the qt_ meta catalog
-    if (loadCatalog(QStringLiteral("qt_"), locale, fallbackLocale)) {
+    if (loadCatalog(QStringLiteral("qt_"), locale)) {
         return;
     }
     // if loading the meta catalog failed, then try loading the catalogs
@@ -67,7 +52,7 @@ static void loadTranslation(const QString &localeName, const QString &fallbackLo
         QStringLiteral("qtmultimedia_"),
     };
     for (const auto &catalog : catalogs) {
-        loadCatalog(catalog, locale, fallbackLocale);
+        loadCatalog(catalog, locale);
     }
 }
 
@@ -100,7 +85,7 @@ static void load()
 
         const QLocale locale = getSystemLocale();
         if (locale.name() != QStringLiteral("en")) {
-            loadTranslation(locale.name(), locale.bcp47Name());
+            loadTranslation(locale);
         }
     });
 }
