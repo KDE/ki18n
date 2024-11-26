@@ -24,7 +24,7 @@ include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMQmlModule)
-
+include(CMakeDependentOption)
 
 ecm_setup_version(
   PROJECT
@@ -60,7 +60,7 @@ set_package_properties(IsoCodes PROPERTIES TYPE RUNTIME
 # Due to CMake caching the variables, and KF6I18nMacros being included by KF6I18nConfig,
 # we have to hardcode the PYTHON_EXECUTABLE path or anything depending on KF6I18n
 # would be unable to find another Python version.
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 # allow settings this path explicitly for cross-building setups
 if (NOT FALLBACK_KI18N_PYTHON_EXECUTABLE)
     set(FALLBACK_KI18N_PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
@@ -71,6 +71,18 @@ file(COPY ${KI18n_SOURCE_DIR}/cmake/build-pofiles.cmake DESTINATION ${KI18n_BINA
 file(COPY ${KI18n_SOURCE_DIR}/cmake/build-tsfiles.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
 file(COPY ${KI18n_SOURCE_DIR}/cmake/ts-pmap-compile.py DESTINATION ${KI18n_BINARY_DIR}/cmake)
 file(COPY ${KI18n_SOURCE_DIR}/cmake/kf6i18nuic.cmake DESTINATION ${KI18n_BINARY_DIR}/cmake)
+
+# For the Python bindings
+find_package(Shiboken6)
+find_package(PySide6)
+
+cmake_dependent_option(BUILD_PYTHON_BINDINGS "Generate Python Bindings" ON "TARGET Shiboken6::libshiboken AND TARGET PySide6::pyside6" OFF)
+add_feature_info(PYTHON_BINDINGS ${BUILD_PYTHON_BINDINGS} "Python bindings")
+
+# FreeBSD CI is missing required packages
+if (CMAKE_SYSTEM_NAME MATCHES FreeBSD)
+    set(BUILD_PYTHON_BINDINGS OFF)
+endif()
 
 # Create dummy file to execute find_package(KF6I18n) within autotests/ki18n_install
 file(WRITE ${CMAKE_BINARY_DIR}/cmake/KF6I18nTargets.cmake "")
@@ -94,6 +106,11 @@ add_subdirectory(src)
 if(BUILD_TESTING)
     add_subdirectory(autotests)
     add_subdirectory(tests)
+endif()
+
+if (BUILD_PYTHON_BINDINGS)
+    include(ECMGeneratePythonBindings)
+    add_subdirectory(python)
 endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them

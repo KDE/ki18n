@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<typesystem package="KI18n">
+<!--
+SPDX-FileCopyrightText: 2024 Manuel Alcaraz Zambrano <manuelalcarazzam@gmail.com>
+SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+-->
+    <load-typesystem name="typesystem_core.xml" generate="no"/>
+
+    <object-type name="KCountry" />
+    <object-type name="KCountrySubdivision" />
+    <object-type name="KLazyLocalizedString" />
+    <object-type name="KLocalizedContext" />
+    <object-type name="KLocalizedString" />
+    <object-type name="KLocalizedTranslator" />
+    <namespace-type name="KTimeZone">
+        <extra-includes>
+            <include file-name="KTimeZone" location="global" />
+        </extra-includes>
+    </namespace-type>
+    <namespace-type name="Kuit">
+        <enum-type name="Cue" />
+        <enum-type name="Role" />
+        <enum-type name="TagClass" />
+        <enum-type name="VisualFormat" />
+    </namespace-type>
+    <object-type name="KuitSetup" />
+
+</typesystem>
