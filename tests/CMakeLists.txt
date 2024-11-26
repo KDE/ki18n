@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2024 Volker Krause <vkrause@kde.org>
-# SPDX-License-Identifier: BSD-3-clause
+# SPDX-License-Identifier: BSD-3-Clause
 
 if (TARGET Qt6::Widgets)
     add_executable(spinbox spinbox.cpp)
