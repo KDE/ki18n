@@ -64,3 +64,20 @@ ecm_add_tests(
     ktimezonetest.cpp
     LINK_LIBRARIES KF6::I18nLocaleData Qt6::Test
 )
+
+add_executable(qtcatalogtest qtcatalogtest.cpp)
+target_link_libraries(qtcatalogtest PRIVATE KF6::I18n Qt6::Test)
+function(add_qt_catalog_test name langs expected)
+    add_test(NAME qtcatalog-${name} COMMAND qtcatalogtest "QShortcut" "Cancel" "${expected}")
+    set_tests_properties(qtcatalog-${name} PROPERTIES
+        ENVIRONMENT "LANGUAGE=${langs}"
+    )
+endfunction()
+
+add_qt_catalog_test(germany "de_DE" "Abbrechen")
+# there's no country specifc translations for GB or AT, we expect the generic variants for those,
+# not the next language in the list
+add_qt_catalog_test(uk-with-fallback "en_GB:ca_ES" "Cancel")
+add_qt_catalog_test(austria-with-fallback "de_AT:ca_ES" "Abbrechen")
+# there's no af translation, so we expect the next fallback here
+add_qt_catalog_test(afrikaans-with-fallback "af_SA:fr_FR" "Annuler")
