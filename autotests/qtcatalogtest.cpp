@@ -3,8 +3,11 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
+#include <KLocalizedString>
+
 #include <QCoreApplication>
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QLibraryInfo>
 
@@ -13,6 +16,7 @@ using namespace Qt::Literals;
 int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
+    KLocalizedString s; // bypass --as-needed linking
 
     // verify qttranslations is installed, skip test otherwise
     if (!QFile::exists(QLibraryInfo::path(QLibraryInfo::TranslationsPath) + "/qtbase_fr.qm"_L1)) {

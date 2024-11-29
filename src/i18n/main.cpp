@@ -8,6 +8,7 @@
 #include "ki18n_logging.h"
 
 #include <QCoreApplication>
+#include <QFile>
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QThread>
@@ -26,12 +27,16 @@ using namespace Qt::Literals;
 #endif
 }
 
-static bool loadCatalog(const QString &catalog, const QLocale &locale)
+static bool loadCatalog(QStringView catalog, QStringView language)
 {
     Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
+    const QString fullPath = translationsPath() + '/'_L1 + catalog + language + ".qm"_L1;
+    if (!QFile::exists(fullPath)) {
+        return false;
+    }
     auto translator = std::make_unique<QTranslator>(QCoreApplication::instance());
-    if (!translator->load(locale, catalog, QString(), translationsPath())) {
-        qCDebug(KI18N) << "Loading the" << catalog << "catalog failed for locale" << locale;
+    if (!translator->load(fullPath)) {
+        qCDebug(KI18N) << "Loading catalog failed:" << fullPath;
         return false;
     }
     QCoreApplication::instance()->installTranslator(translator.release());
@@ -39,39 +44,37 @@ static bool loadCatalog(const QString &catalog, const QLocale &locale)
 }
 
 // load global Qt translation, needed in KDE e.g. by lots of builtin dialogs (QColorDialog, QFontDialog) that we use
-static void loadTranslation(const QLocale &locale)
+static bool loadTranslation(QStringView language)
 {
     // first, try to load the qt_ meta catalog
-    if (loadCatalog(QStringLiteral("qt_"), locale)) {
-        return;
+    if (loadCatalog(u"qt_", language)) {
+        return true;
     }
     // if loading the meta catalog failed, then try loading the catalogs
     // it depends on, i.e. qtbase, qtmultimedia separately
     const auto catalogs = {
-        QStringLiteral("qtbase_"),
-        QStringLiteral("qtmultimedia_"),
+        u"qtbase_",
+        u"qtmultimedia_",
     };
+    bool success = false;
     for (const auto &catalog : catalogs) {
-        loadCatalog(catalog, locale);
+        success |= loadCatalog(catalog, language);
     }
+    return success;
 }
 
-static QLocale getSystemLocale()
+static QStringList getSystemLanguages()
 {
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
     // On Windows and Apple OSs, we cannot use QLocale::system() if an application-specific
     // language was set by kxmlgui because Qt ignores LANGUAGE on Windows and Apple OSs.
     // The following code is a simplified variant of QSystemLocale::fallbackUiLocale()
     // (in qlocale_unix.cpp) ignoring LC_ALL, LC_MESSAGES, and LANG.
-    QString language = qEnvironmentVariable("LANGUAGE");
-    if (!language.isEmpty()) {
-        language = language.split(QLatin1Char{':'}).constFirst();
-        if (!language.isEmpty()) {
-            return QLocale{language};
-        }
+    if (const auto languages = qEnvironmentVariable("LANGUAGE").split(':'_L1, Qt::SkipEmptyParts); !languages.isEmpty()) {
+        return languages;
     }
 #endif
-    return QLocale::system();
+    return QLocale::system().uiLanguages();
 }
 
 static void load()
@@ -81,11 +84,25 @@ static void load()
     // why we load the `en` translation unconditionally, then load the
     // translation for the current locale to overload it.
     QMetaObject::invokeMethod(QCoreApplication::instance(), [] {
-        loadCatalog(QStringLiteral("qt_"), QLocale{QStringLiteral("en")});
+        loadCatalog(u"qt_", u"en");
 
-        const QLocale locale = getSystemLocale();
-        if (locale.name() != QStringLiteral("en")) {
-            loadTranslation(locale);
+        auto languages = getSystemLanguages();
+        for (auto it = languages.begin(); it != languages.end(); ++it) {
+            // normalize into the format used in Qt catalog suffixes
+            (*it).replace('-'_L1, '_'_L1);
+            // make sure we always also have the generic language variant
+            // depending on the platform that might not be in uiLanguages by default
+            const auto idx = (*it).indexOf(QLatin1Char('_'));
+            if (idx > 0) {
+                const QString genericLang = (*it).left(idx);
+                it = languages.insert(++it, genericLang);
+            }
+        }
+        languages.removeDuplicates();
+        for (const auto &language : languages) {
+            if (language == "en"_L1 || loadTranslation(language)) {
+                break;
+            }
         }
     });
 }
