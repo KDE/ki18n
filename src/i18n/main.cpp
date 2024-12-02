@@ -16,6 +16,11 @@
 
 #include <memory>
 
+//
+// NOTE when changing anything in here, also check whether ECMQmLoader.cpp.in in ECM
+// needs to be changed as well!
+//
+
 using namespace Qt::Literals;
 
 [[nodiscard]] static QString translationsPath()
@@ -87,15 +92,24 @@ static void load()
         loadCatalog(u"qt_", u"en");
 
         auto languages = getSystemLanguages();
-        for (auto it = languages.begin(); it != languages.end(); ++it) {
+        for (qsizetype i = 0; i < languages.size(); ++i) {
             // normalize into the format used in Qt catalog suffixes
-            (*it).replace('-'_L1, '_'_L1);
+            languages[i].replace('-'_L1, '_'_L1);
             // make sure we always also have the generic language variant
             // depending on the platform that might not be in uiLanguages by default
-            const auto idx = (*it).indexOf(QLatin1Char('_'));
+            // insert that after the last country-specific entry for the same language
+            const auto idx = languages[i].indexOf('_'_L1);
             if (idx > 0) {
-                const QString genericLang = (*it).left(idx);
-                it = languages.insert(++it, genericLang);
+                const QString genericLang = languages[i].left(idx);
+                qsizetype j = i + 1;
+                for (; j < languages.size(); ++j) {
+                    if (!languages[j].startsWith(genericLang)) {
+                        break;
+                    }
+                }
+                if (languages[j - 1] != genericLang) {
+                    languages.insert(j, genericLang);
+                }
             }
         }
         languages.removeDuplicates();

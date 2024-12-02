@@ -79,5 +79,8 @@ add_qt_catalog_test(germany "de_DE" "Abbrechen")
 # not the next language in the list
 add_qt_catalog_test(uk-with-fallback "en_GB:ca_ES" "Cancel")
 add_qt_catalog_test(austria-with-fallback "de_AT:ca_ES" "Abbrechen")
+# same as above, but with multiple country-specific variants
+add_qt_catalog_test(au-uk-with-fallback "en_AU:en_GB:ca_ES" "Cancel")
+add_qt_catalog_test(austria-switzerland-with-fallback "de_AT:de_CH:ca_ES" "Abbrechen")
 # there's no af translation, so we expect the next fallback here
 add_qt_catalog_test(afrikaans-with-fallback "af_SA:fr_FR" "Annuler")
