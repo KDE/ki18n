@@ -13,7 +13,7 @@
 // one source file on localization.
 
 /*!
- * @internal
+ * \internal
  *
  * Removes accelerator marker from a UI text label.
  *

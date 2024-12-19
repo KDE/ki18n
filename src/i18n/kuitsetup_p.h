@@ -22,7 +22,7 @@ QString escape(const QString &text);
 }
 
 /*!
- * @internal
+ * \internal
  * (used by KLocalizedString)
  *
  * KuitFormatter resolves KUIT markup in user interface text
