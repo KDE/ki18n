@@ -13,3 +13,5 @@ target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
 )
 
 ecm_finalize_qml_module(ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR})
+
+ecm_generate_qdoc(ki18nlocaledataqmlplugin ki18nlocaledataqml.qdocconf)

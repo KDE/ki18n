@@ -18,6 +18,8 @@
  *  property table.
  *
  *  These entries exist in very large quantities, so compact storage is important.
+ *
+ * \internal
  */
 class SpatialIndexEntry
 {

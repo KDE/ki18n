@@ -309,10 +309,6 @@ private:
     std::unique_ptr<KLocalizedQmlContextPrivate> const d;
 };
 
-/*!
- * \namespace KLocalization
- * \inmodule KI18nQml
- */
 namespace KLocalization
 {
 namespace Internal
@@ -328,6 +324,7 @@ namespace Internal
  * the created context.
  *
  * \since 6.8
+ * \relates KLocalizedQmlContext
  */
 inline KLocalizedQmlContext *setupLocalizedContext(QQmlEngine *engine)
 {

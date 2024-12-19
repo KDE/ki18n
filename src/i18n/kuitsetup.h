@@ -113,7 +113,7 @@ public:
      * The pattern string \a pattern should contain placeholders
      * for inserting the text and the attribute values.
      * %1 will be replaced with the wrapped text, and %2 and upwards
-     * with attribute values in the order given by \a attrNames.
+     * with attribute values in the order given by \a attribNames.
      * Non markup-aware translation call with context (ki18nc)
      * should be used to create the pattern string.
      *
