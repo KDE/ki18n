@@ -14,10 +14,11 @@
 
 class KLocalizedTranslatorPrivate;
 
-/**
- * @class KLocalizedTranslator klocalizedtranslator.h <KLocalizedTranslator>
+/*!
+ * \class KLocalizedTranslator
+ * \inmodule KI18n
  *
- * @brief A QTranslator using KLocalizedString for translations.
+ * \brief A QTranslator using KLocalizedString for translations.
  *
  * This class allows to translate strings in Qt's translation system with KLocalizedString.
  * An example is the translation of a dynamically loaded user interface through QUILoader.
@@ -26,7 +27,7 @@ class KLocalizedTranslatorPrivate;
  * to be used. The Translator can operate for multiple contexts, those needs to be specified.
  *
  * Example for translating a UI loaded through QUILoader:
- * @code
+ * \code
  * // create translator and install in QCoreApplication
  * KLocalizedTranslator *translator = new KLocalizedTranslator(this);
  * QCoreApplication::instance()->installTranslator(translator);
@@ -48,46 +49,50 @@ class KLocalizedTranslatorPrivate;
  * // send a LanguageChange event, this will re-translate using our translator
  * QEvent le(QEvent::LanguageChange);
  * QCoreApplication::sendEvent(loadedWidget, &le);
- * @endcode
+ * \endcode
  *
- * @since 5.0
+ * \since 5.0
  **/
 class KI18N_EXPORT KLocalizedTranslator : public QTranslator
 {
     Q_OBJECT
 public:
+    /*!
+     *
+     */
     explicit KLocalizedTranslator(QObject *parent = nullptr);
     virtual ~KLocalizedTranslator();
+
     QString translate(const char *context, const char *sourceText, const char *disambiguation = nullptr, int n = -1) const override;
 
-    /**
-     * Sets the @p translationDomain to be used.
+    /*!
+     * Sets the \a translationDomain to be used.
      *
      * The translation domain is required. Without the translation domain any invocation of
      * translate() will be delegated to the base class.
      *
-     * @param translationDomain The translation domain to be used.
+     * \a translationDomain The translation domain to be used.
      **/
     void setTranslationDomain(const QString &translationDomain);
 
-    /**
-     * Adds a @p context for which this Translator should be active.
+    /*!
+     * Adds a \a context for which this Translator should be active.
      *
      * The Translator only translates texts with a context matching one of the monitored contexts.
      * If the context is not monitored, the translate() method delegates to the base class.
      *
-     * @param context The context for which the Translator should be active
+     * \a context The context for which the Translator should be active
      *
-     * @see removeContextToMonitor
+     * \sa removeContextToMonitor
      **/
     void addContextToMonitor(const QString &context);
 
-    /**
-     * Stop translating for the given @p context.
+    /*!
+     * Stop translating for the given \a context.
      *
-     * @param context The context for which the Translator should no longer be active
+     * \a context The context for which the Translator should no longer be active
      *
-     * @see addContextToMonitor
+     * \sa addContextToMonitor
      **/
     void removeContextToMonitor(const QString &context);
 

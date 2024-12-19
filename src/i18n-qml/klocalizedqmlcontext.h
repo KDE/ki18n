@@ -18,28 +18,29 @@ class QQmlEngine;
 
 class KLocalizedQmlContextPrivate;
 
-/**
- * @class KLocalizedQmlContext klocalizedcontext.h <KLocalizedQmlContext>
+/*!
+ * \class KLocalizedQmlContext
+ * \inmodule KI18nQml
  *
- * This class is meant to be used to simplify integration of the KI18n framework
+ * \brief This class is meant to be used to simplify integration of the KI18n framework
  * in QML.
  *
  * The way to do so, is by creating this object and setting it as a context
  * object:
  *
- * @code
+ * \code
  * QQmlApplicationEngine engine;
  * auto ctx = new KLocalizedQmlContext(&engine);
  * engine->rootContext()->setContextObject(ctx);
  * QQmlEngine::setContextForObject(ctx, engine.rootContext());
  * ctx->setTranslationDomain(...);
- * @endcode
+ * \endcode
  *
  * In many cases this can be simplified using KLocalization::setupLocalizedContext():
- * @code
+ * \code
  * QQmlApplicationEngine engine;
  * KLocalization::setupLocalizedContext(&engine);
- * @endcode
+ * \endcode
  *
  * Then i18n*() and xi18n*() functions should be available for use from the code
  * loaded in the engine, for the view.
@@ -48,17 +49,19 @@ class KLocalizedQmlContextPrivate;
  * a binding re-evaluation when the application language is changed at runtime
  * (with Qt 6.6 or higher).
  *
- * @note Plural functions differ from the C/C++ version. On QML/JS we can get a
+ * \note Plural functions differ from the C/C++ version. On QML/JS we can get a
  * real value easily. To solve warnings on those cases we'll cast the first argument
  * to make sure it's taken into account for the plural.
  *
- * @since 6.8
+ * \since 6.8
  */
 class KI18NQML_EXPORT KLocalizedQmlContext : public QObject
 {
     Q_OBJECT
 
-    /**
+    /*!
+     * \property KLocalizedQmlContext::translationDomain
+     *
      * This property only needs to be specified if the context is being run on a library.
      * in an application there is no need to set the translation domain as the application's
      * domain can be used.
@@ -66,10 +69,20 @@ class KI18NQML_EXPORT KLocalizedQmlContext : public QObject
     Q_PROPERTY(QString translationDomain READ translationDomain WRITE setTranslationDomain NOTIFY translationDomainChanged)
 
 public:
+    /*!
+     *
+     */
     explicit KLocalizedQmlContext(QObject *parent = nullptr);
     ~KLocalizedQmlContext() override;
 
+    /*!
+     *
+     */
     QString translationDomain() const;
+
+    /*!
+     *
+     */
     void setTranslationDomain(const QString &domain);
 
     Q_INVOKABLE QString i18n(const QString &message,
@@ -296,22 +309,27 @@ private:
     std::unique_ptr<KLocalizedQmlContextPrivate> const d;
 };
 
+/*!
+ * \namespace KLocalization
+ * \inmodule KI18nQml
+ * \brief Namespace containing helpers for localization.
+ */
 namespace KLocalization
 {
-///@cond internal
 namespace Internal
 {
 [[nodiscard]] KI18NQML_EXPORT KLocalizedQmlContext *createLocalizedContext(QQmlEngine *engine);
 }
-///@endcond
 
-/** Creates a KLocalizedQmlContext engine and sets it up in the
- *  root context of @p engine.
+/*!
+ * Creates a KLocalizedQmlContext engine and sets it up in the
+ * root context of \a engine.
  *
- *  If @p TRANSLATION_DOMAIN is defined, that is also set on
- *  the created context.
+ * If \c TRANSLATION_DOMAIN is defined, that is also set on
+ * the created context.
  *
- *  @since 6.8
+ * \since 6.8
+ * \relates KLocalizedQmlContext
  */
 inline KLocalizedQmlContext *setupLocalizedContext(QQmlEngine *engine)
 {

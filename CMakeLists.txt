@@ -20,10 +20,10 @@ include(ECMGenerateExportHeader)
 include(CMakePackageConfigHelpers)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMQmlModule)
+include(ECMGenerateQDoc)
 
 
 ecm_setup_version(
@@ -82,9 +82,6 @@ if(MSVC)
     remove_definitions(-DQT_STRICT_ITERATORS)
 endif()
 
-option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
-add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
-
 ecm_set_disabled_deprecation_versions(
     QT 6.8.0
 )
@@ -98,16 +95,6 @@ endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6I18n")
-
-if(BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KF6I18n_QCH
-        FILE "${CMAKE_BINARY_DIR}/cmake/KF6I18nQchTargets.cmake"
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF6I18nQchTargets.cmake\")")
-endif()
 
 configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/KF6I18nConfig.cmake.in"
                               "${CMAKE_BINARY_DIR}/cmake/KF6I18nConfig.cmake"

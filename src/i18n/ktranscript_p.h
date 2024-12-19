@@ -12,37 +12,36 @@
 #include <QStringList>
 #include <QVariant>
 
-/**
- * @internal
+/*!
+ * \internal
  * (used by KLocalizedString)
  *
- * @c KTranscript provides support for programmable translations.
- * The class is abstract in order to facilitate dynamic loading.
+ * Class for supporting programmable translations
  *
- * @author Chusslove Illich <caslav.ilic@gmx.net>
- * @short class for supporting programmable translations
+ * KTranscript provides support for programmable translations.
+ * The class is abstract in order to facilitate dynamic loading.
  */
 class KTranscript
 {
 public:
-    /**
+    /*!
      * Evaluates interpolation.
      *
-     * @param argv list of interpolation tokens
-     * @param lang language of the translation
-     * @param ctry locale country
-     * @param msgctxt message context
-     * @param dynctxt dynamic context
-     * @param msgid original message
-     * @param subs substitutions for message placeholders
-     * @param vals values that were formatted to substitutions
-     * @param ftrans finalized ordinary translation
-     * @param mods scripting modules to load; the list is cleared after loading
-     * @param error set to the message detailing the problem, if the script
+     * \a argv list of interpolation tokens
+     * \a lang language of the translation
+     * \a ctry locale country
+     * \a msgctxt message context
+     * \a dynctxt dynamic context
+     * \a msgid original message
+     * \a subs substitutions for message placeholders
+     * \a vals values that were formatted to substitutions
+     * \a ftrans finalized ordinary translation
+     * \a mods scripting modules to load; the list is cleared after loading
+     * \a error set to the message detailing the problem, if the script
                     failed; set to empty otherwise
-     * @param fallback set to true if the script requested fallback to ordinary
+     * \a fallback set to true if the script requested fallback to ordinary
                        translation; set to false otherwise
-     * @return resolved interpolation if evaluation succeeded,
+     * Returns resolved interpolation if evaluation succeeded,
      *         empty string otherwise
      */
     virtual QString eval(const QList<QVariant> &argv,
@@ -58,16 +57,16 @@ public:
                          QString &error,
                          bool &fallback) = 0;
 
-    /**
+    /*!
      * Returns the list of calls to execute an all messages after the
      * interpolations are done, as evaluations with no parameters.
      *
-     * @param lang language of the translation
-     * @return list of post calls
+     * \a lang language of the translation
+     * Returns list of post calls
      */
     virtual QStringList postCalls(const QString &lang) = 0;
 
-    /**
+    /*!
      * Destructor.
      */
     virtual ~KTranscript()

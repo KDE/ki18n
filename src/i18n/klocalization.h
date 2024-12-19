@@ -17,25 +17,24 @@
 class QDoubleSpinBox;
 class QSpinBox;
 
-/**
- * @namespace KLocalization
- * @brief Namespace containing helpers for localization.
- * @since 6.5
+/*!
+ * \namespace KLocalization
+ * \inmodule KI18n
+ * \brief Namespace containing helpers for localization.
+ * \since 6.5
  */
 namespace KLocalization
 {
 
-///@cond hidden
 namespace Private
 {
 
 constexpr inline const char SpinBoxFormatStringProperty[] = "__KLocalizationFormatStringPrivate";
 
 }
-///@endcond
 
-/**
- * @brief Retranslates a previously set up format string to the current
+/*!
+ * Retranslates a previously set up format string to the current
  * language and updates the spin box.
  *
  * The format string is initially set up by setupSpinBoxFormatString().
@@ -43,18 +42,18 @@ constexpr inline const char SpinBoxFormatStringProperty[] = "__KLocalizationForm
  * current language settings. It is useful for responding to language changes,
  * such as those triggered by QEvent::LanguageChange.
  *
- * @tparam T The type of the spin box, which must be either QSpinBox or
+ * \a T The type of the spin box, which must be either QSpinBox or
  * QDoubleSpinBox.
- * @param spinBox Pointer to the spin box.
  *
- * @post The prefix and suffix of the spin box are updated to reflect the
+ * \a spinBox Pointer to the spin box.
+ *
+ * The prefix and suffix of the spin box are updated to reflect the
  * current language.
  *
- * @sa @ref setupSpinBoxFormatString
+ * \sa setupSpinBoxFormatString
  *
- * @since 6.5
+ * \since 6.5
  */
-
 template<typename T>
 inline void retranslateSpinBoxFormatString(T *spinBox)
 {
@@ -86,8 +85,8 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
     }
 }
 
-/**
- * @brief Sets up a format string for internationalizing spin boxes.
+/*!
+ * Sets up a format string for internationalizing spin boxes.
  *
  * This function allows the customization of prefix and suffix for spin boxes
  * (QSpinBox and QDoubleSpinBox), considering internationalization needs.
@@ -104,7 +103,7 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
  * the spin box value changes in the future.
  *
  * Example usage:
- * @code
+ * \code
  * QDoubleSpinBox doubleBox;
  * KLocalization::setupSpinBoxFormatString(
  *     &doubleBox,
@@ -115,26 +114,29 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
  * KLocalization::setupSpinBoxFormatString(
  *     &intBox,
  *     ki18ncp("@item %v is a number", "Baking %v cake", "Baking %v cakes"));
- * @endcode
+ * \endcode
  *
- * @tparam T The type of the spin box, which must be either QSpinBox or QDoubleSpinBox.
- * @param spinBox Pointer to the spin box.
- * @param formatString A localized string in the format "PREFIX%vSUFFIX".
- *        - For QDoubleSpinBox, plural forms in @p formatString are ignored
- *          and should be avoided. Use @ref KLocalizedString::ki18nc "ki18nc()"
+ * \a T The type of the spin box, which must be either QSpinBox or QDoubleSpinBox.
+ *
+ * \a spinBox Pointer to the spin box.
+ *
+ * \a formatString A localized string in the format "PREFIX%vSUFFIX".
+ * \list
+ * \li For QDoubleSpinBox, plural forms in \a formatString are ignored
+ *          and should be avoided. Use KLocalizedString::ki18nc "ki18nc()"
  *          to generate the format string.
- *        - For QSpinBox, if @p formatString includes plural forms, they are
+ * \li For QSpinBox, if \a formatString includes plural forms, they are
  *          utilized. While optional, their use is highly recommended for
- *          accurate pluralization. Use @ref KLocalizedString::ki18ncp "ki18ncp()"
+ *          accurate pluralization. Use KLocalizedString::ki18ncp "ki18ncp()"
  *          to generate the format string.
+ * \endlist
  *
- * @note It is safe to call this function multiple times on the same spin box.
+ * It is safe to call this function multiple times on the same spin box.
  *
- * @sa @ref retranslateSpinBoxFormatString
+ * \sa retranslateSpinBoxFormatString
  *
- * @since 6.5
+ * \since 6.5
  */
-
 template<typename T>
 inline void setupSpinBoxFormatString(T *spinBox, const KLocalizedString &formatString)
 {

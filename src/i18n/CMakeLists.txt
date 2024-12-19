@@ -112,29 +112,4 @@ endif()
 
 endif()
 
-if (BUILD_QCH)
-    ecm_add_qch(
-        KF6I18n_QCH
-        NAME KI18n
-        BASE_NAME KF6I18n
-        VERSION ${KF_VERSION}
-        ORG_DOMAIN org.kde
-        SOURCES # using only public headers, to cover only public API
-            ${KI18n_HEADERS}
-            "${CMAKE_SOURCE_DIR}/docs/programmers-guide.md"
-            "${CMAKE_SOURCE_DIR}/docs/translators-guide.md"
-        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
-        LINK_QCHS
-            Qt6Core_QCH
-        INCLUDE_DIRS
-            ${CMAKE_CURRENT_BINARY_DIR}
-        BLANK_MACROS
-            KI18N_EXPORT
-            KI18N_DEPRECATED_EXPORT
-            KI18N_DEPRECATED
-            "KI18N_DEPRECATED_VERSION(x, y, t)"
-        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        COMPONENT Devel
-    )
-endif()
+ecm_generate_qdoc(KF6I18n ki18n.qdocconf)

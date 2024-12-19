@@ -23,23 +23,20 @@
 class KLocalizedStringPrivate;
 class KLazyLocalizedString;
 
-/**
- * \file klocalizedstring.h
- */
-
-/**
- * @class KLocalizedString klocalizedstring.h <KLocalizedString>
+/*!
+ * \class KLocalizedString
+ * \inmodule KI18n
  *
- * \short Class for producing and handling localized messages
+ * \brief Class for producing and handling localized messages.
  *
- * \c KLocalizedString handles translation and
+ * KLocalizedString handles translation and
  * argument substitution and formatting of user-visible text.
  *
- * \c KLocalizedString instances are usually not constructed directly,
- * but through one of the wrapper \c \*i18n\* calls.
+ * KLocalizedString instances are usually not constructed directly,
+ * but through one of the wrapper *i18n* calls.
  *
  * For detailed information on how to use KI18n functions please refer
- * to \ref prg_guide.
+ * to prg_guide.
  */
 class KI18N_EXPORT KLocalizedString
 {
@@ -65,275 +62,310 @@ class KI18N_EXPORT KLocalizedString
     friend KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
 public:
-    /**
+    /*!
      * Construct an empty message.
      *
-     * Direct construction is used when another \c KLocalizedString instance,
-     * obtained by one of \c ki18n\* calls, should later be assigned
+     * Direct construction is used when another KLocalizedString instance,
+     * obtained by one of ki18n* calls, should later be assigned
      * to directly constructed instance.
      * Before the assignment happens, directly constructed instance
-     * is not valid for finalization by \c toString methods.
+     * is not valid for finalization by toString methods.
      *
-     * \see isEmpty
+     * \sa isEmpty
      */
     explicit KLocalizedString();
 
-    /**
-     * Copy constructor.
-     */
     KLocalizedString(const KLocalizedString &rhs);
 
-    /**
-     * Assignment operator.
-     */
     KLocalizedString &operator=(const KLocalizedString &rhs);
 
-    /**
-     * Destructor.
-     */
     ~KLocalizedString();
 
-    /**
+    /*!
      * Check whether the message is empty.
      *
      * The message is considered empty if the object was constructed
      * via the default constructor.
      *
      * Empty messages are not valid for finalization.
-     * The behavior of calling \c toString on them is undefined.
+     * The behavior of calling toString on them is undefined.
      * In debug mode, an error mark may appear in the returned string.
      *
-     * \return \c true if the message is empty, \c false otherwise
+     * Returns \c true if the message is empty, \c false otherwise
      */
     bool isEmpty() const;
 
-    /**
+    /*!
      * Finalize the translation.
      *
-     * Creates translated \c QString, with placeholders substituted
-     * by arguments given by \c KLocalizedString::subs methods.
+     * Creates translated QString, with placeholders substituted
+     * by arguments given by KLocalizedString::subs methods.
      * Translated text is searched for and arguments are formatted
      * based on the global locale.
      *
      * If there was any mismatch between placeholders and arguments,
      * in debug mode the returned string may contain error marks.
      *
-     * \return finalized translation
+     * Returns finalized translation
      */
     Q_REQUIRED_RESULT QString toString() const;
 
-    /**
-     * Like \c toString, but look for translation only in given languages.
+    /*!
+     * Like toString, but look for translation only in given languages.
      *
      * Given languages override languages defined by the global locale,
-     * and any languages set earlier using \c withLanguages.
-     * If \p languages is empty, original message is returned.
+     * and any languages set earlier using withLanguages.
+     * If \a languages is empty, original message is returned.
      *
-     * \param languages list of language codes (by decreasing priority)
-     * \return finalized translation
+     * \a languages list of language codes (by decreasing priority)
+     * Returns finalized translation
      */
     Q_REQUIRED_RESULT QString toString(const QStringList &languages) const;
 
-    /**
-     * Like \c toString, but look for translation in the given domain.
+    /*!
+     * Like toString, but look for translation in the given domain.
      *
-     * Given domain overrides any set earlier using \c withDomain.
+     * Given domain overrides any set earlier using withDomain.
      *
-     * \param domain the translation domain
-     * \return finalized translation
+     * \a domain the translation domain
+     *
+     * Returns finalized translation
      */
     Q_REQUIRED_RESULT QString toString(const char *domain) const;
 
-    /**
-     * Like \c toString, but resolve KUIT markup into given visual format.
+    /*!
+     * Like toString, but resolve KUIT markup into given visual format.
      *
      * Given visual format overrides that implied by the context UI marker
-     * or set earlier using \c withFormat.
+     * or set earlier using withFormat.
      * If the message is not markup-aware,
-     * this is same as \c toString without arguments.
+     * this is same as toString without arguments.
      *
-     * \param format the target visual format
-     * \return finalized translation
+     * \a format the target visual format
+     *
+     * Returns finalized translation
      */
     Q_REQUIRED_RESULT QString toString(Kuit::VisualFormat format) const;
 
-    /**
+    /*!
      * Indicate to look for translation only in given languages.
      *
-     * \param languages list of language codes (by decreasing priority)
-     * \return updated \c KLocalizedString
+     * \a languages list of language codes (by decreasing priority)
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString withLanguages(const QStringList &languages) const;
 
-    /**
+    /*!
      * Indicate to look for translation in the given domain.
      *
-     * \param domain the translation domain
-     * \return updated \c KLocalizedString
+     * \a domain the translation domain
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString withDomain(const char *domain) const;
 
-    /**
+    /*!
      * Indicate to resolve KUIT markup into given visual format.
      *
      * If the message is not markup-aware, this has no effect.
      *
-     * \param format the target visual format
-     * \return updated \c KLocalizedString
+     * \a format the target visual format
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString withFormat(Kuit::VisualFormat format) const;
 
-    /**
+    /*!
      * Substitute an int argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param base the radix used to represent the number as a string.
+     *
+     * \a base the radix used to represent the number as a string.
      *             Valid values range from 2 to 36
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(int a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute an unsigned int argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param base the radix used to represent the number as a string.
+     *
+     * \a base the radix used to represent the number as a string.
      *             Valid values range from 2 to 36
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(uint a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a long argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param base the radix used to represent the number as a string.
+     *
+     * \a base the radix used to represent the number as a string.
      *             Valid values range from 2 to 36
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(long a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute an unsigned long argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param base the radix used to represent the number as a string.
+     *
+     * \a base the radix used to represent the number as a string.
      *             Valid values range from 2 to 36
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(ulong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a long long argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param base the radix used to represent the number as a string.
+     *
+     * \a base the radix used to represent the number as a string.
      *             Valid values range from 2 to 36
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(qlonglong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute an unsigned long long argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param base the radix used to represent the number as a string.
+     *
+     * \a base the radix used to represent the number as a string.
      *             Valid values range from 2 to 36
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(qulonglong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a double argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param format type of floating point formatting, like in QString::arg
-     * \param precision number of digits after the decimal separator
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a format type of floating point formatting, like in QString::arg
+     *
+     * \a precision number of digits after the decimal separator
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(double a, int fieldWidth = 0, char format = 'g', int precision = -1, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
-     * Substitute a \c QChar argument into the message.
+    /*!
+     * Substitute a QChar argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(QChar a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
-     * Substitute a \c QString argument into the message.
+    /*!
+     * Substitute a QString argument into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(const QString &a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
-     * Substitute another \c KLocalizedString into the message.
+    /*!
+     * Substitute another KLocalizedString into the message.
      *
-     * \param a the argument
-     * \param fieldWidth width of the formatted field, padded by spaces.
+     * \a a the argument
+     *
+     * \a fieldWidth width of the formatted field, padded by spaces.
      *                   Positive value aligns right, negative aligns left
-     * \param fillChar the character used to fill up the empty places when
+     *
+     * \a fillChar the character used to fill up the empty places when
      *                 field width is greater than argument width
-     * \return updated \c KLocalizedString
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString subs(const KLocalizedString &a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Add dynamic context to the message.
      *
-     * See \ref dyn_ctxt for use cases.
+     * See dyn_ctxt for use cases.
      *
-     * \param key context key
-     * \param value context value
-     * \return updated \c KLocalizedString
+     * \a key context key
+     *
+     * \a value context value
+     *
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString inContext(const QString &key, const QString &value) const;
 
-    /**
+    /*!
      * Relax matching between placeholders and arguments.
      *
      * Normally the placeholders should start from %1 and have no gaps,
      * and on finalization there must be exactly as many arguments
-     * supplied through \c subs methods as there are unique plaecholders.
+     * supplied through subs methods as there are unique plaecholders.
      * If this is not satisfied, in debug mode warnings are printed
      * and the finalized string may contain error marks.
      *
@@ -343,30 +375,30 @@ public:
      * to be 1-based indices into the argument list).
      * This can come useful in some situations.
      *
-     * \return updated \c KLocalizedString
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString relaxSubs() const;
 
-    /**
+    /*!
      * Do not resolve KUIT markup.
      *
      * If the message is markup-aware
-     * (constructed by one of \c \*xi18n\* calls),
+     * (constructed by one of *xi18n* calls),
      * this function can be used to make it non-markup-aware.
      * This may be useful for debugging markup.
      *
-     * \return updated \c KLocalizedString
+     * Returns updated KLocalizedString
      */
     Q_REQUIRED_RESULT KLocalizedString ignoreMarkup() const;
 
-    /**
+    /*!
      * Returns the untranslated text.
      *
      * \since 5.64
      */
     Q_REQUIRED_RESULT QByteArray untranslatedText() const;
 
-    /**
+    /*!
      * Set the given domain as application's main domain.
      *
      * This function must be called in applications, in order to have
@@ -383,83 +415,85 @@ public:
      * QCoreApplication startup, like KXMLGUI's language switching support.
      * So the initialisation done by this function sees all the data it should.
      *
-     * \param domain the translation domain of the application
+     * \a domain the translation domain of the application
      */
     static void setApplicationDomain(const QByteArray &domain);
 
-    /**
+    /*!
      * Get the application's main translation domain.
      *
-     * Returns the domain set by \c setApplicationDomain.
+     * Returns the domain set by setApplicationDomain.
      */
     static QByteArray applicationDomain();
 
-    /**
+    /*!
      * Get the languages for which translations will be made.
      *
      * Returned languages are ordered with decreasing priority.
      *
-     * \return languages ordered list of language codes
-     * \see setLanguages
-     * \see clearLanguages
+     * Returns languages ordered list of language codes
+     * \sa setLanguages
+     * \sa clearLanguages
      *
      * \since 5.20.0
      */
     static QStringList languages();
 
-    /**
+    /*!
      * Set the languages for which translations will be made.
      *
      * This overrides the languages provided by the locale.
      * Languages should be ordered with decreasing priority.
      *
-     * \param languages ordered list of language codes
-     * \see setLocale
-     * \see clearLanguages
-     * \see languages
+     * \a languages ordered list of language codes
+     *
+     * \sa setLocale
+     * \sa clearLanguages
+     * \sa languages
      */
     static void setLanguages(const QStringList &languages);
 
-    /**
+    /*!
      * Clear override languages.
      *
      * This clears the override languages, going back to those
      * provided by the locale.
      *
-     * \see setLanguages
-     * \see languages
+     * \sa setLanguages
+     * \sa languages
      */
     static void clearLanguages();
 
-    /**
+    /*!
      * Check whether the translation catalog file in the given language
      * for the set application translation domain exists.
      *
-     * \param language the language code to check
-     * \return \c true if the translation catalog for \p language exits,
+     * \a language the language code to check
+     *
+     * Returns \c true if the translation catalog for \a language exits,
      *         \c false otherwise
-     * \see setApplicationDomain
+     * \sa setApplicationDomain
      */
     static bool isApplicationTranslatedInto(const QString &language);
 
-    /**
-     * @since 5.0
+    /*!
+     * \since 5.0
      *
      * Get the languages for which there exists the translation catalog file
      * for the set application translation domain.
      *
-     * The application domain is set by \c setApplicationDomain.
+     * The application domain is set by setApplicationDomain.
      * If the application domain was not set, empty set is returned.
      * If the application domain was set, the language set will always
-     * contain at least the source code language (<tt>en_US</tt>).
+     * contain at least the source code language (en_US).
      *
-     * \return set of language codes for existing translation catalogs
-     * \see setApplicationDomain
+     * Returns set of language codes for existing translation catalogs
+     * \sa setApplicationDomain
      */
     static QSet<QString> availableApplicationTranslations();
 
-    /**
-     * @since 5.0
+    /*!
+     * \since 5.0
      *
      * Get the languages for which a translation catalog file
      * for the passed translation domain exists.
@@ -468,57 +502,59 @@ public:
      * domain parameter an empty set is returned.
      *
      * If the application domain was set, the language set will always
-     * contain at least the source code language (<tt>en_US</tt>).
+     * contain at least the source code language (en_US).
      *
-     * \param domain query for translations of a specific domain, if an empty
+     * \a domain query for translations of a specific domain, if an empty
      * QByteArray is passed, an empty set will be returned
      *
-     * \return set of language codes for existing translation catalogs
-     * \see setApplicationDomain
-     * \see availableApplicationTranslations
+     * Returns set of language codes for existing translation catalogs
+     * \sa setApplicationDomain
+     * \sa availableApplicationTranslations
      */
     static QSet<QString> availableDomainTranslations(const QByteArray &domain);
 
-    /**
+    /*!
      * Load locales for a domain from a specific location
      * This is useful for resources which have their translation files
      * outside of the usual $XDG_DATA_DIRS/locales location
      *
-     * \param the domain to load resources from
-     * \path the full file path to the locale directory
+     * \a domain the domain to load resources from
+     *
+     * \a path the full file path to the locale directory
      */
     static void addDomainLocaleDir(const QByteArray &domain, const QString &path);
 
-    /**
+    /*!
      * Find a path to the localized file for the given original path.
      *
      * This is intended mainly for non-text resources (images, sounds, etc).
      * Text resources should be handled in more specific ways.
      *
      * Possible localized paths are checked in turn by priority of set
-     * languages, in form of <tt>\<dirname\>/l10n/\<lang\>/\<basename\></tt>,
-     * where <tt>\<dirname\></tt> and <tt>\<basename\></tt> are those of
-     * the original path, and <tt>\<lang\></tt> is the language code.
+     * languages, in form of <dirname>/l10n/<lang>/<basename>,
+     * where <dirname> and <basename> are those of
+     * the original path, and <lang> is the language code.
      *
-     * \param filePath path to the original file
+     * \a filePath path to the original file
      *
-     * \return path to the localized file if found, original path otherwise
+     * Returns path to the localized file if found, original path otherwise
      */
     Q_REQUIRED_RESULT static QString localizedFilePath(const QString &filePath);
 
-    /**
+    /*!
      * Remove accelerator marker from a UI text label.
      *
      * Accelerator marker is not always a plain ampersand (&),
-     * so it is not enough to just remove it by \c QString::remove.
+     * so it is not enough to just remove it by QString::remove.
      * The label may contain escaped markers ("&&") which must be resolved
      * and skipped, as well as CJK-style markers ("Foo (&F)") where
      * the whole parenthesis construct should be removed.
      * Therefore always use this function to remove accelerator marker
      * from UI labels.
      *
-     * \param label UI label which may contain an accelerator marker
-     * \return label without the accelerator marker
+     * \a label UI label which may contain an accelerator marker
+     *
+     * Returns label without the accelerator marker
      */
     Q_REQUIRED_RESULT static QString removeAcceleratorMarker(const QString &label);
 
@@ -533,363 +569,527 @@ private:
 };
 
 // Do not document every multi-argument i18n* call separately,
-// but provide special quasi-calls that only Doxygen sees.
+// but provide special quasi-calls that only qdoc sees.
 // Placed in front of ki18n* calls, because i18n* are more basic.
-#ifdef K_DOXYGEN
+#ifdef Q_QDOC
 
-/**
+/*!
  * Translate a string and substitute any arguments.
  *
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18n(const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string with context and substitute any arguments.
  *
- * \param context context of the string
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18nc(const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string with plural and substitute any arguments.
  *
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18np(const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string with context and plural and substitute any arguments.
  *
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18ncp(const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18nd(const char *domain, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain with context and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18ndc(const char *domain, const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain with plural and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18ndp(const char *domain, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain with context and plural
  * and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string and substitute any arguments.
  *
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18n(const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string with context and substitute any arguments.
  *
- * \param context context of the string
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18nc(const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string with plural and substitute any arguments.
  *
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18np(const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string with context and plural
  * and substitute any arguments.
  *
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18ncp(const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18nd(const char *domain, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain with context
  * and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param text string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18ndc(const char *domain, const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain with plural
  * and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18ndp(const char *domain, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain with context and plural
  * and substitute any arguments.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \param arg arguments to insert (0 to 9),
- *            admissible types according to \c KLocalizedString::subs methods
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * \a arg arguments to insert (0 to 9),
+ *            admissible types according to KLocalizedString::subs methods
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 QString xi18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-#endif // K_DOXYGEN
+#endif // Q_QDOC
 
-/**
+/*!
  * Create non-finalized translated string.
  *
- * \param text string to translate
- * \return non-finalized translated string
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18n(const char *text);
 
-/**
+/*!
  * Create non-finalized translated string with context.
  *
- * \param context context of the string
- * \param text string to translate
- * \return non-finalized translated string
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18nc(const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized translated string with plural.
  *
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18np(const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized translated string with context and plural.
  *
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18ncp(const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized translated string from domain.
  *
- * \param domain domain in which to look for translations
- * \param text string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char *text);
 
-/**
+/*!
  * Create non-finalized translated string from domain with context.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param text string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18ndc(const char *domain, const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized translated string from domain with plural.
  *
- * \param domain domain in which to look for translations
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18ndp(const char *domain, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized translated string from domain with context and plural.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT ki18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string.
  *
- * \param text string to translate
- * \return non-finalized translated string
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18n(const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string with context.
  *
- * \param context context of the string
- * \param text string to translate
- * \return non-finalized translated string
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18nc(const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string with plural.
  *
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18np(const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string.
  * with context and plural.
  *
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18ncp(const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain.
  *
- * \param domain domain in which to look for translations
- * \param text string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain with context.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param text string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a text string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18ndc(const char *domain, const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain with plural.
  *
- * \param domain domain in which to look for translations
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18ndp(const char *domain, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain
  * with context and plural.
  *
- * \param domain domain in which to look for translations
- * \param context context of the string
- * \param singular singular form of the string to translate
- * \param plural plural form of the string to translate
- * \return non-finalized translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a context context of the string
+ *
+ * \a singular singular form of the string to translate
+ *
+ * \a plural plural form of the string to translate
+ *
+ * Returns non-finalized translated string
+ *
+ * \relates KLocalizedString
  */
 KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
-/**
- * Redirect Qt's <tt>uic</tt>-generated translation calls to Ki18n.
+/*!
+ * Redirect Qt's uic-generated translation calls to Ki18n.
  *
- * Use <tt>-tr tr2i18n</tt> option to \c uic to have it redirect calls.
+ * Use -tr tr2i18n option to uic to have it redirect calls.
  *
- * \param text string to translate
- * \param comment Qt equivalent of disambiguation context
- * \return translated string
+ * \a text string to translate
+ *
+ * \a comment Qt equivalent of disambiguation context
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 inline QString tr2i18n(const char *text, const char *comment = nullptr)
 {
@@ -902,15 +1102,20 @@ inline QString tr2i18n(const char *text, const char *comment = nullptr)
     }
 }
 
-/**
- * Like \c tr2i18n, but look for translation in a specific domain.
+/*!
+ * Like tr2i18n, but look for translation in a specific domain.
  *
- * Use <tt>-tr tr2i18nd</tt> option to \c uic to have it redirect calls.
+ * Use -tr tr2i18nd option to uic to have it redirect calls.
  *
- * \param domain domain in which to look for translations
- * \param text string to translate
- * \param comment Qt equivalent of disambiguation context
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a text string to translate
+ *
+ * \a comment Qt equivalent of disambiguation context
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 inline QString tr2i18nd(const char *domain, const char *text, const char *comment = nullptr)
 {
@@ -923,14 +1128,18 @@ inline QString tr2i18nd(const char *domain, const char *text, const char *commen
     }
 }
 
-/**
- * Like \c tr2i18n, but when UI strings are KUIT markup-aware.
+/*!
+ * Like tr2i18n, but when UI strings are KUIT markup-aware.
  *
- * Use <tt>-tr tr2xi18n</tt> option to \c uic to have it redirect calls.
+ * Use -tr tr2xi18n option to uic to have it redirect calls.
  *
- * \param text markup-aware string to translate
- * \param comment Qt equivalent of disambiguation context
- * \return translated string
+ * \a text markup-aware string to translate
+ *
+ * \a comment Qt equivalent of disambiguation context
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 inline QString tr2xi18n(const char *text, const char *comment = nullptr)
 {
@@ -943,15 +1152,20 @@ inline QString tr2xi18n(const char *text, const char *comment = nullptr)
     }
 }
 
-/**
- * Like \c tr2xi18n, but look for translation in a specific domain.
+/*!
+ * Like tr2xi18n, but look for translation in a specific domain.
  *
- * Use <tt>-tr tr2xi18nd</tt> option to \c uic to have it redirect calls.
+ * Use -tr tr2xi18nd option to uic to have it redirect calls.
  *
- * \param domain domain in which to look for translations
- * \param text markup-aware string to translate
- * \param comment Qt equivalent of disambiguation context
- * \return translated string
+ * \a domain domain in which to look for translations
+ *
+ * \a text markup-aware string to translate
+ *
+ * \a comment Qt equivalent of disambiguation context
+ *
+ * Returns translated string
+ *
+ * \relates KLocalizedString
  */
 inline QString tr2xi18nd(const char *domain, const char *text, const char *comment = nullptr)
 {
@@ -964,7 +1178,7 @@ inline QString tr2xi18nd(const char *domain, const char *text, const char *comme
     }
 }
 
-#ifndef K_DOXYGEN
+#ifndef Q_QDOC
 
 #ifndef NDEBUG
 #define I18N_ERR_MSG String_literal_as_second_argument_to_i18n___Perhaps_you_need_i18nc_or_i18np
@@ -2187,11 +2401,11 @@ inline QString xi18ndcp(const char *domain,
 }
 // <<<<< End of markup-aware context-plural calls with domain
 
-#endif // K_DOXYGEN
+#endif // Q_QDOC
 
 #endif // KLOCALIZEDSTRING_H
 
-#ifndef K_DOXYGEN
+#ifndef Q_QDOC
 
 // Outside of include guards, to be able to map and unmap domains
 // by successive inclusions of this header
@@ -2236,4 +2450,4 @@ inline QString xi18ndcp(const char *domain,
 #undef tr2xi18n
 #endif
 
-#endif // K_DOXYGEN
+#endif // Q_QDOC
