@@ -176,7 +176,7 @@ QString KLocalizedQmlContext::i18nc(const QString &context,
                                     const QVariant &param10) const
 {
     if (context.isEmpty() || message.isEmpty()) {
-        qCWarning(KI18N) << "i18nc() needs at least two arguments";
+        qCWarning(KI18N).noquote().nospace() << "i18nc(\"" << context << message << "\") needs at least two arguments";
         return QString();
     }
 
@@ -207,7 +207,7 @@ QString KLocalizedQmlContext::i18np(const QString &singular,
                                     const QVariant &param10) const
 {
     if (singular.isEmpty() || plural.isEmpty()) {
-        qCWarning(KI18N) << "i18np() needs at least two arguments";
+        qCWarning(KI18N).noquote().nospace() << "i18np(\"" << singular << plural << "\") needs at least two arguments";
         return QString();
     }
 
@@ -273,7 +273,7 @@ QString KLocalizedQmlContext::i18nd(const QString &domain,
                                     const QVariant &param10) const
 {
     if (domain.isEmpty() || message.isEmpty()) {
-        qCWarning(KI18N) << "i18nd() needs at least two parameters";
+        qCWarning(KI18N).noquote().nospace() << "i18nd(\"" << domain << message << "\") needs at least two parameters";
         return QString();
     }
 
@@ -416,7 +416,7 @@ QString KLocalizedQmlContext::xi18nc(const QString &context,
                                      const QVariant &param10) const
 {
     if (context.isEmpty() || message.isEmpty()) {
-        qCWarning(KI18N) << "xi18nc() needs at least two arguments";
+        qCWarning(KI18N).noquote().nospace() << "xi18nc(\"" << context << message << "\") needs at least two arguments";
         return QString();
     }
 
@@ -447,7 +447,7 @@ QString KLocalizedQmlContext::xi18np(const QString &singular,
                                      const QVariant &param10) const
 {
     if (singular.isEmpty() || plural.isEmpty()) {
-        qCWarning(KI18N) << "xi18np() needs at least two arguments";
+        qCWarning(KI18N).noquote().nospace() << "xi18np(\"" << singular << plural << "\") needs at least two arguments";
         return QString();
     }
 
@@ -513,7 +513,7 @@ QString KLocalizedQmlContext::xi18nd(const QString &domain,
                                      const QVariant &param10) const
 {
     if (domain.isEmpty() || message.isEmpty()) {
-        qCWarning(KI18N) << "xi18nd() needs at least two parameters";
+        qCWarning(KI18N).noquote().nospace() << "xi18nd(\"" << domain << message << "\") needs at least two parameters";
         return QString();
     }
 
