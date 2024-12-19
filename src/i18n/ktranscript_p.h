@@ -16,11 +16,10 @@
  * \internal
  * (used by KLocalizedString)
  *
- * @c KTranscript provides support for programmable translations.
- * The class is abstract in order to facilitate dynamic loading.
+ * Class for supporting programmable translations
  *
- * @author Chusslove Illich <caslav.ilic@gmx.net>
- * @short class for supporting programmable translations
+ * KTranscript provides support for programmable translations.
+ * The class is abstract in order to facilitate dynamic loading.
  */
 class KTranscript
 {
