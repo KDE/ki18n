@@ -129,6 +129,7 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
  *          utilized. While optional, their use is highly recommended for
  *          accurate pluralization. Use KLocalizedString::ki18ncp "ki18ncp()"
  *          to generate the format string.
+ * \endlist
  *
  * It is safe to call this function multiple times on the same spin box.
  *

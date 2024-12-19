@@ -9,6 +9,8 @@
 
 #include <QString>
 
+#include "kuitsetup.h"
+
 class KuitFormatter;
 class KuitFormatterPrivate;
 
@@ -25,11 +27,10 @@ QString escape(const QString &text);
  * \internal
  * (used by KLocalizedString)
  *
+ * Class for formatting KUIT markup in UI messages
+ *
  * KuitFormatter resolves KUIT markup in user interface text
  * into appropriate visual formatting.
- *
- * @author Chusslove Illich <caslav.ilic@gmx.net>
- * @short class for formatting KUIT markup in UI messages
  */
 class KuitFormatter
 {
@@ -47,9 +48,13 @@ public:
      * the context marker provided in the context string.
      *
      * \a domain translation domain from which the text was fetched
-     * \a context context of the text (used if \p format == UndefinedFormat)
+     *
+     * \a context context of the text (used if \a format == UndefinedFormat)
+     *
      * \a text text containing the KUIT markup
+     *
      * \a format target visual format
+     *
      * \a isArgument whether this text is inserted into an outer text
      */
     QString format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const;

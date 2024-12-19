@@ -518,7 +518,7 @@ public:
      * This is useful for resources which have their translation files
      * outside of the usual $XDG_DATA_DIRS/locales location
      *
-     * \a the domain to load resources from
+     * \a domain the domain to load resources from
      *
      * \a path the full file path to the locale directory
      */
