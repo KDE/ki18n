@@ -17,7 +17,7 @@
 
 class KCatalogPrivate;
 
-/**
+/*!
  * This class abstracts a Gettext message catalog.
  * It takes care of needed Gettext bindings.
  *
@@ -27,7 +27,7 @@ class KCatalogPrivate;
 class KI18N_EXPORT KCatalog
 {
 public:
-    /**
+    /*!
      * Constructor.
      *
      * @param name translation domain
@@ -35,12 +35,12 @@ public:
      */
     KCatalog(const QByteArray &domain, const QString &language);
 
-    /**
+    /*!
      * Destructor.
      */
     ~KCatalog();
 
-    /**
+    /*!
      * Get translation of the given message text.
      *
      * Do not pass empty message text.
@@ -51,7 +51,7 @@ public:
      */
     QString translate(const QByteArray &msgid) const;
 
-    /**
+    /*!
      * Get translation of the given message text with given context.
      *
      * Do not pass empty message text.
@@ -63,7 +63,7 @@ public:
      */
     QString translate(const QByteArray &msgctxt, const QByteArray &msgid) const;
 
-    /**
+    /*!
      * Get translation of given message with plural forms.
      *
      * Do not pass empty message text.
@@ -76,7 +76,7 @@ public:
      */
     QString translate(const QByteArray &msgid, const QByteArray &msgid_plural, qulonglong n) const;
 
-    /**
+    /*!
      * Get translation of given message with plural forms with given context.
      *
      * Do not pass empty message text.
@@ -90,7 +90,7 @@ public:
      */
     QString translate(const QByteArray &msgctxt, const QByteArray &msgid, const QByteArray &msgid_plural, qulonglong n) const;
 
-    /**
+    /*!
      * Find the locale directory for the given domain in the given language.
      *
      * @param domain translation domain
@@ -100,7 +100,7 @@ public:
      */
     static QString catalogLocaleDir(const QByteArray &domain, const QString &language);
 
-    /**
+    /*!
      * Find the all languages for which the translation catalog
      * of given domain exists.
      *

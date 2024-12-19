@@ -11,7 +11,7 @@
 
 #include <cstdint>
 
-/**
+/*!
  * Utilities for efficient storage of ISO codes.
  * The focus on constexpr here matters, as this is used for the compiled in data tables,
  * anything in there has to be constexpr in order to put the data tables into the shared read-only

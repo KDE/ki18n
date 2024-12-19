@@ -18,7 +18,7 @@ class QQmlEngine;
 
 class KLocalizedQmlContextPrivate;
 
-/**
+/*!
  * @class KLocalizedQmlContext klocalizedcontext.h <KLocalizedQmlContext>
  *
  * This class is meant to be used to simplify integration of the KI18n framework
@@ -58,7 +58,7 @@ class KI18NQML_EXPORT KLocalizedQmlContext : public QObject
 {
     Q_OBJECT
 
-    /**
+    /*!
      * This property only needs to be specified if the context is being run on a library.
      * in an application there is no need to set the translation domain as the application's
      * domain can be used.
@@ -305,7 +305,7 @@ namespace Internal
 }
 ///@endcond
 
-/** Creates a KLocalizedQmlContext engine and sets it up in the
+/*! Creates a KLocalizedQmlContext engine and sets it up in the
  *  root context of @p engine.
  *
  *  If @p TRANSLATION_DOMAIN is defined, that is also set on

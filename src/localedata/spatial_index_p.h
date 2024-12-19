@@ -9,7 +9,7 @@
 
 #include "spatial_index_property_p.h"
 
-/** Spatial index lookup functions . */
+/*! Spatial index lookup functions . */
 namespace SpatialIndex
 {
 SpatialIndexProperty lookup(float lat, float lon);

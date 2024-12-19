@@ -11,7 +11,7 @@
 
 class KTranscript;
 
-/**
+/*!
  * @brief Test the KTranscript plugin
  *
  * Loads the KTranscript plugin and runs tests on its scripting capabilities.

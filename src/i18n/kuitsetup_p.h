@@ -14,14 +14,14 @@ class KuitFormatterPrivate;
 
 namespace Kuit
 {
-/**
+/*!
  * Convert &, ", ', <, > characters into XML entities
  * &amp;, &lt;, &gt;, &apos;, &quot;, respectively.
  */
 QString escape(const QString &text);
 }
 
-/**
+/*!
  * @internal
  * (used by KLocalizedString)
  *
@@ -34,14 +34,14 @@ QString escape(const QString &text);
 class KuitFormatter
 {
 public:
-    /**
+    /*!
      * Constructor.
      *
      * @param language language to create the formatter for
      */
     KuitFormatter(const QString &language);
 
-    /**
+    /*!
      * Transforms KUIT markup in the given text into visual formatting.
      * The appropriate visual formatting is decided based on
      * the context marker provided in the context string.
@@ -54,7 +54,7 @@ public:
      */
     QString format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const;
 
-    /**
+    /*!
      * Destructor.
      */
     ~KuitFormatter();

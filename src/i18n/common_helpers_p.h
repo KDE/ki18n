@@ -12,7 +12,7 @@
 // Standalone (pure Qt) functionality needed internally in more than
 // one source file on localization.
 
-/**
+/*!
  * @internal
  *
  * Removes accelerator marker from a UI text label.

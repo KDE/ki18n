@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-file(GLOB_RECURSE pofiles RELATIVE "${PO_DIR}" "${PO_DIR}/**.po")
+file(GLOB_RECURSE pofiles RELATIVE "${PO_DIR}" "${PO_DIR}/*!.po")
 
 include(ProcessorCount)
 ProcessorCount(numberOfProcesses)

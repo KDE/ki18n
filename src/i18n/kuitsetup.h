@@ -15,16 +15,16 @@
 
 class KuitSetup;
 
-/**
+/*!
  * Global constants and functions related to KUIT markup.
  */
 namespace Kuit
 {
-/**
+/*!
  * Visual formats into which KUIT markup can be resolved.
  */
 enum VisualFormat {
-    /**
+    /*!
      * Visual format not defined.
      * This value can be explicitly set
      * (e.g. through \c KLocalizedString::withFormat)
@@ -32,35 +32,35 @@ enum VisualFormat {
      * by another mechanism (e.g. context UI marker).
      */
     UndefinedFormat = 0,
-    /**
+    /*!
      * Plain text.
      */
     PlainText = 10,
-    /**
+    /*!
      * Qt rich text (HTML subset).
      */
     RichText = 20,
-    /**
+    /*!
      * Terminal escape sequences.
      */
     TermText = 30,
 };
 
-/**
+/*!
  * Classification of KUIT tags.
  */
 enum TagClass {
-    /**
+    /*!
      * Tags wrapping text inserted into running text.
      */
     PhraseTag = 0,
-    /**
+    /*!
      * Tags splitting text into paragraph-level blocks.
      */
     StructTag = 1,
 };
 
-/**
+/*!
  * Functions accepted by tag formatting functions.
  *
  * \param languages the target languages (by decreasing priority)
@@ -78,7 +78,7 @@ typedef QString (*TagFormatter)(const QStringList &languages,
                                 const QStringList &tagPath,
                                 Kuit::VisualFormat format);
 
-/**
+/*!
  * Get hold of the KUIT setup object for a given domain.
  *
  * \param domain the translation domain
@@ -91,7 +91,7 @@ class KLocalizedString;
 class KuitSetupPrivate;
 class KuitFormatterPrivate;
 
-/**
+/*!
  * @class KuitSetup kuitsetup.h <KuitSetup>
  *
  * Class for modifying KUIT markup in a given domain.
@@ -104,12 +104,12 @@ class KI18N_EXPORT KuitSetup
     friend class KuitFormatterPrivate;
 
 public:
-    /**
+    /*!
      * Destructor.
      */
     ~KuitSetup();
 
-    /**
+    /*!
      * Set the formatting string for a tag with attributes combination.
      *
      * If a new tag name is given, this effectively defines a new tag.
@@ -146,7 +146,7 @@ public:
                        Kuit::TagFormatter formatter = nullptr,
                        int leadingNewlines = 0);
 
-    /**
+    /*!
      * Set the KUIT class of the tag.
      *
      * \param tagName the name of the tag
@@ -154,7 +154,7 @@ public:
      */
     void setTagClass(const QString &tagName, Kuit::TagClass aClass);
 
-    /**
+    /*!
      * Set the default visual format for a given UI marker.
      *
      * Giving <tt>"@<major>"</tt> for \p marker means to set the format

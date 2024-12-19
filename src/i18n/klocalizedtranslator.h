@@ -14,7 +14,7 @@
 
 class KLocalizedTranslatorPrivate;
 
-/**
+/*!
  * @class KLocalizedTranslator klocalizedtranslator.h <KLocalizedTranslator>
  *
  * @brief A QTranslator using KLocalizedString for translations.
@@ -60,7 +60,7 @@ public:
     virtual ~KLocalizedTranslator();
     QString translate(const char *context, const char *sourceText, const char *disambiguation = nullptr, int n = -1) const override;
 
-    /**
+    /*!
      * Sets the @p translationDomain to be used.
      *
      * The translation domain is required. Without the translation domain any invocation of
@@ -70,7 +70,7 @@ public:
      **/
     void setTranslationDomain(const QString &translationDomain);
 
-    /**
+    /*!
      * Adds a @p context for which this Translator should be active.
      *
      * The Translator only translates texts with a context matching one of the monitored contexts.
@@ -82,7 +82,7 @@ public:
      **/
     void addContextToMonitor(const QString &context);
 
-    /**
+    /*!
      * Stop translating for the given @p context.
      *
      * @param context The context for which the Translator should no longer be active
