@@ -24,6 +24,8 @@
  * - two letter upper case codes like ISO 3166-1 alpha2: those are stored equivalent to a const char[2]
  *   technically the same approach as for 3 char codes could be used as well, but that doesn't give us
  *   any space advantage while considerably easing debugging (codes are directly readable).
+ *
+ * \internal
  */
 namespace IsoCodes
 {

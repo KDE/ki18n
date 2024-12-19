@@ -14,7 +14,8 @@ depends += \
     kde \
     qtcore \
     ki18nqml \
-    ki18nlocaledata
+    ki18nlocaledata \
+    ki18nlocaledataqml
 
 qhp.projects            = KI18n
 

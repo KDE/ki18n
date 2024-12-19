@@ -30,23 +30,45 @@ static QJSValue toJsValue(T value, QJSEngine *engine)
     return value.isValid() ? engine->toScriptValue(value) : QJSValue(QJSValue::UndefinedValue);
 }
 
+/*!
+ * \qmltype Country
+ * \inqmlmodule org.kde.i18n.localeData
+ */
 class KCountryFactory
 {
     Q_GADGET
+    /*!
+     * \qmlproperty list<KCountry> Country::allCountries
+     */
     Q_PROPERTY(QList<KCountry> allCountries READ allCountries)
 public:
+    /*!
+     * \qmlmethod KCountry Country::fromAlpha2(string code)
+     */
     Q_INVOKABLE QJSValue fromAlpha2(const QString &code) const
     {
         return toJsValue(KCountry::fromAlpha2(code), m_engine);
     }
+
+    /*!
+     * \qmlmethod KCountry Country::fromAlpha3(string code)
+     */
     Q_INVOKABLE QJSValue fromAlpha3(const QString &code) const
     {
         return toJsValue(KCountry::fromAlpha3(code), m_engine);
     }
+
+    /*!
+     * \qmlmethod KCountry Country::fromName(string name)
+     */
     Q_INVOKABLE QJSValue fromName(const QString &name) const
     {
         return toJsValue(KCountry::fromName(name), m_engine);
     }
+
+    /*!
+     * \qmlmethod KCountry Country::fromLocation(real latitude, real longitude)
+     */
     Q_INVOKABLE QJSValue fromLocation(double latitude, double longitude) const
     {
         return toJsValue(KCountry::fromLocation(latitude, longitude), m_engine);
@@ -61,14 +83,25 @@ private:
     }
 };
 
+/*!
+ * \qmltype CountrySubdivision
+ * \inqmlmodule org.kde.i18n.localeData
+ */
 class KCountrySubdivisionFactory
 {
     Q_GADGET
 public:
+    /*!
+     * \qmlmethod KCountrySubdivision CountrySubdivision::fromCode(string code)
+     */
     Q_INVOKABLE QJSValue fromCode(const QString &code) const
     {
         return toJsValue(KCountrySubdivision::fromCode(code), m_engine);
     }
+
+    /*!
+     * \qmlmethod KCountrySubdivision CountrySubdivision::fromLocation(real latitude, real longitude)
+     */
     Q_INVOKABLE QJSValue fromLocation(double latitude, double longitude) const
     {
         return toJsValue(KCountrySubdivision::fromLocation(latitude, longitude), m_engine);
@@ -77,16 +110,26 @@ public:
     QJSEngine *m_engine = nullptr;
 };
 
+/*!
+ * \qmltype TimeZone
+ * \inqmlmodule org.kde.i18n.localeData
+ */
 class KTimeZoneWrapper
 {
     Q_GADGET
 public:
+    /*!
+     * \qmlmethod KTimeZone TimeZone::fromLocation(real latitude, real longitude)
+     */
     Q_INVOKABLE QJSValue fromLocation(double latitude, double longitude) const
     {
         const auto tzId = KTimeZone::fromLocation(latitude, longitude);
         return tzId ? QString::fromUtf8(tzId) : QJSValue(QJSValue::UndefinedValue);
     }
 
+    /*!
+     * \qmlmethod KTimeZone TimeZone::country(string tzId)
+     */
     Q_INVOKABLE QJSValue country(const QString &tzId) const
     {
         return toJsValue(KTimeZone::country(tzId.toUtf8()), m_engine);
