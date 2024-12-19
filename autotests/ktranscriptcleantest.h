@@ -12,7 +12,7 @@
 
 class KTranscript;
 
-/**
+/*!
  * @brief Test the KTranscript implementation class
  *
  * Runs tests on the KTranscriptImp scripting facility.

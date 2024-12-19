@@ -10,7 +10,7 @@
 
 #include <cstddef>
 
-/**
+/*!
  *  @class KLazyLocalizedString klazylocalizedstring.h <KLazyLocalizedString>
  *
  *  Lazy-initialized variant of KLocalizedString.
@@ -50,7 +50,7 @@
 class KLazyLocalizedString
 {
 public:
-    /**
+    /*!
      * Construct an empty message.
      *
      * Direct construction is used when e.g. a KLazyLocalizedString field in
@@ -62,7 +62,7 @@ public:
      */
     constexpr inline KLazyLocalizedString() = default;
 
-    /** Convert to a KLocalizedString to actually perform the translation and obtain a concrete
+    /*! Convert to a KLocalizedString to actually perform the translation and obtain a concrete
      *  localized string.
      *
      *  The translation domain active at this point will be used. This means this has to be
@@ -80,7 +80,7 @@ public:
 #endif
     }
 
-    /**
+    /*!
      * Check whether the message is empty.
      *
      * The message is considered empty if the object was constructed
@@ -97,13 +97,13 @@ public:
         return (m_text == nullptr) || (m_text[0] == '\0');
     }
 
-    /** Returns the raw untranslated text as passed to @p kli18n*. */
+    /*! Returns the raw untranslated text as passed to @p kli18n*. */
     Q_REQUIRED_RESULT constexpr inline const char *untranslatedText() const
     {
         return m_text;
     }
 
-    /**
+    /*!
      * Finalize the translation.
      *
      * Creates translated QString. If the string has placeholders,
@@ -118,7 +118,7 @@ public:
         return this->operator KLocalizedString().toString();
     }
 
-    /**
+    /*!
      * Like toString(), but look for translation only in given languages.
      *
      * Given languages override languages defined by the global locale.
@@ -132,7 +132,7 @@ public:
         return this->operator KLocalizedString().toString(languages);
     }
 
-    /**
+    /*!
      * Like toString(), but look for translation in the given domain.
      *
      * \param domain the translation domain
@@ -143,7 +143,7 @@ public:
         return this->operator KLocalizedString().toString(domain);
     }
 
-    /**
+    /*!
      * Like toString(), but resolve KUIT markup into given visual format.
      *
      * Given visual format overrides that implied by the context UI marker.
@@ -157,7 +157,7 @@ public:
         return this->operator KLocalizedString().toString(format);
     }
 
-    /**
+    /*!
      * Indicate to look for translation only in given languages.
      *
      * \param languages list of language codes (by decreasing priority)
@@ -168,7 +168,7 @@ public:
         return this->operator KLocalizedString().withLanguages(languages);
     }
 
-    /**
+    /*!
      * Indicate to look for translation in the given domain.
      *
      * \param domain the translation domain
@@ -179,7 +179,7 @@ public:
         return this->operator KLocalizedString().withDomain(domain);
     }
 
-    /**
+    /*!
      * Indicate to resolve KUIT markup into given visual format.
      *
      * If the message is not markup-aware, this has no effect.
@@ -192,7 +192,7 @@ public:
         return this->operator KLocalizedString().withFormat(format);
     }
 
-    /**
+    /*!
      * Substitute an int argument into the message.
      *
      * \param a the argument
@@ -209,7 +209,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, base, fillChar);
     }
 
-    /**
+    /*!
      * Substitute an unsigned int argument into the message.
      *
      * \param a the argument
@@ -226,7 +226,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, base, fillChar);
     }
 
-    /**
+    /*!
      * Substitute a long argument into the message.
      *
      * \param a the argument
@@ -243,7 +243,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, base, fillChar);
     }
 
-    /**
+    /*!
      * Substitute an unsigned long argument into the message.
      *
      * \param a the argument
@@ -260,7 +260,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, base, fillChar);
     }
 
-    /**
+    /*!
      * Substitute a long long argument into the message.
      *
      * \param a the argument
@@ -277,7 +277,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, base, fillChar);
     }
 
-    /**
+    /*!
      * Substitute an unsigned long long argument into the message.
      *
      * \param a the argument
@@ -293,7 +293,7 @@ public:
     {
         return this->operator KLocalizedString().subs(a, fieldWidth, base, fillChar);
     }
-    /**
+    /*!
      * Substitute a double argument into the message.
      *
      * \param a the argument
@@ -310,7 +310,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, format, precision, fillChar);
     }
 
-    /**
+    /*!
      * Substitute a \c QChar argument into the message.
      *
      * \param a the argument
@@ -325,7 +325,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, fillChar);
     }
 
-    /**
+    /*!
      * Substitute a \c QString argument into the message.
      *
      * \param a the argument
@@ -340,7 +340,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, fillChar);
     }
 
-    /**
+    /*!
      * Substitute another KLocalizedString into the message.
      *
      * \param a the argument
@@ -355,7 +355,7 @@ public:
         return this->operator KLocalizedString().subs(a, fieldWidth, fillChar);
     }
 
-    /**
+    /*!
      * Add dynamic context to the message.
      *
      * See \ref dyn_ctxt for use cases.
@@ -369,7 +369,7 @@ public:
         return this->operator KLocalizedString().inContext(key, value);
     }
 
-    /**
+    /*!
      * Relax matching between placeholders and arguments.
      *
      * Normally the placeholders should start from %1 and have no gaps,
@@ -391,7 +391,7 @@ public:
         return this->operator KLocalizedString().relaxSubs();
     }
 
-    /**
+    /*!
      * Do not resolve KUIT markup.
      *
      * If the message is markup-aware
@@ -440,7 +440,7 @@ private:
     bool m_markupAware = false;
 };
 
-/**
+/*!
  * Mark the string @p text for extraction.
  *
  * \param text string to translate
@@ -453,7 +453,7 @@ constexpr inline KLazyLocalizedString kli18n(const char (&text)[TextSize])
     return KLazyLocalizedString(nullptr, text, nullptr, false);
 }
 
-/**
+/*!
  * Mark the string @p text with @p context for extraction.
  *
  * \param context context of the string
@@ -467,7 +467,7 @@ constexpr inline KLazyLocalizedString kli18nc(const char (&context)[ContextSize]
     return KLazyLocalizedString(context, text, nullptr, false);
 }
 
-/**
+/*!
  * Mark the string @p singular and @p plural for extraction.
  *
  * \param singular singular form of the string to translate
@@ -481,7 +481,7 @@ constexpr inline KLazyLocalizedString kli18np(const char (&singular)[SingularSiz
     return KLazyLocalizedString(nullptr, singular, plural, false);
 }
 
-/**
+/*!
  * Mark the string @p singular and @p plural with @p context for extraction.
  *
  * \param context context of the string
@@ -496,7 +496,7 @@ constexpr inline KLazyLocalizedString kli18ncp(const char (&context)[ContextSize
     return KLazyLocalizedString(context, singular, plural, false);
 }
 
-/**
+/*!
  * Mark the markup-aware string @p text for extraction.
  *
  * \param text string to translate
@@ -509,7 +509,7 @@ constexpr inline KLazyLocalizedString klxi18n(const char (&text)[TextSize])
     return KLazyLocalizedString(nullptr, text, nullptr, true);
 }
 
-/**
+/*!
  * Mark the markup-aware string @p text with @p context for extraction.
  *
  * \param context context of the string
@@ -523,7 +523,7 @@ constexpr inline KLazyLocalizedString klxi18nc(const char (&context)[ContextSize
     return KLazyLocalizedString(context, text, nullptr, true);
 }
 
-/**
+/*!
  * Mark the markup-aware string @p singular and @p plural for extraction.
  *
  * \param singular singular form of the string to translate
@@ -537,7 +537,7 @@ constexpr inline KLazyLocalizedString klxi18np(const char (&singular)[SingularSi
     return KLazyLocalizedString(nullptr, singular, plural, true);
 }
 
-/**
+/*!
  * Mark the markup-aware string @p singular and @p plural with @p context for extraction.
  *
  * \param context context of the string

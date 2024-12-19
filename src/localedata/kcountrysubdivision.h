@@ -13,7 +13,7 @@
 
 class KCountry;
 
-/**
+/*!
  *  @class KCountrySubdivision kcountrysubdivision.h <KCountrySubdivision>
  *
  *  Information about an ISO 3166-2 country subdivision.
@@ -35,7 +35,7 @@ class KI18NLOCALEDATA_EXPORT KCountrySubdivision
     Q_PROPERTY(QStringList timeZoneIds READ timeZoneIdsStringList)
 
 public:
-    /** Creates an invalid/empty KCountrySubdivision instance.
+    /*! Creates an invalid/empty KCountrySubdivision instance.
      *  See the fromX() methods for creating a valid instance.
      */
     KCountrySubdivision();
@@ -46,33 +46,33 @@ public:
     bool operator==(const KCountrySubdivision &other) const;
     bool operator!=(const KCountrySubdivision &other) const;
 
-    /** Returns @c false if this is an empty/invalid/default constructed instance, @c true otherwise. */
+    /*! Returns @c false if this is an empty/invalid/default constructed instance, @c true otherwise. */
     bool isValid() const;
 
-    /** ISO 3166-2 country subdivision code. */
+    /*! ISO 3166-2 country subdivision code. */
     QString code() const;
-    /** Translated country subdivision name. */
+    /*! Translated country subdivision name. */
     QString name() const;
-    /** Country this subdivision belongs to. */
+    /*! Country this subdivision belongs to. */
     KCountry country() const;
-    /** Parent subdivision, if this is a subdivision of another subdivision.
+    /*! Parent subdivision, if this is a subdivision of another subdivision.
      * Returns an invalid element for top-level subdivisions.
      */
     KCountrySubdivision parent() const;
 
-    /** Timezones in use in this country subdivision. */
+    /*! Timezones in use in this country subdivision. */
     // for subdivisions we have to generate that by polygon intersections in QGIS -> POC
     QList<const char *> timeZoneIds() const;
-    /** Subdivisions of this subdivision, if any.
+    /*! Subdivisions of this subdivision, if any.
      *  This is only relevant for countries with multiple ISO 3166-2 subdivision levels.
      */
     QList<KCountrySubdivision> subdivisions() const;
 
-    /** Create a KCountrySubdivision instance from an ISO 3166-2 code. */
+    /*! Create a KCountrySubdivision instance from an ISO 3166-2 code. */
     static KCountrySubdivision fromCode(QStringView code);
-    /** Create a KCountrySubdivision instance from an ISO 3166-2 code. */
+    /*! Create a KCountrySubdivision instance from an ISO 3166-2 code. */
     static KCountrySubdivision fromCode(const char *code);
-    /** Looks up the country subdivision at the given geographic coordinate.
+    /*! Looks up the country subdivision at the given geographic coordinate.
      *  This can return an invalid object if the country subdivision could not be determined. This can happen in a number of cases:
      *  - on oceans
      *  - in polar regions

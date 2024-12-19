@@ -12,7 +12,7 @@
 #include <QStringList>
 #include <QVariant>
 
-/**
+/*!
  * @internal
  * (used by KLocalizedString)
  *
@@ -25,7 +25,7 @@
 class KTranscript
 {
 public:
-    /**
+    /*!
      * Evaluates interpolation.
      *
      * @param argv list of interpolation tokens
@@ -58,7 +58,7 @@ public:
                          QString &error,
                          bool &fallback) = 0;
 
-    /**
+    /*!
      * Returns the list of calls to execute an all messages after the
      * interpolations are done, as evaluations with no parameters.
      *
@@ -67,7 +67,7 @@ public:
      */
     virtual QStringList postCalls(const QString &lang) = 0;
 
-    /**
+    /*!
      * Destructor.
      */
     virtual ~KTranscript()

@@ -23,11 +23,11 @@
 class KLocalizedStringPrivate;
 class KLazyLocalizedString;
 
-/**
+/*!
  * \file klocalizedstring.h
  */
 
-/**
+/*!
  * @class KLocalizedString klocalizedstring.h <KLocalizedString>
  *
  * \short Class for producing and handling localized messages
@@ -65,7 +65,7 @@ class KI18N_EXPORT KLocalizedString
     friend KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
 public:
-    /**
+    /*!
      * Construct an empty message.
      *
      * Direct construction is used when another \c KLocalizedString instance,
@@ -78,22 +78,22 @@ public:
      */
     explicit KLocalizedString();
 
-    /**
+    /*!
      * Copy constructor.
      */
     KLocalizedString(const KLocalizedString &rhs);
 
-    /**
+    /*!
      * Assignment operator.
      */
     KLocalizedString &operator=(const KLocalizedString &rhs);
 
-    /**
+    /*!
      * Destructor.
      */
     ~KLocalizedString();
 
-    /**
+    /*!
      * Check whether the message is empty.
      *
      * The message is considered empty if the object was constructed
@@ -107,7 +107,7 @@ public:
      */
     bool isEmpty() const;
 
-    /**
+    /*!
      * Finalize the translation.
      *
      * Creates translated \c QString, with placeholders substituted
@@ -122,7 +122,7 @@ public:
      */
     Q_REQUIRED_RESULT QString toString() const;
 
-    /**
+    /*!
      * Like \c toString, but look for translation only in given languages.
      *
      * Given languages override languages defined by the global locale,
@@ -134,7 +134,7 @@ public:
      */
     Q_REQUIRED_RESULT QString toString(const QStringList &languages) const;
 
-    /**
+    /*!
      * Like \c toString, but look for translation in the given domain.
      *
      * Given domain overrides any set earlier using \c withDomain.
@@ -144,7 +144,7 @@ public:
      */
     Q_REQUIRED_RESULT QString toString(const char *domain) const;
 
-    /**
+    /*!
      * Like \c toString, but resolve KUIT markup into given visual format.
      *
      * Given visual format overrides that implied by the context UI marker
@@ -157,7 +157,7 @@ public:
      */
     Q_REQUIRED_RESULT QString toString(Kuit::VisualFormat format) const;
 
-    /**
+    /*!
      * Indicate to look for translation only in given languages.
      *
      * \param languages list of language codes (by decreasing priority)
@@ -165,7 +165,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString withLanguages(const QStringList &languages) const;
 
-    /**
+    /*!
      * Indicate to look for translation in the given domain.
      *
      * \param domain the translation domain
@@ -173,7 +173,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString withDomain(const char *domain) const;
 
-    /**
+    /*!
      * Indicate to resolve KUIT markup into given visual format.
      *
      * If the message is not markup-aware, this has no effect.
@@ -183,7 +183,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString withFormat(Kuit::VisualFormat format) const;
 
-    /**
+    /*!
      * Substitute an int argument into the message.
      *
      * \param a the argument
@@ -197,7 +197,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(int a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute an unsigned int argument into the message.
      *
      * \param a the argument
@@ -211,7 +211,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(uint a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a long argument into the message.
      *
      * \param a the argument
@@ -225,7 +225,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(long a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute an unsigned long argument into the message.
      *
      * \param a the argument
@@ -239,7 +239,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(ulong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a long long argument into the message.
      *
      * \param a the argument
@@ -253,7 +253,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(qlonglong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute an unsigned long long argument into the message.
      *
      * \param a the argument
@@ -267,7 +267,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(qulonglong a, int fieldWidth = 0, int base = 10, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a double argument into the message.
      *
      * \param a the argument
@@ -281,7 +281,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(double a, int fieldWidth = 0, char format = 'g', int precision = -1, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a \c QChar argument into the message.
      *
      * \param a the argument
@@ -293,7 +293,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(QChar a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute a \c QString argument into the message.
      *
      * \param a the argument
@@ -305,7 +305,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(const QString &a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Substitute another \c KLocalizedString into the message.
      *
      * \param a the argument
@@ -317,7 +317,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString subs(const KLocalizedString &a, int fieldWidth = 0, QChar fillChar = QLatin1Char(' ')) const;
 
-    /**
+    /*!
      * Add dynamic context to the message.
      *
      * See \ref dyn_ctxt for use cases.
@@ -328,7 +328,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString inContext(const QString &key, const QString &value) const;
 
-    /**
+    /*!
      * Relax matching between placeholders and arguments.
      *
      * Normally the placeholders should start from %1 and have no gaps,
@@ -347,7 +347,7 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString relaxSubs() const;
 
-    /**
+    /*!
      * Do not resolve KUIT markup.
      *
      * If the message is markup-aware
@@ -359,14 +359,14 @@ public:
      */
     Q_REQUIRED_RESULT KLocalizedString ignoreMarkup() const;
 
-    /**
+    /*!
      * Returns the untranslated text.
      *
      * \since 5.64
      */
     Q_REQUIRED_RESULT QByteArray untranslatedText() const;
 
-    /**
+    /*!
      * Set the given domain as application's main domain.
      *
      * This function must be called in applications, in order to have
@@ -387,14 +387,14 @@ public:
      */
     static void setApplicationDomain(const QByteArray &domain);
 
-    /**
+    /*!
      * Get the application's main translation domain.
      *
      * Returns the domain set by \c setApplicationDomain.
      */
     static QByteArray applicationDomain();
 
-    /**
+    /*!
      * Get the languages for which translations will be made.
      *
      * Returned languages are ordered with decreasing priority.
@@ -407,7 +407,7 @@ public:
      */
     static QStringList languages();
 
-    /**
+    /*!
      * Set the languages for which translations will be made.
      *
      * This overrides the languages provided by the locale.
@@ -420,7 +420,7 @@ public:
      */
     static void setLanguages(const QStringList &languages);
 
-    /**
+    /*!
      * Clear override languages.
      *
      * This clears the override languages, going back to those
@@ -431,7 +431,7 @@ public:
      */
     static void clearLanguages();
 
-    /**
+    /*!
      * Check whether the translation catalog file in the given language
      * for the set application translation domain exists.
      *
@@ -442,7 +442,7 @@ public:
      */
     static bool isApplicationTranslatedInto(const QString &language);
 
-    /**
+    /*!
      * @since 5.0
      *
      * Get the languages for which there exists the translation catalog file
@@ -458,7 +458,7 @@ public:
      */
     static QSet<QString> availableApplicationTranslations();
 
-    /**
+    /*!
      * @since 5.0
      *
      * Get the languages for which a translation catalog file
@@ -479,7 +479,7 @@ public:
      */
     static QSet<QString> availableDomainTranslations(const QByteArray &domain);
 
-    /**
+    /*!
      * Load locales for a domain from a specific location
      * This is useful for resources which have their translation files
      * outside of the usual $XDG_DATA_DIRS/locales location
@@ -489,7 +489,7 @@ public:
      */
     static void addDomainLocaleDir(const QByteArray &domain, const QString &path);
 
-    /**
+    /*!
      * Find a path to the localized file for the given original path.
      *
      * This is intended mainly for non-text resources (images, sounds, etc).
@@ -506,7 +506,7 @@ public:
      */
     Q_REQUIRED_RESULT static QString localizedFilePath(const QString &filePath);
 
-    /**
+    /*!
      * Remove accelerator marker from a UI text label.
      *
      * Accelerator marker is not always a plain ampersand (&),
@@ -537,7 +537,7 @@ private:
 // Placed in front of ki18n* calls, because i18n* are more basic.
 #ifdef K_DOXYGEN
 
-/**
+/*!
  * Translate a string and substitute any arguments.
  *
  * \param text string to translate
@@ -547,7 +547,7 @@ private:
  */
 QString i18n(const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string with context and substitute any arguments.
  *
  * \param context context of the string
@@ -558,7 +558,7 @@ QString i18n(const char *text, const TYPE &arg...);
  */
 QString i18nc(const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string with plural and substitute any arguments.
  *
  * \param singular singular form of the string to translate
@@ -569,7 +569,7 @@ QString i18nc(const char *context, const char *text, const TYPE &arg...);
  */
 QString i18np(const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string with context and plural and substitute any arguments.
  *
  * \param context context of the string
@@ -581,7 +581,7 @@ QString i18np(const char *singular, const char *plural, const TYPE &arg...);
  */
 QString i18ncp(const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain and substitute any arguments.
  *
  * \param domain domain in which to look for translations
@@ -592,7 +592,7 @@ QString i18ncp(const char *context, const char *singular, const char *plural, co
  */
 QString i18nd(const char *domain, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain with context and substitute any arguments.
  *
  * \param domain domain in which to look for translations
@@ -604,7 +604,7 @@ QString i18nd(const char *domain, const char *text, const TYPE &arg...);
  */
 QString i18ndc(const char *domain, const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain with plural and substitute any arguments.
  *
  * \param domain domain in which to look for translations
@@ -616,7 +616,7 @@ QString i18ndc(const char *domain, const char *context, const char *text, const 
  */
 QString i18ndp(const char *domain, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a string from domain with context and plural
  * and substitute any arguments.
  *
@@ -630,7 +630,7 @@ QString i18ndp(const char *domain, const char *singular, const char *plural, con
  */
 QString i18ndcp(const char *domain, const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string and substitute any arguments.
  *
  * \param text string to translate
@@ -640,7 +640,7 @@ QString i18ndcp(const char *domain, const char *context, const char *singular, c
  */
 QString xi18n(const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string with context and substitute any arguments.
  *
  * \param context context of the string
@@ -651,7 +651,7 @@ QString xi18n(const char *text, const TYPE &arg...);
  */
 QString xi18nc(const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string with plural and substitute any arguments.
  *
  * \param singular singular form of the string to translate
@@ -662,7 +662,7 @@ QString xi18nc(const char *context, const char *text, const TYPE &arg...);
  */
 QString xi18np(const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string with context and plural
  * and substitute any arguments.
  *
@@ -675,7 +675,7 @@ QString xi18np(const char *singular, const char *plural, const TYPE &arg...);
  */
 QString xi18ncp(const char *context, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain and substitute any arguments.
  *
  * \param domain domain in which to look for translations
@@ -686,7 +686,7 @@ QString xi18ncp(const char *context, const char *singular, const char *plural, c
  */
 QString xi18nd(const char *domain, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain with context
  * and substitute any arguments.
  *
@@ -699,7 +699,7 @@ QString xi18nd(const char *domain, const char *text, const TYPE &arg...);
  */
 QString xi18ndc(const char *domain, const char *context, const char *text, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain with plural
  * and substitute any arguments.
  *
@@ -712,7 +712,7 @@ QString xi18ndc(const char *domain, const char *context, const char *text, const
  */
 QString xi18ndp(const char *domain, const char *singular, const char *plural, const TYPE &arg...);
 
-/**
+/*!
  * Translate a markup-aware string from domain with context and plural
  * and substitute any arguments.
  *
@@ -728,7 +728,7 @@ QString xi18ndcp(const char *domain, const char *context, const char *singular, 
 
 #endif // K_DOXYGEN
 
-/**
+/*!
  * Create non-finalized translated string.
  *
  * \param text string to translate
@@ -736,7 +736,7 @@ QString xi18ndcp(const char *domain, const char *context, const char *singular, 
  */
 KLocalizedString KI18N_EXPORT ki18n(const char *text);
 
-/**
+/*!
  * Create non-finalized translated string with context.
  *
  * \param context context of the string
@@ -745,7 +745,7 @@ KLocalizedString KI18N_EXPORT ki18n(const char *text);
  */
 KLocalizedString KI18N_EXPORT ki18nc(const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized translated string with plural.
  *
  * \param singular singular form of the string to translate
@@ -754,7 +754,7 @@ KLocalizedString KI18N_EXPORT ki18nc(const char *context, const char *text);
  */
 KLocalizedString KI18N_EXPORT ki18np(const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized translated string with context and plural.
  *
  * \param context context of the string
@@ -764,7 +764,7 @@ KLocalizedString KI18N_EXPORT ki18np(const char *singular, const char *plural);
  */
 KLocalizedString KI18N_EXPORT ki18ncp(const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized translated string from domain.
  *
  * \param domain domain in which to look for translations
@@ -773,7 +773,7 @@ KLocalizedString KI18N_EXPORT ki18ncp(const char *context, const char *singular,
  */
 KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char *text);
 
-/**
+/*!
  * Create non-finalized translated string from domain with context.
  *
  * \param domain domain in which to look for translations
@@ -783,7 +783,7 @@ KLocalizedString KI18N_EXPORT ki18nd(const char *domain, const char *text);
  */
 KLocalizedString KI18N_EXPORT ki18ndc(const char *domain, const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized translated string from domain with plural.
  *
  * \param domain domain in which to look for translations
@@ -793,7 +793,7 @@ KLocalizedString KI18N_EXPORT ki18ndc(const char *domain, const char *context, c
  */
 KLocalizedString KI18N_EXPORT ki18ndp(const char *domain, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized translated string from domain with context and plural.
  *
  * \param domain domain in which to look for translations
@@ -804,7 +804,7 @@ KLocalizedString KI18N_EXPORT ki18ndp(const char *domain, const char *singular, 
  */
 KLocalizedString KI18N_EXPORT ki18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string.
  *
  * \param text string to translate
@@ -812,7 +812,7 @@ KLocalizedString KI18N_EXPORT ki18ndcp(const char *domain, const char *context, 
  */
 KLocalizedString KI18N_EXPORT kxi18n(const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string with context.
  *
  * \param context context of the string
@@ -821,7 +821,7 @@ KLocalizedString KI18N_EXPORT kxi18n(const char *text);
  */
 KLocalizedString KI18N_EXPORT kxi18nc(const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string with plural.
  *
  * \param singular singular form of the string to translate
@@ -830,7 +830,7 @@ KLocalizedString KI18N_EXPORT kxi18nc(const char *context, const char *text);
  */
 KLocalizedString KI18N_EXPORT kxi18np(const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string.
  * with context and plural.
  *
@@ -841,7 +841,7 @@ KLocalizedString KI18N_EXPORT kxi18np(const char *singular, const char *plural);
  */
 KLocalizedString KI18N_EXPORT kxi18ncp(const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain.
  *
  * \param domain domain in which to look for translations
@@ -850,7 +850,7 @@ KLocalizedString KI18N_EXPORT kxi18ncp(const char *context, const char *singular
  */
 KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain with context.
  *
  * \param domain domain in which to look for translations
@@ -860,7 +860,7 @@ KLocalizedString KI18N_EXPORT kxi18nd(const char *domain, const char *text);
  */
 KLocalizedString KI18N_EXPORT kxi18ndc(const char *domain, const char *context, const char *text);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain with plural.
  *
  * \param domain domain in which to look for translations
@@ -870,7 +870,7 @@ KLocalizedString KI18N_EXPORT kxi18ndc(const char *domain, const char *context, 
  */
 KLocalizedString KI18N_EXPORT kxi18ndp(const char *domain, const char *singular, const char *plural);
 
-/**
+/*!
  * Create non-finalized markup-aware translated string from domain
  * with context and plural.
  *
@@ -882,7 +882,7 @@ KLocalizedString KI18N_EXPORT kxi18ndp(const char *domain, const char *singular,
  */
 KLocalizedString KI18N_EXPORT kxi18ndcp(const char *domain, const char *context, const char *singular, const char *plural);
 
-/**
+/*!
  * Redirect Qt's <tt>uic</tt>-generated translation calls to Ki18n.
  *
  * Use <tt>-tr tr2i18n</tt> option to \c uic to have it redirect calls.
@@ -902,7 +902,7 @@ inline QString tr2i18n(const char *text, const char *comment = nullptr)
     }
 }
 
-/**
+/*!
  * Like \c tr2i18n, but look for translation in a specific domain.
  *
  * Use <tt>-tr tr2i18nd</tt> option to \c uic to have it redirect calls.
@@ -923,7 +923,7 @@ inline QString tr2i18nd(const char *domain, const char *text, const char *commen
     }
 }
 
-/**
+/*!
  * Like \c tr2i18n, but when UI strings are KUIT markup-aware.
  *
  * Use <tt>-tr tr2xi18n</tt> option to \c uic to have it redirect calls.
@@ -943,7 +943,7 @@ inline QString tr2xi18n(const char *text, const char *comment = nullptr)
     }
 }
 
-/**
+/*!
  * Like \c tr2xi18n, but look for translation in a specific domain.
  *
  * Use <tt>-tr tr2xi18nd</tt> option to \c uic to have it redirect calls.

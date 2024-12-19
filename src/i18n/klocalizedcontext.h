@@ -14,7 +14,7 @@
 #include <QObject>
 #include <QVariant>
 
-/**
+/*!
  * @class KLocalizedContext klocalizedcontext.h <KLocalizedContext>
  *
  * This class is meant to be used to simplify integration of the KI18n framework
@@ -44,7 +44,7 @@ class KI18N_EXPORT KLocalizedContext : public QObject
 {
     Q_OBJECT
 
-    /**
+    /*!
      * This property only needs to be specified if the context is being run on a library.
      * in an application there is no need to set the translation domain as the application's
      * domain can be used.

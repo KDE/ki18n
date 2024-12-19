@@ -17,7 +17,7 @@
 class QDoubleSpinBox;
 class QSpinBox;
 
-/**
+/*!
  * @namespace KLocalization
  * @brief Namespace containing helpers for localization.
  * @since 6.5
@@ -34,7 +34,7 @@ constexpr inline const char SpinBoxFormatStringProperty[] = "__KLocalizationForm
 }
 ///@endcond
 
-/**
+/*!
  * @brief Retranslates a previously set up format string to the current
  * language and updates the spin box.
  *
@@ -86,7 +86,7 @@ inline void retranslateSpinBoxFormatString(T *spinBox)
     }
 }
 
-/**
+/*!
  * @brief Sets up a format string for internationalizing spin boxes.
  *
  * This function allows the customization of prefix and suffix for spin boxes
