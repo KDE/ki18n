@@ -11,7 +11,7 @@
 
 #include <cstdint>
 
-/**
+/*!
  * Utilities for efficient storage of ISO codes.
  * The focus on constexpr here matters, as this is used for the compiled in data tables,
  * anything in there has to be constexpr in order to put the data tables into the shared read-only
@@ -24,6 +24,8 @@
  * - two letter upper case codes like ISO 3166-1 alpha2: those are stored equivalent to a const char[2]
  *   technically the same approach as for 3 char codes could be used as well, but that doesn't give us
  *   any space advantage while considerably easing debugging (codes are directly readable).
+ *
+ * \internal
  */
 namespace IsoCodes
 {

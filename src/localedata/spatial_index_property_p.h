@@ -15,9 +15,12 @@
 #pragma pack(push)
 #pragma pack(1)
 
-/** Entry in the spatial index property table.
- *  That is, this is a set of properties (timezone, country, country subdivision)
- *  associated with a tile in the spatial index, optimized for compact storage.
+/*!
+ * Entry in the spatial index property table.
+ * That is, this is a set of properties (timezone, country, country subdivision)
+ * associated with a tile in the spatial index, optimized for compact storage.
+ *
+ * \internal
  */
 class SpatialIndexProperty
 {

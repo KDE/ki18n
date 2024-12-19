@@ -85,6 +85,8 @@ ecm_generate_headers(KI18nLocaleData_HEADERS
     REQUIRED_HEADERS KI18nLocaleData_HEADERS
 )
 
+ecm_generate_qdoc(KF6I18nLocaleData ki18nlocaledata.qdocconf)
+
 install(FILES
     ${KI18nLocaleData_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18nlocaledata_export.h

@@ -12,12 +12,14 @@
 #pragma pack(push)
 #pragma pack(1)
 
-/** Entry in the spatial index.
+/*! Entry in the spatial index.
  *  This is essentially just a pair of numbers, the first being the position
  *  on the z-order curve and defines the order, the second being the index into the
  *  property table.
  *
  *  These entries exist in very large quantities, so compact storage is important.
+ *
+ * \internal
  */
 class SpatialIndexEntry
 {

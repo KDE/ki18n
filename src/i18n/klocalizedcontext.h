@@ -14,29 +14,32 @@
 #include <QObject>
 #include <QVariant>
 
-/**
- * @class KLocalizedContext klocalizedcontext.h <KLocalizedContext>
+/*!
+ * \class KLocalizedContext
+ * \inmodule KI18n
  *
- * This class is meant to be used to simplify integration of the KI18n framework
+ * \brief This class is meant to be used to simplify integration of the KI18n framework
  * in QML.
  *
  * The way to do so, is by creating this object and setting it as a context
  * object:
  *
- * @code
+ * \code
  * QQuickView* view = new QQuickView;
  * view.engine()->rootContext()->setContextObject(new KLocalizedContext(view));
- * @endcode
+ * \endcode
  *
  * Then i18n*() and xi18n*() functions should be available for use from the code
  * loaded in the engine, for the view.
  *
- * @note Plural functions differ from the C/C++ version. On QML/JS we can get a
+ * \note Plural functions differ from the C/C++ version. On QML/JS we can get a
  * real value easily. To solve warnings on those cases we'll cast the first argument
  * to make sure it's taken into account for the plural.
  *
- * @since 5.17
- * @deprecated since 6.8 Use KLocalizedQmlContext or KLocalization::setupLocalizedContext
+ * \since 5.17
+ * \deprecated[6.8]
+ *
+ * Use KLocalizedQmlContext or KLocalization::setupLocalizedContext
  * instead.
  */
 KI18N_DEPRECATED_VERSION(6, 8, "use KLocalizedQmlContext or KLocalization::setupLocalizedContext() from KF6::I18nQml instead")
@@ -44,7 +47,9 @@ class KI18N_EXPORT KLocalizedContext : public QObject
 {
     Q_OBJECT
 
-    /**
+    /*!
+     * \property KLocalizedContext::translationDomain
+     *
      * This property only needs to be specified if the context is being run on a library.
      * in an application there is no need to set the translation domain as the application's
      * domain can be used.
@@ -52,10 +57,20 @@ class KI18N_EXPORT KLocalizedContext : public QObject
     Q_PROPERTY(QString translationDomain READ translationDomain WRITE setTranslationDomain NOTIFY translationDomainChanged)
 
 public:
+    /*!
+     *
+     */
     explicit KLocalizedContext(QObject *parent = nullptr);
     ~KLocalizedContext() override;
 
+    /*!
+     *
+     */
     QString translationDomain() const;
+
+    /*!
+     *
+     */
     void setTranslationDomain(const QString &domain);
 
     Q_INVOKABLE QString i18n(const QString &message,

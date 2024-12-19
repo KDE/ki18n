@@ -21,34 +21,66 @@ namespace KTimeZone
 KI18NLOCALEDATA_EXPORT KCountry country(const char *);
 }
 
-/**
- *  @class KCountry kcountry.h <KCountry>
+/*!
+ * \class KCountry
+ * \inmodule KI18nLocaleData
  *
- *  Information about an ISO 3166-1 country.
+ * \brief Information about an ISO 3166-1 country.
  *
- *  The information provided here are aggregated from the following sources:
- *  - [iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes/)
- *  - [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder/)
- *  - [OSM](https://openstreetmap.org)
- *  - [CLDR](http://cldr.unicode.org/)
+ * The information provided here are aggregated from the following sources:
+ * \list
+ * \li \l {https://salsa.debian.org/iso-codes-team/iso-codes/} {iso-codes}
+ * \li \l {https://github.com/evansiroky/timezone-boundary-builder/} {timezone-boundary-builder}
+ * \li \l {https://openstreetmap.org} {OSM}
+ * \li \l {http://cldr.unicode.org/} {CLDR}
+ * \endlist
  *
- *  @note This requires the iso-codes data files and translation catalogs to be available at runtime.
+ * \note This requires the iso-codes data files and translation catalogs to be available at runtime.
  *
- *  @since 5.88
+ * \since 5.88
  */
 class KI18NLOCALEDATA_EXPORT KCountry
 {
     Q_GADGET
+
+    /*!
+     * \property KCountry::alpha2
+     */
     Q_PROPERTY(QString alpha2 READ alpha2)
+
+    /*!
+     * \property KCountry::alpha3
+     */
     Q_PROPERTY(QString alpha3 READ alpha3)
+
+    /*!
+     * \property KCountry::name
+     */
     Q_PROPERTY(QString name READ name)
+
+    /*!
+     * \property KCountry::emojiFlag
+     */
     Q_PROPERTY(QString emojiFlag READ emojiFlag)
+
+    /*!
+     * \property KCountry::currencyCode
+     */
     Q_PROPERTY(QString currencyCode READ currencyCode)
+
+    /*!
+     * \property KCountry::subdivisions
+     */
     Q_PROPERTY(QList<KCountrySubdivision> subdivisions READ subdivisions)
+
+    /*!
+     * \property KCountry::timeZoneIds
+     */
     Q_PROPERTY(QStringList timeZoneIds READ timeZoneIdsStringList)
 
 public:
-    /** Creates an invalid/empty KCountry instance.
+    /*!
+     * Creates an invalid/empty KCountry instance.
      *  See the fromX() methods for creating a valid instance.
      */
     KCountry();
@@ -56,59 +88,64 @@ public:
     ~KCountry();
     KCountry &operator=(const KCountry &);
 
+    /*!
+     *
+     */
     bool operator==(const KCountry &other) const;
     bool operator!=(const KCountry &other) const;
 
-    /** Returns @c false if this is an empty/invalid/default constructed instance, @c true otherwise. */
+    /*! Returns \c false if this is an empty/invalid/default constructed instance, \c true otherwise. */
     bool isValid() const;
 
-    /** ISO 3166-1 alpha 2 country code. */
+    /*! ISO 3166-1 alpha 2 country code. */
     QString alpha2() const;
-    /** ISO 3166-1 alpha 3 country code. */
+    /*! ISO 3166-1 alpha 3 country code. */
     QString alpha3() const;
-    /** Translated country name. */
+    /*! Translated country name. */
     QString name() const;
-    /** Returns the Unicode flag emoji for this country. */
+    /*! Returns the Unicode flag emoji for this country. */
     QString emojiFlag() const;
-    /** Returns the QLocale::Country value matching this country, or QLocale::AnyCountry if there is none. */
+    /*! Returns the QLocale::Country value matching this country, or QLocale::AnyCountry if there is none. */
     QLocale::Country country() const; // TODO better name?
 
-    /** Timezones in use in this country. */
+    /*! Timezones in use in this country. */
     QList<const char *> timeZoneIds() const;
-    /** Currency used in this country as ISO 4217 code. */
+    /*! Currency used in this country as ISO 4217 code. */
     QString currencyCode() const;
-    /** Highest level of ISO 3166-2 country subdivisions.
+    /*! Highest level of ISO 3166-2 country subdivisions.
      *  If there is only one level of subdivisions this lists all of them,
      *  for countries with multiple levels, this only includes the top-level
      *  subdivisions (ie. those having no parent subdivision).
-     *  @note: This can be empty.
+     *  \note This can be empty.
      */
     QList<KCountrySubdivision> subdivisions() const;
 
-    /** Create a KCountry instance from an ISO 3166-1 alpha 2 code. */
+    /*! Create a KCountry instance from an ISO 3166-1 alpha 2 code. */
     static KCountry fromAlpha2(QStringView alpha2Code);
-    /** Create a KCountry instance from an ISO 3166-1 alpha 2 code. */
+    /*! Create a KCountry instance from an ISO 3166-1 alpha 2 code. */
     static KCountry fromAlpha2(const char *alpha2Code);
-    /** Create a KCountry instance from an ISO 3166-1 alpha 3 code. */
+    /*! Create a KCountry instance from an ISO 3166-1 alpha 3 code. */
     static KCountry fromAlpha3(QStringView alpha3Code);
-    /** Create a KCountry instance from an ISO 3166-1 alpha 3 code. */
+    /*! Create a KCountry instance from an ISO 3166-1 alpha 3 code. */
     static KCountry fromAlpha3(const char *alpha3Code);
-    /** Looks up the country at the given geographic coordinate.
+    /*! Looks up the country at the given geographic coordinate.
      *  This can return an invalid object if the country could not be determined. This can happen in a number of cases:
-     *  - on oceans
-     *  - in polar regions
-     *  - close to a land border
-     *  - in disputed territories
+     *  \list
+     *  \li on oceans
+     *  \li in polar regions
+     *  \li close to a land border
+     *  \li in disputed territories
+     *  \endlist
      */
     static KCountry fromLocation(float latitude, float longitude);
-    /** Returns a KCountry instance matching the given QLocale::Country code. */
+    /*! Returns a KCountry instance matching the given QLocale::Country code. */
     static KCountry fromQLocale(QLocale::Country country);
-    /** Attempts to identify the country from the given name.
+    /*! Attempts to identify the country from the given name.
      *  The name can be in any language.
      */
     static KCountry fromName(QStringView name);
 
-    /** List all countries. */
+    /*! List all countries. */
     static QList<KCountry> allCountries();
 
 private:

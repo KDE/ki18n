@@ -18,7 +18,11 @@
 
 class QFile;
 
-/** Cache for iso-codes JSON data. */
+/*!
+ * Cache for iso-codes JSON data.
+ *
+ * \internal
+ */
 class IsoCodesCache
 {
 public:

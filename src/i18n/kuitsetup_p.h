@@ -9,52 +9,57 @@
 
 #include <QString>
 
+#include "kuitsetup.h"
+
 class KuitFormatter;
 class KuitFormatterPrivate;
 
 namespace Kuit
 {
-/**
+/*!
  * Convert &, ", ', <, > characters into XML entities
  * &amp;, &lt;, &gt;, &apos;, &quot;, respectively.
  */
 QString escape(const QString &text);
 }
 
-/**
- * @internal
+/*!
+ * \internal
  * (used by KLocalizedString)
+ *
+ * Class for formatting KUIT markup in UI messages
  *
  * KuitFormatter resolves KUIT markup in user interface text
  * into appropriate visual formatting.
- *
- * @author Chusslove Illich <caslav.ilic@gmx.net>
- * @short class for formatting KUIT markup in UI messages
  */
 class KuitFormatter
 {
 public:
-    /**
+    /*!
      * Constructor.
      *
-     * @param language language to create the formatter for
+     * \a language language to create the formatter for
      */
     KuitFormatter(const QString &language);
 
-    /**
+    /*!
      * Transforms KUIT markup in the given text into visual formatting.
      * The appropriate visual formatting is decided based on
      * the context marker provided in the context string.
      *
-     * @param domain translation domain from which the text was fetched
-     * @param context context of the text (used if \p format == UndefinedFormat)
-     * @param text text containing the KUIT markup
-     * @param format target visual format
-     * @param isArgument whether this text is inserted into an outer text
+     * \a domain translation domain from which the text was fetched
+     *
+     * \a context context of the text (used if \a format == UndefinedFormat)
+     *
+     * \a text text containing the KUIT markup
+     *
+     * \a format target visual format
+     *
+     * \a isArgument whether this text is inserted into an outer text
      */
     QString format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const;
 
-    /**
+    /*!
      * Destructor.
      */
     ~KuitFormatter();

@@ -1,0 +1,29 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = KI18nQml
+description = Additions to Qt Core
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+outputformats = HTML
+
+depends += \
+    kde \
+    qtcore
+
+qhp.projects            = KI18nQml
+
+qhp.KI18nQml.file                = ki18nqml.qhp
+qhp.KI18nQml.namespace           = org.kde.ki18nqml.$QT_VERSION_TAG
+qhp.KI18nQml.virtualFolder       = ki18nqml
+qhp.KI18nQml.indexTitle          = KI18nQml
+qhp.KI18nQml.indexRoot           =
+
+qhp.KI18nQml.subprojects         = classes
+qhp.KI18nQml.subprojects.classes.title = C++ Classes
+qhp.KI18nQml.subprojects.classes.indexTitle = KI18nQml C++ Classes
+qhp.KI18nQml.subprojects.classes.selectors = class fake:headerfile
+qhp.KI18nQml.subprojects.classes.sortPages = true

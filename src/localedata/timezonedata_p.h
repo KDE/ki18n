@@ -11,7 +11,11 @@
 
 #include <cstdint>
 
-/** Utility functions to deal with the compiled-in timezone data. */
+/*!
+ * Utility functions to deal with the compiled-in timezone data.
+ *
+ * \internal
+ */
 namespace TimezoneData
 {
 const char *ianaIdLookup(uint16_t offset);
