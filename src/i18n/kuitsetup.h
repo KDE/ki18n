@@ -63,13 +63,13 @@ enum TagClass {
 /*!
  * Functions accepted by tag formatting functions.
  *
- * \param languages the target languages (by decreasing priority)
- * \param tagName the wrapping tag name
- * \param attributes the attribute name-value pairs in the tag
- * \param text the wrapped text
- * \param tagPath the ordered list of ancestor tag names, parent first
- * \param format the target visual format
- * \return formatted text
+ * \a languages the target languages (by decreasing priority)
+ * \a tagName the wrapping tag name
+ * \a attributes the attribute name-value pairs in the tag
+ * \a text the wrapped text
+ * \a tagPath the ordered list of ancestor tag names, parent first
+ * \a format the target visual format
+ * Returns formatted text
  */
 typedef QString (*TagFormatter)(const QStringList &languages,
                                 const QString &tagName,
@@ -81,8 +81,8 @@ typedef QString (*TagFormatter)(const QStringList &languages,
 /*!
  * Get hold of the KUIT setup object for a given domain.
  *
- * \param domain the translation domain
- * \return pointer to KUIT setup object
+ * \a domain the translation domain
+ * Returns pointer to KUIT setup object
  */
 KI18N_EXPORT KuitSetup &setupForDomain(const QByteArray &domain);
 }
@@ -131,11 +131,11 @@ public:
      * together with the formatting function, in which case the function
      * is assumed to do everything and no substitution is performed.
      *
-     * \param tagName the name of the tag
-     * \param attribNames the names of the attributes (empty names are ignored)
-     * \param format the target visual format
-     * \param pattern the pattern string
-     * \param leadingNewlines the number of new lines (\\n) to be maintained
+     * \a tagName the name of the tag
+     * \a attribNames the names of the attributes (empty names are ignored)
+     * \a format the target visual format
+     * \a pattern the pattern string
+     * \a leadingNewlines the number of new lines (\\n) to be maintained
      *                        between any preceding text and the text wrapped
      *                        with this tag (for formats where it matters)
      */
@@ -149,8 +149,8 @@ public:
     /*!
      * Set the KUIT class of the tag.
      *
-     * \param tagName the name of the tag
-     * \param aClass the KUIT tag class
+     * \a tagName the name of the tag
+     * \a aClass the KUIT tag class
      */
     void setTagClass(const QString &tagName, Kuit::TagClass aClass);
 
@@ -169,8 +169,8 @@ public:
      * Setting \c Kuit::UndefinedFormat as \p format
      * means to fall back to default format for the given UI marker.
      *
-     * \param marker the UI marker
-     * \param format the visual format
+     * \a marker the UI marker
+     * \a format the visual format
      */
     void setFormatForMarker(const QString &marker, Kuit::VisualFormat format);
 

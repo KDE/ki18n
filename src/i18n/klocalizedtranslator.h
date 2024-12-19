@@ -66,7 +66,7 @@ public:
      * The translation domain is required. Without the translation domain any invocation of
      * translate() will be delegated to the base class.
      *
-     * @param translationDomain The translation domain to be used.
+     * \a translationDomain The translation domain to be used.
      **/
     void setTranslationDomain(const QString &translationDomain);
 
@@ -76,7 +76,7 @@ public:
      * The Translator only translates texts with a context matching one of the monitored contexts.
      * If the context is not monitored, the translate() method delegates to the base class.
      *
-     * @param context The context for which the Translator should be active
+     * \a context The context for which the Translator should be active
      *
      * @see removeContextToMonitor
      **/
@@ -85,7 +85,7 @@ public:
     /*!
      * Stop translating for the given @p context.
      *
-     * @param context The context for which the Translator should no longer be active
+     * \a context The context for which the Translator should no longer be active
      *
      * @see addContextToMonitor
      **/

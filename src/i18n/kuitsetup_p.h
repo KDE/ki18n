@@ -37,7 +37,7 @@ public:
     /*!
      * Constructor.
      *
-     * @param language language to create the formatter for
+     * \a language language to create the formatter for
      */
     KuitFormatter(const QString &language);
 
@@ -46,11 +46,11 @@ public:
      * The appropriate visual formatting is decided based on
      * the context marker provided in the context string.
      *
-     * @param domain translation domain from which the text was fetched
-     * @param context context of the text (used if \p format == UndefinedFormat)
-     * @param text text containing the KUIT markup
-     * @param format target visual format
-     * @param isArgument whether this text is inserted into an outer text
+     * \a domain translation domain from which the text was fetched
+     * \a context context of the text (used if \p format == UndefinedFormat)
+     * \a text text containing the KUIT markup
+     * \a format target visual format
+     * \a isArgument whether this text is inserted into an outer text
      */
     QString format(const QByteArray &domain, const QString &context, const QString &text, Kuit::VisualFormat format) const;
 
