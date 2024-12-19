@@ -1,0 +1,11 @@
+/*!
+    \module KI18n
+    \title KI18n C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent I18n
+
+    \brief Provides Stuff.
+
+    Stuff
+*/

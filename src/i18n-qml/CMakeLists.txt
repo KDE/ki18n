@@ -52,6 +52,8 @@ ecm_generate_headers(KI18n_HEADERS
     REQUIRED_HEADERS KI18n_HEADERS
 )
 
+ecm_generate_qdoc(KF6I18nQml ki18nqml.qdocconf)
+
 install(TARGETS KF6I18nQml EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
