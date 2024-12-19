@@ -13,7 +13,7 @@
 #include <QVariant>
 
 /*!
- * @internal
+ * \internal
  * (used by KLocalizedString)
  *
  * @c KTranscript provides support for programmable translations.

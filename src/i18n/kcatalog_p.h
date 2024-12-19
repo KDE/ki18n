@@ -22,7 +22,7 @@ class KCatalogPrivate;
  * It takes care of needed Gettext bindings.
  *
  * @see KLocalizedString
- * @internal exported only for use in KI18nLocaleData.
+ * \internal exported only for use in KI18nLocaleData.
  */
 class KI18N_EXPORT KCatalog
 {

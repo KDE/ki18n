@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-file(GLOB_RECURSE ts_files RELATIVE ${PO_DIR} ${PO_DIR}/*!/scripts/*)
+file(GLOB_RECURSE ts_files RELATIVE ${PO_DIR} ${PO_DIR}/**/scripts/*)
 foreach(ts_file ${ts_files})
     if(ts_file MATCHES "\\.svn")
         continue()
@@ -36,7 +36,7 @@ function(_processCommands)
     endif()
 endfunction()
 
-file(GLOB_RECURSE pmap_files RELATIVE ${PO_DIR} "${PO_DIR}/*!.pmap")
+file(GLOB_RECURSE pmap_files RELATIVE ${PO_DIR} "${PO_DIR}/**.pmap")
 foreach(pmap_file ${pmap_files})
     get_filename_component(pmap_basename ${pmap_file} NAME)
     get_filename_component(subpath ${pmap_file} DIRECTORY)
