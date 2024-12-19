@@ -24,6 +24,7 @@ include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMQmlModule)
+include(ECMGenerateQDoc)
 
 
 ecm_setup_version(
