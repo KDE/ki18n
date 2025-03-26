@@ -18,9 +18,11 @@
 #include <QJsonObject>
 #include <QStandardPaths>
 
+using namespace Qt::Literals;
+
 // increment those when changing the format
 enum : uint32_t {
-    Iso3166_1CacheHeader = 0x4B493101,
+    Iso3166_1CacheHeader = 0x4B493102,
     Iso3166_2CacheHeader = 0x4B493201,
 };
 
@@ -144,6 +146,14 @@ const char *IsoCodesCache::countryStringTableLookup(uint16_t offset) const
     return nullptr;
 }
 
+[[nodiscard]] static QByteArray nameForIso3166_1(const QJsonObject &entry)
+{
+    if (const auto commonName = entry.value("common_name"_L1).toString(); !commonName.isEmpty()) {
+        return commonName.toUtf8();
+    }
+    return entry.value("name"_L1).toString().toUtf8();
+}
+
 void IsoCodesCache::createIso3166_1Cache(const QString &isoCodesPath, const QString &cacheFilePath)
 {
     qCDebug(KI18NLD) << "Rebuilding ISO 3166-1 cache";
@@ -170,7 +180,7 @@ void IsoCodesCache::createIso3166_1Cache(const QString &isoCodesPath, const QStr
 
         assert(std::numeric_limits<uint16_t>::max() > iso3166_1stringTable.size());
         alpha2NameMap.push_back({alpha2Key, (uint16_t)iso3166_1stringTable.size()});
-        iso3166_1stringTable.append(entry.value(QLatin1String("name")).toString().toUtf8());
+        iso3166_1stringTable.append(nameForIso3166_1(entry));
         iso3166_1stringTable.append('\0');
 
         const auto alpha3Key = IsoCodes::alpha3CodeToKey(entry.value(QLatin1String("alpha_3")).toString());

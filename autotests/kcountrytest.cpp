@@ -212,6 +212,8 @@ private Q_SLOTS:
 
         // Ambigous substrings of multiple countries
         QCOMPARE(KCountry::fromName(u"Korea").alpha2(), QString());
+        // common_name matching
+        QCOMPARE(KCountry::fromName(u"South Korea").alpha2(), "KR"_L1);
 
         // input that shouldn't match anything
         QCOMPARE(KCountry::fromName(u"A").alpha2(), QString());
