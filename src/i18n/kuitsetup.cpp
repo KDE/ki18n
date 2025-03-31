@@ -112,7 +112,7 @@ private:
 
 namespace Kuit
 {
-enum Role { // UI marker roles
+enum class Role { // UI marker roles
     UndefinedRole,
     ActionRole,
     TitleRole,
@@ -240,20 +240,20 @@ void KuitStaticData::setUiMarkerData()
         rolesByName[name] = role; \
         knownRoleCues[role] << cues; \
     } while (0)
-    SET_ROLE(ActionRole, QStringLiteral("action"),
+    SET_ROLE(Role::ActionRole, QStringLiteral("action"),
              ButtonCue << InmenuCue << IntoolbarCue);
-    SET_ROLE(TitleRole,  QStringLiteral("title"),
+    SET_ROLE(Role::TitleRole,  QStringLiteral("title"),
              WindowCue << MenuCue << TabCue << GroupCue
              << ColumnCue << RowCue);
-    SET_ROLE(LabelRole,  QStringLiteral("label"),
+    SET_ROLE(Role::LabelRole,  QStringLiteral("label"),
              SliderCue << SpinboxCue << ListboxCue << TextboxCue
              << ChooserCue);
-    SET_ROLE(OptionRole, QStringLiteral("option"),
+    SET_ROLE(Role::OptionRole, QStringLiteral("option"),
              CheckCue << RadioCue);
-    SET_ROLE(ItemRole,   QStringLiteral("item"),
+    SET_ROLE(Role::ItemRole,   QStringLiteral("item"),
              InmenuCue << InlistboxCue << IntableCue << InrangeCue
              << IntextCue << ValuesuffixCue);
-    SET_ROLE(InfoRole,   QStringLiteral("info"),
+    SET_ROLE(Role::InfoRole,   QStringLiteral("info"),
              TooltipCue << WhatsthisCue << PlaceholderCue << StatusCue << ProgressCue
              << TipofthedayCue << UsagetipCue << CreditCue << ShellCue);
 
@@ -1065,18 +1065,18 @@ void KuitSetupPrivate::setDefaultFormats()
     using namespace Kuit;
 
     // Setup formats by role.
-    formatsByRoleCue[ActionRole][UndefinedCue] = PlainText;
-    formatsByRoleCue[TitleRole][UndefinedCue] = PlainText;
-    formatsByRoleCue[LabelRole][UndefinedCue] = PlainText;
-    formatsByRoleCue[OptionRole][UndefinedCue] = PlainText;
-    formatsByRoleCue[ItemRole][UndefinedCue] = PlainText;
-    formatsByRoleCue[InfoRole][UndefinedCue] = RichText;
+    formatsByRoleCue[Role::ActionRole][UndefinedCue] = PlainText;
+    formatsByRoleCue[Role::TitleRole][UndefinedCue] = PlainText;
+    formatsByRoleCue[Role::LabelRole][UndefinedCue] = PlainText;
+    formatsByRoleCue[Role::OptionRole][UndefinedCue] = PlainText;
+    formatsByRoleCue[Role::ItemRole][UndefinedCue] = PlainText;
+    formatsByRoleCue[Role::InfoRole][UndefinedCue] = RichText;
 
     // Setup override formats by subcue.
-    formatsByRoleCue[InfoRole][StatusCue] = PlainText;
-    formatsByRoleCue[InfoRole][ProgressCue] = PlainText;
-    formatsByRoleCue[InfoRole][CreditCue] = PlainText;
-    formatsByRoleCue[InfoRole][ShellCue] = TermText;
+    formatsByRoleCue[Role::InfoRole][StatusCue] = PlainText;
+    formatsByRoleCue[Role::InfoRole][ProgressCue] = PlainText;
+    formatsByRoleCue[Role::InfoRole][CreditCue] = PlainText;
+    formatsByRoleCue[Role::InfoRole][ShellCue] = TermText;
 }
 
 KuitSetup::KuitSetup(const QByteArray &domain)
@@ -1215,8 +1215,8 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
     parseUiMarker(context, roleName, cueName, formatName);
 
     // Set role from name.
-    Kuit::Role role = s->rolesByName.value(roleName, Kuit::UndefinedRole);
-    if (role == Kuit::UndefinedRole) { // unknown role
+    Kuit::Role role = s->rolesByName.value(roleName, Kuit::Role::UndefinedRole);
+    if (role == Kuit::Role::UndefinedRole) { // unknown role
         if (!roleName.isEmpty()) {
             qCWarning(KI18N_KUIT) << QStringLiteral("Unknown role '@%1' in UI marker in context {%2}.").arg(roleName, shorten(context));
         }
@@ -1224,7 +1224,7 @@ Kuit::VisualFormat KuitFormatterPrivate::formatFromUiMarker(const QString &conte
 
     // Set subcue from name.
     Kuit::Cue cue;
-    if (role != Kuit::UndefinedRole) {
+    if (role != Kuit::Role::UndefinedRole) {
         cue = s->cuesByName.value(cueName, Kuit::UndefinedCue);
         if (cue != Kuit::UndefinedCue) { // known subcue
             if (!s->knownRoleCues.value(role).contains(cue)) {
