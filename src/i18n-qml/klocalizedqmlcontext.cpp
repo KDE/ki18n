@@ -27,13 +27,11 @@ public:
 
 void KLocalizedQmlContextPrivate::markCurrentFunctionAsTranslationBinding(const KLocalizedQmlContext *q) const
 {
-#if QT_VERSION > QT_VERSION_CHECK(6, 6, 0)
     if (auto engine = qmlEngine(q); engine) {
         engine->markCurrentFunctionAsTranslationBinding();
     } else {
         qCDebug(KI18N) << "No QML engine available, KLocalizedQmlContext not properly set up?";
     }
-#endif
 }
 
 KLocalizedQmlContext::KLocalizedQmlContext(QObject *parent)
