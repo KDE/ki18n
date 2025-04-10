@@ -4,6 +4,8 @@
 add_library(KF6I18nQml)
 add_library(KF6::I18nQml ALIAS KF6I18nQml)
 
+ecm_add_qml_module(KF6I18nQml URI "org.kde.ki18n" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
+
 set_target_properties(KF6I18nQml PROPERTIES
     VERSION     ${KI18N_VERSION}
     SOVERSION   ${KI18N_SOVERSION}
@@ -12,6 +14,7 @@ set_target_properties(KF6I18nQml PROPERTIES
 
 target_sources(KF6I18nQml PRIVATE
     klocalizedqmlcontext.cpp
+    localizedcontext.cpp
 )
 
 ecm_qt_declare_logging_category(KF6I18nQml
@@ -53,6 +56,7 @@ ecm_generate_headers(KI18n_HEADERS
 )
 
 ecm_generate_qdoc(KF6I18nQml ki18nqml.qdocconf)
+ecm_finalize_qml_module(KF6I18nQml DESTINATION ${KDE_INSTALL_QMLDIR} EXPORT KF6I18nTargets)
 
 install(TARGETS KF6I18nQml EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -61,3 +65,4 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/ki18nqml_export.h
     DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/KI18n" COMPONENT Devel
 )
+
