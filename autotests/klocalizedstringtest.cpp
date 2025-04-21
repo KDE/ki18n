@@ -173,6 +173,10 @@ void KLocalizedStringTest::correctSubs()
     QCOMPARE(i18np("A pod left on %2", "Some pods left on %2", 1, QString("Discovery")), QString("A pod left on Discovery"));
     QCOMPARE(i18np("A pod left on %2", "Some pods left on %2", 2, QString("Discovery")), QString("Some pods left on Discovery"));
 
+    // No plural-number in singular or plural, but another argument present and plural decider not in %1.
+    QCOMPARE(i18np("Found one image in album %1", "Found some images in album %1", QString("AlbumName"), 1), QString("Found one image in album AlbumName"));
+    QCOMPARE(i18np("Found one image in album %1", "Found some images in album %1", QString("AlbumName"), 33), QString("Found some images in album AlbumName"));
+
     // Visual formatting.
     // FIXME: Needs much more tests.
     QCOMPARE(xi18n("E = mc^2"), QString("E = mc^2"));
@@ -412,6 +416,25 @@ void KLocalizedStringTest::translateToFrench()
     }
     QCOMPARE(i18n("Loadable modules"), QString::fromUtf8("Modules chargeables"));
     QCOMPARE(i18n("Job"), QString::fromUtf8("Tâche"));
+    // These are pobably not correct French translations, apologies, we want to
+    // test that using %2 in the translation works
+    QCOMPARE(i18ncp("You can use %2 in the translation as number of images",
+                    "Found one image in album %1",
+                    "Found multiple images in album %1",
+                    QString("AlbumName"),
+                    1),
+             QString("Trouvé 1 image dans l'album AlbumName"));
+    QCOMPARE(i18ncp("You can use %2 in the translation as number of images",
+                    "Found one image in album %1",
+                    "Found multiple images in album %1",
+                    QString("AlbumName"),
+                    33),
+             QString("33 images trouvées dans l'album AlbumName"));
+    // These are pobably not correct French translations, apologies, we want to
+    // test that using not using the count number in the translation works
+    QCOMPARE(i18np("Found %2 image in album %1", "Found %2 images in album %1", QString("AlbumName"), 1), QString("Trouvé an image dans l'album AlbumName"));
+    QCOMPARE(i18np("Found %2 image in album %1", "Found %2 images in album %1", QString("AlbumName"), 33),
+             QString("Plusiers images trouvées dans l'album AlbumName"));
 }
 
 void KLocalizedStringTest::testLocalizedTranslator()

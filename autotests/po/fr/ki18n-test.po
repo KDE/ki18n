@@ -16,3 +16,16 @@ msgstr "Tâche"
 
 msgid "Loadable modules"
 msgstr "Modules chargeables"
+
+#, kde-format
+msgctxt "You can use %2 in the translation as number of images"
+msgid "Found one image in album %1"
+msgid_plural "Found multiple images in album %1"
+msgstr[0] "Trouvé %2 image dans l'album %1"
+msgstr[1] "%2 images trouvées dans l'album %1"
+
+#, kde-format
+msgid "Found %2 image in album %1"
+msgid_plural "Found %2 images in album %1"
+msgstr[0] "Trouvé an image dans l'album %1"
+msgstr[1] "Plusiers images trouvées dans l'album %1"
