@@ -59,6 +59,13 @@ static QString cacheFilePath(QStringView file)
     return cachePath() + file;
 }
 
+static void initResources()
+{
+#ifdef HAVE_EMBEDDED_CACHE
+    Q_INIT_RESOURCE(isocodescache);
+#endif
+}
+
 IsoCodesCache::~IsoCodesCache() = default;
 
 IsoCodesCache *IsoCodesCache::instance()
@@ -80,6 +87,7 @@ static std::unique_ptr<QFile> openCacheFile(QStringView cacheFileName, QStringVi
 {
     QFileInfo jsonFi(isoCodesPath(isoCodesFileName));
     if (!jsonFi.exists()) { // no source file means we can only use an embedded cache
+        initResources();
         auto f = std::make_unique<QFile>(QLatin1String(":/org.kde.ki18n/iso-codes/cache/") + cacheFileName);
         if (!f->open(QFile::ReadOnly) || f->size() < 8) {
             return {};
