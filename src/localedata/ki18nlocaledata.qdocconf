@@ -13,7 +13,9 @@ outputformats = HTML
 navigation.landingpage = "KI18n"
 
 depends += \
-    qtcore
+    kde \
+    qtcore \
+    ki18n
 
 qhp.projects            = KI18nLocaleData
 

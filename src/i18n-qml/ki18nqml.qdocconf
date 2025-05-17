@@ -14,7 +14,8 @@ navigation.landingpage = "KI18n"
 
 depends += \
     kde \
-    qtcore
+    qtcore \
+    ki18n
 
 qhp.projects            = KI18nQml
 
