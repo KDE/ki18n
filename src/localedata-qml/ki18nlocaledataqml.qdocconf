@@ -23,11 +23,11 @@ qhp.projects            = KI18nLocaleDataQml
 qhp.KI18nLocaleDataQml.file                = ki18nlocaledataqml.qhp
 qhp.KI18nLocaleDataQml.namespace           = org.kde.ki18nlocaledataqml.$QT_VERSION_TAG
 qhp.KI18nLocaleDataQml.virtualFolder       = ki18nlocaledataqml
-qhp.KI18nLocaleDataQml.indexTitle          = KI18nLocaleDataQml
+qhp.KI18nLocaleDataQml.indexTitle          = KI18n LocaleData QML
 qhp.KI18nLocaleDataQml.indexRoot           =
 
-qhp.KI18nLocaleDataQml.subprojects         = classes
-qhp.KI18nLocaleDataQml.subprojects.classes.title = C++ Classes
-qhp.KI18nLocaleDataQml.subprojects.classes.indexTitle = KI18nLocaleDataQml C++ Classes
-qhp.KI18nLocaleDataQml.subprojects.classes.selectors = class fake:headerfile
-qhp.KI18nLocaleDataQml.subprojects.classes.sortPages = true
+qhp.KI18nLocaleDataQml.subprojects         = qmltypes
+qhp.KI18nLocaleDataQml.subprojects.qmltypes.title = QML Types
+qhp.KI18nLocaleDataQml.subprojects.qmltypes.indexTitle = KI18n LocaleData QML Types
+qhp.KI18nLocaleDataQml.subprojects.qmltypes.selectors = qmltype
+qhp.KI18nLocaleDataQml.subprojects.qmltypes.sortPages = true
