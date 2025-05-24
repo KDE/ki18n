@@ -32,3 +32,5 @@ qhp.KI18n.subprojects.classes.title = C++ Classes
 qhp.KI18n.subprojects.classes.indexTitle = KI18n C++ Classes
 qhp.KI18n.subprojects.classes.selectors = class fake:headerfile
 qhp.KI18n.subprojects.classes.sortPages = true
+
+tagfile = ki18n.tags

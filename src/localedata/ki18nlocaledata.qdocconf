@@ -30,3 +30,5 @@ qhp.KI18nLocaleData.subprojects.classes.title = C++ Classes
 qhp.KI18nLocaleData.subprojects.classes.indexTitle = KI18n LocaleData C++ Classes
 qhp.KI18nLocaleData.subprojects.classes.selectors = class fake:headerfile
 qhp.KI18nLocaleData.subprojects.classes.sortPages = true
+
+tagfile = ki18nlocaledata.tags
