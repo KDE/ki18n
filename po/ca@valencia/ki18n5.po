@@ -75,7 +75,7 @@ msgstr "Retrocés"
 #: kuitsetup.cpp:337
 msgctxt "keyboard-key-name"
 msgid "CapsLock"
-msgstr "Bloq Maj"
+msgstr "Bloq Majús"
 
 #: kuitsetup.cpp:338
 msgctxt "keyboard-key-name"
