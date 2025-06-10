@@ -390,14 +390,36 @@ QString KuitStaticData::toKeyCombo(const QStringList &languages, const QString &
     // Take '+' or '-' as input shortcut delimiter,
     // whichever is first encountered.
     static const QRegularExpression delimRx(QStringLiteral("[+-]"));
-
     const QRegularExpressionMatch match = delimRx.match(shstr);
+
     QStringList keys;
-    if (match.hasMatch()) { // delimiter found, multi-key shortcut
-        const QString oldDelim = match.captured(0);
-        keys = shstr.split(oldDelim, Qt::SkipEmptyParts);
-    } else { // single-key shortcut, no delimiter found
-        keys.append(shstr);
+    if (match.hasMatch()) {
+        // Delimiter found, multi-key shortcut
+        const QString delim = match.captured(0);
+
+        // We have to be careful with how we handle splitting to avoid removing usage of the delimiter as a key
+        // (e.g. in Meta++), so let's keep empty parts and handle them based on whether the next is empty
+        QStringList parts = shstr.split(delim, Qt::KeepEmptyParts);
+        for (auto it = parts.begin(); it != parts.end(); ++it) {
+            if (it->isEmpty()) {
+                auto next = std::next(it);
+                if (next != parts.end() && next->isEmpty()) {
+                    // This is empty, next is empty, so become delimiter and remove next
+                    *it = delim;
+                    parts.erase(next);
+                } else {
+                    // This is empty and next isn't, so just remove this (erase is the
+                    // next after removal, so step back else we skip on loop)
+                    it = parts.erase(it);
+                    --it;
+                }
+            }
+        }
+
+        keys << parts;
+    } else {
+        // Single-key shortcut, no delimiter found
+        keys << shstr;
     }
 
     for (QString &key : keys) {
