@@ -307,12 +307,20 @@ void KLocalizedStringTest::semanticTags()
     // <numid/>
     QEXPECT_FAIL("", "what happened to <numid/>? TODO.", Continue);
     QCOMPARE(xi18nc("@info:progress", "Connecting to <numid>%1</numid>...", 22), QString("<html>Connecting to <tt>22</tt></html>"));
+    // <placeholder/>
     QCOMPARE(xi18nc("@info", "Replace <placeholder>name</placeholder> with your name."), QString("<html>Replace &lt;<i>name</i>&gt; with your name.</html>"));
     QCOMPARE(xi18nc("@item:inlistbox", "<placeholder>All images</placeholder>"), QString("<All images>"));
     // <resource/>
     QCOMPARE(xi18nc("@info", "Apply color scheme <resource>%1</resource>?", "XXX"), QString("<html>Apply color scheme “XXX”?</html>"));
+    // <shortcut/>
     QCOMPARE(xi18nc("@info:whatsthis", "Cycle through layouts using <shortcut>Alt+Space</shortcut>."),
              QString("<html>Cycle through layouts using <b>Alt+Space</b>.</html>"));
+    // shortcuts should allow for the usage of the delimiter as a key
+    QCOMPARE(xi18nc("@info", "Zoom in with <shortcut>Meta++</shortcut>."), QString("<html>Zoom in with <b>Meta++</b>.</html>"));
+    // '-' is used as a delimiter if seen before +, but replaced with '+'
+    QCOMPARE(xi18nc("@info", "Zoom out with <shortcut>Meta--</shortcut>."), QString("<html>Zoom out with <b>Meta+-</b>.</html>"));
+    // '-' as a delimiter with delimiter as key and also including '+'
+    QCOMPARE(xi18nc("@info", "Zoom out with <shortcut>Meta---+</shortcut>."), QString("<html>Zoom out with <b>Meta+-++</b>.</html>"));
     // <note/>
     QCOMPARE(xi18nc("@info",
                     "Probably the best known of all duck species is the Mallard. "
