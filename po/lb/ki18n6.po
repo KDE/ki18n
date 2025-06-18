@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-25 01:48+0000\n"
+"POT-Creation-Date: 2025-06-18 00:39+0000\n"
 "PO-Revision-Date: 2006-06-22 16:29+0200\n"
 "Last-Translator: Michel Ludwig <michel.ludwig@kdemail.net>\n"
 "Language-Team: Luxembourgish <kde-i18n-lb@kde.org>\n"
@@ -403,14 +403,14 @@ msgstr "F%1"
 #. original. Some things you may consider changing:
 #. - the proper quotes, those used in msgid are English-standard
 #. - the <i> and <b> tags, does your language script work well with them?
-#: kuitsetup.cpp:727
+#: kuitsetup.cpp:749
 #, kde-format
 msgctxt "tag-format-pattern <title> plain"
 msgid "== %1 =="
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:732
+#: kuitsetup.cpp:754
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <title> rich"
@@ -418,14 +418,14 @@ msgid "<h2>%1</h2>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:740
+#: kuitsetup.cpp:762
 #, fuzzy, kde-format
 msgctxt "tag-format-pattern <subtitle> plain"
 msgid "~ %1 ~"
 msgstr "(%1/s)"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:745
+#: kuitsetup.cpp:767
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <subtitle> rich"
@@ -433,7 +433,7 @@ msgid "<h3>%1</h3>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:753
+#: kuitsetup.cpp:775
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <para> plain"
@@ -441,7 +441,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:758
+#: kuitsetup.cpp:780
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <para> rich"
@@ -449,7 +449,7 @@ msgid "<p>%1</p>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:766
+#: kuitsetup.cpp:788
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <list> plain"
@@ -457,7 +457,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:771
+#: kuitsetup.cpp:793
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <list> rich"
@@ -465,14 +465,14 @@ msgid "<ul>%1</ul>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:779
+#: kuitsetup.cpp:801
 #, kde-format
 msgctxt "tag-format-pattern <item> plain"
 msgid "  * %1"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:784
+#: kuitsetup.cpp:806
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <item> rich"
@@ -480,7 +480,7 @@ msgid "<li>%1</li>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:791
+#: kuitsetup.cpp:813
 #, fuzzy, kde-format
 #| msgid "Note"
 msgctxt "tag-format-pattern <note> plain"
@@ -488,7 +488,7 @@ msgid "Note: %1"
 msgstr "Notiz"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:796
+#: kuitsetup.cpp:818
 #, fuzzy, kde-format
 #| msgid "Note"
 msgctxt "tag-format-pattern <note> rich"
@@ -496,7 +496,7 @@ msgid "<i>Note</i>: %1"
 msgstr "Notiz"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:802
+#: kuitsetup.cpp:824
 #, fuzzy, kde-format
 #| msgid "Redo: %1"
 msgctxt ""
@@ -506,7 +506,7 @@ msgid "%2: %1"
 msgstr "Nees zeréck: %1"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:808
+#: kuitsetup.cpp:830
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt ""
@@ -516,14 +516,14 @@ msgid "<i>%2</i>: %1"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:815
+#: kuitsetup.cpp:837
 #, kde-format
 msgctxt "tag-format-pattern <warning> plain"
 msgid "WARNING: %1"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:820
+#: kuitsetup.cpp:842
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <warning> rich"
@@ -531,7 +531,7 @@ msgid "<b>Warning</b>: %1"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:826
+#: kuitsetup.cpp:848
 #, fuzzy, kde-format
 #| msgid "Redo: %1"
 msgctxt ""
@@ -541,7 +541,7 @@ msgid "%2: %1"
 msgstr "Nees zeréck: %1"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:832
+#: kuitsetup.cpp:854
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt ""
@@ -551,7 +551,7 @@ msgid "<b>%2</b>: %1"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:839
+#: kuitsetup.cpp:861
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <link> plain"
@@ -559,7 +559,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:844
+#: kuitsetup.cpp:866
 #, fuzzy, kde-format
 #| msgid "   <a href=\"%1\">[Properties]</a>"
 msgctxt "tag-format-pattern <link> rich"
@@ -567,7 +567,7 @@ msgid "<a href=\"%1\">%1</a>"
 msgstr "   <a href=\"%1\">[Eegeschaften]</a>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:850
+#: kuitsetup.cpp:872
 #, fuzzy, kde-format
 msgctxt ""
 "tag-format-pattern <link url=> plain\n"
@@ -576,7 +576,7 @@ msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:856
+#: kuitsetup.cpp:878
 #, fuzzy, kde-format
 #| msgid "   <a href=\"%1\">[Properties]</a>"
 msgctxt ""
@@ -586,14 +586,14 @@ msgid "<a href=\"%2\">%1</a>"
 msgstr "   <a href=\"%1\">[Eegeschaften]</a>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:863
+#: kuitsetup.cpp:885
 #, kde-format
 msgctxt "tag-format-pattern <filename> plain"
 msgid "‘%1’"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:868
+#: kuitsetup.cpp:890
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <filename> rich"
@@ -601,7 +601,7 @@ msgid "‘<tt>%1</tt>’"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:875
+#: kuitsetup.cpp:897
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <application> plain"
@@ -609,7 +609,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:880
+#: kuitsetup.cpp:902
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <application> rich"
@@ -617,7 +617,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:887
+#: kuitsetup.cpp:909
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <command> plain"
@@ -625,7 +625,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:892
+#: kuitsetup.cpp:914
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <command> rich"
@@ -633,7 +633,7 @@ msgid "<tt>%1</tt>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:898
+#: kuitsetup.cpp:920
 #, fuzzy, kde-format
 msgctxt ""
 "tag-format-pattern <command section=> plain\n"
@@ -642,7 +642,7 @@ msgid "%1(%2)"
 msgstr "%1 (%2)"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:904
+#: kuitsetup.cpp:926
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt ""
@@ -652,28 +652,28 @@ msgid "<tt>%1(%2)</tt>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:911
+#: kuitsetup.cpp:933
 #, kde-format
 msgctxt "tag-format-pattern <resource> plain"
 msgid "“%1”"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:916
+#: kuitsetup.cpp:938
 #, kde-format
 msgctxt "tag-format-pattern <resource> rich"
 msgid "“%1”"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:923
+#: kuitsetup.cpp:945
 #, kde-format
 msgctxt "tag-format-pattern <icode> plain"
 msgid "“%1”"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:928
+#: kuitsetup.cpp:950
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <icode> rich"
@@ -681,7 +681,7 @@ msgid "<tt>%1</tt>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:935
+#: kuitsetup.cpp:957
 #, kde-format
 msgctxt "tag-format-pattern <bcode> plain"
 msgid ""
@@ -690,7 +690,7 @@ msgid ""
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:940
+#: kuitsetup.cpp:962
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <bcode> rich"
@@ -698,7 +698,7 @@ msgid "<pre>%1</pre>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:947
+#: kuitsetup.cpp:969
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <shortcut> plain"
@@ -706,7 +706,7 @@ msgid "%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:952
+#: kuitsetup.cpp:974
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <shortcut> rich"
@@ -714,14 +714,14 @@ msgid "<b>%1</b>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:959
+#: kuitsetup.cpp:981
 #, kde-format
 msgctxt "tag-format-pattern <interface> plain"
 msgid "|%1|"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:964
+#: kuitsetup.cpp:986
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <interface> rich"
@@ -729,14 +729,14 @@ msgid "<i>%1</i>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:971
+#: kuitsetup.cpp:993
 #, kde-format
 msgctxt "tag-format-pattern <emphasis> plain"
 msgid "*%1*"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:976
+#: kuitsetup.cpp:998
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <emphasis> rich"
@@ -744,14 +744,14 @@ msgid "<i>%1</i>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:981
+#: kuitsetup.cpp:1003
 #, kde-format
 msgctxt "tag-format-pattern <emphasis-strong> plain"
 msgid "**%1**"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:986
+#: kuitsetup.cpp:1008
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <emphasis-strong> rich"
@@ -759,14 +759,14 @@ msgid "<b>%1</b>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:993
+#: kuitsetup.cpp:1015
 #, kde-format
 msgctxt "tag-format-pattern <placeholder> plain"
 msgid "&lt;%1&gt;"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:998
+#: kuitsetup.cpp:1020
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <placeholder> rich"
@@ -774,14 +774,14 @@ msgid "&lt;<i>%1</i>&gt;"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1005
+#: kuitsetup.cpp:1027
 #, kde-format
 msgctxt "tag-format-pattern <email> plain"
 msgid "&lt;%1&gt;"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1010
+#: kuitsetup.cpp:1032
 #, fuzzy, kde-format
 #| msgid "Please report bugs to <a href=\"mailto:%1\">%2</a>.\n"
 msgctxt "tag-format-pattern <email> rich"
@@ -791,7 +791,7 @@ msgstr ""
 "a>.\n"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1016
+#: kuitsetup.cpp:1038
 #, kde-format
 msgctxt ""
 "tag-format-pattern <email address=> plain\n"
@@ -800,7 +800,7 @@ msgid "%1 &lt;%2&gt;"
 msgstr ""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1022
+#: kuitsetup.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Please report bugs to <a href=\"mailto:%1\">%2</a>.\n"
 msgctxt ""
@@ -812,7 +812,7 @@ msgstr ""
 "a>.\n"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1029
+#: kuitsetup.cpp:1051
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <envar> plain"
@@ -820,7 +820,7 @@ msgid "$%1"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1034
+#: kuitsetup.cpp:1056
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <envar> rich"
@@ -828,14 +828,14 @@ msgid "<tt>$%1</tt>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1041
+#: kuitsetup.cpp:1063
 #, fuzzy, kde-format
 msgctxt "tag-format-pattern <message> plain"
 msgid "/%1/"
 msgstr "(%1/s)"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1046
+#: kuitsetup.cpp:1068
 #, fuzzy, kde-format
 #| msgid "<b>Error</b>: %1: %2"
 msgctxt "tag-format-pattern <message> rich"
@@ -843,7 +843,7 @@ msgid "<i>%1</i>"
 msgstr "<b>Feeler</b>: %1: %2"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1053
+#: kuitsetup.cpp:1075
 #, fuzzy, kde-format
 #| msgid "%1%"
 msgctxt "tag-format-pattern <nl> plain"
@@ -851,7 +851,7 @@ msgid "%1\n"
 msgstr "%1%"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
-#: kuitsetup.cpp:1058
+#: kuitsetup.cpp:1080
 #, kde-format
 msgctxt "tag-format-pattern <nl> rich"
 msgid "%1<br/>"
