@@ -426,22 +426,15 @@ void KLocalizedStringTest::translateToFrench()
     QCOMPARE(i18n("Job"), QString::fromUtf8("Tâche"));
     // These are pobably not correct French translations, apologies, we want to
     // test that using %2 in the translation works
-    QCOMPARE(i18ncp("You can use %2 in the translation as number of images",
-                    "Found one image in album %1",
-                    "Found multiple images in album %1",
-                    QString("AlbumName"),
-                    1),
+    QCOMPARE(i18ncp("%2 is the number of images", "Found one image in album %1", "Found multiple images in album %1", QString("AlbumName"), 1),
              QString("Trouvé 1 image dans l'album AlbumName"));
-    QCOMPARE(i18ncp("You can use %2 in the translation as number of images",
-                    "Found one image in album %1",
-                    "Found multiple images in album %1",
-                    QString("AlbumName"),
-                    33),
+    QCOMPARE(i18ncp("%2 is the number of images", "Found one image in album %1", "Found multiple images in album %1", QString("AlbumName"), 33),
              QString("33 images trouvées dans l'album AlbumName"));
     // These are pobably not correct French translations, apologies, we want to
     // test that using not using the count number in the translation works
-    QCOMPARE(i18np("Found %2 image in album %1", "Found %2 images in album %1", QString("AlbumName"), 1), QString("Trouvé an image dans l'album AlbumName"));
-    QCOMPARE(i18np("Found %2 image in album %1", "Found %2 images in album %1", QString("AlbumName"), 33),
+    QCOMPARE(i18ncp("%2 is the number of images", "Found %2 image in album %1", "Found %2 images in album %1", QString("AlbumName"), 1),
+             QString("Trouvé an image dans l'album AlbumName"));
+    QCOMPARE(i18ncp("%2 is the number of images", "Found %2 image in album %1", "Found %2 images in album %1", QString("AlbumName"), 33),
              QString("Plusiers images trouvées dans l'album AlbumName"));
 }
 
