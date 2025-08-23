@@ -271,7 +271,8 @@ KCountry KCountry::fromLocation(float latitude, float longitude)
 
 KCountry KCountry::fromQLocale(QLocale::Country country)
 {
-    return fromAlpha2(QLocale::territoryToCode(country).data());
+    const QString territoryCode = QLocale::territoryToCode(country);
+    return fromAlpha2(territoryCode);
 }
 
 static QString normalizeCountryName(QStringView name)
