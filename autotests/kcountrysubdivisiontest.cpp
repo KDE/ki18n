@@ -104,9 +104,9 @@ private Q_SLOTS:
     {
         auto c = KCountry::fromAlpha2(u"CZ");
         QVERIFY(c.isValid());
-        auto l = c.subdivisions();
-        QVERIFY(l.size() > 10);
-        for (const auto &s : l) {
+        const auto czSubdevisions = c.subdivisions();
+        QVERIFY(czSubdevisions.size() > 10);
+        for (const auto &s : czSubdevisions) {
             QVERIFY(s.isValid());
             QVERIFY(!s.parent().isValid());
             QCOMPARE(s.country(), c);
@@ -114,9 +114,9 @@ private Q_SLOTS:
 
         c = KCountry::fromAlpha2(u"DE");
         QVERIFY(c.isValid());
-        l = c.subdivisions();
-        QCOMPARE(l.size(), 16);
-        for (const auto &s : l) {
+        const auto deSubdevisions = c.subdivisions();
+        QCOMPARE(deSubdevisions.size(), 16);
+        for (const auto &s : deSubdevisions) {
             QVERIFY(s.isValid());
             QVERIFY(!s.parent().isValid());
             QCOMPARE(s.subdivisions().size(), 0);

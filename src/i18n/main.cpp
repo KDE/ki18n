@@ -113,7 +113,7 @@ static void load()
             }
         }
         languages.removeDuplicates();
-        for (const auto &language : languages) {
+        for (const auto &language : std::as_const(languages)) {
             if (language == "en"_L1 || loadTranslation(language)) {
                 break;
             }
