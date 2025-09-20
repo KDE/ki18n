@@ -276,80 +276,64 @@ msgstr "پنجره"
 
 # F%1
 #: kuitsetup.cpp:372
-#| msgctxt "keyboard-key-name"
-#| msgid "F%1"
 msgctxt "keyboard-key-name"
 msgid "F1"
 msgstr "F1"
 
 #: kuitsetup.cpp:373
-#| msgid "2"
 msgctxt "keyboard-key-name"
 msgid "F2"
 msgstr "F2"
 
 #: kuitsetup.cpp:374
-#| msgid "3"
 msgctxt "keyboard-key-name"
 msgid "F3"
 msgstr "F3"
 
 #: kuitsetup.cpp:375
-#| msgid "4"
 msgctxt "keyboard-key-name"
 msgid "F4"
 msgstr "F4"
 
 #: kuitsetup.cpp:376
-#| msgid "5"
 msgctxt "keyboard-key-name"
 msgid "F5"
 msgstr "F5"
 
 #: kuitsetup.cpp:377
-#| msgid "6"
 msgctxt "keyboard-key-name"
 msgid "F6"
 msgstr "F6"
 
 #: kuitsetup.cpp:378
-#| msgid "7"
 msgctxt "keyboard-key-name"
 msgid "F7"
 msgstr "F7"
 
 #: kuitsetup.cpp:379
-#| msgid "8"
 msgctxt "keyboard-key-name"
 msgid "F8"
 msgstr "F8"
 
 #: kuitsetup.cpp:380
-#| msgid "9"
 msgctxt "keyboard-key-name"
 msgid "F9"
 msgstr "F9"
 
 # F%1
 #: kuitsetup.cpp:381
-#| msgctxt "keyboard-key-name"
-#| msgid "F%1"
 msgctxt "keyboard-key-name"
 msgid "F10"
 msgstr "F10"
 
 # F%1
 #: kuitsetup.cpp:382
-#| msgctxt "keyboard-key-name"
-#| msgid "F%1"
 msgctxt "keyboard-key-name"
 msgid "F11"
 msgstr "F11"
 
 # F%1
 #: kuitsetup.cpp:383
-#| msgctxt "keyboard-key-name"
-#| msgid "F%1"
 msgctxt "keyboard-key-name"
 msgid "F12"
 msgstr "F12"
@@ -365,8 +349,6 @@ msgstr "F12"
 #. - the <i> and <b> tags, does your language script work well with them?
 #: kuitsetup.cpp:749
 #, kde-format
-#| msgctxt "@title/plain"
-#| msgid "== %1 =="
 msgctxt "tag-format-pattern <title> plain"
 msgid "== %1 =="
 msgstr "== %1 =="
@@ -375,8 +357,6 @@ msgstr "== %1 =="
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:754
 #, kde-format
-#| msgctxt "@title/rich"
-#| msgid "<h2>%1</h2>"
 msgctxt "tag-format-pattern <title> rich"
 msgid "<h2>%1</h2>"
 msgstr "<h2>%1</h2>"
@@ -385,8 +365,6 @@ msgstr "<h2>%1</h2>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:762
 #, kde-format
-#| msgctxt "@subtitle/plain"
-#| msgid "~ %1 ~"
 msgctxt "tag-format-pattern <subtitle> plain"
 msgid "~ %1 ~"
 msgstr "~ %1 ~"
@@ -395,8 +373,6 @@ msgstr "~ %1 ~"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:767
 #, kde-format
-#| msgctxt "@subtitle/rich"
-#| msgid "<h3>%1</h3>"
 msgctxt "tag-format-pattern <subtitle> rich"
 msgid "<h3>%1</h3>"
 msgstr "<h3>%1</h3>"
@@ -405,8 +381,6 @@ msgstr "<h3>%1</h3>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:775
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <para> plain"
 msgid "%1"
 msgstr "%1"
@@ -415,8 +389,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:780
 #, kde-format
-#| msgctxt "@shortcut/rich"
-#| msgid "<b>%1</b>"
 msgctxt "tag-format-pattern <para> rich"
 msgid "<p>%1</p>"
 msgstr "<p>%1</p>"
@@ -425,8 +397,6 @@ msgstr "<p>%1</p>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:788
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <list> plain"
 msgid "%1"
 msgstr "%1"
@@ -435,8 +405,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:793
 #, kde-format
-#| msgctxt "@item/rich"
-#| msgid "<li>%1</li>"
 msgctxt "tag-format-pattern <list> rich"
 msgid "<ul>%1</ul>"
 msgstr "<ul>%1</ul>"
@@ -445,8 +413,6 @@ msgstr "<ul>%1</ul>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:801
 #, kde-format
-#| msgctxt "@item/plain"
-#| msgid "  * %1"
 msgctxt "tag-format-pattern <item> plain"
 msgid "  * %1"
 msgstr "  * %1"
@@ -455,8 +421,6 @@ msgstr "  * %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:806
 #, kde-format
-#| msgctxt "@item/rich"
-#| msgid "<li>%1</li>"
 msgctxt "tag-format-pattern <item> rich"
 msgid "<li>%1</li>"
 msgstr "<li>%1</li>"
@@ -464,8 +428,6 @@ msgstr "<li>%1</li>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:813
 #, kde-format
-#| msgctxt "@note/plain"
-#| msgid "Note: %1"
 msgctxt "tag-format-pattern <note> plain"
 msgid "Note: %1"
 msgstr "نکته: %1"
@@ -473,8 +435,6 @@ msgstr "نکته: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:818
 #, kde-format
-#| msgctxt "@note/rich"
-#| msgid "<i>Note</i>: %1"
 msgctxt "tag-format-pattern <note> rich"
 msgid "<i>Note</i>: %1"
 msgstr "<i>نکته</i>: %1"
@@ -482,7 +442,6 @@ msgstr "<i>نکته</i>: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:824
 #, kde-format
-#| msgid "Re: %1"
 msgctxt ""
 "tag-format-pattern <note label=> plain\n"
 "%1 is the text, %2 is the note label"
@@ -493,10 +452,6 @@ msgstr "%2: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:830
 #, kde-format
-#| msgctxt ""
-#| "@note-with-label/rich\n"
-#| "%1 is the note label, %2 is the text"
-#| msgid "<i>%1</i>: %2"
 msgctxt ""
 "tag-format-pattern <note label=> rich\n"
 "%1 is the text, %2 is the note label"
@@ -506,8 +461,6 @@ msgstr "<i>%2</i>: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:837
 #, kde-format
-#| msgctxt "@warning/plain"
-#| msgid "WARNING: %1"
 msgctxt "tag-format-pattern <warning> plain"
 msgid "WARNING: %1"
 msgstr "هشدار: %1"
@@ -515,8 +468,6 @@ msgstr "هشدار: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:842
 #, kde-format
-#| msgctxt "@warning/rich"
-#| msgid "<b>Warning</b>: %1"
 msgctxt "tag-format-pattern <warning> rich"
 msgid "<b>Warning</b>: %1"
 msgstr "<b>هشدار</b>: %1"
@@ -524,7 +475,6 @@ msgstr "<b>هشدار</b>: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:848
 #, kde-format
-#| msgid "Re: %1"
 msgctxt ""
 "tag-format-pattern <warning label=> plain\n"
 "%1 is the text, %2 is the warning label"
@@ -535,10 +485,6 @@ msgstr "%2: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:854
 #, kde-format
-#| msgctxt ""
-#| "@warning-with-label/rich\n"
-#| "%1 is the warning label, %2 is the text"
-#| msgid "<b>%1</b>: %2"
 msgctxt ""
 "tag-format-pattern <warning label=> rich\n"
 "%1 is the text, %2 is the warning label"
@@ -549,8 +495,6 @@ msgstr "<b>%2</b>: %1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:861
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <link> plain"
 msgid "%1"
 msgstr "%1"
@@ -559,10 +503,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:866
 #, kde-format
-#| msgctxt ""
-#| "@link-with-description/rich\n"
-#| "%1 is the URL, %2 is the descriptive text"
-#| msgid "<a href=\"%1\">%2</a>"
 msgctxt "tag-format-pattern <link> rich"
 msgid "<a href=\"%1\">%1</a>"
 msgstr "<a href=\"%1\">%1</a>"
@@ -571,8 +511,6 @@ msgstr "<a href=\"%1\">%1</a>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:872
 #, kde-format
-#| msgctxt "name of digit set with digit string, e.g. 'Arabic (0123456789)'"
-#| msgid "%1 (%2)"
 msgctxt ""
 "tag-format-pattern <link url=> plain\n"
 "%1 is the descriptive text, %2 is the URL"
@@ -583,10 +521,6 @@ msgstr "%1 (%2)"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:878
 #, kde-format
-#| msgctxt ""
-#| "@link-with-description/rich\n"
-#| "%1 is the URL, %2 is the descriptive text"
-#| msgid "<a href=\"%1\">%2</a>"
 msgctxt ""
 "tag-format-pattern <link url=> rich\n"
 "%1 is the descriptive text, %2 is the URL"
@@ -597,8 +531,6 @@ msgstr "<a href=\"%2\">%1</a>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:885
 #, kde-format
-#| msgctxt "@filename/plain"
-#| msgid "‘%1’"
 msgctxt "tag-format-pattern <filename> plain"
 msgid "‘%1’"
 msgstr "‘%1’"
@@ -607,8 +539,6 @@ msgstr "‘%1’"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:890
 #, kde-format
-#| msgctxt "@filename/rich"
-#| msgid "<tt>%1</tt>"
 msgctxt "tag-format-pattern <filename> rich"
 msgid "‘<tt>%1</tt>’"
 msgstr "‘<tt>%1</tt>’"
@@ -617,8 +547,6 @@ msgstr "‘<tt>%1</tt>’"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:897
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <application> plain"
 msgid "%1"
 msgstr "%1"
@@ -627,8 +555,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:902
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <application> rich"
 msgid "%1"
 msgstr "%1"
@@ -637,8 +563,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:909
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <command> plain"
 msgid "%1"
 msgstr "%1"
@@ -647,8 +571,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:914
 #, kde-format
-#| msgctxt "@filename/rich"
-#| msgid "<tt>%1</tt>"
 msgctxt "tag-format-pattern <command> rich"
 msgid "<tt>%1</tt>"
 msgstr "<tt>%1</tt>"
@@ -657,10 +579,6 @@ msgstr "<tt>%1</tt>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:920
 #, kde-format
-#| msgctxt ""
-#| "@command-with-section/plain\n"
-#| "%1 is the command name, %2 is its man section"
-#| msgid "%1(%2)"
 msgctxt ""
 "tag-format-pattern <command section=> plain\n"
 "%1 is the command name, %2 is its man section"
@@ -671,10 +589,6 @@ msgstr "%1(%2)"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:926
 #, kde-format
-#| msgctxt ""
-#| "@command-with-section/rich\n"
-#| "%1 is the command name, %2 is its man section"
-#| msgid "<tt>%1(%2)</tt>"
 msgctxt ""
 "tag-format-pattern <command section=> rich\n"
 "%1 is the command name, %2 is its man section"
@@ -685,8 +599,6 @@ msgstr "<tt>%1(%2)</tt>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:933
 #, kde-format
-#| msgctxt "@resource/plain"
-#| msgid "“%1”"
 msgctxt "tag-format-pattern <resource> plain"
 msgid "“%1”"
 msgstr "“%1”"
@@ -695,8 +607,6 @@ msgstr "“%1”"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:938
 #, kde-format
-#| msgctxt "@resource/plain"
-#| msgid "“%1”"
 msgctxt "tag-format-pattern <resource> rich"
 msgid "“%1”"
 msgstr "“%1”"
@@ -705,8 +615,6 @@ msgstr "“%1”"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:945
 #, kde-format
-#| msgctxt "@resource/plain"
-#| msgid "“%1”"
 msgctxt "tag-format-pattern <icode> plain"
 msgid "“%1”"
 msgstr "“%1”"
@@ -715,8 +623,6 @@ msgstr "“%1”"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:950
 #, kde-format
-#| msgctxt "@filename/rich"
-#| msgid "<tt>%1</tt>"
 msgctxt "tag-format-pattern <icode> rich"
 msgid "<tt>%1</tt>"
 msgstr "<tt>%1</tt>"
@@ -736,8 +642,6 @@ msgstr ""
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:962
 #, kde-format
-#| msgctxt "@shortcut/rich"
-#| msgid "<b>%1</b>"
 msgctxt "tag-format-pattern <bcode> rich"
 msgid "<pre>%1</pre>"
 msgstr "<pre>%1</pre>"
@@ -746,8 +650,6 @@ msgstr "<pre>%1</pre>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:969
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <shortcut> plain"
 msgid "%1"
 msgstr "%1"
@@ -756,8 +658,6 @@ msgstr "%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:974
 #, kde-format
-#| msgctxt "@shortcut/rich"
-#| msgid "<b>%1</b>"
 msgctxt "tag-format-pattern <shortcut> rich"
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
@@ -766,8 +666,6 @@ msgstr "<b>%1</b>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:981
 #, kde-format
-#| msgctxt "@interface/plain"
-#| msgid "|%1|"
 msgctxt "tag-format-pattern <interface> plain"
 msgid "|%1|"
 msgstr "|%1|"
@@ -776,8 +674,6 @@ msgstr "|%1|"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:986
 #, kde-format
-#| msgctxt "@interface/rich"
-#| msgid "<i>%1</i>"
 msgctxt "tag-format-pattern <interface> rich"
 msgid "<i>%1</i>"
 msgstr "<i>%1</i>"
@@ -786,8 +682,6 @@ msgstr "<i>%1</i>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:993
 #, kde-format
-#| msgctxt "@emphasis/plain"
-#| msgid "*%1*"
 msgctxt "tag-format-pattern <emphasis> plain"
 msgid "*%1*"
 msgstr "*%1*"
@@ -796,8 +690,6 @@ msgstr "*%1*"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:998
 #, kde-format
-#| msgctxt "@interface/rich"
-#| msgid "<i>%1</i>"
 msgctxt "tag-format-pattern <emphasis> rich"
 msgid "<i>%1</i>"
 msgstr "<i>%1</i>"
@@ -806,8 +698,6 @@ msgstr "<i>%1</i>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1003
 #, kde-format
-#| msgctxt "@emphasis-strong/plain"
-#| msgid "**%1**"
 msgctxt "tag-format-pattern <emphasis-strong> plain"
 msgid "**%1**"
 msgstr "**%1**"
@@ -816,8 +706,6 @@ msgstr "**%1**"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1008
 #, kde-format
-#| msgctxt "@shortcut/rich"
-#| msgid "<b>%1</b>"
 msgctxt "tag-format-pattern <emphasis-strong> rich"
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
@@ -826,8 +714,6 @@ msgstr "<b>%1</b>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1015
 #, kde-format
-#| msgctxt "@placeholder/plain"
-#| msgid "&lt;%1&gt;"
 msgctxt "tag-format-pattern <placeholder> plain"
 msgid "&lt;%1&gt;"
 msgstr "&lt;%1&gt;"
@@ -835,8 +721,6 @@ msgstr "&lt;%1&gt;"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1020
 #, kde-format
-#| msgctxt "@placeholder/rich"
-#| msgid "&lt;<i>%1</i>&gt;"
 msgctxt "tag-format-pattern <placeholder> rich"
 msgid "&lt;<i>%1</i>&gt;"
 msgstr "&lt;<i>%1</i>&gt;"
@@ -845,8 +729,6 @@ msgstr "&lt;<i>%1</i>&gt;"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1027
 #, kde-format
-#| msgctxt "@placeholder/plain"
-#| msgid "&lt;%1&gt;"
 msgctxt "tag-format-pattern <email> plain"
 msgid "&lt;%1&gt;"
 msgstr "&lt;%1&gt;"
@@ -854,8 +736,6 @@ msgstr "&lt;%1&gt;"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1032
 #, kde-format
-#| msgctxt "@email/rich"
-#| msgid "&lt;<a href=\"mailto:%1\">%1</a>&gt;"
 msgctxt "tag-format-pattern <email> rich"
 msgid "&lt;<a href=\"mailto:%1\">%1</a>&gt;"
 msgstr "&lt;<a href=\"mailto:%1\">%1</a>&gt;"
@@ -864,10 +744,6 @@ msgstr "&lt;<a href=\"mailto:%1\">%1</a>&gt;"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1038
 #, kde-format
-#| msgctxt ""
-#| "@email-with-name/plain\n"
-#| "%1 is name, %2 is address"
-#| msgid "%1 &lt;%2&gt;"
 msgctxt ""
 "tag-format-pattern <email address=> plain\n"
 "%1 is name, %2 is address"
@@ -878,10 +754,6 @@ msgstr "%1 &lt;%2&gt;"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1044
 #, kde-format
-#| msgctxt ""
-#| "@email-with-name/rich\n"
-#| "%1 is name, %2 is address"
-#| msgid "<a href=\"mailto:%2\">%1</a>"
 msgctxt ""
 "tag-format-pattern <email address=> rich\n"
 "%1 is name, %2 is address"
@@ -892,8 +764,6 @@ msgstr "<a href=\"mailto:%2\">%1</a>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1051
 #, kde-format
-#| msgctxt "@envar/plain"
-#| msgid "$%1"
 msgctxt "tag-format-pattern <envar> plain"
 msgid "$%1"
 msgstr "$%1"
@@ -902,8 +772,6 @@ msgstr "$%1"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1056
 #, kde-format
-#| msgctxt "@envar/rich"
-#| msgid "<tt>$%1</tt>"
 msgctxt "tag-format-pattern <envar> rich"
 msgid "<tt>$%1</tt>"
 msgstr "<tt>$%1</tt>"
@@ -912,8 +780,6 @@ msgstr "<tt>$%1</tt>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1063
 #, kde-format
-#| msgctxt "@message/plain"
-#| msgid "/%1/"
 msgctxt "tag-format-pattern <message> plain"
 msgid "/%1/"
 msgstr "/%1/"
@@ -922,8 +788,6 @@ msgstr "/%1/"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1068
 #, kde-format
-#| msgctxt "@interface/rich"
-#| msgid "<i>%1</i>"
 msgctxt "tag-format-pattern <message> rich"
 msgid "<i>%1</i>"
 msgstr "<i>%1</i>"
@@ -932,8 +796,6 @@ msgstr "<i>%1</i>"
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1075
 #, kde-format
-#| msgctxt "@application/plain"
-#| msgid "%1"
 msgctxt "tag-format-pattern <nl> plain"
 msgid "%1\n"
 msgstr "%1\n"
