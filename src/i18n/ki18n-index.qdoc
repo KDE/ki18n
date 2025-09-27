@@ -17,6 +17,9 @@
     of source and translated text. This includes argument capturing,
     customizable markup, and translation scripting.
 
+    You can read more about how to localize your software with ki18n in the
+    \l {https://invent.kde.org/frameworks/ki18n/-/blob/master/docs/programmers-guide.md} {Programmer's Guide}.
+
     \section1 Using the Module
 
     \include {module-use.qdocinc} {using the c++ api}
