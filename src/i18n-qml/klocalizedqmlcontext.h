@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QtQmlIntegration>
 #include <memory>
 
 class QQmlEngine;
@@ -86,6 +87,30 @@ class KLocalizedQmlContextPrivate;
     }
     \endqml
 */
+
+/*!
+    \qmltype KI18nContext
+    \since 6.22
+    \nativetype KLocalizedQmlContext
+    \inherits KI18n
+    \inqmlmodule org.kde.ki18n
+    \brief Creatable variant of KI18n
+
+    \sa KI18n
+    \sa KLocalizedQmlContext::KLocalizedQmlContext()
+
+    This is a creatable variant of KI18n and may be used to create multiple localized contexts right from within QML.
+    In particular useful when working with multiple translation domains (such as in library use cases).
+
+    Unlike the KI18n variant this does not require help from the C++ side and can be used entirely from QML:
+
+    \qml
+    readonly property KI18nContext libI18n: KI18nContext {
+        translationDomain: "librocketship"
+    }
+    text: libI18n.i18nc("@title", "Welcome to Space")
+    \endqml
+*/
 class KI18NQML_EXPORT KLocalizedQmlContext : public QObject
 {
     Q_OBJECT
@@ -97,7 +122,15 @@ class KI18NQML_EXPORT KLocalizedQmlContext : public QObject
      * in an application there is no need to set the translation domain as the application's
      * domain can be used.
      */
+    /*!
+        \qmlproperty string KI18nContext::translationDomain
+
+        The translation domain to use for this context. This must be explicitly set for the KI18nContext to be functional.
+    */
     Q_PROPERTY(QString translationDomain READ translationDomain WRITE setTranslationDomain NOTIFY translationDomainChanged)
+
+    QML_ELEMENT
+    QML_NAMED_ELEMENT(KI18nContext)
 
 public:
     /*!
@@ -434,7 +467,6 @@ Q_SIGNALS:
     void translationDomainChanged(const QString &translationDomain);
 
 private:
-    bool eventFilter(QObject *watched, QEvent *event) override;
     std::unique_ptr<KLocalizedQmlContextPrivate> const d;
 };
 
