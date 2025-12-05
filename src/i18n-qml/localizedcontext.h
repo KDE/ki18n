@@ -10,13 +10,14 @@
 
 class QJSEngine;
 
-/**
- * Assistive class to expose KLocalizedQmlContext as a QML singleton.
- * This works around the fact that singleton construction prefers constructors over
- * create() functions. We do however need to use the create() because we aren't
- * really a singleton, but an engine-wide-singleton and need to excavate our actual
- * context object from the engine.
- */
+/*!
+    \internal
+    Assistive class to expose KLocalizedQmlContext as a QML singleton.
+    This works around the fact that singleton construction prefers constructors over
+    create() functions. We do however need to use the create() because we aren't
+    really a singleton, but an engine-wide-singleton and need to excavate our actual
+    context object from the engine.
+*/
 class LocalizedContext : public QObject
 {
     Q_OBJECT
