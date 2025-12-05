@@ -17,6 +17,62 @@
 
 #include "ki18n_qml_logging.h"
 
+namespace
+{
+/*!
+    \internal
+    \brief Watches for QCoreApplication::languageChange() events and notifies
+    QML engines to re-evaluate their bindings.
+*/
+class LanguageChangeWatcher : public QObject
+{
+    Q_OBJECT
+public:
+    /*!
+        \brief Registers a QML engine to be notified on language change events.
+
+        \a engine The engine to notify.
+
+        If the engine is already registered, this is a no-op.
+    */
+    void hello(const QPointer<QQmlEngine> &engine)
+    {
+        Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
+        if (!engine) {
+            return;
+        }
+
+        if (!engines.contains(engine)) {
+            engines.push_back(engine);
+            qCDebug(KI18N) << "registered engine" << engine << "engines:" << engines;
+        }
+    }
+
+    bool eventFilter(QObject *watched, QEvent *event) override
+    {
+        if (event->type() == QEvent::LanguageChange && watched == QCoreApplication::instance()) {
+            // For simplicity we don't have Contexts say bye to us (would require refcounting).
+            // Instead we always make sure we only operate on living engines.
+            engines.removeIf([](const auto &engine) {
+                return !engine;
+            });
+            for (const auto &engine : std::as_const(engines)) {
+                qCDebug(KI18N) << "triggering binding reevaluation for engine" << engine;
+                // run this deferred so we can be sure other things have reacted, such as KLocalizedString
+                // having updated its internal caches
+                QMetaObject::invokeMethod(engine, &QQmlEngine::retranslate, Qt::QueuedConnection);
+            }
+        }
+        return QObject::eventFilter(watched, event);
+    }
+
+private:
+    QList<QPointer<QQmlEngine>> engines;
+};
+
+LanguageChangeWatcher s_watcher;
+} // namespace
+
 class KLocalizedQmlContextPrivate
 {
 public:
@@ -38,7 +94,14 @@ KLocalizedQmlContext::KLocalizedQmlContext(QObject *parent)
     : QObject(parent)
     , d(new KLocalizedQmlContextPrivate)
 {
-    QCoreApplication::instance()->installEventFilter(this);
+    static bool filtered = [] {
+        QCoreApplication::instance()->installEventFilter(&s_watcher);
+        return true;
+    }();
+    Q_UNUSED(filtered);
+
+    auto engine = qmlEngine(this);
+    s_watcher.hello(engine ? engine : qobject_cast<QQmlEngine *>(parent) /* the global context has the engine as parent */);
 }
 
 KLocalizedQmlContext::~KLocalizedQmlContext() = default;
@@ -608,19 +671,6 @@ QString KLocalizedQmlContext::xi18ndcp(const QString &domain,
     return trMessage.toString();
 }
 
-bool KLocalizedQmlContext::eventFilter(QObject *watched, QEvent *event)
-{
-    if (event->type() == QEvent::LanguageChange && watched == QCoreApplication::instance()) {
-        qCDebug(KI18N) << "triggering binding reevaluation";
-        // run this deferred so we can be sure other things have reacted, such as KLocalizedString
-        // having updated its internal caches
-        if (auto engine = qmlEngine(this); engine) {
-            QMetaObject::invokeMethod(engine, &QQmlEngine::retranslate, Qt::QueuedConnection);
-        }
-    }
-    return QObject::eventFilter(watched, event);
-}
-
 KLocalizedQmlContext *KLocalization::Internal::createLocalizedContext(QQmlEngine *engine)
 {
     auto ctx = new KLocalizedQmlContext(engine);
@@ -629,4 +679,5 @@ KLocalizedQmlContext *KLocalization::Internal::createLocalizedContext(QQmlEngine
     return ctx;
 }
 
+#include "klocalizedqmlcontext.moc"
 #include "moc_klocalizedqmlcontext.cpp"
