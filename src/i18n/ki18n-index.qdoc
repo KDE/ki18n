@@ -33,6 +33,7 @@
     \list
         \li \l{KI18n C++ Classes}
         \li \l{KI18nQml C++ Classes}
+        \li \l{KI18nQml QML Types}
         \li \l{KI18nLocaleData C++ Classes}
         \li \l{KI18nLocaleData QML Types}
         \li \l{Obsolete Classes}
