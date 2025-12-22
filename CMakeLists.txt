@@ -83,7 +83,7 @@ if(MSVC)
 endif()
 
 ecm_set_disabled_deprecation_versions(
-    QT 6.10.0
+    QT 6.11.0
 )
 
 ki18n_install(po)
