@@ -14,3 +14,5 @@ KLocalizedQmlContext *LocalizedContext::create(QQmlEngine *qmlEngine, [[maybe_un
     }
     return context;
 }
+
+#include "moc_localizedcontext.cpp"
