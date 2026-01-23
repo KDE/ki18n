@@ -90,7 +90,7 @@ class KLocalizedQmlContextPrivate;
 
 /*!
     \qmltype KI18nContext
-    \since 6.22
+    \since 6.23
     \nativetype KLocalizedQmlContext
     \inherits KI18n
     \inqmlmodule org.kde.ki18n
