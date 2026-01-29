@@ -561,10 +561,12 @@ void KLocalizedStringTest::testLanguageChange()
     const auto prevLangs = qgetenv("LANGUAGE");
     qputenv("LANGUAGE", "fr_FR");
     QCOMPARE(i18n("Job"), "Job"_L1);
-    QCoreApplication::sendEvent(QCoreApplication::instance(), new QEvent(QEvent::LanguageChange));
+    std::unique_ptr<QEvent> languageChangeEvent(new QEvent(QEvent::LanguageChange));
+    QCoreApplication::sendEvent(QCoreApplication::instance(), languageChangeEvent.get());
     QCOMPARE(i18n("Job"), u"Tâche");
     qputenv("LANGUAGE", prevLangs);
-    QCoreApplication::sendEvent(QCoreApplication::instance(), new QEvent(QEvent::LanguageChange));
+    languageChangeEvent.reset(new QEvent(QEvent::LanguageChange));
+    QCoreApplication::sendEvent(QCoreApplication::instance(), languageChangeEvent.get());
     QCOMPARE(i18n("Job"), "Job"_L1);
 }
 
