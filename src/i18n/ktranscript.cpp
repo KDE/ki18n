@@ -661,7 +661,7 @@ void KTranscriptImp::setupInterpreter(const QString &lang)
 
 Scriptface::Scriptface(const TsConfigGroup &config_, QObject *parent)
     : QObject(parent)
-    , scriptEngine(new QJSEngine)
+    , scriptEngine(new QJSEngine(this))
     , fallbackRequest(nullptr)
     , config(config_)
 {
@@ -673,7 +673,6 @@ Scriptface::Scriptface(const TsConfigGroup &config_, QObject *parent)
 Scriptface::~Scriptface()
 {
     qDeleteAll(loadedPmapHandles);
-    scriptEngine->deleteLater();
 }
 
 void Scriptface::put(const QString &propertyName, const QJSValue &value)
