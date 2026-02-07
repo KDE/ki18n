@@ -663,7 +663,11 @@ Scriptface::Scriptface(const TsConfigGroup &config_, QObject *parent)
     , fallbackRequest(nullptr)
     , config(config_)
 {
+    // register 'this' as object and avoid that the engine will delete it, we own the engine
     QJSValue object = scriptEngine->newQObject(this);
+    scriptEngine->setObjectOwnership(this, QJSEngine::CppOwnership);
+    Q_ASSERT(scriptEngine->objectOwnership(this) == QJSEngine::CppOwnership);
+
     scriptEngine->globalObject().setProperty(QStringLiteral(SFNAME), object);
     scriptEngine->evaluate(QStringLiteral("Ts.acall = function() { return Ts.acallInternal(Array.prototype.slice.call(arguments)); };"));
 }
