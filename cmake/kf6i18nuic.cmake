@@ -4,6 +4,7 @@
 
 EXECUTE_PROCESS(COMMAND ${KDE_UIC_EXECUTABLE}
   -tr tr2i18n
+  --include klocalizedstring.h
   ${KDE_UIC_FILE}
   OUTPUT_VARIABLE _uic_CONTENTS
 )
@@ -21,6 +22,6 @@ IF (_uic_CONTENTS)
   STRING(REGEX REPLACE "#ifndef " "#ifndef UI_" _uic_CONTENTS "${_uic_CONTENTS}")
   STRING(REGEX REPLACE "#define " "#define UI_" _uic_CONTENTS "${_uic_CONTENTS}")
 
-  FILE(WRITE ${KDE_UIC_CPP_FILE} "#include <klocalizedstring.h>\n\n${_uic_CONTENTS}\n")
+  FILE(WRITE ${KDE_UIC_CPP_FILE} "${_uic_CONTENTS}\n")
 ENDIF()
 

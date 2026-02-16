@@ -1209,11 +1209,11 @@ is specified on the file level rather than on the message level.
 #### Qt Designer (.ui) files
 
 First, to have UI strings from `.ui` file passed through Ki18n,
-`uic` is run with `-tr tr2i18n`. This will replace all
-native Qt `tr` calls with Ki18n's `tr2i18n` calls
-in the resulting header file.
+`uic` is run with `-tr tr2i18n` and `--include klocalizedstring.h`.
+This will replace all native Qt `tr` calls with Ki18n's `tr2i18n` calls
+in the resulting header file as well as include `klocalizedstring.h`.
 Then, the generated header file needs to be post-processed
-to fix empty messages and include `klocalizedstring.h`.
+to fix empty messages.
 At this point, the `TRANSLATION_DOMAIN` can be defined just like
 in static C++ files.
 
@@ -1225,10 +1225,10 @@ Otherwise, one could use a shell snippet such as this:
 domain=fooapp
 uifile=fooconfpage.ui
 uihfile=$uifile.h
-uic -tr tr2i18n $uifile -o $uihfile
+uic -tr tr2i18n --include klocalizedstring.h $uifile -o $uihfile
 sed -i 's/tr2i18n("")/QString()/g' $uihfile
 sed -i 's/tr2i18n("", "")/QString()/g' $uihfile
-sed -i "1i\#define TRANSLATION_DOMAIN \"$domain\"\n#include <klocalizedstring.h>" $uihfile
+sed -i "1i\#define TRANSLATION_DOMAIN \"$domain\"" $uihfile
 ~~~
 
 
