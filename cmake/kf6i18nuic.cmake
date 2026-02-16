@@ -16,8 +16,6 @@ IF (_uic_CONTENTS)
   #replace tr218n("") with QString() to avoid warning from KLocale
   STRING(REGEX REPLACE "tr2i18n\\(\"\"\\)" "QString\(\)" _uic_CONTENTS "${_uic_CONTENTS}" )
   STRING(REGEX REPLACE "tr2i18n\\(\"\", \"\"\\)" "QString\(\)" _uic_CONTENTS "${_uic_CONTENTS}" )
-  #replace image15_data with img15_filename to make enable_final work
-  STRING(REGEX REPLACE "image([0-9]+)_data" "img\\1_${KDE_UIC_BASENAME}" _uic_CONTENTS "${_uic_CONTENTS}")
   #fixup include guard
   STRING(REGEX REPLACE "#ifndef " "#ifndef UI_" _uic_CONTENTS "${_uic_CONTENTS}")
   STRING(REGEX REPLACE "#define " "#define UI_" _uic_CONTENTS "${_uic_CONTENTS}")
