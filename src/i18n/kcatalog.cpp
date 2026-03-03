@@ -213,7 +213,11 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain, const QString &lang
     return assetPath;
 
 #else
+#ifdef Q_OS_MACOS
+    QString file = QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QStringLiteral("locale/") + relpath);
+#else
     QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + relpath);
+#endif
 #ifdef Q_OS_WIN
     // QStandardPaths fails on Windows for executables that aren't properly deployed yet, such as unit tests
     if (file.isEmpty()) {
@@ -236,7 +240,11 @@ QString KCatalog::catalogLocaleDir(const QByteArray &domain, const QString &lang
 QSet<QString> KCatalog::availableCatalogLanguages(const QByteArray &domain_)
 {
     QString domain = QFile::decodeName(domain_);
+#ifdef Q_OS_MACOS
+    QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::AppLocalDataLocation, QStringLiteral("locale"), QStandardPaths::LocateDirectory);
+#else
     QStringList localeDirPaths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("locale"), QStandardPaths::LocateDirectory);
+#endif
 #ifdef Q_OS_WIN
     // QStandardPaths fails on Windows for executables that aren't properly deployed yet, such as unit tests
     localeDirPaths += QLatin1String(INSTALLED_LOCALE_PREFIX) + QLatin1String("/bin/data/locale/");
