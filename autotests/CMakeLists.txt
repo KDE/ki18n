@@ -36,11 +36,14 @@ ecm_add_test(ktranscripttest.cpp testhelpers.cpp
 target_compile_definitions(ki18n-ktranscripttest PRIVATE "KTRANSCRIPT_PATH=\"$<TARGET_FILE:ktranscript>\"")
 
 # ktranscriptcleantest needs to directly compile ktranscript.cpp with an addition DEFINE
-ecm_add_test(ktranscriptcleantest.cpp ../src/i18n/ktranscript.cpp ../src/i18n/common_helpers.cpp
+ecm_add_test(ktranscriptcleantest.cpp ../src/i18n/common_helpers.cpp
     TEST_NAME ki18n-ktranscriptcleantest
     LINK_LIBRARIES Qt6::Qml Qt6::Test Qt6::Concurrent KF6::I18n
 )
-target_compile_definitions(ki18n-ktranscriptcleantest PRIVATE "KTRANSCRIPT_TESTBUILD")
+if (BUILD_SHARED_LIBS)
+    target_sources(ki18n-ktranscriptcleantest PRIVATE ../src/i18n/ktranscript.cpp)
+    target_compile_definitions(ki18n-ktranscriptcleantest PRIVATE "KTRANSCRIPT_TESTBUILD")
+endif()
 target_include_directories(ki18n-ktranscriptcleantest PRIVATE ..)
 endif()
 

@@ -11,6 +11,8 @@
 #include <QDebug>
 
 #include <ktranscript_p.h>
+KTranscript *autotestCreateKTranscriptImp();
+void autotestDestroyKTranscriptImp();
 
 QTEST_MAIN(KTranscriptCleanTest)
 

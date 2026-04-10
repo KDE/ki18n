@@ -5,6 +5,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
+#include <config.h>
+
 #include <common_helpers_p.h>
 #include <ktranscript_p.h>
 
@@ -405,36 +407,36 @@ static QJSValue throwError(QJSEngine *engine, const QString &message)
     return QJSValue::UndefinedValue;
 }
 
-#ifdef KTRANSCRIPT_TESTBUILD
-
-// ----------------------------------------------------------------------
-// Test build creation/destruction hooks
-static KTranscriptImp *s_transcriptInstance = nullptr;
-
+Q_GLOBAL_STATIC(std::unique_ptr<KTranscriptImp>, globalKTIPtr)
 KTranscriptImp *globalKTI()
 {
-    return s_transcriptInstance;
+    if (!*globalKTIPtr()) {
+        *globalKTIPtr() = std::make_unique<KTranscriptImp>();
+    }
+    return globalKTIPtr()->get();
 }
+
+// Test build creation/destruction hooks
+#if defined(KTRANSCRIPT_TESTBUILD) || HAVE_STATIC_KTRANSCRIPT
 
 KTranscript *autotestCreateKTranscriptImp()
 {
-    Q_ASSERT(s_transcriptInstance == nullptr);
-    s_transcriptInstance = new KTranscriptImp;
-    return s_transcriptInstance;
+    Q_ASSERT(!*globalKTIPtr());
+    *globalKTIPtr() = std::make_unique<KTranscriptImp>();
+    return globalKTIPtr()->get();
 }
 
 void autotestDestroyKTranscriptImp()
 {
-    Q_ASSERT(s_transcriptInstance != nullptr);
-    delete s_transcriptInstance;
-    s_transcriptInstance = nullptr;
+    Q_ASSERT(*globalKTIPtr());
+    globalKTIPtr()->reset();
 }
 
-#else
+#endif
+#ifndef KTRANSCRIPT_TESTBUILD
 
 // ----------------------------------------------------------------------
 // Dynamic loading.
-Q_GLOBAL_STATIC(KTranscriptImp, globalKTI)
 extern "C" {
 KTRANSCRIPT_EXPORT KTranscript *load_transcript()
 {
