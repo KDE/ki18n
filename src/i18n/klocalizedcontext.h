@@ -42,8 +42,8 @@
  * Use KLocalizedQmlContext or KLocalization::setupLocalizedContext
  * instead.
  */
-KI18N_DEPRECATED_VERSION(6, 8, "use KLocalizedQmlContext or KLocalization::setupLocalizedContext() from KF6::I18nQml instead")
-class KI18N_EXPORT KLocalizedContext : public QObject
+class KI18N_EXPORT KI18N_DEPRECATED_VERSION(6, 8, "use KLocalizedQmlContext or KLocalization::setupLocalizedContext() from KF6::I18nQml instead")
+    KLocalizedContext : public QObject
 {
     Q_OBJECT
 
