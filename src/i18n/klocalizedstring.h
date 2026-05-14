@@ -36,7 +36,7 @@ class KLazyLocalizedString;
  * but through one of the wrapper *i18n* calls.
  *
  * For detailed information on how to use KI18n functions please refer
- * to prg_guide.
+ * to the \l {https://invent.kde.org/frameworks/ki18n/-/blob/master/docs/programmers-guide.md}{Programmer's Guide}
  */
 class KI18N_EXPORT KLocalizedString
 {
