@@ -4,7 +4,7 @@
 #pragma once
 
 #include <QObject>
-#include <QtQmlIntegration>
+#include <qqmlintegration.h> // no CamelCase variant available (6.11), <QtQmlIntegration> is expensive module header
 
 #include "klocalizedqmlcontext.h"
 

@@ -14,6 +14,7 @@
 #include <QCoreApplication>
 #include <QQmlContext>
 #include <QQmlEngine>
+#include <QThread>
 
 #include "ki18n_qml_logging.h"
 

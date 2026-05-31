@@ -12,8 +12,8 @@
 
 #include <QObject>
 #include <QVariant>
-#include <QtQmlIntegration>
 #include <memory>
+#include <qqmlintegration.h> // no CamelCase variant available (6.11), <QtQmlIntegration> is expensive module header
 
 class QQmlEngine;
 
