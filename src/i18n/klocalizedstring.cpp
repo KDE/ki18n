@@ -124,7 +124,7 @@ static void appendLanguagesFromVariable(QStringList &languages, const char *enva
     }
 }
 
-#if !defined(Q_OS_UNIX) || defined(Q_OS_ANDROID)
+#if !defined(Q_OS_UNIX) || defined(Q_OS_ANDROID) || defined(Q_OS_MAC)
 static void appendLanguagesFromQLocale(QStringList &languages, const QLocale &locale)
 {
     const QStringList uiLangs = locale.uiLanguages();
@@ -327,7 +327,7 @@ void KLocalizedStringPrivateStatics::initializeLocaleLanguages()
     appendLanguagesFromVariable(localeLanguages, "LC_ALL");
     appendLanguagesFromVariable(localeLanguages, "LC_MESSAGES");
     appendLanguagesFromVariable(localeLanguages, "LANG");
-#if !defined(Q_OS_UNIX) || defined(Q_OS_ANDROID)
+#if !defined(Q_OS_UNIX) || defined(Q_OS_ANDROID) || defined(Q_OS_MAC)
     // For non UNIX platforms the environment variables might not
     // suffice so we add system locale UI languages, too.
     appendLanguagesFromQLocale(localeLanguages, QLocale::system());
