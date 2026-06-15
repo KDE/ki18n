@@ -461,7 +461,6 @@ KTranscriptImp::KTranscriptImp()
 
 KTranscriptImp::~KTranscriptImp()
 {
-    qDeleteAll(m_sface);
 }
 
 QString KTranscriptImp::eval(const QList<QVariant> &argv,
