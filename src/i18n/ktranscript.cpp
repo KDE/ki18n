@@ -16,6 +16,7 @@
 
 #include <QJSEngine>
 
+#include <QApplicationStatic>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -407,7 +408,7 @@ static QJSValue throwError(QJSEngine *engine, const QString &message)
     return QJSValue::UndefinedValue;
 }
 
-Q_GLOBAL_STATIC(std::unique_ptr<KTranscriptImp>, globalKTIPtr)
+Q_APPLICATION_STATIC(std::unique_ptr<KTranscriptImp>, globalKTIPtr)
 KTranscriptImp *globalKTI()
 {
     if (!*globalKTIPtr()) {
