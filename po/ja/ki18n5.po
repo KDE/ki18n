@@ -1,4 +1,5 @@
 # Translation of kdelibs4 into Japanese.
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 # This file is distributed under the same license as the kdelibs package.
 # Taiki Komoda <kom@kde.gr.jp>, 2002, 2004, 2006, 2010.
 # Noboru Sinohara <shinobo@leo.bekkoame.ne.jp>, 2004.
@@ -14,9 +15,9 @@ msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 09:00+0000\n"
-"PO-Revision-Date: 2015-04-19 16:01-0700\n"
-"Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
-"Language-Team: Japanese <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-06-15 22:38+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
+"Language-Team: Japanese <kde-i18n-doc@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #. i18n: Decide which string is used to delimit keys in a keyboard
 #. shortcut (e.g. + in Ctrl+Alt+Tab) in plain text.
@@ -48,7 +49,7 @@ msgstr "+"
 #, kde-format
 msgctxt "gui-path-delimiter/plain"
 msgid "→"
-msgstr "」→「"
+msgstr "→"
 
 #. i18n: Decide which string is used to delimit elements in a GUI path
 #. (e.g. -> in "Go to Settings->Advanced->Core tab.") in rich text.
@@ -56,7 +57,7 @@ msgstr "」→「"
 #, kde-format
 msgctxt "gui-path-delimiter/rich"
 msgid "→"
-msgstr "」→「"
+msgstr "→"
 
 #: kuitsetup.cpp:334
 msgctxt "keyboard-key-name"
@@ -376,7 +377,7 @@ msgstr "<ul>%1</ul>"
 #, kde-format
 msgctxt "tag-format-pattern <item> plain"
 msgid "  * %1"
-msgstr "  * %1"
+msgstr "  ・%1"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:789
@@ -486,16 +487,14 @@ msgstr "<a href=\"%2\">%1</a>"
 #, kde-format
 msgctxt "tag-format-pattern <filename> plain"
 msgid "‘%1’"
-msgstr "‘%1’"
+msgstr "\"%1\""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:873
-#, fuzzy, kde-format
-#| msgctxt "tag-format-pattern <filename> rich"
-#| msgid "<tt>%1</tt>"
+#, kde-format
 msgctxt "tag-format-pattern <filename> rich"
 msgid "‘<tt>%1</tt>’"
-msgstr "‘%1’"
+msgstr "\"<tt>%1</tt>\""
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:880
@@ -523,7 +522,7 @@ msgstr "%1"
 #, kde-format
 msgctxt "tag-format-pattern <command> rich"
 msgid "<tt>%1</tt>"
-msgstr "‘%1’"
+msgstr "<tt>%1</tt>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:903
@@ -569,7 +568,7 @@ msgstr "“%1”"
 #, kde-format
 msgctxt "tag-format-pattern <icode> rich"
 msgid "<tt>%1</tt>"
-msgstr "‘%1’"
+msgstr "<tt>%1</tt>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:940
@@ -579,13 +578,15 @@ msgid ""
 "\n"
 "%1\n"
 msgstr ""
+"\n"
+"%1\n"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:945
 #, kde-format
 msgctxt "tag-format-pattern <bcode> rich"
 msgid "<pre>%1</pre>"
-msgstr "%1"
+msgstr "<pre>%1</pre>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:952
@@ -620,28 +621,29 @@ msgstr "「%1」"
 #, kde-format
 msgctxt "tag-format-pattern <emphasis> plain"
 msgid "*%1*"
-msgstr "%1"
+msgstr "*%1*"
 
+# 日本語では斜体は通常あまり使わないため代わりに下線を指定
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:981
 #, kde-format
 msgctxt "tag-format-pattern <emphasis> rich"
 msgid "<i>%1</i>"
-msgstr "「%1」"
+msgstr "<u>%1</u>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:986
 #, kde-format
 msgctxt "tag-format-pattern <emphasis-strong> plain"
 msgid "**%1**"
-msgstr "%1"
+msgstr "**%1**"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:991
 #, kde-format
 msgctxt "tag-format-pattern <emphasis-strong> rich"
 msgid "<b>%1</b>"
-msgstr "%1"
+msgstr "<b>%1</b>"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:998
@@ -708,7 +710,7 @@ msgstr "<tt>$%1</tt>"
 #, kde-format
 msgctxt "tag-format-pattern <message> plain"
 msgid "/%1/"
-msgstr "%1"
+msgstr "「%1」"
 
 #. i18n: KUIT pattern, see the comment to the first of these entries above.
 #: kuitsetup.cpp:1051
@@ -729,4 +731,4 @@ msgstr "%1\n"
 #, kde-format
 msgctxt "tag-format-pattern <nl> rich"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
