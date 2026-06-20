@@ -77,7 +77,7 @@ target_compile_options(KF6I18n PRIVATE -DTRANSLATION_DOMAIN=\"ki18n6\")
 
 install(TARGETS KF6I18nLocaleData EXPORT KF6I18nTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
-ecm_generate_headers(KI18nLocaleData_HEADERS
+ecm_generate_headers(KI18nLocaleData_CamelCase_HEADERS
   HEADER_NAMES
     KCountry
     KCountrySubdivision
@@ -89,6 +89,23 @@ ecm_generate_qdoc(KF6I18nLocaleData ki18nlocaledata.qdocconf)
 
 install(FILES
     ${KI18nLocaleData_HEADERS}
+    ${KI18nLocaleData_CamelCase_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18nlocaledata_export.h
     DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/KI18nLocaleData" COMPONENT Devel
+)
+
+ecm_add_installed_library_check(KF6I18nLocaleData
+    PACKAGE_NAME "KF6I18n"
+    PACKAGE_VERSION ${KI18N_VERSION}
+    PACKAGE_TARGET_NAMESPACE "KF6::"
+)
+
+ecm_installed_library_check_include_strings(KF6I18nLocaleData
+    HEADERS ${KI18nLocaleData_CamelCase_HEADERS}
+)
+
+ecm_installed_library_check_version_preprocessor_macros(KF6I18nLocaleData
+    PREFIX KI18N
+    VERSION ${KI18N_VERSION}
+    SILENT
 )
