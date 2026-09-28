@@ -37,7 +37,7 @@ ecm_generate_export_header(KF6I18nQml
 )
 
 target_include_directories(KF6I18nQml
-    INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n>"
+    INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KI18n;${KDE_INSTALL_INCLUDEDIR_KF}/KI18nQml>"
     PUBLIC "$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>" # for version header
 )
 
@@ -65,7 +65,7 @@ install(FILES
     ${KI18n_HEADERS}
     ${KI18n_CamelCase_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/ki18nqml_export.h
-    DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/KI18n" COMPONENT Devel
+    DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/KI18nQml" COMPONENT Devel
 )
 
 ecm_add_installed_library_check(KF6I18nQml
