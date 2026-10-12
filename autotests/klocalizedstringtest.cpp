@@ -11,7 +11,7 @@
 #include "klocalizedstringtest.h"
 #include "klocalizedtranslator.h"
 
-#include <locale.h>
+#include <clocale>
 
 #include <QDebug>
 #include <QProcess>
@@ -47,15 +47,15 @@ void KLocalizedStringTest::initTestCase()
     m_hasFrench = true;
     m_hasCatalan = true;
 
-    setlocale(LC_ALL, "ca_ES.utf8");
-    if (setlocale(LC_ALL, nullptr) != QByteArray("ca_ES.utf8")) {
+    std::setlocale(LC_ALL, "ca_ES.utf8");
+    if (std::setlocale(LC_ALL, nullptr) != QByteArray("ca_ES.utf8")) {
         qDebug() << "Failed to set locale to ca_ES.utf8.";
         m_hasCatalan = false;
     }
 
     if (m_hasFrench) {
-        setlocale(LC_ALL, "fr_FR.utf8");
-        if (setlocale(LC_ALL, nullptr) != QByteArray("fr_FR.utf8")) {
+        std::setlocale(LC_ALL, "fr_FR.utf8");
+        if (std::setlocale(LC_ALL, nullptr) != QByteArray("fr_FR.utf8")) {
             qDebug() << "Failed to set locale to fr_FR.utf8.";
             m_hasFrench = false;
         } else {
