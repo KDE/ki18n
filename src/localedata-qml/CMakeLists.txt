@@ -13,6 +13,6 @@ target_link_libraries(ki18nlocaledataqmlplugin PRIVATE
     KF6::I18nLocaleData
 )
 
-ecm_finalize_qml_module(ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR})
+ecm_finalize_qml_module(ki18nlocaledataqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR} EXPORT KF6I18nTargets)
 
 ecm_generate_qdoc(ki18nlocaledataqmlplugin ki18nlocaledataqml.qdocconf)
