@@ -11,6 +11,20 @@ if (BUILD_WITH_QML)
     if (NOT QT6_IS_SHARED_LIBS_BUILD)
         qt6_import_qml_plugins(ki18ndeclarativetest)
     endif()
+
+    if (BUILD_SHARED_LIBS) # explodes on static builds for unknown reasons
+        find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED QuickTest)
+        ecm_add_test(ki18nsingletontest.cpp)
+        target_link_libraries(ki18nsingletontest PRIVATE Qt6::QuickTest Qt6::Qml KF6::I18n KF6::I18nQml)
+        target_compile_definitions(ki18nsingletontest PRIVATE QUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/singletontest")
+        # quick test needs a QPA platform; run headless. Keep the QT_PLUGIN_PATH
+        # that ecm_add_test put into ENVIRONMENT so org.kde.ki18n stays importable.
+        get_test_property(ki18nsingletontest ENVIRONMENT _ki18nsingletontest_env)
+        set_tests_properties(ki18nsingletontest PROPERTIES ENVIRONMENT "${_ki18nsingletontest_env};QT_QPA_PLATFORM=offscreen")
+        if (NOT QT6_IS_SHARED_LIBS_BUILD)
+            qt6_import_qml_plugins(ki18nsingletontest)
+        endif()
+    endif()
 endif()
 
 ecm_add_test(klocalizedstringtest.cpp
