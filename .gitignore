@@ -28,3 +28,4 @@ doc-gen/
 .idea
 /cmake-build*
 .cache
+.qmlls.ini
