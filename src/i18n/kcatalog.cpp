@@ -133,7 +133,7 @@ KCatalog::KCatalog(const QByteArray &domain, const QString &language_)
 
     if (!d->localeDir.isEmpty()) {
         // Always get translations in UTF-8, regardless of user's environment.
-        bind_textdomain_codeset(d->domain, "UTF-8");
+        bind_textdomain_codeset(d->domain.constData(), "UTF-8");
 
         // Invalidate current language, to trigger binding at next translate call.
         KCatalogPrivate::currentLanguage.clear();
@@ -288,7 +288,7 @@ static void androidAssetBindtextdomain(const QByteArray &domain, const QByteArra
 #else
     FILE *moFile = catalogStaticData->fmemopenFunc(const_cast<void *>(buffer), size, "r");
 #endif
-    loadMessageCatalogFile(domain, moFile);
+    loadMessageCatalogFile(domain.constData(), moFile);
     fclose(moFile);
     AAsset_close(asset);
 }
@@ -321,12 +321,12 @@ void KCatalogPrivate::setupGettextEnv()
         // qDebug() << "bindtextdomain" << domain << localeDir;
 #ifdef Q_OS_ANDROID
         if (localeDir.startsWith("assets:/")) {
-            androidAssetBindtextdomain(domain, localeDir);
+            androidAssetBindtextdomain(domain.constData(), localeDir.constData());
         } else {
-            bindtextdomain(domain, localeDir);
+            bindtextdomain(domain.constData(), localeDir.constData());
         }
 #else
-        bindtextdomain(domain, localeDir);
+        bindtextdomain(domain.constData(), localeDir.constData());
 #endif
 
 #if HAVE_NL_MSG_CAT_CNTR

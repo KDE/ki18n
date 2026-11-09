@@ -132,7 +132,7 @@ public:
      */
     Q_INVOKABLE QJSValue country(const QString &tzId) const
     {
-        return toJsValue(KTimeZone::country(tzId.toUtf8()), m_engine);
+        return toJsValue(KTimeZone::country(tzId.toUtf8().constData()), m_engine);
     }
 
     QJSEngine *m_engine = nullptr;

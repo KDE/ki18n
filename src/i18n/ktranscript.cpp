@@ -1522,15 +1522,15 @@ QString Scriptface::loadProps_bin_01(const QString &fpath)
     if (head != "TSPMAP01") {
         return SPREF("loadProps: corrupt compiled map '%1'").arg(fpath);
     }
-    quint32 numekeys = bin_read_int(fstr, fstr.size(), pos);
-    quint64 lenekeys = bin_read_int64(fstr, fstr.size(), pos);
+    quint32 numekeys = bin_read_int(fstr.constData(), fstr.size(), pos);
+    quint64 lenekeys = bin_read_int64(fstr.constData(), fstr.size(), pos);
 
     // Read entry keys.
     fstr = file->read(lenekeys);
     pos = 0;
     for (quint32 i = 0; i < numekeys; ++i) {
-        QByteArray ekey = bin_read_string(fstr, lenekeys, pos);
-        quint64 offset = bin_read_int64(fstr, lenekeys, pos);
+        QByteArray ekey = bin_read_string(fstr.constData(), lenekeys, pos);
+        quint64 offset = bin_read_int64(fstr.constData(), lenekeys, pos);
         phraseUnparsedProps[ekey] = {file, offset};
     }
 
@@ -1548,13 +1548,13 @@ QHash<QByteArray, QByteArray> Scriptface::resolveUnparsedProps(const QByteArray 
     if (file && file->seek(offset)) {
         QByteArray fstr = file->read(4 + 4);
         qlonglong pos = 0;
-        quint32 numpkeys = bin_read_int(fstr, fstr.size(), pos);
-        quint32 lenpkeys = bin_read_int(fstr, fstr.size(), pos);
+        quint32 numpkeys = bin_read_int(fstr.constData(), fstr.size(), pos);
+        quint32 lenpkeys = bin_read_int(fstr.constData(), fstr.size(), pos);
         fstr = file->read(lenpkeys);
         pos = 0;
         for (quint32 i = 0; i < numpkeys; ++i) {
-            QByteArray pkey = bin_read_string(fstr, lenpkeys, pos);
-            QByteArray pval = bin_read_string(fstr, lenpkeys, pos);
+            QByteArray pkey = bin_read_string(fstr.constData(), lenpkeys, pos);
+            QByteArray pval = bin_read_string(fstr.constData(), lenpkeys, pos);
             props[pkey] = pval;
         }
         phraseProps[phrase] = props;
