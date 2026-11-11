@@ -54,7 +54,7 @@ class KLocalizedQmlContextPrivate;
  * real value easily. To solve warnings on those cases we'll cast the first argument
  * to make sure it's taken into account for the plural.
  *
- * \warning For history reasons the i18n functions are also available on the root context without KI18n.* prefix.
+ * \warning For historic reasons the i18n functions are also available on the root context without KI18n.* prefix.
  * It is very recommended to use the KI18n.* version moving forward, so QML tooling like qmlls and qmllint can inspect
  * the API calls. KI18n.* was introduced in version 6.21.
  *
@@ -86,6 +86,10 @@ class KLocalizedQmlContextPrivate;
         text: KI18n.i18nc("@label", "Hello World")
     }
     \endqml
+
+    \warning Beware of changing the translationDomain from QML.
+      While this is possible, it may break translations for other parts of your application if you set an incorrect
+      domain.
 */
 
 /*!
