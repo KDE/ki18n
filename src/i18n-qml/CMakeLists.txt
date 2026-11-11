@@ -14,7 +14,7 @@ set_target_properties(KF6I18nQml PROPERTIES
 
 target_sources(KF6I18nQml PRIVATE
     klocalizedqmlcontext.cpp
-    localizedcontext.cpp
+    i18nattached.cpp
 )
 
 ecm_qt_declare_logging_category(KF6I18nQml
