@@ -16,8 +16,6 @@ KLocalizedQmlContext *I18nAttached::qmlAttachedProperties(QObject *object)
         return nullptr;
     }
 
-    qWarning() << "Attempting to get KLocalizedQmlContext for object" << object << objectContext;
-
     static auto extraContexts = QHash<QQmlContext *, KLocalizedQmlContext *>{};
 
     auto context = objectContext;

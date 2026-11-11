@@ -32,14 +32,14 @@ inline QObject *loadQml(QQmlEngine *engine, const QString &qmlFile)
     return applicationEngine->rootObjects().constLast();
 }
 
-inline QObject *createQml(QQmlEngine *engine, QQmlContext *context, const QString &qmlFile)
+inline std::shared_ptr<QObject> createQml(QQmlEngine *engine, QQmlContext *context, const QString &qmlFile)
 {
     QQmlComponent component(engine, QUrl::fromLocalFile(QFINDTESTDATA(qmlFile)));
     if (!component.isReady()) {
         qWarning() << "Failed to load" << qmlFile << ":" << component.errorString();
         return nullptr;
     }
-    return context ? component.create(context) : component.create();
+    return std::shared_ptr<QObject>(context ? component.create(context) : component.create());
 }
 
 inline KLocalizedQmlContext *attachedContextOf(QObject *qmlObject, const char *property)

@@ -11,6 +11,7 @@ if (BUILD_WITH_QML)
     if (NOT QT6_IS_SHARED_LIBS_BUILD)
         qt6_import_qml_plugins(ki18ndeclarativetest)
     endif()
+
     if (BUILD_SHARED_LIBS) # explodes on static builds for unknown reasons
         find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED QuickTest)
         ecm_add_test(ki18nsingletontest.cpp)

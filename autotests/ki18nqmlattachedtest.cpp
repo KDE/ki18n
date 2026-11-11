@@ -121,12 +121,12 @@ void KI18nQmlAttachedTest::testQmlAttachedPerContext()
     QVERIFY(attached1->parent() == QQmlEngine::contextForObject(root1));
 
     QQmlContext otherContext(engine.rootContext());
-    auto *root2 = QmlTestHelpers::createQml(&engine, &otherContext, u"Attached.qml"_s);
+    auto root2 = QmlTestHelpers::createQml(&engine, &otherContext, u"Attached.qml"_s);
     QVERIFY(root2);
-    auto *attached2 = attachedOf(root2);
+    auto *attached2 = attachedOf(root2.get());
     QVERIFY(attached2);
     QVERIFY(attached2 != attached1);
-    QVERIFY(attached2->parent() == QQmlEngine::contextForObject(root2));
+    QVERIFY(attached2->parent() == QQmlEngine::contextForObject(root2.get()));
 }
 
 void KI18nQmlAttachedTest::testQmlAttachedParentContextResolution()
@@ -144,9 +144,9 @@ void KI18nQmlAttachedTest::testQmlAttachedParentContextResolution()
 
     auto *fileContext = QQmlEngine::contextForObject(root);
     QQmlContext childContext(fileContext);
-    auto *childRoot = QmlTestHelpers::createQml(&engine, &childContext, u"Attached.qml"_s);
+    auto childRoot = QmlTestHelpers::createQml(&engine, &childContext, u"Attached.qml"_s);
     QVERIFY(childRoot);
-    QCOMPARE(attachedOf(childRoot), attached);
+    QCOMPARE(attachedOf(childRoot.get()), attached);
 
     // Same for a context object: it is resolved through the parent chain.
     QQmlApplicationEngine engine2;
@@ -154,9 +154,9 @@ void KI18nQmlAttachedTest::testQmlAttachedParentContextResolution()
     auto *root2 = QmlTestHelpers::loadQml(&engine2, u"Attached.qml"_s);
     QVERIFY(root2);
     QQmlContext childContext2(QQmlEngine::contextForObject(root2));
-    auto *childRoot2 = QmlTestHelpers::createQml(&engine2, &childContext2, u"Attached.qml"_s);
+    auto childRoot2 = QmlTestHelpers::createQml(&engine2, &childContext2, u"Attached.qml"_s);
     QVERIFY(childRoot2);
-    QCOMPARE(attachedOf(childRoot2), ctx);
+    QCOMPARE(attachedOf(childRoot2.get()), ctx);
 }
 
 void KI18nQmlAttachedTest::testQmlAttachedInnerContextObject()
@@ -169,13 +169,13 @@ void KI18nQmlAttachedTest::testQmlAttachedInnerContextObject()
     auto innerLocalized = std::make_unique<KLocalizedQmlContext>(&innerContext);
     innerContext.setContextObject(innerLocalized.get());
 
-    auto *innerRoot = QmlTestHelpers::createQml(&engine, &innerContext, u"Attached.qml"_s);
+    auto innerRoot = QmlTestHelpers::createQml(&engine, &innerContext, u"Attached.qml"_s);
     QVERIFY(innerRoot);
-    QCOMPARE(attachedOf(innerRoot), innerLocalized.get());
+    QCOMPARE(attachedOf(innerRoot.get()), innerLocalized.get());
 
-    auto *root = QmlTestHelpers::createQml(&engine, engine.rootContext(), u"Attached.qml"_s);
+    auto root = QmlTestHelpers::createQml(&engine, engine.rootContext(), u"Attached.qml"_s);
     QVERIFY(root);
-    QCOMPARE(attachedOf(root), rootLocalized);
+    QCOMPARE(attachedOf(root.get()), rootLocalized);
 }
 
 void KI18nQmlAttachedTest::testQmlAttachedLifetime()
