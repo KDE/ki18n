@@ -78,7 +78,6 @@ file(WRITE ${CMAKE_BINARY_DIR}/cmake/KF6I18nTargets.cmake "")
 
 include(${KI18n_BINARY_DIR}/cmake/KF6I18nMacros.cmake)
 
-remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 if(MSVC)
     remove_definitions(-DQT_STRICT_ITERATORS)
 endif()
@@ -86,6 +85,8 @@ endif()
 ecm_set_disabled_deprecation_versions(
     QT 6.11.0
 )
+
+add_compile_definitions(QT_ENABLE_STRICT_MODE_UP_TO=0x060A00) # 6.10
 
 ki18n_install(po)
 add_subdirectory(src)
