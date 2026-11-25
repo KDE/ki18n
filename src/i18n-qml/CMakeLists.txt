@@ -75,6 +75,7 @@ ecm_add_installed_library_check(KF6I18nQml
     # would not prefer to have CMake config file still check for Qt6QmlIntegration
     # TODO: itnroduce separate CMake config file for KF6I18nQml
     EXTRA_DEPENDENCIES Qt6QmlIntegration ${REQUIRED_QT_VERSION}
+    QT_STRICT_MODE_LEVEL 6.12
 )
 
 ecm_installed_library_check_include_strings(KF6I18nQml

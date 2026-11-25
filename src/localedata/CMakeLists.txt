@@ -97,6 +97,7 @@ install(FILES
 ecm_add_installed_library_check(KF6I18nLocaleData
     PACKAGE_NAME "KF6I18n"
     PACKAGE_TARGET_NAMESPACE "KF6::"
+    QT_STRICT_MODE_LEVEL 6.12
 )
 
 ecm_installed_library_check_include_strings(KF6I18nLocaleData
